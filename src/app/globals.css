@@ -1,14 +1,15 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --color-inferno: "#0071eb",
-  --color-outrageous-orange: "#FF6A4C",
-  --color-cinnabar: "#DF4A2C",
+  --color-inferno: '#0071eb';
+  --color-outrageous-orange: '#FF6A4C';
+  --color-cinnabar: '#DF4A2C';
   --color-white: #ffffff;
   --color-black: #000000;
   --color-dark-charcoal: #333333;
   --color-anti-flash-white: #f2f2f2;
   --color-chinese-white: #e0e0e0;
+  --color-dav-ys-grey: #545454;
 
   --breakpoint-xlg: 1184px;
 
