@@ -12,6 +12,12 @@ import Left from './left.svg'
 import EyeHidden from './eye-hidden.svg'
 import EyeOpen from './eye-open.svg'
 import Drag from './drag.svg'
+import Star from './star.svg'
+import Right from './right.svg'
+import Up from './up.svg'
+import CloseCircle from './close-circle.svg'
+import Plus from './plus.svg'
+import Minus from './minus.svg'
 
 export const Icons = {
   Language,
@@ -28,4 +34,10 @@ export const Icons = {
   EyeHidden,
   EyeOpen,
   Drag,
+  Star,
+  Right,
+  Up,
+  CloseCircle,
+  Plus,
+  Minus,
 }
