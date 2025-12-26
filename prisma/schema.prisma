@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AttractionProduct {
+  id                  String          @id @default(cuid())
+  variant             Variant
+  /// [Translate]
+  slug                Json
+  /// [Translate]
+  photos              String[]
+  title               Json
+  /// [Duration]
+  duration            Json
+  /// [Translate]
+  about               Json
+  /// [TranslateMultiple]
+  labels              Json
+  /// [Translate]
+  cancellationPolicy  Json
+  /// [TranslateMultiple]
+  guideLanguages      Json
+  /// [Translate]
+  pickUpService       Json
+  /// [Translate]
+  startTime           Json
+  /// [Translate]
+  finishTime          Json
+  /// [TranslateMultiple]
+  highlights          Json
+  /// [Translate]
+  detailedDescription Json
+  /// [Translate]
+  importantNote       Json
+  /// [TranslateMultiple]
+  includes            Json
+  /// [TranslateMultiple]
+  notIncluded         Json
+  /// [Translate]
+  importantWarning    Json
+  /// [TranslateMultiple]
+  recommendations     Json
+  /// [Translate]
+  additionalAdvice    Json
+  /// [Duration]
+  freeCancellation    Json
+  /// [Duration]
+  refundable          Json
+  attractionMap       String
+  attractionVideo     String
+  attractionPdf       String
+  retailPrice         Float
+  specialPrice        Float
+  categoryId          String
+  category            Category        @relation(fields: [categoryId], references: [id])
+  destinationId       String
+  destination         Destination     @relation(fields: [destinationId], references: [id])
+  routes              Route[]
+  askedQuestions      AskedQuestion[]
+  reviews             Review[]
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+}
+
+enum Variant {
+  ATTRACTION
+  PACKAGE
+}
+
+model Route {
+  id                  String            @id @default(cuid())
+  /// [Translate]
+  title               Json
+  attractionProductId String
+  attractionProduct   AttractionProduct @relation(fields: [attractionProductId], references: [id])
+  waypoints           Waypoint[]
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+model Waypoint {
+  id          String   @id @default(cuid())
+  time        String
+  /// [Translate]
+  title       Json
+  /// [Translate]
+  description Json
+  routeId     String
+  route       Route    @relation(fields: [routeId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AskedQuestion {
+  id                  String            @id @default(cuid())
+  /// [Translate]
+  title               Json
+  /// [Translate]
+  description         Json
+  attractionProductId String
+  attractionProduct   AttractionProduct @relation(fields: [attractionProductId], references: [id])
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+model Review {
+  id                  String            @id @default(cuid())
+  rating              Int
+  /// [Traveller]
+  traveller           Json
+  comment             String
+  locale              String
+  attractionProductId String
+  attractionProduct   AttractionProduct @relation(fields: [attractionProductId], references: [id])
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+model Category {
+  id                 String              @id @default(cuid())
+  /// [Translate]
+  title              Json
+  attractionProducts AttractionProduct[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+}
+
+model Destination {
+  id                 String              @id @default(cuid())
+  /// [Translate]
+  title              Json
+  /// [Translate]
+  department         Json
+  /// [Translate]
+  about              Json
+  attractionProducts AttractionProduct[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+}
