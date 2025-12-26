@@ -1,0 +1,22 @@
+{
+  "Language": {
+    "es": "Español",
+    "en": "Ingles"
+  },
+  "Error": {
+    "title": "Conoce la 500ª maravilla del mundo.",
+    "description": "Administra un viaje.",
+    "go-to-top": "Ir al inicio",
+    "reload": "Volver a cargar"
+  },
+  "NotFound": {
+    "title": "Conoce la 404ª maravilla del mundo.",
+    "description": "Administra un viaje.",
+    "destinatons": "Destinos",
+    "travel": "Viajes"
+  },
+  "Home": {
+    "title": "Inca Trail Operator: Viajes, actividades y cosas que hacer",
+    "description": "Sitio web oficial de Inca Trail Operator: explore y reserve más de 1000 actividades con Inca Trail Operator. Además, ofrecemos cancelación gratuita y opciones de pago flexibles para que pueda viajar sin preocupaciones."
+  }
+}

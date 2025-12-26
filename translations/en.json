@@ -1,0 +1,22 @@
+{
+  "Language": {
+    "es": "Spanish",
+    "en": "English"
+  },
+  "Error": {
+    "title": "Discover the 500th wonder of the world.",
+    "description": "Manage a trip.",
+    "go-to-top": "Go to top",
+    "reload": "Reload"
+  },
+  "NotFound": {
+    "title": "Discover the 404th wonder of the world.",
+    "description": "Manage a trip.",
+    "destinatons": "Destinations",
+    "travel": "Travel"
+  },
+  "Home": {
+    "title": "Inca Trail Operator: Travel Tours, Activities, and Things to Do",
+    "description": "Inca Trail Operator Official Site – Browse and book over 1,000 things to do with Inca Trail Operator. Plus, we offer free cancellation and flexible payment options for stress-free travel."
+  }
+}
