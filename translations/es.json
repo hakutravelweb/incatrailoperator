@@ -18,5 +18,24 @@
   "Home": {
     "title": "Inca Trail Operator: Viajes, actividades y cosas que hacer",
     "description": "Sitio web oficial de Inca Trail Operator: explore y reserve más de 1000 actividades con Inca Trail Operator. Además, ofrecemos cancelación gratuita y opciones de pago flexibles para que pueda viajar sin preocupaciones."
+  },
+  "AuthSignIn": {
+    "metadata": {
+      "title": "Panel de control - IncaTrailOperator.com"
+    },
+    "title": "Iniciar Sesion",
+    "labels": {
+      "email": "Correo Electrónico",
+      "password": "Contraseña"
+    },
+    "sign-in": "Iniciar Sesion",
+    "weelcome": "Bienvenido de nuevo, {name}!",
+    "error-session": "No se pudo iniciar session"
+  },
+  "Dashboard": {
+    "metadata": {
+      "title": "Producto de atracción - IncaTrailOperator.com"
+    },
+    "log-out": "Cerrar sesión"
   }
 }
