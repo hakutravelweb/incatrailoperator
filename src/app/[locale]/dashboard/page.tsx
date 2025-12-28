@@ -5,7 +5,9 @@ import { Localization } from '@/interfaces/root'
 import { auth } from '@/services/user'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
+import { Tabs, Tab } from '@/components/ui/tabs'
 import { Profile } from '@/components/dashboard/profile'
+import { AttractionProducts } from '@/components/dashboard/attraction-products'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Dashboard')
@@ -42,6 +44,11 @@ export default async function Dashboard() {
       <Section>
         <div className='flex flex-col gap-6 py-10'>
           <Profile user={user} />
+          <Tabs>
+            <Tab label={t('attraction.title')}>
+              <AttractionProducts />
+            </Tab>
+          </Tabs>
         </div>
       </Section>
     </Layout>

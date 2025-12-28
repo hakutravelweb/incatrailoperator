@@ -7,6 +7,7 @@ type Variant = 'default' | 'menu' | 'primary' | 'action'
 interface Props {
   variant?: Variant
   disabled?: boolean
+  invalid?: boolean
   icon?: keyof typeof Icons
   onClick?: () => void
 }
@@ -14,6 +15,7 @@ interface Props {
 export function Button({
   variant,
   disabled,
+  invalid,
   icon,
   onClick,
   children,
@@ -38,6 +40,7 @@ export function Button({
             variant === 'primary',
           'not-disabled:hover:bg-anti-flash-white not-disabled:active:bg-chinese-white not-disabled:active:text-dav-ys-grey border-chinese-white border-2 py-2 not-disabled:bg-white not-disabled:text-black':
             variant === 'action',
+          'outline-ue-red outline-2': invalid,
         },
       )}
     >
