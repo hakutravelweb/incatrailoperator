@@ -36,6 +36,77 @@
     "metadata": {
       "title": "Producto de atracción - IncaTrailOperator.com"
     },
-    "log-out": "Cerrar sesión"
+    "log-out": "Cerrar sesión",
+    "confirmation": {
+      "message": "¿Estás seguro de que deseas realizar esta acción?",
+      "confirm": "Aceptar",
+      "decline": "Cancelar"
+    },
+    "attraction": {
+      "title": "Producto de atracciones",
+      "search-placeholder": "Buscar...",
+      "add-label": "Agregar atracción",
+      "empty-message": "No se encontraron atracciones",
+      "new-label": "Atracción nueva",
+      "create-label": "Crear atracción",
+      "created-message": "La atracción {title} fue creada",
+      "deleted-message": "La atracción {title} fue eliminada",
+      "form-field": {
+        "variant": "Variante",
+        "select-variant": "Elije la variante",
+        "url": "Url",
+        "title": "Titulo",
+        "duration": "Duracion",
+        "photos": "Fotos",
+        "about": "Acerca de",
+        "labels": "Etiquetas",
+        "cancellation-policy": "Política de cancelación",
+        "guide-languages": "Idiomas de guía",
+        "pick-up-service": "Servicio de recojo",
+        "start-time": "Hora de inicio",
+        "finish-time": "Hora de finalización",
+        "highlights": "Aspectos destacados",
+        "detailed-description": "Descripcion detallada",
+        "important-note": "Nota importante",
+        "includes": "Incluye",
+        "not-included": "No incluye",
+        "important-warning": "Advertencia importante",
+        "recommendations": "Recomendaciones",
+        "additional-advice": "Consejo adicional",
+        "free-cancellation": "Cancelación gratuita / duracion",
+        "refundable": "Reembolsable / duracion",
+        "attraction-map": "Mapa de la attracción",
+        "attraction-video": "Video de la attracción",
+        "retail-price": "Precio de venta",
+        "special-price": "Precio especial"
+      },
+      "variants": {
+        "ATTRACTION": "Atraccion",
+        "PACKAGE": "Paquete"
+      }
+    },
+    "input-list": {
+      "add-list": "Añadir a la lista",
+      "actions": {
+        "delete": "Eliminar"
+      }
+    },
+    "duration": {
+      "DAY": "Dias",
+      "HOUR": "Horas"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "itinerary": "Itinerario"
+    },
+    "pagination": "Mostrando resultados de {start} a {end} de {total}"
+  },
+  "UploadPhoto": {
+    "title": "Arrastre y suelte la foto en cualquier momento",
+    "title-plural": "Arrastre y suelte las fotos en cualquier momento",
+    "or": "o",
+    "select-from-your-computer": "Seleccione desde su computadora",
+    "supported-formats": "(formatos admitidos: PNG, JPEG, JPG, GIF, WEBP, SVG)"
   }
 }

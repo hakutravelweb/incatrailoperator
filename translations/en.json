@@ -36,6 +36,77 @@
     "metadata": {
       "title": "Attraction Product - IncaTrailOperator.com"
     },
-    "log-out": "Log out"
+    "log-out": "Log out",
+    "confirmation": {
+      "message": "Are you sure you want to perform this action?",
+      "confirm": "Accept",
+      "decline": "Cancel"
+    },
+    "attraction": {
+      "title": "Attractions product",
+      "search-placeholder": "Search...",
+      "add-label": "Add attraction",
+      "empty-message": "No attractions found",
+      "new-label": "New attraction",
+      "create-label": "Create attraction",
+      "created-message": "The attraction {title} was created",
+      "deleted-message": "The attraction {title} has been removed",
+      "form-field": {
+        "variant": "Variant",
+        "select-variant": "Select the variant",
+        "url": "Url",
+        "title": "Title",
+        "duration": "Duration",
+        "photos": "Photos",
+        "about": "About",
+        "labels": "Labels",
+        "cancellation-policy": "Cancellation policy",
+        "guide-languages": "Guide languages",
+        "pick-up-service": "Pick-up service",
+        "start-time": "Start time",
+        "finish-time": "Finishing time",
+        "highlights": "Highlights",
+        "detailed-description": "Detailed description",
+        "important-note": "Important note",
+        "includes": "Includes",
+        "not-included": "Not included",
+        "important-warning": "Advertencia importante",
+        "recommendations": "Recommendations",
+        "additional-advice": "Additional advice",
+        "free-cancellation": "Free cancellation / duration",
+        "refundable": "Refundable / duration",
+        "attraction-map": "Map of the attraction",
+        "attraction-video": "Video of the attraction",
+        "retail-price": "Retail price",
+        "special-price": "Special price"
+      },
+      "variants": {
+        "ATTRACTION": "Attraction",
+        "PACKAGE": "Package"
+      }
+    },
+    "input-list": {
+      "add-list": "Add to list",
+      "actions": {
+        "delete": "Delete"
+      }
+    },
+    "duration": {
+      "DAY": "Days",
+      "HOUR": "Hours"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "itinerary": "Itinerary"
+    },
+    "pagination": "Showing results from {start} to {end} of {total}"
+  },
+  "UploadPhoto": {
+    "title": "Drag and drop the photo at any time",
+    "title-plural": "Drag and drop the photos at any time",
+    "or": "or",
+    "select-from-your-computer": "Select from your computer",
+    "supported-formats": "(supported formats: PNG, JPEG, JPG, GIF, WEBP, SVG)"
   }
 }
