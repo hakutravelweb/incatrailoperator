@@ -78,20 +78,6 @@ const attractionProductSchema = z
         path: ['photos'],
       })
     }
-    // if (!value.attractionMap && !value.previewAttractionMap) {
-    //   ctx.addIssue({
-    //     code: 'custom',
-    //     message: '',
-    //     path: ['attractionMap'],
-    //   })
-    // }
-    // if (!value.attractionPdf && !value.previewAttractionPdf) {
-    //   ctx.addIssue({
-    //     code: 'custom',
-    //     message: '',
-    //     path: ['attractionPdf'],
-    //   })
-    // }
   })
 
 export type AttractionProductSchema = z.infer<typeof attractionProductSchema>

@@ -27,7 +27,7 @@ export function UploadPhotos({
   previewPhotos = [],
   deletedPhotos = [],
 }: Props) {
-  const t = useTranslations('UploadPhoto')
+  const t = useTranslations('Upload')
   const [photos, setPhotos] = useState<string[]>([])
 
   const handleDrop = useCallback(
@@ -51,10 +51,10 @@ export function UploadPhotos({
     onDrop: handleDrop,
     noClick: true,
     accept: {
-      'image/png': ['.png'],
       'image/jpeg': ['.jpg', '.jpeg'],
-      'image/gif': ['.gif'],
+      'image/png': ['.png'],
       'image/webp': ['.webp'],
+      'image/gif': ['.gif'],
       'image/svg+xml': ['.svg'],
     },
   })

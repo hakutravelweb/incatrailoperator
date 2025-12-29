@@ -25,6 +25,7 @@ import { UploadPhoto } from '@/components/ui/upload-photo'
 import { UploadPhotos } from '@/components/ui/upload-photos'
 import { SelectInputDuration } from '@/components/ui/select-input-duration'
 import { EditorTranslate } from '@/components/ui/editor-translate'
+import { UploadPdf } from '@/components/ui/upload-pdf'
 
 interface Props {
   attractionProductId: string
@@ -454,6 +455,7 @@ export function AttractionProductUpdate({
               value={field.value}
               onChange={field.onChange}
               invalid={fieldState.invalid}
+              previewPhoto={form.watch('previewAttractionMap')}
             />
           )}
         />
@@ -467,6 +469,20 @@ export function AttractionProductUpdate({
               value={field.value}
               onChange={field.onChange}
               invalid={fieldState.invalid}
+            />
+          )}
+        />
+        <Controller
+          control={form.control}
+          name='attractionPdf'
+          render={({ field, fieldState }) => (
+            <UploadPdf
+              ref={field.ref}
+              label={t('attraction.form-field.attraction-pdf')}
+              value={field.value}
+              onChange={field.onChange}
+              invalid={fieldState.invalid}
+              previewPdf={form.watch('previewAttractionPdf')}
             />
           )}
         />

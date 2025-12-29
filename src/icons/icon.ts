@@ -31,6 +31,7 @@ import Blockquote from './blockquote.svg'
 import HorizontalRule from './horizontal-rule.svg'
 import Strike from './strike.svg'
 import Check from './check.svg'
+import PdfPlus from './pdf-plus.svg'
 
 export const Icons = {
   Language,
@@ -66,4 +67,5 @@ export const Icons = {
   HorizontalRule,
   Strike,
   Check,
+  PdfPlus,
 }
