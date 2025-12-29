@@ -8,8 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { AttractionProductItem } from './attraction-product-item'
 import { AttractionProductCreate } from './attraction-product-create'
-// import { AttractionProductUpdate } from './attraction-product-update'
-// import { AttractionProductItinerary } from './attraction-product-itinerary'
+import { AttractionProductUpdate } from './attraction-product-update'
+import { AttractionProductItinerary } from './attraction-product-itinerary'
 
 export function AttractionProducts() {
   const t = useTranslations('Dashboard')
@@ -34,24 +34,24 @@ export function AttractionProducts() {
     attractionProductItinerary.onOpen()
   }
 
-  // if (attractionProductItinerary.isOpen) {
-  //   return (
-  //     <AttractionProductItinerary
-  //       attractionId={attractionId}
-  //       onClose={attractionProductItinerary.onClose}
-  //     />
-  //   )
-  // }
+  if (attractionProductItinerary.isOpen) {
+    return (
+      <AttractionProductItinerary
+        attractionId={attractionId}
+        onClose={attractionProductItinerary.onClose}
+      />
+    )
+  }
 
-  // if (attractionProductUpdate.isOpen) {
-  //   return (
-  //     <AttractionProductUpdate
-  //       attractionId={attractionId}
-  //       onClose={attractionProductUpdate.onClose}
-  //       onRefresh={attractionProducts.onRefresh}
-  //     />
-  //   )
-  // }
+  if (attractionProductUpdate.isOpen) {
+    return (
+      <AttractionProductUpdate
+        attractionId={attractionId}
+        onClose={attractionProductUpdate.onClose}
+        onRefresh={attractionProducts.onRefresh}
+      />
+    )
+  }
 
   if (attractionProductCreate.isOpen) {
     return (

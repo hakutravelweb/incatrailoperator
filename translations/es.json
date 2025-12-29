@@ -51,6 +51,8 @@
       "create-label": "Crear atracción",
       "created-message": "La atracción {title} fue creada",
       "deleted-message": "La atracción {title} fue eliminada",
+      "update-label": "Actualizar atracción",
+      "updated-message": "La atracción {title} fue actualizada",
       "form-field": {
         "variant": "Variante",
         "select-variant": "Elije la variante",
@@ -78,7 +80,23 @@
         "attraction-map": "Mapa de la attracción",
         "attraction-video": "Video de la attracción",
         "retail-price": "Precio de venta",
-        "special-price": "Precio especial"
+        "special-price": "Precio especial",
+        "time": "Hora",
+        "select-time": "Elije la hora",
+        "description": "Descripcion"
+      },
+      "itinerary": {
+        "title": "Itinerario de {title}",
+        "save-label": "Guardar itinerario",
+        "saved-message": "El itinerario de {title} fue guardada",
+        "routes": "Rutas",
+        "points": "Puntos",
+        "add-route-label": "Agregar ruta",
+        "add-point-label": "Agregar punto",
+        "deleted-route-message": "La ruta {title} fue eliminada",
+        "deleted-waypoint-message": "El punto {title} fue eliminado",
+        "route-number": "Ruta #{number}",
+        "point-number": "Punto #{number}"
       },
       "variants": {
         "ATTRACTION": "Atraccion",
