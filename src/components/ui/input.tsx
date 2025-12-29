@@ -12,8 +12,8 @@ interface Props {
   value: string
   onChange: (value: string) => void
   placeholder?: string
-  translate?: boolean
   invalid?: boolean
+  translate?: boolean
 }
 
 export function Input({
@@ -24,8 +24,8 @@ export function Input({
   value,
   onChange,
   placeholder,
-  translate,
   invalid,
+  translate,
 }: Props) {
   const [showPassword, setShowPassword] = useState<boolean>(false)
 

@@ -22,6 +22,7 @@ import { InputNumber } from '@/components/ui/input-number'
 import { UploadPhoto } from '@/components/ui/upload-photo'
 import { UploadPhotos } from '@/components/ui/upload-photos'
 import { SelectInputDuration } from '@/components/ui/select-input-duration'
+import { EditorTranslate } from '@/components/ui/editor-translate'
 
 interface Props {
   onClose: () => void
@@ -263,7 +264,7 @@ export function AttractionProductCreate({ onClose, onRefresh }: Props) {
           control={form.control}
           name='detailedDescription'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <EditorTranslate
               ref={field.ref}
               label={t('attraction.form-field.detailed-description')}
               value={field.value}
@@ -276,7 +277,7 @@ export function AttractionProductCreate({ onClose, onRefresh }: Props) {
           control={form.control}
           name='importantNote'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <EditorTranslate
               ref={field.ref}
               label={t('attraction.form-field.important-note')}
               value={field.value}

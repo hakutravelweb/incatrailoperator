@@ -96,7 +96,7 @@ export function UploadPhotos({
       )}
       <div className='flex flex-col gap-4'>
         {photos.length > 0 && (
-          <div className='grid-cols-photos grid gap-2'>
+          <div className='grid-cols-auto-fill grid gap-2'>
             {photos.map((photo, index) => {
               const activeDeleted = deletedPhotos.includes(photo)
 

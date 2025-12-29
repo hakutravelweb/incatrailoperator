@@ -18,6 +18,17 @@ import Up from './up.svg'
 import CloseCircle from './close-circle.svg'
 import Plus from './plus.svg'
 import Minus from './minus.svg'
+import Paragraph from './paragraph.svg'
+import H2 from './h2.svg'
+import H3 from './h3.svg'
+import Bold from './bold.svg'
+import Italic from './italic.svg'
+import Navigation from './navigation.svg'
+import UnNavigation from './unnavigation.svg'
+import BulletList from './bullet-list.svg'
+import OrderedList from './ordered-list.svg'
+import Blockquote from './blockquote.svg'
+import HorizontalRule from './horizontal-rule.svg'
 
 export const Icons = {
   Language,
@@ -40,4 +51,15 @@ export const Icons = {
   CloseCircle,
   Plus,
   Minus,
+  Paragraph,
+  H2,
+  H3,
+  Bold,
+  Italic,
+  Navigation,
+  UnNavigation,
+  BulletList,
+  OrderedList,
+  Blockquote,
+  HorizontalRule,
 }
