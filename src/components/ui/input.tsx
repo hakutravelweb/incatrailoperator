@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 
 interface Props {
   ref?: RefCallBack
+  variant?: 'standard'
   label: string
   type?: 'text' | 'password'
   value: string
@@ -17,6 +18,7 @@ interface Props {
 
 export function Input({
   ref,
+  variant,
   label,
   type = 'text',
   value,
@@ -54,6 +56,7 @@ export function Input({
             {
               'border-ue-red': invalid,
               'pr-10': type === 'password',
+              'h-10 px-4 py-2': variant === 'standard',
             },
           )}
           value={value}

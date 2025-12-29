@@ -5,6 +5,7 @@ import { Localization } from '@/interfaces/root'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 import { Button } from '@/components/ui/button'
+import { FiltersAttractionProducts } from '@/components/filters-attraction-products'
 
 const localizations = locales.map<Localization>((locale) => {
   return {
@@ -58,6 +59,9 @@ export default async function Home() {
           </div>
         </Section>
       </div>
+      <Section>
+        <FiltersAttractionProducts />
+      </Section>
     </Layout>
   )
 }

@@ -44,7 +44,11 @@ export function Select({
   }, [value, children])
 
   const handleChange = (option: string) => {
-    onChange(option)
+    if (value === option) {
+      onChange('')
+    } else {
+      onChange(option)
+    }
   }
 
   return (
@@ -69,9 +73,9 @@ export function Select({
         </Dropdown.Trigger>
         <Dropdown.Content>
           {Children.count(children) === 0 && (
-            <span className='text-dav-ys-grey text-sm leading-4.5'>
+            <div className='text-dav-ys-grey text-center text-sm leading-4.5'>
               {emptyMessage}
-            </span>
+            </div>
           )}
           {Children.map(children, (child) => {
             const element = child as ReactElement<DropdownOptionProps>
