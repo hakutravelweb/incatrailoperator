@@ -38,7 +38,7 @@ export default async function AuthSignIn() {
   return (
     <Layout localizations={localizations}>
       <Section>
-        <div className='flex flex-col gap-6 py-20'>
+        <div className='mx-auto flex max-w-xl flex-col gap-6 py-20'>
           <h1 className='text-3xl leading-9 font-extrabold'>{t('title')}</h1>
           <SignIn />
         </div>

@@ -23,7 +23,7 @@ export function TextareaTranslate({
   onChange,
   errors,
 }: Props) {
-  const handleChange = (locale: Locale, text: string) => {
+  const handleChange = (locale: Locale) => (text: string) => {
     onChange({
       ...value,
       [locale]: text,
@@ -41,7 +41,7 @@ export function TextareaTranslate({
               ref={ref}
               label={locale}
               value={value[locale]}
-              onChange={(value) => handleChange(locale, value)}
+              onChange={handleChange(locale)}
               invalid={!!errors?.[locale]?.message}
               translate
             />

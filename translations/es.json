@@ -17,7 +17,12 @@
   },
   "Home": {
     "title": "Inca Trail Operator: Viajes, actividades y cosas que hacer",
-    "description": "Sitio web oficial de Inca Trail Operator: explore y reserve más de 1000 actividades con Inca Trail Operator. Además, ofrecemos cancelación gratuita y opciones de pago flexibles para que pueda viajar sin preocupaciones."
+    "description": "Sitio web oficial de Inca Trail Operator: explore y reserve más de 1000 actividades con Inca Trail Operator. Además, ofrecemos cancelación gratuita y opciones de pago flexibles para que pueda viajar sin preocupaciones.",
+    "hero": {
+      "title": "Descubre el Perú con Inca Trail Operator",
+      "subtitle": "Aventuras inolvidables en la selva amazonic y Machu Picchu",
+      "explore-tours-label": "Explorar Tours"
+    }
   },
   "AuthSignIn": {
     "metadata": {
