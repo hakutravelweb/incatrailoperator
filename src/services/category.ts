@@ -14,7 +14,7 @@ export async function createCategory(input: CategorySchema) {
 }
 
 export async function updateCategory(id: string, input: CategorySchema) {
-  const attractionProduct = await prisma.category.findUniqueOrThrow({
+  const category = await prisma.category.findUniqueOrThrow({
     where: {
       id,
     },
@@ -22,7 +22,7 @@ export async function updateCategory(id: string, input: CategorySchema) {
 
   const updated = await prisma.category.update({
     where: {
-      id: attractionProduct.id,
+      id: category.id,
     },
     data: input,
   })
@@ -31,15 +31,15 @@ export async function updateCategory(id: string, input: CategorySchema) {
 }
 
 export async function deleteCategory(id: string) {
-  const attractionProduct = await prisma.attractionProduct.findUniqueOrThrow({
+  const category = await prisma.category.findUniqueOrThrow({
     where: {
       id,
     },
   })
 
-  const deleted = await prisma.attractionProduct.delete({
+  const deleted = await prisma.category.delete({
     where: {
-      id: attractionProduct.id,
+      id: category.id,
     },
   })
 
@@ -59,9 +59,6 @@ export const getCategoriesPagination = cache(
         },
         take: limit,
         skip: offset,
-        orderBy: {
-          createdAt: 'desc',
-        },
         include: {
           attractionProducts: true,
         },
@@ -92,4 +89,18 @@ export const getCategory = cache(async (id: string) => {
   })
 
   return category
+})
+
+export const getCategories = cache(async (locale: Locale) => {
+  const categories = await prisma.category.findMany()
+
+  const categoriesTranslate = categories.map<Category>((category) => {
+    return {
+      ...category,
+      title: category.title[locale],
+      productAttractionQuantity: 0,
+    }
+  })
+
+  return categoriesTranslate
 })

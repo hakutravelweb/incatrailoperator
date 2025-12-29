@@ -83,7 +83,11 @@
         "special-price": "Precio especial",
         "time": "Hora",
         "select-time": "Elije la hora",
-        "description": "Descripcion"
+        "description": "Descripcion",
+        "category": "Categoria",
+        "select-category": "Elije la categoria",
+        "destination": "Destino",
+        "select-destination": "Elije el destino"
       },
       "itinerary": {
         "title": "Itinerario de {title}",
@@ -119,6 +123,24 @@
         "title": "Titulo"
       }
     },
+    "destination": {
+      "title": "Destinos",
+      "search-placeholder": "Buscar...",
+      "add-label": "Agregar destino",
+      "empty-message": "No se encontraron destinos",
+      "attractions-number": "{number, plural, =0 {# atracciones} =1 {# atraccion} other {# atracciones}}",
+      "new-label": "Destino nuevo",
+      "create-label": "Crear destino",
+      "created-message": "El destino {title} fue creado",
+      "deleted-message": "El destino {title} fue eliminado",
+      "update-label": "Actualizar destino",
+      "updated-message": "El destino {title} fue actualizado",
+      "form-field": {
+        "title": "Titulo",
+        "department": "Departamento",
+        "about": "Acerca de"
+      }
+    },
     "input-list": {
       "add-list": "Añadir a la lista",
       "actions": {
@@ -141,6 +163,7 @@
     "title-plural": "Arrastre y suelte las fotos en cualquier momento",
     "or": "o",
     "select-from-your-computer": "Seleccione desde su computadora",
-    "supported-formats": "(formatos admitidos: PNG, JPEG, JPG, GIF, WEBP, SVG)"
+    "supported-formats": "(formatos admitidos: PNG, JPEG, JPG, GIF, WEBP, SVG)",
+    "deleted-message": "Se elijieron {number} fotos para ser eliminadas"
   }
 }
