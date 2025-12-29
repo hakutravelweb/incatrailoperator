@@ -13,6 +13,7 @@ import {
   ItinerarySchema,
 } from '@/schemas/attraction-product'
 import { AttractionProduct } from '@/interfaces/attraction-product'
+import { AttractionProductWhereInput } from '@/generated/prisma/models'
 
 export async function createAttractionProduct(input: AttractionProductSchema) {
   const {
@@ -212,7 +213,6 @@ export const getAttractionProductsPagination = cache(
           includes: attractionProduct.includes[locale],
           notIncluded: attractionProduct.notIncluded[locale],
           recommendations: attractionProduct.recommendations[locale],
-          routes: [],
         }
       })
 
@@ -343,3 +343,57 @@ export async function deleteWaypoint(id: string) {
 
   return deleted
 }
+
+export const getAttractionProducts = cache(
+  async (locale: Locale, search: string, category: string) => {
+    const where: AttractionProductWhereInput = {
+      destination: {
+        title: {
+          path: [locale],
+          string_contains: search,
+          mode: 'insensitive',
+        },
+      },
+    }
+    if (category) {
+      where.categoryId = category
+    }
+    const attractionProducts = await prisma.attractionProduct.findMany({
+      where,
+      include: {
+        category: true,
+        reviews: true,
+      },
+      take: 20,
+    })
+
+    const attractionProductsTranslate =
+      attractionProducts.map<AttractionProduct>((attractionProduct) => {
+        const reviewsCount = attractionProduct.reviews.length
+        const totalRating: number = attractionProduct.reviews.reduce(
+          (sum, review) => sum + review.rating,
+          0,
+        )
+        const rating =
+          attractionProduct.reviews.length > 0
+            ? Math.round(totalRating / attractionProduct.reviews.length)
+            : 0
+
+        return {
+          ...attractionProduct,
+          slug: attractionProduct.slug[locale],
+          title: attractionProduct.title[locale],
+          labels: attractionProduct.labels[locale],
+          about: attractionProduct.about[locale],
+          includes: attractionProduct.includes[locale],
+          notIncluded: attractionProduct.notIncluded[locale],
+          recommendations: attractionProduct.recommendations[locale],
+          category: attractionProduct.category.title[locale],
+          rating,
+          reviewsCount,
+        }
+      })
+
+    return attractionProductsTranslate
+  },
+)

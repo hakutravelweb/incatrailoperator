@@ -48,7 +48,7 @@ export default async function Home() {
           loading='lazy'
         />
         <Section>
-          <div className='relative z-2 flex flex-col items-center justify-center gap-6 text-center'>
+          <div className='relative z-2 flex flex-col items-center gap-6 text-center'>
             <strong className='text-4xl leading-10 font-black text-white'>
               {t('hero.title')}
             </strong>
