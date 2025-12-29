@@ -30,13 +30,6 @@ export function UploadPhotos({
   const t = useTranslations('UploadPhoto')
   const [photos, setPhotos] = useState<string[]>([])
 
-  useEffect(() => {
-    if (previewPhotos.length > 0) {
-      const photos = previewPhotos.map((photo) => getFullMediaUrl(photo))
-      setPhotos(photos)
-    }
-  }, [previewPhotos.length])
-
   const handleDrop = useCallback(
     async (acceptedFiles: File[]) => {
       const photos = await Promise.all(
@@ -95,11 +88,36 @@ export function UploadPhotos({
         </span>
       )}
       <div className='flex flex-col gap-4'>
-        {photos.length > 0 && (
+        {(previewPhotos.length > 0 || photos.length > 0) && (
           <div className='grid-cols-auto-fill grid gap-2'>
-            {photos.map((photo, index) => {
+            {previewPhotos.map((photo, index) => {
               const activeDeleted = deletedPhotos.includes(photo)
 
+              return (
+                <div
+                  key={index}
+                  className='relative aspect-4/3 bg-black transition-opacity duration-100 before:invisible before:absolute before:z-2 before:size-full before:bg-black/40 before:content-[""] hover:before:visible'
+                >
+                  <img
+                    className='size-full object-cover object-center'
+                    src={getFullMediaUrl(photo)}
+                    alt={label}
+                    loading='lazy'
+                  />
+                  <button
+                    onClick={handleDeletePhoto(photo)}
+                    className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 left-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
+                  >
+                    <div
+                      className={cn('bg-observatory size-4 rounded-full', {
+                        'bg-ue-red': activeDeleted,
+                      })}
+                    />
+                  </button>
+                </div>
+              )
+            })}
+            {photos.map((photo, index) => {
               return (
                 <div
                   key={index}
@@ -111,25 +129,12 @@ export function UploadPhotos({
                     alt={label}
                     loading='lazy'
                   />
-                  {!previewPhotos.includes(photo) ? (
-                    <button
-                      onClick={handleDelete(index)}
-                      className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 right-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
-                    >
-                      <Icons.Close className='size-6' />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handleDeletePhoto(photo)}
-                      className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 left-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
-                    >
-                      <div
-                        className={cn('bg-observatory size-4 rounded-full', {
-                          'bg-ue-red': activeDeleted,
-                        })}
-                      />
-                    </button>
-                  )}
+                  <button
+                    onClick={handleDelete(index)}
+                    className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 right-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
+                  >
+                    <Icons.Close className='size-6' />
+                  </button>
                 </div>
               )
             })}

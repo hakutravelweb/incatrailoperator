@@ -12,7 +12,7 @@ import { Variant, DurationType } from '@/generated/prisma/enums'
 
 const durationSchema = z.object({
   type: z.enum(DurationType),
-  quantity: z.number().min(1),
+  quantity: z.number(),
 })
 
 const freeCancellationSchema = durationSchema.extend({
@@ -38,7 +38,7 @@ const attractionProductSchema = z
         }
       })
     }),
-    photos: z.array(z.file()).min(1),
+    photos: z.array(z.file()),
     previewPhotos: z.array(z.string()),
     deletedPhotos: z.array(z.string()),
     title: translateSchema,

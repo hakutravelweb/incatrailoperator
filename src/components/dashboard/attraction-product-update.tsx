@@ -40,7 +40,7 @@ export function AttractionProductUpdate({
   const locale = useLocale()
   const t = useTranslations('Dashboard')
   const form = useForm<AttractionProductSchema>({
-    mode: 'onChange',
+    mode: 'all',
     resolver: attractionProductResolver,
     defaultValues: async (): Promise<AttractionProductSchema> => {
       const attractionProduct = await getAttractionProduct(attractionProductId)
@@ -74,15 +74,14 @@ export function AttractionProductUpdate({
         previewAttractionMap: attractionProduct.attractionMap,
         attractionVideo: attractionProduct.attractionVideo,
         attractionPdf: null,
-        previewAttractionPdf: '',
+        previewAttractionPdf: attractionProduct.attractionPdf,
         retailPrice: attractionProduct.retailPrice,
         specialPrice: attractionProduct.specialPrice,
-        categoryId: '',
-        destinationId: '',
+        categoryId: attractionProduct.categoryId,
+        destinationId: attractionProduct.destinationId,
       }
     },
   })
-  const state = form.watch()
   const { isDirty, isValid } = form.formState
 
   const categories = useCategories()
@@ -208,8 +207,9 @@ export function AttractionProductUpdate({
               value={field.value}
               onChange={field.onChange}
               invalid={fieldState.invalid}
+              previewPhotos={form.watch('previewPhotos')}
               onDeletePhotos={handleDeletePhotos}
-              deletedPhotos={state.deletedPhotos}
+              deletedPhotos={form.watch('deletedPhotos')}
             />
           )}
         />

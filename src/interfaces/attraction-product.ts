@@ -46,3 +46,13 @@ export interface Destination {
   about: string
   productAttractionQuantity: number
 }
+
+export type AttractionView =
+  | 'CREATE'
+  | 'EDIT'
+  | 'ITINERARY'
+  | 'FAQ'
+  | 'ATTRACTIONS'
+
+export type DestinationView = 'CREATE' | 'EDIT' | 'DESTINATIONS'
+export type CategoryView = 'CREATE' | 'EDIT' | 'CATEGORIES'

@@ -18,7 +18,7 @@ export function CategoryUpdate({ categoryId, onClose, onRefresh }: Props) {
   const locale = useLocale()
   const t = useTranslations('Dashboard')
   const form = useForm<CategorySchema>({
-    mode: 'onChange',
+    mode: 'all',
     resolver: categoryResolver,
     defaultValues: async (): Promise<CategorySchema> => {
       const category = await getCategory(categoryId)
