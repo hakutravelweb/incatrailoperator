@@ -28,3 +28,19 @@ export function formatPrice(locale: Locale, price: number) {
     currency: 'USD',
   }).format(price)
 }
+
+export function generateTimes() {
+  const times: string[] = []
+
+  Array.from({ length: 24 }, (_, hours) => {
+    Array.from({ length: 4 }, (_, quarter) => {
+      const hour = String(hours).padStart(2, '0')
+      const minutes = quarter * 15
+      const minute = String(minutes).padStart(2, '0')
+      const time = `${hour}:${minute}`
+      times.push(time)
+    })
+  })
+
+  return times
+}
