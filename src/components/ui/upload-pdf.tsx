@@ -12,34 +12,31 @@ interface Props {
   value: File | null
   onChange: (value: File | null) => void
   invalid: boolean
-  previewPhoto?: string | null
+  previewPdf?: string | null
 }
 
-export function UploadPhoto({
+export function UploadPdf({
   ref,
   label,
   value,
   onChange,
   invalid,
-  previewPhoto,
+  previewPdf,
 }: Props) {
   const t = useTranslations('Upload')
-  const [photo, setPhoto] = useState<string>('')
+  const [pdf, setPdf] = useState<string>('')
 
   useEffect(() => {
-    if (previewPhoto) {
-      setPhoto(getFullMediaUrl(previewPhoto))
+    if (previewPdf) {
+      setPdf(getFullMediaUrl(previewPdf))
     }
-  }, [previewPhoto])
+  }, [previewPdf])
 
   const handleDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0]
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setPhoto(reader.result as string)
-      }
-      reader.readAsDataURL(file)
+      const url = URL.createObjectURL(file)
+      setPdf(url)
       onChange(file)
     },
     [onChange],
@@ -49,20 +46,17 @@ export function UploadPhoto({
     maxFiles: 1,
     noClick: true,
     accept: {
-      'image/jpeg': ['.jpg', '.jpeg'],
-      'image/png': ['.png'],
-      'image/webp': ['.webp'],
-      'image/gif': ['.gif'],
-      'image/svg+xml': ['.svg'],
+      'application/pdf': ['.pdf'],
     },
   })
 
   const handleDelete = () => {
-    if (previewPhoto) {
-      setPhoto(getFullMediaUrl(previewPhoto))
+    if (previewPdf) {
+      setPdf(getFullMediaUrl(previewPdf))
     } else {
-      setPhoto('')
+      setPdf('')
     }
+    URL.revokeObjectURL(pdf)
     onChange(null)
   }
 
@@ -76,20 +70,19 @@ export function UploadPhoto({
           'border-gray-x11 rounded-xl border border-dashed bg-white',
           {
             'bg-anti-flash-white': isDragActive,
-            'rounded-none border-solid bg-black': photo,
+            'rounded-none border-solid bg-black': pdf,
             'border-ue-red': invalid,
           },
         )}
       >
         <input {...getInputProps()} />
-        {photo ? (
+        {pdf ? (
           <div className='relative'>
             <div className='aspect-video'>
-              <img
+              <embed
                 className='size-full object-contain object-center'
-                src={photo}
-                alt={label}
-                loading='lazy'
+                type='application/pdf'
+                src={pdf}
               />
             </div>
             {value ? (
@@ -104,7 +97,7 @@ export function UploadPhoto({
                 onClick={open}
                 className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 right-2 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
               >
-                <Icons.PhotoPlus className='size-6' />
+                <Icons.PdfPlus className='size-6' />
               </button>
             )}
           </div>
@@ -114,7 +107,7 @@ export function UploadPhoto({
             className='flex cursor-pointer flex-col items-center gap-6 p-6'
           >
             <span className='text-center text-base leading-5.25 font-bold'>
-              {t('title')}
+              {t('title-pdf')}
             </span>
             <div className='relative flex items-center justify-center'>
               <div className='bg-chinese-white h-px w-50 md:w-100' />
@@ -126,7 +119,7 @@ export function UploadPhoto({
               {t('select-from-your-computer')}
             </div>
             <span className='text-dark-charcoal text-sm leading-4.5'>
-              {t('supported-formats')}
+              {t('supported-pdf-format')}
             </span>
           </div>
         )}

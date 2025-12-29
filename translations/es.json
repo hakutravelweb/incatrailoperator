@@ -75,6 +75,7 @@
         "refundable": "Reembolsable / duracion",
         "attraction-map": "Mapa de la attracción",
         "attraction-video": "Video de la attracción",
+        "attraction-pdf": "Pdf de la attracción",
         "retail-price": "Precio de venta",
         "special-price": "Precio especial",
         "time": "Hora",
@@ -164,12 +165,14 @@
     },
     "pagination": "Mostrando resultados de {start} a {end} de {total}"
   },
-  "UploadPhoto": {
+  "Upload": {
     "title": "Arrastre y suelte la foto en cualquier momento",
     "title-plural": "Arrastre y suelte las fotos en cualquier momento",
+    "title-pdf": "Arrastre y suelte el pdf en cualquier momento",
     "or": "o",
     "select-from-your-computer": "Seleccione desde su computadora",
     "supported-formats": "(formatos admitidos: PNG, JPEG, JPG, GIF, WEBP, SVG)",
+    "supported-pdf-format": "(formato admitido: PDF)",
     "deleted-message": "{number, plural, =0 {Se elijieron # fotos para ser eliminadas} =1 {Se elijio # foto para ser eliminada} other {Se elijieron # fotos para ser eliminadas}}"
   },
   "Home": {
