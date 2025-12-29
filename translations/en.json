@@ -15,15 +15,6 @@
     "destinatons": "Destinations",
     "travel": "Travel"
   },
-  "Home": {
-    "title": "Inca Trail Operator: Travel Tours, Activities, and Things to Do",
-    "description": "Inca Trail Operator Official Site – Browse and book over 1,000 things to do with Inca Trail Operator. Plus, we offer free cancellation and flexible payment options for stress-free travel.",
-    "hero": {
-      "title": "Discover Peru with Inca Trail Operator",
-      "subtitle": "Unforgettable adventures in the Amazon rainforest and Machu Picchu",
-      "explore-tours-label": "Explore Tours"
-    }
-  },
   "AuthSignIn": {
     "metadata": {
       "title": "Dashboard - IncaTrailOperator.com"
@@ -169,5 +160,22 @@
     "or": "or",
     "select-from-your-computer": "Select from your computer",
     "supported-formats": "(supported formats: PNG, JPEG, JPG, GIF, WEBP, SVG)"
+  },
+  "Home": {
+    "title": "Inca Trail Operator: Travel Tours, Activities, and Things to Do",
+    "description": "Inca Trail Operator Official Site – Browse and book over 1,000 things to do with Inca Trail Operator. Plus, we offer free cancellation and flexible payment options for stress-free travel.",
+    "hero": {
+      "title": "Discover Peru with Inca Trail Operator",
+      "subtitle": "Unforgettable adventures in the Amazon rainforest and Machu Picchu",
+      "explore-tours-label": "Explore Tours"
+    }
+  },
+  "FiltersAttractionProducts": {
+    "destination-label": "Destination",
+    "destination-search-placeholder": "Where would you like to go?",
+    "category-label": "Category",
+    "select-category": "Select a category",
+    "categories-empty-message": "No categories found",
+    "search-label": "Search"
   }
 }
