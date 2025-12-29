@@ -98,6 +98,14 @@
         "route-number": "Ruta #{number}",
         "point-number": "Punto #{number}"
       },
+      "asked-question": {
+        "title": "Preguntas frecuentes de {title}",
+        "save-label": "Guardar preguntas",
+        "saved-message": "Las preguntas de {title} fueron guardadas",
+        "question-number": "Pregunta #{number}",
+        "add-question-label": "Agregar pregunta",
+        "deleted-question-message": "La pregunta {title} fue eliminada"
+      },
       "variants": {
         "ATTRACTION": "Atraccion",
         "PACKAGE": "Paquete"
@@ -140,7 +148,8 @@
     "input-list": {
       "add-list": "Añadir a la lista",
       "actions": {
-        "delete": "Eliminar"
+        "delete": "Eliminar",
+        "asked-questions": "Preguntas frecuentes"
       }
     },
     "duration": {
@@ -150,7 +159,8 @@
     "actions": {
       "edit": "Editar",
       "delete": "Eliminar",
-      "itinerary": "Itinerario"
+      "itinerary": "Itinerario",
+      "asked-questions": "Preguntas frecuentes"
     },
     "pagination": "Mostrando resultados de {start} a {end} de {total}"
   },

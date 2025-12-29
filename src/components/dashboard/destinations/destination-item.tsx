@@ -59,9 +59,7 @@ export function DestinationItem({ destination, onEdit, onRefresh }: Props) {
             <span className='text-dark-charcoal text-sm leading-4.5'>
               {destination.department}
             </span>
-            <span className='text-base leading-4.75 underline'>
-              {destination.title}
-            </span>
+            <span className='text-base leading-4.75'>{destination.title}</span>
           </div>
           <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
             {t('destination.attractions-number', {

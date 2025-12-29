@@ -98,6 +98,14 @@
         "route-number": "Route #{number}",
         "point-number": "Point #{number}"
       },
+      "asked-question": {
+        "title": "Asked questions from {title}",
+        "save-label": "Save questions",
+        "saved-message": "The questions from {title} have been saved",
+        "question-number": "Question #{number}",
+        "add-question-label": "Add question",
+        "deleted-question-message": "The question {title} has been deleted"
+      },
       "variants": {
         "ATTRACTION": "Attraction",
         "PACKAGE": "Package"
@@ -150,7 +158,8 @@
     "actions": {
       "edit": "Edit",
       "delete": "Delete",
-      "itinerary": "Itinerary"
+      "itinerary": "Itinerary",
+      "asked-questions": "Asked questions"
     },
     "pagination": "Showing results from {start} to {end} of {total}"
   },

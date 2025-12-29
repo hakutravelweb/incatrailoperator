@@ -10,14 +10,16 @@ import { AttractionProductItem } from './attraction-product-item'
 import { AttractionProductCreate } from './attraction-product-create'
 import { AttractionProductUpdate } from './attraction-product-update'
 import { AttractionProductItinerary } from './attraction-product-itinerary'
+import { AttractionProductAskedQuestions } from './attraction-product-asked-questions'
 
 export function AttractionProducts() {
   const t = useTranslations('Dashboard')
   const attractionProductCreate = useDisclosure()
   const attractionProductUpdate = useDisclosure()
   const attractionProductItinerary = useDisclosure()
+  const attractionProductAskedQuestions = useDisclosure()
   const attractionProducts = useAttractionProductsPagination()
-  const [attractionId, setAttractionId] = useState<string>('')
+  const [attractionProductId, setAttractionProductId] = useState<string>('')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text: string = event.target.value
@@ -25,19 +27,33 @@ export function AttractionProducts() {
   }
 
   const handleEdit = (id: string) => {
-    setAttractionId(id)
+    setAttractionProductId(id)
     attractionProductUpdate.onOpen()
   }
 
   const handleItinerary = (id: string) => {
-    setAttractionId(id)
+    setAttractionProductId(id)
     attractionProductItinerary.onOpen()
+  }
+
+  const handleAskedQuestions = (id: string) => {
+    setAttractionProductId(id)
+    attractionProductAskedQuestions.onOpen()
+  }
+
+  if (attractionProductAskedQuestions.isOpen) {
+    return (
+      <AttractionProductAskedQuestions
+        attractionProductId={attractionProductId}
+        onClose={attractionProductItinerary.onClose}
+      />
+    )
   }
 
   if (attractionProductItinerary.isOpen) {
     return (
       <AttractionProductItinerary
-        attractionId={attractionId}
+        attractionProductId={attractionProductId}
         onClose={attractionProductItinerary.onClose}
       />
     )
@@ -46,7 +62,7 @@ export function AttractionProducts() {
   if (attractionProductUpdate.isOpen) {
     return (
       <AttractionProductUpdate
-        attractionId={attractionId}
+        attractionProductId={attractionProductId}
         onClose={attractionProductUpdate.onClose}
         onRefresh={attractionProducts.onRefresh}
       />
@@ -106,6 +122,7 @@ export function AttractionProducts() {
               attractionProduct={attractionProduct}
               onEdit={handleEdit}
               onItinerary={handleItinerary}
+              onAskedQuestions={handleAskedQuestions}
               onRefresh={attractionProducts.onRefresh}
             />
           )

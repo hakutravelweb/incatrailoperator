@@ -259,18 +259,16 @@ export async function saveItinerary(input: ItinerarySchema) {
           const waypointsToCreate = data.waypoints.filter(
             (waypoint) => !waypoint.waypointId,
           )
-          const waypoints = await Promise.all(
-            waypointsToUpdate.map(async (waypoint) => {
-              const { waypointId, routeId, ...data } = waypoint
+          const waypoints = waypointsToUpdate.map((waypoint) => {
+            const { waypointId, routeId, ...data } = waypoint
 
-              return {
-                data,
-                where: {
-                  id: waypointId,
-                },
-              }
-            }),
-          )
+            return {
+              data,
+              where: {
+                id: waypointId,
+              },
+            }
+          })
 
           await transaction.route.update({
             data: {
