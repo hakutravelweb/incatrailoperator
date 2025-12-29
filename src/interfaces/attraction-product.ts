@@ -38,3 +38,11 @@ export interface Category {
   title: string
   productAttractionQuantity: number
 }
+
+export interface Destination {
+  id: string
+  title: string
+  department: string
+  about: string
+  productAttractionQuantity: number
+}

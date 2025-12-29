@@ -1,6 +1,6 @@
 'use server'
 import { cache } from 'react'
-import { Locale, locales } from '@/i18n/config'
+import { Locale } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import {
   storageSave,
@@ -12,8 +12,7 @@ import {
   AttractionProductSchema,
   ItinerarySchema,
 } from '@/schemas/attraction-product'
-import { Localization } from '@/interfaces/root'
-import { AttractionProduct, Route } from '@/interfaces/attraction-product'
+import { AttractionProduct } from '@/interfaces/attraction-product'
 
 export async function createAttractionProduct(input: AttractionProductSchema) {
   const {
@@ -66,6 +65,7 @@ export async function updateAttractionProduct(
   const {
     photos,
     previewPhotos,
+    deletedPhotos,
     attractionMap,
     previewAttractionMap,
     attractionPdf,
@@ -85,6 +85,13 @@ export async function updateAttractionProduct(
       folder: 'attraction-products',
     })
     attractionProduct.photos.push(...newPhotos)
+  }
+
+  if (deletedPhotos.length > 0) {
+    await storageDeleteFiles({ fileNames: deletedPhotos })
+    attractionProduct.photos = attractionProduct.photos.filter(
+      (photo) => !deletedPhotos.includes(photo),
+    )
   }
 
   if (attractionMap) {
@@ -186,9 +193,6 @@ export const getAttractionProductsPagination = cache(
         },
         take: limit,
         skip: offset,
-        orderBy: {
-          createdAt: 'desc',
-        },
       }),
       prisma.attractionProduct.count(),
     ])
@@ -338,90 +342,3 @@ export async function deleteWaypoint(id: string) {
 
   return deleted
 }
-
-export const getAttractionProductsTop = cache(async (locale: Locale) => {
-  const attractionProducts = await prisma.attractionProduct.findMany({
-    take: 16,
-    orderBy: {
-      createdAt: 'desc',
-    },
-  })
-
-  const attractionProductsTranslate = attractionProducts.map<AttractionProduct>(
-    (attractionProduct) => {
-      return {
-        ...attractionProduct,
-        slug: attractionProduct.slug[locale],
-        title: attractionProduct.title[locale],
-        about: attractionProduct.about[locale],
-        labels: attractionProduct.labels[locale],
-        includes: attractionProduct.includes[locale],
-        notIncluded: attractionProduct.notIncluded[locale],
-        recommendations: attractionProduct.recommendations[locale],
-        routes: [],
-      }
-    },
-  )
-
-  return attractionProductsTranslate
-})
-
-export const getAttractionProductBySlug = cache(
-  async (locale: Locale, slug: string) => {
-    const attractionProduct = await prisma.attractionProduct.findFirstOrThrow({
-      where: {
-        slug: {
-          path: [locale],
-          equals: slug,
-        },
-      },
-      include: {
-        routes: {
-          include: {
-            waypoints: true,
-          },
-        },
-      },
-    })
-
-    const routes = attractionProduct.routes.map<Route>((route) => {
-      const waypoints = route.waypoints.map((waypoint) => {
-        return {
-          ...waypoint,
-          title: waypoint.title[locale],
-          description: waypoint.description[locale],
-        }
-      })
-
-      return {
-        ...route,
-        title: route.title[locale],
-        waypoints,
-      }
-    })
-
-    const attractionProductTranslate: AttractionProduct = {
-      ...attractionProduct,
-      slug: attractionProduct.slug[locale],
-      title: attractionProduct.title[locale],
-      about: attractionProduct.about[locale],
-      labels: attractionProduct.labels[locale],
-      includes: attractionProduct.includes[locale],
-      notIncluded: attractionProduct.notIncluded[locale],
-      recommendations: attractionProduct.recommendations[locale],
-      routes,
-    }
-
-    const localizations = locales.map<Localization>((locale) => {
-      return {
-        locale,
-        slug: `/attraction-product/${attractionProduct.slug[locale]}`,
-      }
-    })
-
-    return {
-      ...attractionProductTranslate,
-      localizations,
-    }
-  },
-)

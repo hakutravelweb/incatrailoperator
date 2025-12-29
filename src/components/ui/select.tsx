@@ -18,6 +18,7 @@ interface Props {
   onChange: (value: string) => void
   placeholder: string
   invalid: boolean
+  emptyMessage?: string
 }
 
 export function Select({
@@ -27,6 +28,7 @@ export function Select({
   onChange,
   placeholder,
   invalid,
+  emptyMessage,
   children,
 }: PropsWithChildren<Props>) {
   const option = useMemo(() => {
@@ -66,6 +68,11 @@ export function Select({
           </div>
         </Dropdown.Trigger>
         <Dropdown.Content>
+          {Children.count(children) === 0 && (
+            <span className='text-dav-ys-grey text-sm leading-4.5'>
+              {emptyMessage}
+            </span>
+          )}
           {Children.map(children, (child) => {
             const element = child as ReactElement<DropdownOptionProps>
             const active: boolean = element.props.value === value

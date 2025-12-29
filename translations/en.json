@@ -50,7 +50,7 @@
       "new-label": "New attraction",
       "create-label": "Create attraction",
       "created-message": "The attraction {title} was created",
-      "deleted-message": "The attraction {title} has been removed",
+      "deleted-message": "The attraction {title} has been deleted",
       "update-label": "Update attraction",
       "updated-message": "The attraction {title} has been updated",
       "form-field": {
@@ -83,7 +83,11 @@
         "special-price": "Special price",
         "time": "Time",
         "select-time": "Select the time",
-        "description": "Description"
+        "description": "Description",
+        "category": "Category",
+        "select-category": "Select the category",
+        "destination": "Destination",
+        "select-destination": "Select your destination"
       },
       "itinerary": {
         "title": "Itinerary from {title}",
@@ -93,8 +97,8 @@
         "points": "Points",
         "add-route-label": "Add route",
         "add-point-label": "Add point",
-        "deleted-route-message": "The route {title} has been removed",
-        "deleted-waypoint-message": "The point {title} was removed",
+        "deleted-route-message": "The route {title} has been deleted",
+        "deleted-waypoint-message": "The point {title} was deleted",
         "route-number": "Route #{number}",
         "point-number": "Point #{number}"
       },
@@ -112,11 +116,29 @@
       "new-label": "New category",
       "create-label": "Create category",
       "created-message": "The category {title} was created",
-      "deleted-message": "The category {title} has been removed",
+      "deleted-message": "The category {title} has been deleted",
       "update-label": "Update category",
       "updated-message": "The category {title} has been updated",
       "form-field": {
         "title": "Title"
+      }
+    },
+    "destination": {
+      "title": "Destinations",
+      "search-placeholder": "Search...",
+      "add-label": "Add destination",
+      "empty-message": "No destinations found",
+      "attractions-number": "{number, plural, =0 {# attractions} =1 {# attraction} other {# attractions}}",
+      "new-label": "New destination",
+      "create-label": "Create destination",
+      "created-message": "The destination {title} was created",
+      "deleted-message": "The destination {title} has been deleted",
+      "update-label": "Update destination",
+      "updated-message": "The destination {title} has been updated",
+      "form-field": {
+        "title": "Title",
+        "department": "Department",
+        "about": "About"
       }
     },
     "input-list": {

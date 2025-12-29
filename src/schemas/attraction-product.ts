@@ -40,6 +40,7 @@ const attractionProductSchema = z
     }),
     photos: z.array(z.file()).min(1),
     previewPhotos: z.array(z.string()),
+    deletedPhotos: z.array(z.string()),
     title: translateSchema,
     duration: durationSchema,
     about: translateSchema,
@@ -102,6 +103,7 @@ export const attractionProductDefaultValues: AttractionProductSchema = {
   slug: translateDefaultValues,
   photos: [],
   previewPhotos: [],
+  deletedPhotos: [],
   title: translateDefaultValues,
   duration: {
     type: 'HOUR',

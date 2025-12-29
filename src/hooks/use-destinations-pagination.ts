@@ -1,14 +1,14 @@
 import { useEffect, useState, useTransition } from 'react'
 import { useLocale } from 'next-intl'
-import { AttractionProduct } from '@/interfaces/attraction-product'
-import { getAttractionProductsPagination } from '@/services/attraction-product'
+import { Destination } from '@/interfaces/attraction-product'
+import { getDestinationsPagination } from '@/services/destination'
 import { useDebounce } from './use-debounce'
 import { toast } from '@/components/ui/toast'
 
-export function useAttractionProductsPagination() {
+export function useDestinationsPagination() {
   const locale = useLocale()
   const [isPending, startTransition] = useTransition()
-  const [data, setData] = useState<AttractionProduct[]>([])
+  const [data, setData] = useState<Destination[]>([])
   const [limit, setLimit] = useState<number>(10)
   const [offset, setOffset] = useState<number>(0)
   const [total, setTotal] = useState<number>(0)
@@ -30,14 +30,14 @@ export function useAttractionProductsPagination() {
   const fetchData = () => {
     startTransition(async () => {
       try {
-        const attractionProducts = await getAttractionProductsPagination(
+        const destinations = await getDestinationsPagination(
           locale,
           debouncedSearch,
           limit,
           offset,
         )
-        setData(attractionProducts.data)
-        setTotal(attractionProducts.total)
+        setData(destinations.data)
+        setTotal(destinations.total)
       } catch {
         toast.error('ERROR INTERNAL SERVER')
       }

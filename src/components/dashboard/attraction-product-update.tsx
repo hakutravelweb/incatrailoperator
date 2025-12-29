@@ -11,6 +11,8 @@ import {
   updateAttractionProduct,
   getAttractionProduct,
 } from '@/services/attraction-product'
+import { useCategories } from '@/hooks/use-categories'
+import { useDestinations } from '@/hooks/use-destinations'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
 import { Select } from '@/components/ui/select'
@@ -47,6 +49,7 @@ export function AttractionProductUpdate({
         slug: attractionProduct.slug,
         photos: [],
         previewPhotos: attractionProduct.photos,
+        deletedPhotos: [],
         title: attractionProduct.title,
         duration: attractionProduct.duration,
         about: attractionProduct.about,
@@ -78,7 +81,15 @@ export function AttractionProductUpdate({
       }
     },
   })
+  const state = form.watch()
   const { isDirty, isValid } = form.formState
+
+  const categories = useCategories()
+  const destinations = useDestinations()
+
+  const handleDeletePhotos = (photos: string[]) => {
+    form.setValue('deletedPhotos', photos)
+  }
 
   const handleUpdate = async (data: AttractionProductSchema) => {
     try {
@@ -196,6 +207,8 @@ export function AttractionProductUpdate({
               value={field.value}
               onChange={field.onChange}
               invalid={fieldState.invalid}
+              onDeletePhotos={handleDeletePhotos}
+              deletedPhotos={state.deletedPhotos}
             />
           )}
         />
@@ -488,6 +501,58 @@ export function AttractionProductUpdate({
             )}
           />
         </div>
+        <Controller
+          control={form.control}
+          name='categoryId'
+          render={({ field, fieldState }) => (
+            <Select
+              ref={field.ref}
+              label={t('attraction.form-field.category')}
+              value={field.value}
+              onChange={field.onChange}
+              placeholder={t('attraction.form-field.select-category')}
+              invalid={fieldState.invalid}
+              emptyMessage={
+                categories.data.length === 0 ? t('category.empty-message') : ''
+              }
+            >
+              {categories.data.map((category) => {
+                return (
+                  <Select.Option key={category.id} value={category.id}>
+                    {category.title}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          )}
+        />
+        <Controller
+          control={form.control}
+          name='destinationId'
+          render={({ field, fieldState }) => (
+            <Select
+              ref={field.ref}
+              label={t('attraction.form-field.destination')}
+              value={field.value}
+              onChange={field.onChange}
+              placeholder={t('attraction.form-field.select-destination')}
+              invalid={fieldState.invalid}
+              emptyMessage={
+                destinations.data.length === 0
+                  ? t('destination.empty-message')
+                  : ''
+              }
+            >
+              {destinations.data.map((destination) => {
+                return (
+                  <Select.Option key={destination.id} value={destination.id}>
+                    {destination.title}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          )}
+        />
       </div>
     </div>
   )

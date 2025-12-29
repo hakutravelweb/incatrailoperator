@@ -7,7 +7,7 @@ import { toast } from '@/components/ui/toast'
 
 export function useCategoriesPagination() {
   const locale = useLocale()
-  const [isPending, startPending] = useTransition()
+  const [isPending, startTransition] = useTransition()
   const [data, setData] = useState<Category[]>([])
   const [limit, setLimit] = useState<number>(10)
   const [offset, setOffset] = useState<number>(0)
@@ -28,7 +28,7 @@ export function useCategoriesPagination() {
   }
 
   const fetchData = () => {
-    startPending(async () => {
+    startTransition(async () => {
       try {
         const categories = await getCategoriesPagination(
           locale,

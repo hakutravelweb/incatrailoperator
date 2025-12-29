@@ -124,9 +124,9 @@ export async function storageDeleteFiles({ fileNames }: DeleteFiles) {
       }),
       headers: storage.headers,
     })
-    const response: ResponseFile = await request.json()
+    const response: ResponseFiles = await request.json()
 
-    return response.url
+    return response.urls
   } catch (error) {
     throw error
   }

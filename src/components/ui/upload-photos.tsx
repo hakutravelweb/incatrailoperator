@@ -13,6 +13,8 @@ interface Props {
   onChange: (value: File[]) => void
   invalid: boolean
   previewPhotos?: string[]
+  onDeletePhotos?: (value: string[]) => void
+  deletedPhotos?: string[]
 }
 
 export function UploadPhotos({
@@ -20,8 +22,10 @@ export function UploadPhotos({
   label,
   value,
   onChange,
+  onDeletePhotos,
   invalid,
   previewPhotos = [],
+  deletedPhotos = [],
 }: Props) {
   const t = useTranslations('UploadPhoto')
   const [photos, setPhotos] = useState<string[]>([])
@@ -69,14 +73,33 @@ export function UploadPhotos({
     onChange([...value])
   }
 
+  const handleDeletePhoto = (photo: string) => () => {
+    if (deletedPhotos.includes(photo)) {
+      const index = deletedPhotos.indexOf(photo)
+      deletedPhotos.splice(index, 1)
+    } else {
+      deletedPhotos.push(photo)
+    }
+    onDeletePhotos?.([...deletedPhotos])
+  }
+
   return (
     <div className='relative flex flex-col gap-px'>
       <input ref={ref} readOnly className='absolute size-px outline-none' />
       <label className='text-base leading-4.75 font-bold'>{label}</label>
+      {deletedPhotos.length > 0 && (
+        <span className='text-ue-red my-2 text-sm leading-4.5 font-medium'>
+          {t('deleted-message', {
+            number: deletedPhotos.length,
+          })}
+        </span>
+      )}
       <div className='flex flex-col gap-4'>
         {photos.length > 0 && (
           <div className='grid-cols-photos grid gap-2'>
             {photos.map((photo, index) => {
+              const activeDeleted = deletedPhotos.includes(photo)
+
               return (
                 <div
                   key={index}
@@ -88,12 +111,23 @@ export function UploadPhotos({
                     alt={label}
                     loading='lazy'
                   />
-                  {!previewPhotos.includes(photo) && (
+                  {!previewPhotos.includes(photo) ? (
                     <button
                       onClick={handleDelete(index)}
                       className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 right-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
                     >
                       <Icons.Close className='size-6' />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleDeletePhoto(photo)}
+                      className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 left-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
+                    >
+                      <div
+                        className={cn('bg-observatory size-4 rounded-full', {
+                          'bg-ue-red': activeDeleted,
+                        })}
+                      />
                     </button>
                   )}
                 </div>
