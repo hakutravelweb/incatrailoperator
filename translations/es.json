@@ -187,6 +187,14 @@
     "category-label": "Categoria",
     "select-category": "Elije una categoria",
     "categories-empty-message": "No se encontraron categorias",
-    "search-label": "Buscar"
+    "search-label": "Buscar",
+    "empty-message": "No se encontraron productos de atracciones"
+  },
+  "AttractionProductCard": {
+    "duration-days": "{quantity, plural, =0 {# dias} =1 {# dia} other {# dias}}",
+    "duration-hours": "{quantity, plural, =0 {# horas} =1 {# hora} other {# horas}}",
+    "free-cancellation": "Cancelación gratuita hasta {duration} antes",
+    "you-save": "Ahorras {amount}",
+    "you-save-percent": "-{percentage}% de descuento"
   }
 }

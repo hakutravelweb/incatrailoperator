@@ -5,14 +5,19 @@ export interface AttractionProduct {
   slug: string
   photos: string[]
   title: string
+  duration: Duration
   about: string
   labels: string[]
   includes: string[]
   notIncluded: string[]
   recommendations: string[]
+  freeCancellation: Duration
   retailPrice: number
   specialPrice: number
-  routes: Route[]
+  category?: string
+  routes?: Route[]
+  rating?: number
+  reviewsCount?: number
 }
 
 export interface Route {

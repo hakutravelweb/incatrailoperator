@@ -29,6 +29,8 @@ import BulletList from './bullet-list.svg'
 import OrderedList from './ordered-list.svg'
 import Blockquote from './blockquote.svg'
 import HorizontalRule from './horizontal-rule.svg'
+import Strike from './strike.svg'
+import Check from './check.svg'
 
 export const Icons = {
   Language,
@@ -62,4 +64,6 @@ export const Icons = {
   OrderedList,
   Blockquote,
   HorizontalRule,
+  Strike,
+  Check,
 }

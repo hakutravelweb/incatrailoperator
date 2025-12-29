@@ -201,6 +201,31 @@ export function Editor({
             onClick={() => editor.chain().focus().toggleItalic().run()}
             active={editor.isActive('italic')}
           />
+          <MenuItem
+            icon='Strike'
+            onClick={() => editor.chain().focus().toggleStrike().run()}
+            active={editor.isActive('strike')}
+          />
+          <MenuItem
+            icon='BulletList'
+            onClick={() => editor.chain().focus().toggleBulletList().run()}
+            active={editor.isActive('bulletList')}
+          />
+          <MenuItem
+            icon='OrderedList'
+            onClick={() => editor.chain().focus().toggleOrderedList().run()}
+            active={editor.isActive('orderedList')}
+          />
+          <MenuItem
+            icon='Blockquote'
+            onClick={() => editor.chain().focus().toggleBlockquote().run()}
+            active={editor.isActive('blockquote')}
+          />
+          <MenuItem
+            icon='HorizontalRule'
+            onClick={() => editor.chain().focus().setHorizontalRule().run()}
+            active={editor.isActive('horizontalRule')}
+          />
           {enabledNavigation && (
             <>
               <MenuItem
@@ -243,6 +268,21 @@ export function Editor({
               editor.chain().focus().toggleHeading({ level: 3 }).run()
             }
             active={editor.isActive('heading', { level: 3 })}
+          />
+          <MenuItem
+            icon='Bold'
+            onClick={() => editor.chain().focus().toggleBold().run()}
+            active={editor.isActive('bold')}
+          />
+          <MenuItem
+            icon='Italic'
+            onClick={() => editor.chain().focus().toggleItalic().run()}
+            active={editor.isActive('italic')}
+          />
+          <MenuItem
+            icon='Strike'
+            onClick={() => editor.chain().focus().toggleStrike().run()}
+            active={editor.isActive('strike')}
           />
           <MenuItem
             icon='BulletList'

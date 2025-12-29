@@ -245,7 +245,7 @@ export function AttractionProductUpdate({
           control={form.control}
           name='cancellationPolicy'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <EditorTranslate
               ref={field.ref}
               label={t('attraction.form-field.cancellation-policy')}
               value={field.value}
