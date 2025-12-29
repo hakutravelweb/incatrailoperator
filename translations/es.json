@@ -103,6 +103,22 @@
         "PACKAGE": "Paquete"
       }
     },
+    "category": {
+      "title": "Categorias",
+      "search-placeholder": "Buscar...",
+      "add-label": "Agregar categoria",
+      "empty-message": "No se encontraron categorias",
+      "attractions-number": "{number, plural, =0 {# atracciones} =1 {# atraccion} other {# atracciones}}",
+      "new-label": "Categoria nueva",
+      "create-label": "Crear categoria",
+      "created-message": "La categoria {title} fue creada",
+      "deleted-message": "La categoria {title} fue eliminada",
+      "update-label": "Actualizar categoria",
+      "updated-message": "La categoria {title} fue actualizada",
+      "form-field": {
+        "title": "Titulo"
+      }
+    },
     "input-list": {
       "add-list": "Añadir a la lista",
       "actions": {

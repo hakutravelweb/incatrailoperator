@@ -32,3 +32,9 @@ export interface Duration {
   type: DurationType
   quantity: number
 }
+
+export interface Category {
+  id: string
+  title: string
+  productAttractionQuantity: number
+}

@@ -8,6 +8,7 @@ import { Section } from '@/components/section'
 import { Tabs, Tab } from '@/components/ui/tabs'
 import { Profile } from '@/components/dashboard/profile'
 import { AttractionProducts } from '@/components/dashboard/attraction-products'
+import { Categories } from '@/components/dashboard/categories/categories'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Dashboard')
@@ -47,6 +48,9 @@ export default async function Dashboard() {
           <Tabs>
             <Tab label={t('attraction.title')}>
               <AttractionProducts />
+            </Tab>
+            <Tab label={t('category.title')}>
+              <Categories />
             </Tab>
           </Tabs>
         </div>
