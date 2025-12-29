@@ -1,0 +1,95 @@
+'use server'
+import { cache } from 'react'
+import { Locale } from '@/i18n/config'
+import { prisma } from '@/lib/prisma'
+import { CategorySchema } from '@/schemas/category'
+import { Category } from '@/interfaces/attraction-product'
+
+export async function createCategory(input: CategorySchema) {
+  const created = await prisma.category.create({
+    data: input,
+  })
+
+  return created
+}
+
+export async function updateCategory(id: string, input: CategorySchema) {
+  const attractionProduct = await prisma.category.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  })
+
+  const updated = await prisma.category.update({
+    where: {
+      id: attractionProduct.id,
+    },
+    data: input,
+  })
+
+  return updated
+}
+
+export async function deleteCategory(id: string) {
+  const attractionProduct = await prisma.attractionProduct.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  })
+
+  const deleted = await prisma.attractionProduct.delete({
+    where: {
+      id: attractionProduct.id,
+    },
+  })
+
+  return deleted
+}
+
+export const getCategoriesPagination = cache(
+  async (locale: Locale, search: string, limit: number, offset: number) => {
+    const [categories, total] = await Promise.all([
+      prisma.category.findMany({
+        where: {
+          title: {
+            path: [locale],
+            string_contains: search,
+            mode: 'insensitive',
+          },
+        },
+        take: limit,
+        skip: offset,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: {
+          attractionProducts: true,
+        },
+      }),
+      prisma.category.count(),
+    ])
+
+    const categoriesTranslate = categories.map<Category>((category) => {
+      return {
+        ...category,
+        title: category.title[locale],
+        productAttractionQuantity: category.attractionProducts.length,
+      }
+    })
+
+    return {
+      data: categoriesTranslate,
+      total,
+    }
+  },
+)
+
+export const getCategory = cache(async (id: string) => {
+  const category = await prisma.category.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  })
+
+  return category
+})
