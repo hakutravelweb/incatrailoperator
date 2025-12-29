@@ -1,5 +1,5 @@
 'use client'
-import { PropsWithChildren, useTransition } from 'react'
+import { useTransition, PropsWithChildren } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import {
   useForm,
@@ -13,11 +13,11 @@ import { cn, generateTimes } from '@/lib/utils'
 import {
   ItinerarySchema,
   RouteSchema,
+  WaypointSchema,
   itineraryResolver,
   itineraryDefaultValues,
   routeDefaultValues,
   waypointDefaultValues,
-  WaypointSchema,
 } from '@/schemas/attraction-product'
 import {
   getAttractionProduct,
@@ -27,8 +27,8 @@ import {
   deleteWaypoint,
 } from '@/services/attraction-product'
 import { useDisclosure } from '@/hooks/use-disclosure'
-import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
+import { Button } from '@/components/ui/button'
 import { InputTranslate } from '@/components/ui/input-translate'
 import { TextareaTranslate } from '@/components/ui/textarea-translate'
 import { Select } from '@/components/ui/select'
@@ -36,26 +36,29 @@ import { Dropdown } from '@/components/ui/dropdown'
 import { confirmation } from '@/components/ui/confirmation'
 
 interface Props {
-  attractionId: string
+  attractionProductId: string
   onClose: () => void
 }
 
-export function AttractionProductItinerary({ attractionId, onClose }: Props) {
+export function AttractionProductItinerary({
+  attractionProductId,
+  onClose,
+}: Props) {
   const locale = useLocale()
   const t = useTranslations('Dashboard')
   const getDefaultValues = async (): Promise<ItinerarySchema> => {
-    const attractionProduct = await getAttractionProduct(attractionId)
-    const itinerary = await getItinerary(attractionId)
+    const attractionProduct = await getAttractionProduct(attractionProductId)
+    const itinerary = await getItinerary(attractionProductId)
     if (itinerary.length === 0) {
-      itineraryDefaultValues.routes[0].attractionProductId = attractionId
+      itineraryDefaultValues.routes[0].attractionProductId = attractionProductId
       return {
         ...itineraryDefaultValues,
         title: attractionProduct.title,
       }
     }
 
-    const routes = itinerary.map((route) => {
-      const waypoints = route.waypoints.map((waypoint) => {
+    const routes = itinerary.map<RouteSchema>((route) => {
+      const waypoints = route.waypoints.map<WaypointSchema>((waypoint) => {
         return {
           waypointId: waypoint.id,
           time: waypoint.time,
@@ -89,6 +92,13 @@ export function AttractionProductItinerary({ attractionId, onClose }: Props) {
     control: form.control,
     name: 'routes',
   })
+
+  const handleAdd = () => {
+    routes.append({
+      ...routeDefaultValues,
+      attractionProductId,
+    })
+  }
 
   const handleChange = async (data: ItinerarySchema) => {
     try {
@@ -159,15 +169,7 @@ export function AttractionProductItinerary({ attractionId, onClose }: Props) {
             )
           })}
         </div>
-        <Button
-          variant='action'
-          onClick={() => {
-            routes.append({
-              ...routeDefaultValues,
-              attractionProductId: attractionId,
-            })
-          }}
-        >
+        <Button variant='action' onClick={handleAdd}>
           {t('attraction.itinerary.add-route-label')}
         </Button>
       </div>
@@ -284,11 +286,11 @@ function Waypoint({
               onClick={waypointInfo.onToggle}
               className='bg-anti-flash-white active:bg-chinese-white flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-100'
             >
-              <Icons.Down
-                className={cn('size-5', {
-                  'rotate-180': waypointInfo.isOpen,
-                })}
-              />
+              {waypointInfo.isOpen ? (
+                <Icons.Up className='size-5' />
+              ) : (
+                <Icons.Down className='size-5' />
+              )}
             </button>
             <div className='rounded-sm border border-dashed border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
               {t('attraction.itinerary.point-number', {
@@ -434,11 +436,11 @@ function Route({
               onClick={routeInfo.onToggle}
               className='active:bg-dav-ys-grey hover:bg-dark-charcoal flex size-8 cursor-pointer items-center justify-center rounded-full bg-black text-white transition-colors duration-100 active:text-white/50'
             >
-              <Icons.Down
-                className={cn('size-5', {
-                  'rotate-180': routeInfo.isOpen,
-                })}
-              />
+              {routeInfo.isOpen ? (
+                <Icons.Up className='size-5' />
+              ) : (
+                <Icons.Down className='size-5' />
+              )}
             </button>
             <div className='bg-anti-flash-white border-chinese-white rounded-sm border px-2 py-1 text-xs leading-4 font-bold uppercase'>
               {t('attraction.itinerary.route-number', {

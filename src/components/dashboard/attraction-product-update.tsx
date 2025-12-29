@@ -26,13 +26,13 @@ import { UploadPhotos } from '@/components/ui/upload-photos'
 import { SelectInputDuration } from '@/components/ui/select-input-duration'
 
 interface Props {
-  attractionId: string
+  attractionProductId: string
   onClose: () => void
   onRefresh: () => void
 }
 
 export function AttractionProductUpdate({
-  attractionId,
+  attractionProductId,
   onClose,
   onRefresh,
 }: Props) {
@@ -42,7 +42,7 @@ export function AttractionProductUpdate({
     mode: 'onChange',
     resolver: attractionProductResolver,
     defaultValues: async (): Promise<AttractionProductSchema> => {
-      const attractionProduct = await getAttractionProduct(attractionId)
+      const attractionProduct = await getAttractionProduct(attractionProductId)
 
       return {
         variant: attractionProduct.variant,
@@ -93,7 +93,7 @@ export function AttractionProductUpdate({
 
   const handleUpdate = async (data: AttractionProductSchema) => {
     try {
-      const { title } = await updateAttractionProduct(attractionId, data)
+      const { title } = await updateAttractionProduct(attractionProductId, data)
       toast.success(
         t('attraction.updated-message', {
           title: title[locale],
