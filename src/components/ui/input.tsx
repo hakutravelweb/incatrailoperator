@@ -1,3 +1,4 @@
+'use client'
 import { useState, ChangeEvent } from 'react'
 import { RefCallBack } from 'react-hook-form'
 import { Icons } from '@/icons/icon'

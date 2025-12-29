@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function InputTranslate({ ref, label, value, onChange, errors }: Props) {
-  const handleChange = (locale: Locale, text: string) => {
+  const handleChange = (locale: Locale) => (text: string) => {
     onChange({
       ...value,
       [locale]: text,
@@ -35,7 +35,7 @@ export function InputTranslate({ ref, label, value, onChange, errors }: Props) {
               ref={ref}
               label={locale}
               value={value[locale]}
-              onChange={(value) => handleChange(locale, value)}
+              onChange={handleChange(locale)}
               invalid={!!errors?.[locale]?.message}
               translate
             />

@@ -1,3 +1,4 @@
+'use client'
 import { PropsWithChildren } from 'react'
 import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
