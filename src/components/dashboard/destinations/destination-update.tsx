@@ -23,7 +23,7 @@ export function DestinationUpdate({
   const locale = useLocale()
   const t = useTranslations('Dashboard')
   const form = useForm<DestinationSchema>({
-    mode: 'onChange',
+    mode: 'all',
     resolver: destinationResolver,
     defaultValues: async (): Promise<DestinationSchema> => {
       const destination = await getDestination(destinationId)

@@ -170,7 +170,7 @@
     "or": "o",
     "select-from-your-computer": "Seleccione desde su computadora",
     "supported-formats": "(formatos admitidos: PNG, JPEG, JPG, GIF, WEBP, SVG)",
-    "deleted-message": "Se elijieron {number} fotos para ser eliminadas"
+    "deleted-message": "{number, plural, =0 {Se elijieron # fotos para ser eliminadas} =1 {Se elijio # foto para ser eliminada} other {Se elijieron # fotos para ser eliminadas}}"
   },
   "Home": {
     "title": "Inca Trail Operator: Viajes, actividades y cosas que hacer",

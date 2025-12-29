@@ -14,3 +14,8 @@ export interface TranslateMultiple {
   es: string[]
   en: string[]
 }
+
+export interface Navigation {
+  id: string
+  title: string
+}

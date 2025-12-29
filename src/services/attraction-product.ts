@@ -18,6 +18,7 @@ export async function createAttractionProduct(input: AttractionProductSchema) {
   const {
     photos,
     previewPhotos,
+    deletedPhotos,
     attractionMap,
     previewAttractionMap,
     attractionPdf,
@@ -35,6 +36,7 @@ export async function createAttractionProduct(input: AttractionProductSchema) {
     newAttractionMap = await storageSave({
       file: attractionMap!,
       folder: 'attraction-products',
+      subfolder: 'attraction-maps',
     })
   }
 
@@ -43,6 +45,7 @@ export async function createAttractionProduct(input: AttractionProductSchema) {
     newAttractionPdf = await storageSave({
       file: attractionPdf!,
       folder: 'attraction-products',
+      subfolder: 'attraction-pdfs',
     })
   }
 
@@ -94,14 +97,14 @@ export async function updateAttractionProduct(
     )
   }
 
-  if (attractionMap) {
+  if (attractionMap && attractionProduct.attractionMap) {
     attractionProduct.attractionMap = await storageUpdate({
       file: attractionMap,
       oldFileName: attractionProduct.attractionMap,
     })
   }
 
-  if (attractionPdf) {
+  if (attractionPdf && attractionProduct.attractionPdf) {
     attractionProduct.attractionPdf = await storageUpdate({
       file: attractionPdf,
       oldFileName: attractionProduct.attractionPdf,

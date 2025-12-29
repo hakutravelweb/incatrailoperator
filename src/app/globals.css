@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
 @theme {
   --font-aeonik: 'GtEestiProDisplay';
@@ -23,7 +23,7 @@
 
   --bg-gradient-shadow: linear-gradient(180deg, #0000 0, #0009 80%, #0009 100%);
 
-  --grid-cols-photos: repeat(
+  --grid-cols-auto-fill: repeat(
     auto-fill,
     minmax(max(134px, (100% - (4 - 1) * 8px)/4), 1fr)
   );

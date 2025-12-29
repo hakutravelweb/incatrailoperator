@@ -24,6 +24,7 @@ import { InputNumber } from '@/components/ui/input-number'
 import { UploadPhoto } from '@/components/ui/upload-photo'
 import { UploadPhotos } from '@/components/ui/upload-photos'
 import { SelectInputDuration } from '@/components/ui/select-input-duration'
+import { EditorTranslate } from '@/components/ui/editor-translate'
 
 interface Props {
   attractionProductId: string
@@ -39,7 +40,7 @@ export function AttractionProductUpdate({
   const locale = useLocale()
   const t = useTranslations('Dashboard')
   const form = useForm<AttractionProductSchema>({
-    mode: 'onChange',
+    mode: 'all',
     resolver: attractionProductResolver,
     defaultValues: async (): Promise<AttractionProductSchema> => {
       const attractionProduct = await getAttractionProduct(attractionProductId)
@@ -73,15 +74,14 @@ export function AttractionProductUpdate({
         previewAttractionMap: attractionProduct.attractionMap,
         attractionVideo: attractionProduct.attractionVideo,
         attractionPdf: null,
-        previewAttractionPdf: '',
+        previewAttractionPdf: attractionProduct.attractionPdf,
         retailPrice: attractionProduct.retailPrice,
         specialPrice: attractionProduct.specialPrice,
-        categoryId: '',
-        destinationId: '',
+        categoryId: attractionProduct.categoryId,
+        destinationId: attractionProduct.destinationId,
       }
     },
   })
-  const state = form.watch()
   const { isDirty, isValid } = form.formState
 
   const categories = useCategories()
@@ -207,8 +207,9 @@ export function AttractionProductUpdate({
               value={field.value}
               onChange={field.onChange}
               invalid={fieldState.invalid}
+              previewPhotos={form.watch('previewPhotos')}
               onDeletePhotos={handleDeletePhotos}
-              deletedPhotos={state.deletedPhotos}
+              deletedPhotos={form.watch('deletedPhotos')}
             />
           )}
         />
@@ -324,7 +325,7 @@ export function AttractionProductUpdate({
           control={form.control}
           name='detailedDescription'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <EditorTranslate
               ref={field.ref}
               label={t('attraction.form-field.detailed-description')}
               value={field.value}
@@ -337,7 +338,7 @@ export function AttractionProductUpdate({
           control={form.control}
           name='importantNote'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <EditorTranslate
               ref={field.ref}
               label={t('attraction.form-field.important-note')}
               value={field.value}

@@ -2,8 +2,8 @@
 import { useState, ChangeEvent } from 'react'
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
+import { CategoryView } from '@/interfaces/attraction-product'
 import { useCategoriesPagination } from '@/hooks/use-categories-pagination'
-import { useDisclosure } from '@/hooks/use-disclosure'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { CategoryItem } from './category-item'
@@ -12,35 +12,36 @@ import { CategoryUpdate } from './category-update'
 
 export function Categories() {
   const t = useTranslations('Dashboard')
-  const categoryCreate = useDisclosure()
-  const categoryUpdate = useDisclosure()
   const categories = useCategoriesPagination()
   const [categoryId, setCategoryId] = useState<string>('')
+  const [categoryView, setCategoryView] = useState<CategoryView>('CATEGORIES')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text: string = event.target.value
     categories.onSearch(text)
   }
 
-  const handleEdit = (id: string) => {
-    setCategoryId(id)
-    categoryUpdate.onOpen()
+  const handleChangeView = (view: CategoryView) => (id?: string) => {
+    if (id) {
+      setCategoryId(id)
+    }
+    setCategoryView(view)
   }
 
-  if (categoryUpdate.isOpen) {
+  if (categoryView === 'EDIT') {
     return (
       <CategoryUpdate
         categoryId={categoryId}
-        onClose={categoryUpdate.onClose}
+        onClose={handleChangeView('CATEGORIES')}
         onRefresh={categories.onRefresh}
       />
     )
   }
 
-  if (categoryCreate.isOpen) {
+  if (categoryView === 'CREATE') {
     return (
       <CategoryCreate
-        onClose={categoryCreate.onClose}
+        onClose={handleChangeView('CATEGORIES')}
         onRefresh={categories.onRefresh}
       />
     )
@@ -61,7 +62,11 @@ export function Categories() {
             placeholder={t('category.search-placeholder')}
           />
         </div>
-        <Button variant='action' icon='Plus' onClick={categoryCreate.onOpen}>
+        <Button
+          variant='action'
+          icon='Plus'
+          onClick={handleChangeView('CREATE')}
+        >
           {t('category.add-label')}
         </Button>
       </div>
@@ -83,7 +88,7 @@ export function Categories() {
             <CategoryItem
               key={category.id}
               category={category}
-              onEdit={handleEdit}
+              onEdit={handleChangeView('EDIT')}
               onRefresh={categories.onRefresh}
             />
           )

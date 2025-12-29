@@ -168,7 +168,8 @@
     "title-plural": "Drag and drop the photos at any time",
     "or": "or",
     "select-from-your-computer": "Select from your computer",
-    "supported-formats": "(supported formats: PNG, JPEG, JPG, GIF, WEBP, SVG)"
+    "supported-formats": "(supported formats: PNG, JPEG, JPG, GIF, WEBP, SVG)",
+    "deleted-message": "{number, plural, =0 {# photos were chosen to be deleted} =1 {Photo # was chosen to be deleted} other {# photos were chosen to be deleted}}"
   },
   "Home": {
     "title": "Inca Trail Operator: Travel Tours, Activities, and Things to Do",

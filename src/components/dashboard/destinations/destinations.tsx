@@ -2,8 +2,8 @@
 import { useState, ChangeEvent } from 'react'
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
+import { DestinationView } from '@/interfaces/attraction-product'
 import { useDestinationsPagination } from '@/hooks/use-destinations-pagination'
-import { useDisclosure } from '@/hooks/use-disclosure'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { DestinationItem } from './destination-item'
@@ -12,35 +12,37 @@ import { DestinationUpdate } from './destination-update'
 
 export function Destinations() {
   const t = useTranslations('Dashboard')
-  const destinationCreate = useDisclosure()
-  const destinationUpdate = useDisclosure()
   const destinations = useDestinationsPagination()
   const [destinationId, setDestinationId] = useState<string>('')
+  const [destinationView, setDestinationView] =
+    useState<DestinationView>('DESTINATIONS')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text: string = event.target.value
     destinations.onSearch(text)
   }
 
-  const handleEdit = (id: string) => {
-    setDestinationId(id)
-    destinationUpdate.onOpen()
+  const handleChangeView = (view: DestinationView) => (id?: string) => {
+    if (id) {
+      setDestinationId(id)
+    }
+    setDestinationView(view)
   }
 
-  if (destinationUpdate.isOpen) {
+  if (destinationView === 'EDIT') {
     return (
       <DestinationUpdate
         destinationId={destinationId}
-        onClose={destinationUpdate.onClose}
+        onClose={handleChangeView('DESTINATIONS')}
         onRefresh={destinations.onRefresh}
       />
     )
   }
 
-  if (destinationCreate.isOpen) {
+  if (destinationView === 'CREATE') {
     return (
       <DestinationCreate
-        onClose={destinationCreate.onClose}
+        onClose={handleChangeView('DESTINATIONS')}
         onRefresh={destinations.onRefresh}
       />
     )
@@ -61,7 +63,11 @@ export function Destinations() {
             placeholder={t('destination.search-placeholder')}
           />
         </div>
-        <Button variant='action' icon='Plus' onClick={destinationCreate.onOpen}>
+        <Button
+          variant='action'
+          icon='Plus'
+          onClick={handleChangeView('CREATE')}
+        >
           {t('destination.add-label')}
         </Button>
       </div>
@@ -83,7 +89,7 @@ export function Destinations() {
             <DestinationItem
               key={destination.id}
               destination={destination}
-              onEdit={handleEdit}
+              onEdit={handleChangeView('EDIT')}
               onRefresh={destinations.onRefresh}
             />
           )

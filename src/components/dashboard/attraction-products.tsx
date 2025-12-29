@@ -2,8 +2,8 @@
 import { useState, ChangeEvent } from 'react'
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
+import { AttractionView } from '@/interfaces/attraction-product'
 import { useAttractionProductsPagination } from '@/hooks/use-attraction-products-pagination'
-import { useDisclosure } from '@/hooks/use-disclosure'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { AttractionProductItem } from './attraction-product-item'
@@ -14,65 +14,55 @@ import { AttractionProductAskedQuestions } from './attraction-product-asked-ques
 
 export function AttractionProducts() {
   const t = useTranslations('Dashboard')
-  const attractionProductCreate = useDisclosure()
-  const attractionProductUpdate = useDisclosure()
-  const attractionProductItinerary = useDisclosure()
-  const attractionProductAskedQuestions = useDisclosure()
   const attractionProducts = useAttractionProductsPagination()
   const [attractionProductId, setAttractionProductId] = useState<string>('')
+  const [attractionView, setAttractionView] =
+    useState<AttractionView>('ATTRACTIONS')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text: string = event.target.value
     attractionProducts.onSearch(text)
   }
 
-  const handleEdit = (id: string) => {
-    setAttractionProductId(id)
-    attractionProductUpdate.onOpen()
+  const handleChangeView = (view: AttractionView) => (id?: string) => {
+    if (id) {
+      setAttractionProductId(id)
+    }
+    setAttractionView(view)
   }
 
-  const handleItinerary = (id: string) => {
-    setAttractionProductId(id)
-    attractionProductItinerary.onOpen()
-  }
-
-  const handleAskedQuestions = (id: string) => {
-    setAttractionProductId(id)
-    attractionProductAskedQuestions.onOpen()
-  }
-
-  if (attractionProductAskedQuestions.isOpen) {
+  if (attractionView === 'FAQ') {
     return (
       <AttractionProductAskedQuestions
         attractionProductId={attractionProductId}
-        onClose={attractionProductItinerary.onClose}
+        onClose={handleChangeView('ATTRACTIONS')}
       />
     )
   }
 
-  if (attractionProductItinerary.isOpen) {
+  if (attractionView === 'ITINERARY') {
     return (
       <AttractionProductItinerary
         attractionProductId={attractionProductId}
-        onClose={attractionProductItinerary.onClose}
+        onClose={handleChangeView('ATTRACTIONS')}
       />
     )
   }
 
-  if (attractionProductUpdate.isOpen) {
+  if (attractionView === 'EDIT') {
     return (
       <AttractionProductUpdate
         attractionProductId={attractionProductId}
-        onClose={attractionProductUpdate.onClose}
+        onClose={handleChangeView('ATTRACTIONS')}
         onRefresh={attractionProducts.onRefresh}
       />
     )
   }
 
-  if (attractionProductCreate.isOpen) {
+  if (attractionView === 'CREATE') {
     return (
       <AttractionProductCreate
-        onClose={attractionProductCreate.onClose}
+        onClose={handleChangeView('ATTRACTIONS')}
         onRefresh={attractionProducts.onRefresh}
       />
     )
@@ -96,7 +86,7 @@ export function AttractionProducts() {
         <Button
           variant='action'
           icon='Plus'
-          onClick={attractionProductCreate.onOpen}
+          onClick={handleChangeView('CREATE')}
         >
           {t('attraction.add-label')}
         </Button>
@@ -120,9 +110,9 @@ export function AttractionProducts() {
             <AttractionProductItem
               key={attractionProduct.id}
               attractionProduct={attractionProduct}
-              onEdit={handleEdit}
-              onItinerary={handleItinerary}
-              onAskedQuestions={handleAskedQuestions}
+              onEdit={handleChangeView('EDIT')}
+              onItinerary={handleChangeView('ITINERARY')}
+              onAskedQuestions={handleChangeView('FAQ')}
               onRefresh={attractionProducts.onRefresh}
             />
           )
