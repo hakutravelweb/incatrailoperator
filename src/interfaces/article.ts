@@ -1,4 +1,4 @@
-import { Localization, Navigation } from './root'
+import { Localization } from './root'
 import { User } from './user'
 import { Category } from './attraction-product'
 
@@ -9,7 +9,6 @@ export interface Article {
   title: string
   introduction: string
   labels: string[]
-  navigation: Navigation[]
   content: string
   author: User
   category: Category

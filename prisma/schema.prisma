@@ -178,8 +178,6 @@ model Article {
   introduction Json
   /// [TranslateMultiple]
   labels       Json
-  /// [Navigation]
-  navigation   Json[]
   /// [Translate]
   content      Json
   authorId     String

@@ -1,12 +1,14 @@
-import { PropsWithChildren, Suspense } from 'react'
-import { getLocale, getTranslations } from 'next-intl/server'
+'use client'
+import { PropsWithChildren } from 'react'
+import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { Link } from '@/i18n/routing'
-import { getPopularAttractionProducts } from '@/services/attraction-product'
+import { useAttractionProducts } from '@/hooks/use-attraction-products'
 import { Section } from './section'
 
-export async function Footer() {
-  const t = await getTranslations('Footer')
+export function Footer() {
+  const t = useTranslations('Footer')
+  const attractionProducts = useAttractionProducts()
 
   return (
     <footer className='bg-anti-flash-white flex flex-col gap-6 py-10'>
@@ -37,7 +39,7 @@ export async function Footer() {
                   Av. Ayahuayco N-3, Cusco, Perú
                 </InfoSection>
                 <InfoSection label={t('contact.email')}>
-                  info@incatrailoperator.com
+                  info@inkajungle.com
                 </InfoSection>
                 <InfoSection label={t('contact.phone')}>
                   +51 984 259 412
@@ -67,13 +69,19 @@ export async function Footer() {
               <strong className='text-base leading-5'>
                 {t('popularts-attractions.title')}
               </strong>
-              <Suspense
-                fallback={
-                  <div className='bg-chinese-white h-10 w-full animate-pulse' />
-                }
-              >
-                <PopularAttractionProducts />
-              </Suspense>
+              {attractionProducts.loading && (
+                <div className='bg-chinese-white h-10 w-full animate-pulse' />
+              )}
+              <div className='flex flex-col gap-2'>
+                {attractionProducts.data.map((attractionProduct) => (
+                  <FooterLink
+                    key={attractionProduct.id}
+                    href={`/attraction-product/${attractionProduct.slug}`}
+                  >
+                    {attractionProduct.title}
+                  </FooterLink>
+                ))}
+              </div>
             </div>
             <div className='flex flex-col gap-4'>
               <strong className='text-base leading-5'>
@@ -170,23 +178,5 @@ function SocialIconLink({ href, icon }: SocialIconLinkProps) {
     >
       <Icon className='size-5' />
     </Link>
-  )
-}
-
-async function PopularAttractionProducts() {
-  const locale = await getLocale()
-  const popularAttractionProducts = await getPopularAttractionProducts(locale)
-
-  return (
-    <div className='flex flex-col gap-2'>
-      {popularAttractionProducts.map((popularAttractionProduct) => (
-        <FooterLink
-          key={popularAttractionProduct.id}
-          href={`/attraction-product/${popularAttractionProduct.slug}`}
-        >
-          {popularAttractionProduct.title}
-        </FooterLink>
-      ))}
-    </div>
   )
 }

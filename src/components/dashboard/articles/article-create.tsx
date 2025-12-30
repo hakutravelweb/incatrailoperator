@@ -7,7 +7,6 @@ import {
   articleResolver,
   articleDefaultValues,
 } from '@/schemas/article'
-import { Navigation } from '@/interfaces/root'
 import { auth } from '@/services/user'
 import { createArticle } from '@/services/article'
 import { useCategories } from '@/hooks/use-categories'
@@ -35,10 +34,6 @@ export function ArticleCreate({ onClose, onRefresh }: Props) {
   })
 
   const categories = useCategories()
-
-  const handleNavigation = (navigation: Navigation[]) => {
-    form.setValue('navigation', navigation)
-  }
 
   const handleCreate = async (data: ArticleSchema) => {
     try {
@@ -155,8 +150,6 @@ export function ArticleCreate({ onClose, onRefresh }: Props) {
               label={t('article.form-field.content')}
               value={field.value}
               onChange={field.onChange}
-              onNavigation={handleNavigation}
-              enabledNavigation
               errors={formState.errors[field.name]}
             />
           )}
