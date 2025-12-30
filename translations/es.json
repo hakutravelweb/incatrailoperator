@@ -183,7 +183,6 @@
       "search-placeholder": "Buscar...",
       "add-label": "Agregar articulo",
       "empty-message": "No se encontraron articulos",
-      "quantity": "{number, plural, =0 {# articulos} =1 {# articulo} other {# articulos}}",
       "new-label": "Articulo nuevo",
       "create-label": "Crear articulo",
       "created-message": "El articulo {title} fue creado",
@@ -199,6 +198,36 @@
         "content": "Contenido",
         "category": "Categoria",
         "select-category": "Elije una categoria"
+      }
+    },
+    "home": {
+      "title": "Inicios",
+      "search-placeholder": "Buscar...",
+      "add-label": "Agregar inicio",
+      "empty-message": "No se encontraron inicios",
+      "new-label": "Inicio nuevo",
+      "create-label": "Crear inicio",
+      "created-message": "El inicio {title} fue creado",
+      "deleted-message": "El inicio {title} fue eliminado",
+      "update-label": "Actualizar inicio",
+      "updated-message": "El inicio {title} fue actualizado",
+      "form-field": {
+        "locale": "Idioma",
+        "select-locale": "Elije un idioma",
+        "photo": "Foto",
+        "title": "Titulo",
+        "subtitle": "Subtitulo",
+        "link": {
+          "title": "Enlace",
+          "href": "Url",
+          "label": "Etiqueta"
+        },
+        "terms-and-conditions": "Términos y condiciones",
+        "privacy-policy": "Política de privacidad"
+      },
+      "language": {
+        "es": "Español",
+        "en": "Ingles"
       }
     },
     "input-list": {
