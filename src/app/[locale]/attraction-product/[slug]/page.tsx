@@ -64,7 +64,7 @@ export default async function AttractionProduct({ params }: Props) {
         <Section>
           <div className='flex flex-col gap-4'>
             <div className='flex flex-col items-start gap-2'>
-              <div className='border-chinese-white bg-anti-flash-white rounded-md border-2 px-2 py-1 text-sm leading-4.5 font-bold uppercase'>
+              <div className='rounded-sm border border-black px-2 py-1 text-sm leading-4.5 font-medium uppercase'>
                 {t(`variant.${attractionProduct.variant}`)}
               </div>
               <strong className='text-2xl leading-7.25 font-extrabold md:text-[28px] md:leading-8.5'>
@@ -218,10 +218,12 @@ export default async function AttractionProduct({ params }: Props) {
               </div>
               <hr className='border-chinese-white border-t' />
               <SectionList
+                variant='includes'
                 title={t('includes')}
                 list={attractionProduct.includes}
               />
               <SectionList
+                variant='not-included'
                 title={t('not-included')}
                 list={attractionProduct.notIncluded}
               />

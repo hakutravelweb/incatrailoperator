@@ -15,6 +15,13 @@ export async function Packages() {
           {t('description')}
         </span>
       </div>
+      {attractionProducts.length === 0 && (
+        <div className='flex justify-center py-4'>
+          <span className='text-dav-ys-grey text-sm leading-4.5'>
+            {t('empty-message')}
+          </span>
+        </div>
+      )}
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
         {attractionProducts.map((attractionProduct) => {
           return (

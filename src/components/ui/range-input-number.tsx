@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState, ChangeEvent } from 'react'
+import { Icons } from '@/icons/icon'
 import { RangePrice } from '@/interfaces/attraction-product'
 
 interface Props {
@@ -49,19 +50,20 @@ export function RangeInputNumber({ prefix, value, onChange }: Props) {
 
   return (
     <div className='border-chinese-white flex gap-2 rounded-lg border-2 bg-white p-2 focus-within:border-black'>
-      <span className='translate-x-0.5 -translate-y-px text-base leading-4.75 font-bold'>
+      <span className='translate-x-0.5 translate-y-px text-base leading-4.75 font-bold'>
         {prefix}
       </span>
-      <div className='grid grid-cols-2 gap-4'>
+      <div className='grid grid-cols-[1fr_auto_1fr] gap-4'>
         <input
-          className='text-center text-base leading-4.75 font-bold outline-hidden'
+          className='w-full text-base leading-4.75 font-bold outline-hidden'
           type='text'
           value={fromPrice}
           onChange={handleChangeFrom}
           placeholder='0'
         />
+        <Icons.Range className='text-gray-x11 size-6' />
         <input
-          className='text-center text-base leading-4.75 font-bold outline-hidden'
+          className='w-full text-base leading-4.75 font-bold outline-hidden'
           type='text'
           value={toPrice}
           onChange={handleChangeTo}

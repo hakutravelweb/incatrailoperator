@@ -99,7 +99,7 @@ export function AttractionProductDestination({ destination }: Props) {
             <div className='flex flex-col gap-4'>
               <strong className='text-lg leading-6'>{t('price')}</strong>
               <RangeInputNumber
-                prefix='USD'
+                prefix='$'
                 value={attractionProducts.rangePrice}
                 onChange={attractionProducts.onRangePrice}
               />
