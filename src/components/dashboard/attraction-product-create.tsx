@@ -423,6 +423,19 @@ export function AttractionProductCreate({ onClose, onRefresh }: Props) {
             />
           )}
         />
+        <Controller
+          control={form.control}
+          name='codeWetravel'
+          render={({ field, formState }) => (
+            <InputTranslate
+              ref={field.ref}
+              label={t('attraction.form-field.code-wetravel')}
+              value={field.value}
+              onChange={field.onChange}
+              errors={formState.errors[field.name]}
+            />
+          )}
+        />
         <div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
           <Controller
             control={form.control}

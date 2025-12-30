@@ -25,6 +25,7 @@ export interface AttractionProduct {
   attractionMap: string
   attractionVideo: string
   attractionPdf: string
+  codeWetravel: string
   retailPrice: number
   specialPrice: number
   category?: string
@@ -62,6 +63,7 @@ export interface Category {
 
 export interface Destination {
   id: string
+  slug: string
   title: string
   department: string
   about: string

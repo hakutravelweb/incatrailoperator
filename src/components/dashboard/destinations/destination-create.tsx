@@ -66,6 +66,19 @@ export function DestinationCreate({ onClose, onRefresh }: Props) {
       <div className='flex max-w-2xl flex-col gap-4'>
         <Controller
           control={form.control}
+          name='slug'
+          render={({ field, formState }) => (
+            <InputTranslate
+              ref={field.ref}
+              label={t('destination.form-field.slug')}
+              value={field.value}
+              onChange={field.onChange}
+              errors={formState.errors[field.name]}
+            />
+          )}
+        />
+        <Controller
+          control={form.control}
           name='title'
           render={({ field, formState }) => (
             <InputTranslate

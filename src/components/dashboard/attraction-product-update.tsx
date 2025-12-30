@@ -76,6 +76,7 @@ export function AttractionProductUpdate({
         attractionVideo: attractionProduct.attractionVideo,
         attractionPdf: null,
         previewAttractionPdf: attractionProduct.attractionPdf,
+        codeWetravel: attractionProduct.codeWetravel,
         retailPrice: attractionProduct.retailPrice,
         specialPrice: attractionProduct.specialPrice,
         categoryId: attractionProduct.categoryId,
@@ -483,6 +484,19 @@ export function AttractionProductUpdate({
               onChange={field.onChange}
               invalid={fieldState.invalid}
               previewPdf={form.watch('previewAttractionPdf')}
+            />
+          )}
+        />
+        <Controller
+          control={form.control}
+          name='codeWetravel'
+          render={({ field, formState }) => (
+            <InputTranslate
+              ref={field.ref}
+              label={t('attraction.form-field.code-wetravel')}
+              value={field.value}
+              onChange={field.onChange}
+              errors={formState.errors[field.name]}
             />
           )}
         />

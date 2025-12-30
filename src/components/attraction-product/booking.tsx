@@ -70,7 +70,9 @@ export function Booking({ attractionProduct }: Props) {
         </span>
       )}
       <div className='flex flex-col gap-2'>
-        <PaymentButton codWetravel='' />
+        {attractionProduct.codeWetravel && (
+          <PaymentButton codWetravel={attractionProduct.codeWetravel} />
+        )}
         {attractionProduct.attractionPdf && (
           <Link
             className='hover:bg-dark-charcoal active:bg-dav-ys-grey rounded-full bg-black px-4 py-3.5 text-center text-base leading-5 font-bold text-white transition-colors duration-100 active:text-white/50'

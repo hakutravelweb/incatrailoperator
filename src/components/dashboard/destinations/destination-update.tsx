@@ -29,6 +29,7 @@ export function DestinationUpdate({
       const destination = await getDestination(destinationId)
 
       return {
+        slug: destination.slug,
         title: destination.title,
         department: destination.department,
         about: destination.about,
@@ -82,6 +83,19 @@ export function DestinationUpdate({
         </Button>
       </div>
       <div className='flex max-w-2xl flex-col gap-4'>
+        <Controller
+          control={form.control}
+          name='slug'
+          render={({ field, formState }) => (
+            <InputTranslate
+              ref={field.ref}
+              label={t('destination.form-field.slug')}
+              value={field.value}
+              onChange={field.onChange}
+              errors={formState.errors[field.name]}
+            />
+          )}
+        />
         <Controller
           control={form.control}
           name='title'

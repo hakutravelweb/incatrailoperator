@@ -64,6 +64,10 @@ const attractionProductSchema = z
     previewAttractionMap: z.string(),
     attractionVideo: z.string(),
     attractionPdf: z.file().nullable(),
+    codeWetravel: translateSchema.extend({
+      es: z.string(),
+      en: z.string(),
+    }),
     previewAttractionPdf: z.string(),
     retailPrice: z.number().min(1),
     specialPrice: z.number().min(1),
@@ -123,6 +127,7 @@ export const attractionProductDefaultValues: AttractionProductSchema = {
   attractionVideo: '',
   attractionPdf: null,
   previewAttractionPdf: '',
+  codeWetravel: translateDefaultValues,
   retailPrice: 0,
   specialPrice: 0,
   categoryId: '',
