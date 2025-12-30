@@ -1,5 +1,5 @@
 'use client'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { useDropzone } from 'react-dropzone'
 import { RefCallBack } from 'react-hook-form'
