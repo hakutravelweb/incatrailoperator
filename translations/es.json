@@ -226,5 +226,13 @@
     "free-cancellation": "Cancelación gratuita hasta {duration} antes",
     "you-save": "Ahorras {amount}",
     "you-save-percent": "-{percentage}% de descuento"
+  },
+  "DestinationsPerDepartment": {
+    "title": "Destinos por departamento"
+  },
+  "DestinationCard": {
+    "travellers-number": "{number, plural, =0 {# viajeros} =1 {# viajero} other {# viajeros}}",
+    "from-price": "Desde",
+    "see-tours": "Ver tours"
   }
 }

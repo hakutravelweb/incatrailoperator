@@ -18,7 +18,7 @@ export function Footer() {
             <img
               className='size-12 object-cover'
               src='/logos/logo.svg'
-              alt='Inka Jungle'
+              alt='Inca Trail Operator'
               loading='lazy'
             />
             <span className='text-dark-charcoal text-center text-sm leading-4.5'>
@@ -32,7 +32,7 @@ export function Footer() {
               </strong>
               <div className='flex flex-col gap-2'>
                 <InfoSection label={t('contact.company-name')}>
-                  Inka Jungle E.I.R.L.
+                  Inca Trail Operator E.I.R.L.
                 </InfoSection>
                 <InfoSection label={t('contact.ruc')}>20123456789</InfoSection>
                 <InfoSection label={t('contact.address')}>

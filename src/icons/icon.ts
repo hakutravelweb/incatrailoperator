@@ -36,6 +36,8 @@ import Facebook from './facebook.svg'
 import Instagram from './instagram.svg'
 import Twitter from './twitter.svg'
 import Youtube from './youtube.svg'
+import Location from './location.svg'
+import Persons from './persons.svg'
 
 export const Icons = {
   Language,
@@ -76,4 +78,6 @@ export const Icons = {
   Instagram,
   Twitter,
   Youtube,
+  Location,
+  Persons,
 }

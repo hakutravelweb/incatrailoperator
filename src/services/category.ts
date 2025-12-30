@@ -107,7 +107,6 @@ export const getCategories = cache(async (locale: Locale) => {
     return {
       ...category,
       title: category.title[locale],
-      productAttractionQuantity: 0,
     }
   })
 

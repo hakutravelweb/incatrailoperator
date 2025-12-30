@@ -39,7 +39,7 @@ export function AttractionProductCard({ attractionProduct }: Props) {
             {attractionProduct.title}
           </strong>
           <div className='flex gap-1'>
-            <Icons.Star className='text-blue-green size-4' />
+            <Icons.Star className='text-yellow-sea size-4' />
             <span className='text-dark-charcoal text-sm leading-4.5 font-medium'>
               {attractionProduct.rating?.toFixed(1) || '0.0'}
             </span>
@@ -66,7 +66,7 @@ export function AttractionProductCard({ attractionProduct }: Props) {
             {attractionProduct.category}
           </span>
         </div>
-        <span className='text-dav-ys-grey line-clamp-2 text-sm leading-4.5'>
+        <span className='text-dark-charcoal line-clamp-2 text-sm leading-4.5'>
           {attractionProduct.about}
         </span>
         {attractionProduct.labels.length > 0 && (
@@ -114,7 +114,7 @@ export function AttractionProductCard({ attractionProduct }: Props) {
             </span>
           )}
           {attractionProduct.specialPrice > 0 && (
-            <span className='bg-yellow-sea/20 text-dark-charcoal w-min rounded-md px-2 py-1 text-xs leading-4 font-medium'>
+            <span className='bg-ue-red/10 text-dark-charcoal w-min rounded-md px-2 py-1 text-xs leading-4 font-medium'>
               {t('you-save', {
                 amount: formatPrice(
                   locale,
