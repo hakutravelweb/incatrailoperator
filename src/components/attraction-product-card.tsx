@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { formatPrice, getFullMediaUrl } from '@/lib/utils'
+import { Link } from '@/i18n/routing'
 import { AttractionProduct } from '@/interfaces/attraction-product'
 
 interface Props {
@@ -12,7 +13,10 @@ export function AttractionProductCard({ attractionProduct }: Props) {
   const t = useTranslations('AttractionProductCard')
 
   return (
-    <div className='border-anti-flash-white rounded-xl border-2 bg-white'>
+    <Link
+      href={`/attraction-product/${attractionProduct.slug}`}
+      className='border-anti-flash-white rounded-xl border-2 bg-white'
+    >
       <div className='bg-anti-flash-white relative aspect-video overflow-hidden rounded-t-xl'>
         <img
           className='size-full object-cover'
@@ -41,10 +45,10 @@ export function AttractionProductCard({ attractionProduct }: Props) {
           <div className='flex gap-1'>
             <Icons.Star className='text-yellow-sea size-4' />
             <span className='text-dark-charcoal text-sm leading-4.5 font-medium'>
-              {attractionProduct.rating?.toFixed(1) || '0.0'}
+              {attractionProduct.rating?.toFixed(1)}
             </span>
             <span className='text-dav-ys-grey text-sm leading-4.5 font-medium'>
-              ({attractionProduct.reviewsCount || 0})
+              ({attractionProduct.reviewsCount})
             </span>
           </div>
         </div>
@@ -150,6 +154,6 @@ export function AttractionProductCard({ attractionProduct }: Props) {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
