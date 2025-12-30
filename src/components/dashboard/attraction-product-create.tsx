@@ -107,7 +107,7 @@ export function AttractionProductCreate({ onClose, onRefresh }: Props) {
           render={({ field, formState }) => (
             <InputTranslate
               ref={field.ref}
-              label={t('attraction.form-field.url')}
+              label={t('attraction.form-field.slug')}
               value={field.value}
               onChange={field.onChange}
               errors={formState.errors[field.name]}

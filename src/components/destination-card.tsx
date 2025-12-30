@@ -13,7 +13,7 @@ export function DestinationCard({ destination }: Props) {
   const t = useTranslations('DestinationCard')
 
   return (
-    <div className='outline-anti-flash-white border-anti-flash-white overflow-hidden rounded-xl border-2 bg-white outline-2 outline-offset-4'>
+    <div className='overflow-hidden rounded-xl border-2 border-black bg-white'>
       <div className='bg-anti-flash-white aspect-video'>
         {destination.photo && (
           <img

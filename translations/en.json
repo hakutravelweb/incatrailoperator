@@ -84,7 +84,7 @@
       "form-field": {
         "variant": "Variant",
         "select-variant": "Select the variant",
-        "url": "Url",
+        "slug": "Url",
         "title": "Title",
         "duration": "Duration",
         "photos": "Photos",
@@ -114,7 +114,7 @@
         "select-time": "Select the time",
         "description": "Description",
         "category": "Category",
-        "select-category": "Select the category",
+        "select-category": "Select a category",
         "destination": "Destination",
         "select-destination": "Select your destination"
       },
@@ -178,11 +178,38 @@
         "about": "About"
       }
     },
+    "article": {
+      "title": "Articles",
+      "search-placeholder": "Search...",
+      "add-label": "Add article",
+      "empty-message": "No articles were found",
+      "quantity": "{number, plural, =0 {# articles} =1 {# article} other {# articles}}",
+      "new-label": "New article",
+      "create-label": "Create article",
+      "created-message": "The article {title} was created",
+      "deleted-message": "The article {title} was deleted",
+      "update-label": "Update article",
+      "updated-message": "The article {title} was updated",
+      "form-field": {
+        "slug": "Url",
+        "photo": "Photo",
+        "title": "Title",
+        "description": "Description",
+        "labels": "Tags",
+        "content": "Content",
+        "category": "Category",
+        "select-category": "Select a category"
+      }
+    },
     "input-list": {
       "add-list": "Add to list",
       "actions": {
         "delete": "Delete"
       }
+    },
+    "editor": {
+      "link": "Link",
+      "save-label": "Guardar link"
     },
     "duration": {
       "DAY": "Days",

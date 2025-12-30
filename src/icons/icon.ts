@@ -41,6 +41,8 @@ import Persons from './persons.svg'
 import Email from './email.svg'
 import Whatsapp from './whatsapp.svg'
 import Menu from './menu.svg'
+import Link from './link.svg'
+import Unlink from './unlink.svg'
 
 export const Icons = {
   Language,
@@ -86,4 +88,6 @@ export const Icons = {
   Email,
   Whatsapp,
   Menu,
+  Link,
+  Unlink,
 }

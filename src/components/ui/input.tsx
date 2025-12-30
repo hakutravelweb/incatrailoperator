@@ -21,7 +21,7 @@ export function Input({
   variant,
   label,
   type = 'text',
-  value,
+  value = '',
   onChange,
   placeholder,
   invalid,
