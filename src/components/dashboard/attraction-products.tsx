@@ -92,7 +92,7 @@ export function AttractionProducts() {
         </Button>
       </div>
       <div className='divide-chinese-white divide-y'>
-        {!attractionProducts.isPending &&
+        {!attractionProducts.loading &&
           attractionProducts.data.length === 0 && (
             <div className='flex justify-center py-4'>
               <span className='text-dav-ys-grey text-sm leading-4.5'>
@@ -100,7 +100,7 @@ export function AttractionProducts() {
               </span>
             </div>
           )}
-        {attractionProducts.isPending && (
+        {attractionProducts.loading && (
           <div className='flex justify-center py-2'>
             <Icons.Loading className='size-6' />
           </div>

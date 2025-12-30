@@ -71,14 +71,14 @@ export function Categories() {
         </Button>
       </div>
       <div className='divide-chinese-white divide-y'>
-        {!categories.isPending && categories.data.length === 0 && (
+        {!categories.loading && categories.data.length === 0 && (
           <div className='flex justify-center py-4'>
             <span className='text-dav-ys-grey text-sm leading-4.5'>
               {t('category.empty-message')}
             </span>
           </div>
         )}
-        {categories.isPending && (
+        {categories.loading && (
           <div className='flex justify-center py-2'>
             <Icons.Loading className='size-6' />
           </div>

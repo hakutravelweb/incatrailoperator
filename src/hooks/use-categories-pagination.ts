@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
 import { Category } from '@/interfaces/attraction-product'
 import { getCategoriesPagination } from '@/services/category'
@@ -7,7 +7,7 @@ import { toast } from '@/components/ui/toast'
 
 export function useCategoriesPagination() {
   const locale = useLocale()
-  const [isPending, startTransition] = useTransition()
+  const [loading, setLoading] = useState<boolean>(true)
   const [data, setData] = useState<Category[]>([])
   const [limit, setLimit] = useState<number>(10)
   const [offset, setOffset] = useState<number>(0)
@@ -27,21 +27,22 @@ export function useCategoriesPagination() {
     setOffset(value)
   }
 
-  const fetchData = () => {
-    startTransition(async () => {
-      try {
-        const categories = await getCategoriesPagination(
-          locale,
-          debouncedSearch,
-          limit,
-          offset,
-        )
-        setData(categories.data)
-        setTotal(categories.total)
-      } catch {
-        toast.error('ERROR INTERNAL SERVER')
-      }
-    })
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const categories = await getCategoriesPagination(
+        locale,
+        debouncedSearch,
+        limit,
+        offset,
+      )
+      setData(categories.data)
+      setTotal(categories.total)
+    } catch {
+      toast.error('ERROR INTERNAL SERVER')
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export function useCategoriesPagination() {
   }, [locale, debouncedSearch, limit, offset])
 
   return {
-    isPending,
+    loading,
     data,
     search,
     limit,

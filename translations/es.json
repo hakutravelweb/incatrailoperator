@@ -1,8 +1,4 @@
 {
-  "Language": {
-    "es": "Español",
-    "en": "Ingles"
-  },
   "Error": {
     "title": "Conoce la 500ª maravilla del mundo.",
     "description": "Administra un viaje.",
@@ -14,6 +10,15 @@
     "description": "Administra un viaje.",
     "destinatons": "Destinos",
     "travel": "Viajes"
+  },
+  "Header": {
+    "articles": "Artículos",
+    "about-us": "Sobre nosotros",
+    "contact-us": "Contáctanos",
+    "language": {
+      "es": "Español",
+      "en": "Ingles"
+    }
   },
   "Footer": {
     "slogan": "Aventuras inolvidables en los Andes peruanos",
@@ -224,6 +229,8 @@
     "duration-days": "{quantity, plural, =0 {# dias} =1 {# dia} other {# dias}}",
     "duration-hours": "{quantity, plural, =0 {# horas} =1 {# hora} other {# horas}}",
     "free-cancellation": "Cancelación gratuita hasta {duration} antes",
+    "not-refundable": "No reembolsable",
+    "refundable": "Reembolsable total hasta {duration} antes",
     "you-save": "Ahorras {amount}",
     "you-save-percent": "-{percentage}% de descuento"
   },
@@ -233,6 +240,6 @@
   "DestinationCard": {
     "travellers-number": "{number, plural, =0 {# viajeros} =1 {# viajero} other {# viajeros}}",
     "from-price": "Desde",
-    "see-tours": "Ver tours"
+    "see-attractions": "Ver atracciones"
   }
 }

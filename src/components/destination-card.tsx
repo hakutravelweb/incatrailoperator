@@ -13,7 +13,7 @@ export function DestinationCard({ destination }: Props) {
   const t = useTranslations('DestinationCard')
 
   return (
-    <div className='border-dark-charcoal overflow-hidden rounded-xl border bg-white'>
+    <div className='outline-anti-flash-white border-anti-flash-white overflow-hidden rounded-xl border-2 bg-white outline-2 outline-offset-4'>
       <div className='bg-anti-flash-white aspect-video'>
         {destination.photo && (
           <img
@@ -66,7 +66,7 @@ export function DestinationCard({ destination }: Props) {
             href='/filters-attraction-products'
             className='hover:bg-dark-charcoal active:bg-dav-ys-grey rounded-full bg-black px-4 py-2.5 text-sm leading-4.5 font-bold text-white transition-colors duration-100 active:text-white/50'
           >
-            {t('see-tours')}
+            {t('see-attractions')}
           </Link>
         </div>
       </div>

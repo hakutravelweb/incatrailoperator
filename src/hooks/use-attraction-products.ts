@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
 import { AttractionProduct } from '@/interfaces/attraction-product'
 import { getAttractionProducts } from '@/services/attraction-product'
@@ -7,7 +7,7 @@ import { toast } from '@/components/ui/toast'
 
 export function useAttractionProducts() {
   const locale = useLocale()
-  const [isPending, startTransition] = useTransition()
+  const [loading, setLoading] = useState<boolean>(true)
   const [data, setData] = useState<AttractionProduct[]>([])
   const [search, setSearch] = useState<string>('')
   const [category, setCategory] = useState<string>('')
@@ -21,19 +21,20 @@ export function useAttractionProducts() {
     setCategory(value)
   }
 
-  const fetchData = () => {
-    startTransition(async () => {
-      try {
-        const attractionProducts = await getAttractionProducts(
-          locale,
-          debouncedSearch,
-          category,
-        )
-        setData(attractionProducts)
-      } catch {
-        toast.error('ERROR INTERNAL SERVER')
-      }
-    })
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const attractionProducts = await getAttractionProducts(
+        locale,
+        debouncedSearch,
+        category,
+      )
+      setData(attractionProducts)
+    } catch {
+      toast.error('ERROR INTERNAL SERVER')
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export function useAttractionProducts() {
   }, [locale, debouncedSearch, category])
 
   return {
-    isPending,
+    loading,
     data,
     onSearch: handleSearch,
     onCategory: handleCategory,

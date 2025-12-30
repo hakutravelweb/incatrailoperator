@@ -11,6 +11,7 @@ import {
   DestinationsPerDepartment,
   DestinationsPerDepartmentSkeleton,
 } from '@/components/destinations-per-department'
+import { Link } from '@/i18n/routing'
 
 const localizations = locales.map<Localization>((locale) => {
   return {
@@ -60,7 +61,12 @@ export default async function Home() {
             <span className='text-xl leading-6 font-medium text-white'>
               {t('hero.subtitle')}
             </span>
-            <Button variant='primary'>{t('hero.explore-tours-label')}</Button>
+            <Link
+              href='/filters-attraction-products'
+              className='not-disabled:bg-observatory not-disabled:hover:bg-blue-green not-disabled:active:bg-strong-dark-green rounded-full px-6 py-3.5 text-base leading-5 font-bold text-white transition-colors duration-100'
+            >
+              {t('hero.explore-tours-label')}
+            </Link>
           </div>
         </Section>
       </div>

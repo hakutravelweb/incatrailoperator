@@ -82,9 +82,9 @@ export function AttractionProductCard({ attractionProduct }: Props) {
           </div>
         )}
         {attractionProduct.freeCancellation.quantity > 0 && (
-          <div className='bg-observatory/10 flex items-center gap-2 rounded-md px-2 py-1'>
-            <Icons.Check className='text-strong-dark-green size-4' />
-            <span className='text-strong-dark-green flex-1 text-xs leading-4 font-medium'>
+          <div className='bg-observatory flex items-center gap-2 rounded-md p-2'>
+            <Icons.Check className='size-4 text-white' />
+            <span className='flex-1 text-xs leading-4 font-medium text-white'>
               {t('free-cancellation', {
                 duration:
                   attractionProduct.freeCancellation.type === 'HOUR'
@@ -93,6 +93,30 @@ export function AttractionProductCard({ attractionProduct }: Props) {
                       })
                     : t('duration-days', {
                         quantity: attractionProduct.freeCancellation.quantity,
+                      }),
+              })}
+            </span>
+          </div>
+        )}
+        {attractionProduct.refundable.quantity === 0 ? (
+          <div className='bg-ue-red flex items-center gap-2 rounded-md p-2'>
+            <Icons.Close className='size-4 text-white' />
+            <span className='flex-1 text-xs leading-4 font-medium text-white'>
+              {t('not-refundable')}
+            </span>
+          </div>
+        ) : (
+          <div className='bg-blue-green flex items-center gap-2 rounded-md p-2'>
+            <Icons.Check className='size-4 text-white' />
+            <span className='flex-1 text-xs leading-4 font-medium text-white'>
+              {t('refundable', {
+                duration:
+                  attractionProduct.refundable.type === 'HOUR'
+                    ? t('duration-hours', {
+                        quantity: attractionProduct.refundable.quantity,
+                      })
+                    : t('duration-days', {
+                        quantity: attractionProduct.refundable.quantity,
                       }),
               })}
             </span>
@@ -114,7 +138,7 @@ export function AttractionProductCard({ attractionProduct }: Props) {
             </span>
           )}
           {attractionProduct.specialPrice > 0 && (
-            <span className='bg-ue-red/10 text-dark-charcoal w-min rounded-md px-2 py-1 text-xs leading-4 font-medium'>
+            <span className='bg-yellow-sea w-min rounded-md p-2 text-xs leading-4 font-medium text-white'>
               {t('you-save', {
                 amount: formatPrice(
                   locale,

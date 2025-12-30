@@ -72,14 +72,14 @@ export function Destinations() {
         </Button>
       </div>
       <div className='divide-chinese-white divide-y'>
-        {!destinations.isPending && destinations.data.length === 0 && (
+        {!destinations.loading && destinations.data.length === 0 && (
           <div className='flex justify-center py-4'>
             <span className='text-dav-ys-grey text-sm leading-4.5'>
               {t('destination.empty-message')}
             </span>
           </div>
         )}
-        {destinations.isPending && (
+        {destinations.loading && (
           <div className='flex justify-center py-2'>
             <Icons.Loading className='size-6' />
           </div>
