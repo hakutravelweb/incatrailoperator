@@ -1,9 +1,10 @@
 import { Locale } from '@/i18n/config'
-import { DurationType } from '@/generated/prisma/enums'
+import { DurationType, Variant } from '@/generated/prisma/enums'
 import { Localization } from './root'
 
 export interface AttractionProduct {
   id: string
+  variant: Variant
   slug: string
   photos: string[]
   title: string
@@ -89,6 +90,7 @@ export interface Review {
   rating: number
   traveller: Traveller
   comment: string
+  createdAt: Date
 }
 
 export interface Traveller {

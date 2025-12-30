@@ -286,7 +286,13 @@
     "not-refundable": "Not refundable",
     "refundable": "Refundable up to {duration} before",
     "you-save": "You save {amount}",
-    "you-save-percent": "-{percentage}% discount"
+    "you-save-percent": "-{percentage}% discount",
+    "variant": {
+      "ATTRACTION": "Attraction",
+      "PACKAGE": "Package"
+    },
+    "per-person": "Per person",
+    "see-itinerary": "View itinerary"
   },
   "DestinationsPerDepartment": {
     "title": "Destinations per department"
@@ -310,7 +316,8 @@
       "attraction-product-label": "Attraction Product of Interest",
       "attraction-product-placeholder": "Select an attraction product",
       "message-label": "Message",
-      "send-label": "Send Message"
+      "send-label": "Send Message",
+      "message": "Hello, I am {fullname}%0A Email: {email}%0A Phone: {phone}%0A Atrraction: {attractionProduct}%0A Message: {message}"
     },
     "information": {
       "title": "Contact Information",
@@ -348,6 +355,10 @@
   },
   "AttractionProduct": {
     "country": "Peru",
+    "variant": {
+      "ATTRACTION": "Attraction",
+      "PACKAGE": "Package"
+    },
     "view-all-photos": "View all photos",
     "duration-days-label": "Experience of {quantity, plural, =0 {# days} =1 {# day} other {# days}}",
     "duration-hours-label": "Experience of {quantity, plural, =0 {# hours} =1 {# hour} other {# hours}}",
@@ -402,7 +413,11 @@
     "free-cancellation": "Free cancellation up to {duration} before",
     "not-refundable": "Not refundable",
     "refundable": "Refundable up to {duration} before",
-    "you-save-percent": "-{percentage}% discount"
+    "you-save-percent": "-{percentage}% discount",
+    "variant": {
+      "ATTRACTION": "Attraction",
+      "PACKAGE": "Package"
+    }
   },
   "Articles": {
     "metadata": {
@@ -422,5 +437,9 @@
       "description": "Book your spot in advance and secure your place on this unique experience. Our expert guides will accompany you every step of the way.",
       "view-available-attractions": "View available attractions"
     }
+  },
+  "Packages": {
+    "title": "Extended Adventure Packages",
+    "description": "Experience complete adventures that combine the best of Peru in multi-day itineraries"
   }
 }

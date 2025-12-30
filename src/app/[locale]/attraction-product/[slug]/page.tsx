@@ -16,6 +16,7 @@ import { ParseHtml } from '@/components/parse-html'
 import { AskedQuestionItem } from '@/components/attraction-product/asked-question-item'
 import { Booking } from '@/components/attraction-product/booking'
 import { MapVideo } from '@/components/attraction-product/map-video'
+import { ReviewCard } from '@/components/review-card'
 
 interface Params {
   locale: Locale
@@ -62,7 +63,10 @@ export default async function AttractionProduct({ params }: Props) {
         </Section>
         <Section>
           <div className='flex flex-col gap-4'>
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col items-start gap-2'>
+              <div className='border-chinese-white bg-anti-flash-white rounded-md border-2 px-2 py-1 text-sm leading-4.5 font-bold uppercase'>
+                {t(`variant.${attractionProduct.variant}`)}
+              </div>
               <strong className='text-2xl leading-7.25 font-extrabold md:text-[28px] md:leading-8.5'>
                 {attractionProduct.title}
               </strong>
@@ -276,6 +280,11 @@ export default async function AttractionProduct({ params }: Props) {
                       })}
                     </span>
                   </div>
+                </div>
+                <div className='flex flex-col gap-2'>
+                  {attractionProduct.reviews.map((review) => {
+                    return <ReviewCard key={review.id} review={review} />
+                  })}
                 </div>
               </div>
             </div>

@@ -18,7 +18,7 @@ export function InformationContact() {
       </Information>
       <embed
         className='bg-observatory/10 h-50 rounded-xl'
-        src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242.4593475096883!2d-71.98822190513641!3d-13.514126685261704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916dd6744a8682eb%3A0x4578b1a249e095c8!2sHaku%20Travel!5e0!3m2!1ses!2spe!4v1718227822696!5m2!1ses!2spe'
+        src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1072.379880657275!2d-71.98818350326623!3d-13.51400104089811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2afbdcc496d06f8d%3A0xc9398e30faf402e4!2sInka%20Jungle!5e0!3m2!1ses-419!2spe!4v1766522172587!5m2!1ses-419!2spe'
       />
       <div className='bg-observatory/10 border-l-observatory flex flex-col gap-4 rounded-xl border-l-2 p-4'>
         <strong className='text-base leading-5 font-medium'>

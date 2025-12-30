@@ -287,7 +287,13 @@
     "not-refundable": "No reembolsable",
     "refundable": "Reembolsable total hasta {duration} antes",
     "you-save": "Ahorras {amount}",
-    "you-save-percent": "-{percentage}% de descuento"
+    "you-save-percent": "-{percentage}% de descuento",
+    "variant": {
+      "ATTRACTION": "Atraccion",
+      "PACKAGE": "Paquete"
+    },
+    "per-person": "Por persona",
+    "see-itinerary": "Ver itinerario"
   },
   "DestinationsPerDepartment": {
     "title": "Destinos por departamento"
@@ -311,7 +317,8 @@
       "attraction-product-label": "Producto de atracción de interés",
       "attraction-product-placeholder": "Selecciona un producto de atracción",
       "message-label": "Mensaje",
-      "send-label": "Enviar mensaje"
+      "send-label": "Enviar mensaje",
+      "message": "Hola, soy {fullname}%0A Correo electrónico: {email}%0A Teléfono: {phone}%0A Atracción: {attractionProduct}%0A Mensaje: {message}"
     },
     "information": {
       "title": "Información de Contacto",
@@ -349,6 +356,10 @@
   },
   "AttractionProduct": {
     "country": "Perú",
+    "variant": {
+      "ATTRACTION": "Atraccion",
+      "PACKAGE": "Paquete"
+    },
     "view-all-photos": "Ver todas las fotos",
     "duration-days-label": "Experiencia de {quantity, plural, =0 {# dias} =1 {# dia} other {# dias}}",
     "duration-hours-label": "Experiencia de {quantity, plural, =0 {# horas} =1 {# hora} other {# horas}}",
@@ -403,7 +414,11 @@
     "free-cancellation": "Cancelación gratuita hasta {duration} antes",
     "not-refundable": "No reembolsable",
     "refundable": "Reembolsable total hasta {duration} antes",
-    "you-save-percent": "-{percentage}% de descuento"
+    "you-save-percent": "-{percentage}% de descuento",
+    "variant": {
+      "ATTRACTION": "Atraccion",
+      "PACKAGE": "Paquete"
+    }
   },
   "Articles": {
     "metadata": {
@@ -423,5 +438,9 @@
       "description": "Reserva tu plaza con anticipación y asegura tu lugar en esta experiencia única. Nuestros guías expertos te acompañarán en cada paso del camino.",
       "view-available-attractions": "Ver atracciones disponibles"
     }
+  },
+  "Packages": {
+    "title": "Paquetes de aventura extendida",
+    "description": "Vive experiencias completas que combinan lo mejor del Perú en itinerarios de multiples dias"
   }
 }

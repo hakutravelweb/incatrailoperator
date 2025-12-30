@@ -749,3 +749,78 @@ export const getAttractionProductsDestination = cache(
     return attractionProductsTranslate
   },
 )
+
+export const getAttractionProductPackages = cache(async (locale: Locale) => {
+  const attractionProducts = await prisma.attractionProduct.findMany({
+    where: {
+      variant: 'PACKAGE',
+    },
+    include: {
+      category: true,
+      destination: true,
+      reviews: true,
+    },
+    take: 10,
+  })
+
+  const attractionProductsTranslate = attractionProducts.map<AttractionProduct>(
+    (attractionProduct) => {
+      const reviewsCount = attractionProduct.reviews.length
+      const totalRating = attractionProduct.reviews.reduce(
+        (sum, review) => sum + review.rating,
+        0,
+      )
+      const rating =
+        attractionProduct.reviews.length > 0
+          ? Math.round(totalRating / attractionProduct.reviews.length)
+          : 0
+
+      return {
+        ...attractionProduct,
+        slug: attractionProduct.slug[locale],
+        title: attractionProduct.title[locale],
+        about: attractionProduct.about[locale],
+        labels: attractionProduct.labels[locale],
+        guideLanguages: attractionProduct.guideLanguages[locale],
+        pickUpService: attractionProduct.pickUpService[locale],
+        startTime: attractionProduct.startTime[locale],
+        finishTime: attractionProduct.finishTime[locale],
+        highlights: attractionProduct.highlights[locale],
+        detailedDescription: attractionProduct.detailedDescription[locale],
+        importantNote: attractionProduct.importantNote[locale],
+        includes: attractionProduct.includes[locale],
+        notIncluded: attractionProduct.notIncluded[locale],
+        importantWarning: attractionProduct.importantWarning[locale],
+        recommendations: attractionProduct.recommendations[locale],
+        additionalAdvice: attractionProduct.additionalAdvice[locale],
+        codeWetravel: attractionProduct.codeWetravel[locale],
+        category: {
+          ...attractionProduct.category,
+          title: attractionProduct.category.title[locale],
+          attractionProductsCount: 0,
+        },
+        destination: {
+          ...attractionProduct.destination,
+          slug: attractionProduct.destination.slug[locale],
+          title: attractionProduct.destination.title[locale],
+          department: attractionProduct.destination.department[locale],
+          about: attractionProduct.destination.about[locale],
+          attractionProductsCount: 0,
+          photo: '',
+          rating: 0,
+          travellersCount: 0,
+          lowestPrice: 0,
+          localizations: [],
+        },
+        routes: [],
+        askedQuestions: [],
+        reviews: [],
+        rating,
+        reviewsCount,
+        localizations: [],
+      }
+    },
+  )
+
+  return attractionProductsTranslate
+})

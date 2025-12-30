@@ -11,6 +11,7 @@ import {
   DestinationsPerDepartment,
   DestinationsPerDepartmentSkeleton,
 } from '@/components/destinations-per-department'
+import { Packages, PackagesSkeleton } from '@/components/packages'
 
 const localizations = locales.map<Localization>((locale) => {
   return {
@@ -50,6 +51,11 @@ export default async function Home() {
       </Suspense>
       <Section>
         <FiltersAttractionProducts />
+      </Section>
+      <Section>
+        <Suspense fallback={<PackagesSkeleton />}>
+          <Packages />
+        </Suspense>
       </Section>
       <Section>
         <Suspense fallback={<DestinationsPerDepartmentSkeleton />}>

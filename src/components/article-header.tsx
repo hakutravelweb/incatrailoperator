@@ -12,7 +12,7 @@ interface Props {
 export function ArticleHeader({ article }: Props) {
   const locale = useLocale()
   const t = useTranslations('Articles')
-  const url = `https://www.inkajungle.com/es/article/${article.slug}`
+  const url = `https://www.incatrailoperator.com/es/article/${article.slug}`
 
   return (
     <div className='flex flex-col gap-4'>
@@ -41,6 +41,18 @@ export function ArticleHeader({ article }: Props) {
         <span className='text-dark-charcoal text-base leading-5'>
           {article.introduction}
         </span>
+        <div className='flex flex-wrap gap-2'>
+          {article.labels.map((label, index) => {
+            return (
+              <div
+                key={index}
+                className='border-chinese-white rounded-full border-2 bg-white px-3 py-1 text-sm leading-4.5 font-medium'
+              >
+                {label}
+              </div>
+            )
+          })}
+        </div>
       </div>
       <hr className='border-chinese-white border-t' />
       <div className='flex items-center gap-4'>

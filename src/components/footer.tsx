@@ -32,15 +32,15 @@ export async function Footer() {
                 <InfoSection label={t('contact.company-name')}>
                   Inca Trail Operator E.I.R.L.
                 </InfoSection>
-                <InfoSection label={t('contact.ruc')}>20123456789</InfoSection>
+                <InfoSection label={t('contact.ruc')}>20615005097</InfoSection>
                 <InfoSection label={t('contact.address')}>
-                  Av. El Sol 123, Cusco
+                  Av. Ayahuayco N-3, Cusco, Perú
                 </InfoSection>
                 <InfoSection label={t('contact.email')}>
                   info@incatrailoperator.com
                 </InfoSection>
                 <InfoSection label={t('contact.phone')}>
-                  +51 987 654 321
+                  +51 984 259 412
                 </InfoSection>
                 <InfoSection label={t('contact.schedule')}>
                   8:00 AM - 8:00 PM
