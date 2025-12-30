@@ -428,6 +428,7 @@ export const getPopularAttractionProducts = cache(async (locale: Locale) => {
     Partial<AttractionProduct>
   >((attractionProduct) => {
     return {
+      id: attractionProduct.id,
       slug: attractionProduct.slug[locale],
       title: attractionProduct.title[locale],
     }

@@ -225,5 +225,13 @@
     "free-cancellation": "Free cancellation up to {duration} before",
     "you-save": "You save {amount}",
     "you-save-percent": "-{percentage}% discount"
+  },
+  "DestinationsPerDepartment": {
+    "title": "Destinations per department"
+  },
+  "DestinationCard": {
+    "travellers-number": "{number, plural, =0 {# travellers} =1 {# traveller} other {# travellers}}",
+    "from-price": "From",
+    "see-tours": "See tours"
   }
 }

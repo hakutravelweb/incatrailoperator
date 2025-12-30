@@ -41,7 +41,7 @@ export interface Duration {
 export interface Category {
   id: string
   title: string
-  productAttractionQuantity: number
+  attractionProductsCount?: number
 }
 
 export interface Destination {
@@ -49,7 +49,11 @@ export interface Destination {
   title: string
   department: string
   about: string
-  productAttractionQuantity: number
+  attractionProductsCount?: number
+  photo?: string
+  rating?: number
+  travellersCount?: number
+  lowestPrice?: number
 }
 
 export type AttractionView =

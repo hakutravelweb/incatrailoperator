@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { locales } from '@/i18n/config'
@@ -6,6 +7,10 @@ import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 import { Button } from '@/components/ui/button'
 import { FiltersAttractionProducts } from '@/components/filters-attraction-products'
+import {
+  DestinationsPerDepartment,
+  DestinationsPerDepartmentSkeleton,
+} from '@/components/destinations-per-department'
 
 const localizations = locales.map<Localization>((locale) => {
   return {
@@ -61,6 +66,11 @@ export default async function Home() {
       </div>
       <Section>
         <FiltersAttractionProducts />
+      </Section>
+      <Section>
+        <Suspense fallback={<DestinationsPerDepartmentSkeleton />}>
+          <DestinationsPerDepartment />
+        </Suspense>
       </Section>
     </Layout>
   )

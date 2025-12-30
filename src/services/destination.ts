@@ -82,7 +82,7 @@ export const getDestinationsPagination = cache(
           title: destination.title[locale],
           department: destination.department[locale],
           about: destination.about[locale],
-          productAttractionQuantity: destination.attractionProducts.length,
+          attractionProductsCount: destination.attractionProducts.length,
         }
       },
     )
@@ -113,7 +113,70 @@ export const getDestinations = cache(async (locale: Locale) => {
       title: destination.title[locale],
       department: destination.department[locale],
       about: destination.about[locale],
-      productAttractionQuantity: 0,
+    }
+  })
+
+  return destinationsTranslate
+})
+
+export const getDestinationsPerDepartment = cache(async (locale: Locale) => {
+  const destinations = await prisma.destination.findMany({
+    include: {
+      attractionProducts: {
+        include: {
+          reviews: true,
+        },
+      },
+    },
+  })
+
+  const destinationsTranslate = destinations.map<Destination>((destination) => {
+    if (destination.attractionProducts.length === 0) {
+      return {
+        id: destination.id,
+        photo: '',
+        title: destination.title[locale],
+        department: destination.department[locale],
+        rating: 0,
+        travellersCount: 0,
+        about: destination.about[locale],
+        lowestPrice: 0,
+      }
+    }
+
+    const { totalReviews, totalRating } = destination.attractionProducts.reduce(
+      (acc, attractionProduct) => {
+        const reviewsCount = attractionProduct.reviews.length
+        const productRating = attractionProduct.reviews.reduce(
+          (sum, review) => sum + review.rating,
+          0,
+        )
+
+        return {
+          totalReviews: acc.totalReviews + reviewsCount,
+          totalRating: acc.totalRating + productRating,
+        }
+      },
+      { totalReviews: 0, totalRating: 0 },
+    )
+
+    const rating = totalReviews > 0 ? Math.round(totalRating / totalReviews) : 0
+
+    const cheapestProduct = destination.attractionProducts.reduce(
+      (lowest, product) =>
+        product.retailPrice < lowest.retailPrice ? product : lowest,
+      destination.attractionProducts[0],
+    )
+
+    return {
+      id: destination.id,
+      photo: cheapestProduct.photos[0],
+      title: destination.title[locale],
+      department: destination.department[locale],
+      rating,
+      travellersCount: totalReviews,
+      about: destination.about[locale],
+      lowestPrice: cheapestProduct.retailPrice,
     }
   })
 
