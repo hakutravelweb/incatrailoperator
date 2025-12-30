@@ -42,7 +42,7 @@ export default async function PrivacyPolicy() {
 
   return (
     <Layout localizations={localizations}>
-      <div className='bg-strong-dark-green flex flex-col items-center gap-4 px-10 py-20 text-center'>
+      <div className='bg-cinnabar flex flex-col items-center gap-4 px-10 py-20 text-center'>
         <strong className='text-2xl leading-8 font-black text-white'>
           {t('title')}
         </strong>

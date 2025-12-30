@@ -65,14 +65,14 @@ export default async function AttractionProduct({ params }: Props) {
             </div>
             <div className='flex flex-wrap items-center gap-2'>
               <div className='flex items-center gap-1'>
-                <Icons.Location className='text-observatory size-5' />
+                <Icons.Location className='text-inferno size-5' />
                 <span className='text-dark-charcoal text-base leading-5'>
                   {attractionProduct.destination.title}, {t('country')}
                 </span>
               </div>
               <span className='text-gray-x11 text-base leading-5'>•</span>
               <div className='flex items-center gap-1'>
-                <Icons.Clock className='text-observatory size-5' />
+                <Icons.Clock className='text-inferno size-5' />
                 <span className='text-dark-charcoal text-base leading-5'>
                   {attractionProduct.duration.type === 'HOUR'
                     ? t('duration-hours', {

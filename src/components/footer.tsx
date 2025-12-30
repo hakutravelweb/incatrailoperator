@@ -39,7 +39,7 @@ export function Footer() {
                   Av. Ayahuayco N-3, Cusco, Perú
                 </InfoSection>
                 <InfoSection label={t('contact.email')}>
-                  info@inkajungle.com
+                  info@incatrailoperator.com
                 </InfoSection>
                 <InfoSection label={t('contact.phone')}>
                   +51 984 259 412

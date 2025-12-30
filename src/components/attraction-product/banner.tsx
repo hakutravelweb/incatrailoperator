@@ -69,7 +69,7 @@ export function Banner({ attractionProduct }: Props) {
           {attractionProduct.destination.title}
         </Link>
       </div>
-      <div className='bg-strong-dark-green relative -mx-6 h-80 lg:mx-0 lg:overflow-hidden lg:rounded-xl'>
+      <div className='bg-cinnabar relative -mx-6 h-80 lg:mx-0 lg:overflow-hidden lg:rounded-xl'>
         <div className='grid size-full grid-cols-4 grid-rows-2 gap-2'>
           {photos.map((photo, index) => {
             return (
@@ -108,7 +108,7 @@ export function Banner({ attractionProduct }: Props) {
             <strong className='text-xl leading-7'>
               {attractionProduct.title}
             </strong>
-            <div className='bg-strong-dark-green relative flex items-center justify-center'>
+            <div className='bg-cinnabar relative flex items-center justify-center'>
               <button
                 onClick={handlePrev}
                 className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2/4 left-5 flex size-10 -translate-y-2/4 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'

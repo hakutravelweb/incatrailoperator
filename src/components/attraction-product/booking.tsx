@@ -61,7 +61,7 @@ export function Booking({ attractionProduct }: Props) {
         </span>
       </div>
       {attractionProduct.specialPrice > 0 && (
-        <span className='text-observatory text-base leading-5 font-medium'>
+        <span className='text-inferno text-base leading-5 font-medium'>
           {t('save-money', {
             amount: formatPrice(
               locale,

@@ -41,14 +41,14 @@ export function AttractionProductVerticalCard({ attractionProduct }: Props) {
         <div className='rounded-sm border border-black px-2 py-1 text-sm leading-4.5 font-medium uppercase'>
           {t(`variant.${attractionProduct.variant}`)}
         </div>
-        <span className='text-strong-dark-green text-sm leading-4.5 font-medium'>
+        <span className='text-cinnabar text-sm leading-4.5 font-medium'>
           {attractionProduct.category.title}
         </span>
         <strong className='text-base leading-5 font-bold'>
           {attractionProduct.title}
         </strong>
         <div className='flex items-center gap-1'>
-          <Icons.Location className='text-observatory size-4' />
+          <Icons.Location className='text-inferno size-4' />
           <span className='text-dark-charcoal text-sm leading-4.5'>
             {attractionProduct.destination.title},{' '}
             {attractionProduct.destination.department}
@@ -82,7 +82,7 @@ export function AttractionProductVerticalCard({ attractionProduct }: Props) {
           </div>
         )}
         {attractionProduct.freeCancellation.quantity > 0 && (
-          <div className='bg-observatory flex items-center gap-2 rounded-md p-2'>
+          <div className='bg-inferno flex items-center gap-2 rounded-md p-2'>
             <Icons.Check className='size-4 text-white' />
             <span className='flex-1 text-xs leading-4 font-medium text-white'>
               {t('free-cancellation', {
@@ -106,7 +106,7 @@ export function AttractionProductVerticalCard({ attractionProduct }: Props) {
             </span>
           </div>
         ) : (
-          <div className='bg-blue-green flex items-center gap-2 rounded-md p-2'>
+          <div className='bg-outrageous-orange flex items-center gap-2 rounded-md p-2'>
             <Icons.Check className='size-4 text-white' />
             <span className='flex-1 text-xs leading-4 font-medium text-white'>
               {t('refundable', {

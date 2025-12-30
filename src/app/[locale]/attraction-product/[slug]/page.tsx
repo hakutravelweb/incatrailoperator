@@ -94,14 +94,14 @@ export default async function AttractionProduct({ params }: Props) {
               </span>
               <span className='text-gray-x11 text-base leading-5'>•</span>
               <div className='flex items-center gap-1'>
-                <Icons.Location className='text-observatory size-5' />
+                <Icons.Location className='text-inferno size-5' />
                 <span className='text-dark-charcoal text-base leading-5'>
                   {attractionProduct.destination.title}, {t('country')}
                 </span>
               </div>
               <span className='text-gray-x11 text-base leading-5'>•</span>
               <div className='flex items-center gap-1'>
-                <Icons.Clock className='text-observatory size-5' />
+                <Icons.Clock className='text-inferno size-5' />
                 <span className='text-dark-charcoal text-base leading-5'>
                   {attractionProduct.duration.type === 'HOUR'
                     ? t('duration-hours', {
@@ -187,7 +187,7 @@ export default async function AttractionProduct({ params }: Props) {
                       key={route.id}
                       className='relative z-1 flex flex-col gap-4'
                     >
-                      <div className='bg-observatory absolute top-4 left-3.5 -z-1 h-[calc(100%-32px)] w-1' />
+                      <div className='bg-inferno absolute top-4 left-3.5 -z-1 h-[calc(100%-32px)] w-1' />
                       <RouteItem index={index} route={route} />
                       <div className='flex flex-col gap-2 pl-1'>
                         {route.waypoints.map((waypoint) => {
@@ -210,7 +210,7 @@ export default async function AttractionProduct({ params }: Props) {
                 </strong>
                 <ParseHtml content={attractionProduct.detailedDescription} />
               </div>
-              <div className='border-l-observatory bg-observatory/10 flex flex-col gap-4 rounded-xl border-l-4 p-6'>
+              <div className='border-l-inferno bg-inferno/10 flex flex-col gap-4 rounded-xl border-l-4 p-6'>
                 <strong className='text-lg leading-6'>
                   {t('important-note')}
                 </strong>
@@ -238,7 +238,7 @@ export default async function AttractionProduct({ params }: Props) {
                 title={t('recommendations')}
                 list={attractionProduct.recommendations}
               />
-              <div className='border-l-observatory bg-blue-green/10 flex flex-col gap-4 rounded-xl border-l-4 p-6'>
+              <div className='border-l-inferno bg-outrageous-orange/10 flex flex-col gap-4 rounded-xl border-l-4 p-6'>
                 <strong className='text-lg leading-6'>
                   {t('additional-advice')}
                 </strong>

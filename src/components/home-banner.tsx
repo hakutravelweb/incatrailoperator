@@ -27,7 +27,7 @@ export async function HomeBanner() {
           <Link
             href={home.link.href}
             target='_blank'
-            className='not-disabled:bg-observatory not-disabled:hover:bg-blue-green not-disabled:active:bg-strong-dark-green rounded-full px-6 py-3.5 text-base leading-5 font-bold text-white transition-colors duration-100'
+            className='not-disabled:bg-inferno not-disabled:hover:bg-outrageous-orange not-disabled:active:bg-cinnabar rounded-full px-6 py-3.5 text-base leading-5 font-bold text-white transition-colors duration-100'
           >
             {home.link.label}
           </Link>

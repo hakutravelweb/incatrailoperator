@@ -43,7 +43,7 @@ export function AttractionProductPackageCard({ attractionProduct }: Props) {
           {attractionProduct.includes.map((include, index) => {
             return (
               <div key={index} className='flex items-center gap-2'>
-                <Icons.Check className='text-observatory size-5' />
+                <Icons.Check className='text-inferno size-5' />
                 <span className='text-dark-charcoal flex-1 text-sm leading-4.5'>
                   {include}
                 </span>
@@ -61,7 +61,7 @@ export function AttractionProductPackageCard({ attractionProduct }: Props) {
               <span className='text-dark-charcoal text-lg leading-6 font-bold'>
                 {formatPrice(locale, attractionProduct.specialPrice)}
               </span>
-              <span className='text-strong-dark-green text-sm leading-4.5'>
+              <span className='text-cinnabar text-sm leading-4.5'>
                 {t('per-person')}
               </span>
             </div>
@@ -70,14 +70,14 @@ export function AttractionProductPackageCard({ attractionProduct }: Props) {
               <span className='text-dark-charcoal text-lg leading-6 font-bold'>
                 {formatPrice(locale, attractionProduct.retailPrice)}
               </span>
-              <span className='text-strong-dark-green text-sm leading-4.5'>
+              <span className='text-cinnabar text-sm leading-4.5'>
                 {t('per-person')}
               </span>
             </div>
           )}
           <Link
             href={`/attraction-product/${attractionProduct.slug}`}
-            className='hover:bg-blue-green active:bg-strong-dark-green bg-observatory rounded-full px-4 py-3 text-sm leading-4.5 font-bold text-white transition-colors duration-100 active:text-white/50'
+            className='hover:bg-outrageous-orange active:bg-cinnabar bg-inferno rounded-full px-4 py-3 text-sm leading-4.5 font-bold text-white transition-colors duration-100 active:text-white/50'
           >
             {t('see-itinerary')}
           </Link>

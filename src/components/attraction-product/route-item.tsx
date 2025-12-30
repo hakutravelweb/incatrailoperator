@@ -13,7 +13,7 @@ export function RouteItem({ index, route }: Props) {
     <div className='flex items-center gap-2'>
       <div
         className={cn(
-          'bg-observatory flex size-8 items-center justify-center rounded-full text-white',
+          'bg-inferno flex size-8 items-center justify-center rounded-full text-white',
           {
             'bg-yellow-sea': index % 2,
           },
@@ -23,7 +23,7 @@ export function RouteItem({ index, route }: Props) {
       </div>
       <div
         className={cn(
-          'border-l-observatory bg-blue-green/10 flex-1 rounded-lg border-l-4 p-4',
+          'border-l-inferno bg-outrageous-orange/10 flex-1 rounded-lg border-l-4 p-4',
           {
             'border-l-yellow-sea bg-yellow-sea/10': index % 2,
           },

@@ -38,9 +38,9 @@ export function ArticlesCategory() {
                 key={category.id}
                 onClick={handleCategory(category.id)}
                 className={cn(
-                  'bg-anti-flash-white hover:bg-observatory cursor-pointer rounded-lg p-2 transition-colors duration-100 hover:text-white',
+                  'bg-anti-flash-white hover:bg-inferno cursor-pointer rounded-lg p-2 transition-colors duration-100 hover:text-white',
                   {
-                    'bg-observatory text-white': active,
+                    'bg-inferno text-white': active,
                   },
                 )}
               >

@@ -32,7 +32,7 @@ export function ArticleHeader({ article }: Props) {
         </Link>
       </div>
       <div className='flex flex-col gap-2'>
-        <span className='text-observatory text-base leading-5 font-bold'>
+        <span className='text-inferno text-base leading-5 font-bold'>
           {article.category.title}
         </span>
         <strong className='text-2xl leading-7.25 font-black md:text-[28px] md:leading-8.5'>

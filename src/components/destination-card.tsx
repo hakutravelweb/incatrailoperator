@@ -58,7 +58,7 @@ export function DestinationCard({ destination }: Props) {
             <span className='text-dav-ys-grey text-sm leading-4.5'>
               {t('from-price')}
             </span>
-            <span className='text-observatory text-base leading-5 font-bold'>
+            <span className='text-inferno text-base leading-5 font-bold'>
               {formatPrice(locale, destination.lowestPrice ?? 0)}
             </span>
           </div>
