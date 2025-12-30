@@ -106,6 +106,7 @@ export const getArticlesPagination = cache(
         category: {
           ...article.category,
           title: article.category.title[locale],
+          attractionProductsCount: 0,
         },
       }
     })

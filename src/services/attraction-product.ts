@@ -1,6 +1,6 @@
 'use server'
 import { cache } from 'react'
-import { Locale } from '@/i18n/config'
+import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import {
   storageSave,
@@ -8,6 +8,7 @@ import {
   storageUpdate,
   storageDeleteFiles,
 } from '@/services/storage'
+import { Localization } from '@/interfaces/root'
 import {
   AttractionProductSchema,
   ItinerarySchema,
@@ -17,6 +18,7 @@ import {
   Route,
   Waypoint,
   AskedQuestion,
+  Filters,
 } from '@/interfaces/attraction-product'
 import { AttractionProductWhereInput } from '@/generated/prisma/models'
 
@@ -232,6 +234,10 @@ export const getAttractionProductsPagination = cache(
             mode: 'insensitive',
           },
         },
+        include: {
+          category: true,
+          destination: true,
+        },
         take: limit,
         skip: offset,
       }),
@@ -259,11 +265,31 @@ export const getAttractionProductsPagination = cache(
           importantWarning: attractionProduct.importantWarning[locale],
           recommendations: attractionProduct.recommendations[locale],
           additionalAdvice: attractionProduct.additionalAdvice[locale],
+          codeWetravel: attractionProduct.codeWetravel[locale],
+          category: {
+            ...attractionProduct.category,
+            title: attractionProduct.category.title[locale],
+            attractionProductsCount: 0,
+          },
+          destination: {
+            ...attractionProduct.destination,
+            slug: attractionProduct.destination.slug[locale],
+            title: attractionProduct.destination.title[locale],
+            department: attractionProduct.destination.department[locale],
+            about: attractionProduct.destination.about[locale],
+            attractionProductsCount: 0,
+            photo: '',
+            rating: 0,
+            travellersCount: 0,
+            lowestPrice: 0,
+            localizations: [],
+          },
           routes: [],
           askedQuestions: [],
           reviews: [],
           rating: 0,
           reviewsCount: 0,
+          localizations: [],
         }
       })
 
@@ -418,6 +444,7 @@ export const getAttractionProducts = cache(
       where,
       include: {
         category: true,
+        destination: true,
         reviews: true,
       },
       take: 20,
@@ -453,12 +480,31 @@ export const getAttractionProducts = cache(
           importantWarning: attractionProduct.importantWarning[locale],
           recommendations: attractionProduct.recommendations[locale],
           additionalAdvice: attractionProduct.additionalAdvice[locale],
-          category: attractionProduct.category.title[locale],
+          codeWetravel: attractionProduct.codeWetravel[locale],
+          category: {
+            ...attractionProduct.category,
+            title: attractionProduct.category.title[locale],
+            attractionProductsCount: 0,
+          },
+          destination: {
+            ...attractionProduct.destination,
+            slug: attractionProduct.destination.slug[locale],
+            title: attractionProduct.destination.title[locale],
+            department: attractionProduct.destination.department[locale],
+            about: attractionProduct.destination.about[locale],
+            attractionProductsCount: 0,
+            photo: '',
+            rating: 0,
+            travellersCount: 0,
+            lowestPrice: 0,
+            localizations: [],
+          },
           routes: [],
           askedQuestions: [],
           reviews: [],
           rating,
           reviewsCount,
+          localizations: [],
         }
       })
 
@@ -551,6 +597,13 @@ export const getAttractionProductBySlug = cache(
         ? Math.round(totalRating / attractionProduct.reviews.length)
         : 0
 
+    const localizations = locales.map<Localization>((locale) => {
+      return {
+        locale,
+        slug: `/attraction-product/${attractionProduct.slug[locale]}`,
+      }
+    })
+
     const attractionProductTranslate: AttractionProduct = {
       ...attractionProduct,
       slug: attractionProduct.slug[locale],
@@ -569,14 +622,130 @@ export const getAttractionProductBySlug = cache(
       importantWarning: attractionProduct.importantWarning[locale],
       recommendations: attractionProduct.recommendations[locale],
       additionalAdvice: attractionProduct.additionalAdvice[locale],
-      category: attractionProduct.category.title[locale],
-      destination: attractionProduct.destination.title[locale],
+      codeWetravel: attractionProduct.codeWetravel[locale],
+      category: {
+        ...attractionProduct.category,
+        title: attractionProduct.category.title[locale],
+        attractionProductsCount: 0,
+      },
+      destination: {
+        ...attractionProduct.destination,
+        slug: attractionProduct.destination.slug[locale],
+        title: attractionProduct.destination.title[locale],
+        department: attractionProduct.destination.department[locale],
+        about: attractionProduct.destination.about[locale],
+        attractionProductsCount: 0,
+        photo: '',
+        rating: 0,
+        travellersCount: 0,
+        lowestPrice: 0,
+        localizations: [],
+      },
       routes,
       askedQuestions,
       rating,
       reviewsCount,
+      localizations,
     }
 
     return attractionProductTranslate
+  },
+)
+
+export const getAttractionProductsDestination = cache(
+  async (filters: Filters) => {
+    const where: AttractionProductWhereInput = {
+      destinationId: filters.destinationId,
+      title: {
+        path: [filters.locale],
+        string_contains: filters.search,
+        mode: 'insensitive',
+      },
+      retailPrice: {
+        gte: filters.rangePrice.from,
+        lte: filters.rangePrice.to,
+      },
+    }
+    if (filters.categoriesId.length > 0) {
+      where.categoryId = {
+        in: filters.categoriesId,
+      }
+    }
+
+    const attractionProducts = await prisma.attractionProduct.findMany({
+      where,
+      include: {
+        reviews: true,
+        category: true,
+        destination: true,
+      },
+    })
+
+    const attractionProductsTranslate = attractionProducts
+      .map<AttractionProduct>((attractionProduct) => {
+        const reviewsCount = attractionProduct.reviews.length
+        const totalRating = attractionProduct.reviews.reduce(
+          (sum, review) => sum + review.rating,
+          0,
+        )
+        const rating =
+          attractionProduct.reviews.length > 0
+            ? Math.round(totalRating / attractionProduct.reviews.length)
+            : 0
+
+        return {
+          ...attractionProduct,
+          slug: attractionProduct.slug[filters.locale],
+          title: attractionProduct.title[filters.locale],
+          about: attractionProduct.about[filters.locale],
+          labels: attractionProduct.labels[filters.locale],
+          guideLanguages: attractionProduct.guideLanguages[filters.locale],
+          pickUpService: attractionProduct.pickUpService[filters.locale],
+          startTime: attractionProduct.startTime[filters.locale],
+          finishTime: attractionProduct.finishTime[filters.locale],
+          highlights: attractionProduct.highlights[filters.locale],
+          detailedDescription:
+            attractionProduct.detailedDescription[filters.locale],
+          importantNote: attractionProduct.importantNote[filters.locale],
+          includes: attractionProduct.includes[filters.locale],
+          notIncluded: attractionProduct.notIncluded[filters.locale],
+          importantWarning: attractionProduct.importantWarning[filters.locale],
+          recommendations: attractionProduct.recommendations[filters.locale],
+          additionalAdvice: attractionProduct.additionalAdvice[filters.locale],
+          codeWetravel: attractionProduct.codeWetravel[filters.locale],
+          category: {
+            ...attractionProduct.category,
+            title: attractionProduct.category.title[filters.locale],
+            attractionProductsCount: 0,
+          },
+          destination: {
+            ...attractionProduct.destination,
+            slug: attractionProduct.destination.slug[filters.locale],
+            title: attractionProduct.destination.title[filters.locale],
+            department:
+              attractionProduct.destination.department[filters.locale],
+            about: attractionProduct.destination.about[filters.locale],
+            attractionProductsCount: 0,
+            photo: '',
+            rating: 0,
+            travellersCount: 0,
+            lowestPrice: 0,
+            localizations: [],
+          },
+          routes: [],
+          askedQuestions: [],
+          reviews: [],
+          rating,
+          reviewsCount,
+          localizations: [],
+        }
+      })
+      .filter((attractionProduct) =>
+        filters.ratings.length > 0
+          ? filters.ratings.includes(attractionProduct.rating)
+          : attractionProduct,
+      )
+
+    return attractionProductsTranslate
   },
 )

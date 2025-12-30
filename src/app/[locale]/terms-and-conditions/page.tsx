@@ -43,7 +43,7 @@ export default async function TermsAndConditions() {
     <Layout localizations={localizations}>
       <Section>
         <div className='grid grid-cols-1 items-start gap-6 py-10 md:grid-cols-[30%_1fr]'>
-          <div className='shadow-deep flex flex-col gap-4 rounded-xl p-4 md:sticky md:top-4'>
+          <div className='shadow-deep flex flex-col gap-4 rounded-xl bg-white p-4 md:sticky md:top-4'>
             <strong className='text-lg leading-6'>
               {t('navigation-title')}
             </strong>

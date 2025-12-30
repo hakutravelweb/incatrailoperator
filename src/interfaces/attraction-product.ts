@@ -1,4 +1,6 @@
+import { Locale } from '@/i18n/config'
 import { DurationType } from '@/generated/prisma/enums'
+import { Localization } from './root'
 
 export interface AttractionProduct {
   id: string
@@ -28,13 +30,14 @@ export interface AttractionProduct {
   codeWetravel: string
   retailPrice: number
   specialPrice: number
-  category?: string
-  destination?: string
+  category: Category
+  destination: Destination
   routes: Route[]
   askedQuestions: AskedQuestion[]
   reviews: Review[]
   rating: number
   reviewsCount: number
+  localizations: Localization[]
 }
 
 export interface Route {
@@ -58,7 +61,7 @@ export interface Duration {
 export interface Category {
   id: string
   title: string
-  attractionProductsCount?: number
+  attractionProductsCount: number
 }
 
 export interface Destination {
@@ -67,11 +70,12 @@ export interface Destination {
   title: string
   department: string
   about: string
-  attractionProductsCount?: number
-  photo?: string
-  rating?: number
-  travellersCount?: number
-  lowestPrice?: number
+  attractionProductsCount: number
+  photo: string
+  rating: number
+  travellersCount: number
+  lowestPrice: number
+  localizations: Localization[]
 }
 
 export interface AskedQuestion {
@@ -102,3 +106,17 @@ export type AttractionView =
 
 export type DestinationView = 'CREATE' | 'EDIT' | 'DESTINATIONS'
 export type CategoryView = 'CREATE' | 'EDIT' | 'CATEGORIES'
+
+export interface Filters {
+  locale: Locale
+  destinationId: string
+  search: string
+  categoriesId: string[]
+  rangePrice: RangePrice
+  ratings: number[]
+}
+
+export interface RangePrice {
+  from: number
+  to: number
+}

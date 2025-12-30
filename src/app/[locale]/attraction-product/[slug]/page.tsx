@@ -1,8 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { getFullMediaUrl } from '@/lib/utils'
-import { Locale, locales } from '@/i18n/config'
-import { Localization } from '@/interfaces/root'
+import { Locale } from '@/i18n/config'
 import { getAttractionProductBySlug } from '@/services/attraction-product'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
@@ -17,13 +16,6 @@ import { ParseHtml } from '@/components/parse-html'
 import { AskedQuestionItem } from '@/components/attraction-product/asked-question-item'
 import { Booking } from '@/components/attraction-product/booking'
 import { MapVideo } from '@/components/attraction-product/map-video'
-
-const localizations = locales.map<Localization>((locale) => {
-  return {
-    locale,
-    slug: '/',
-  }
-})
 
 interface Params {
   locale: Locale
@@ -63,7 +55,7 @@ export default async function AttractionProduct({ params }: Props) {
   const attractionProduct = await getAttractionProductBySlug(locale, slug)
 
   return (
-    <Layout localizations={localizations}>
+    <Layout localizations={attractionProduct.localizations}>
       <div className='flex flex-col gap-6 py-10'>
         <Section>
           <Banner attractionProduct={attractionProduct} />
@@ -100,7 +92,7 @@ export default async function AttractionProduct({ params }: Props) {
               <div className='flex items-center gap-1'>
                 <Icons.Location className='text-observatory size-5' />
                 <span className='text-dark-charcoal text-base leading-5'>
-                  {attractionProduct.destination}, {t('country')}
+                  {attractionProduct.destination.title}, {t('country')}
                 </span>
               </div>
               <span className='text-gray-x11 text-base leading-5'>•</span>
