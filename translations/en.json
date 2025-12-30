@@ -253,11 +253,16 @@
       "4": "Very good",
       "5": "Excellent"
     },
+    "review": {
+      "title": "Reviews",
+      "deleted-message": "The review of {fullname} was deleted"
+    },
     "actions": {
       "edit": "Edit",
       "delete": "Delete",
       "itinerary": "Itinerary",
-      "asked-questions": "Asked questions"
+      "asked-questions": "Asked questions",
+      "reviews": "Reviews"
     },
     "pagination": "Showing results from {start} to {end} of {total}"
   },

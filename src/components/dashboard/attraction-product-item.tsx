@@ -14,6 +14,7 @@ interface Props {
   onEdit: (id: string) => void
   onItinerary: (id: string) => void
   onAskedQuestions: (id: string) => void
+  onReviews: (id: string) => void
   onRefresh: () => void
 }
 
@@ -22,6 +23,7 @@ export function AttractionProductItem({
   onEdit,
   onItinerary,
   onAskedQuestions,
+  onReviews,
   onRefresh,
 }: Props) {
   const locale = useLocale()
@@ -38,6 +40,10 @@ export function AttractionProductItem({
 
   const handleAskedQuestions = () => {
     onAskedQuestions(attractionProduct.id)
+  }
+
+  const handleReviews = () => {
+    onReviews(attractionProduct.id)
   }
 
   const handleDelete = async () => {
@@ -130,6 +136,9 @@ export function AttractionProductItem({
             </Dropdown.Option>
             <Dropdown.Option onClick={handleAskedQuestions}>
               {t('actions.asked-questions')}
+            </Dropdown.Option>
+            <Dropdown.Option onClick={handleReviews}>
+              {t('actions.reviews')}
             </Dropdown.Option>
           </Dropdown.Content>
         </Dropdown>

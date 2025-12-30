@@ -11,6 +11,7 @@ import { AttractionProductCreate } from './attraction-product-create'
 import { AttractionProductUpdate } from './attraction-product-update'
 import { AttractionProductItinerary } from './attraction-product-itinerary'
 import { AttractionProductAskedQuestions } from './attraction-product-asked-questions'
+import { AttractionProductReviews } from './attraction-product-reviews'
 
 export function AttractionProducts() {
   const t = useTranslations('Dashboard')
@@ -31,7 +32,16 @@ export function AttractionProducts() {
     setAttractionView(view)
   }
 
-  if (attractionView === 'FAQ') {
+  if (attractionView === 'REVIEWS') {
+    return (
+      <AttractionProductReviews
+        attractionProductId={attractionProductId}
+        onClose={handleChangeView('ATTRACTIONS')}
+      />
+    )
+  }
+
+  if (attractionView === 'FAQS') {
     return (
       <AttractionProductAskedQuestions
         attractionProductId={attractionProductId}
@@ -112,7 +122,8 @@ export function AttractionProducts() {
               attractionProduct={attractionProduct}
               onEdit={handleChangeView('EDIT')}
               onItinerary={handleChangeView('ITINERARY')}
-              onAskedQuestions={handleChangeView('FAQ')}
+              onAskedQuestions={handleChangeView('FAQS')}
+              onReviews={handleChangeView('REVIEWS')}
               onRefresh={attractionProducts.onRefresh}
             />
           )

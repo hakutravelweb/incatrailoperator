@@ -254,11 +254,16 @@
       "4": "Muy bueno",
       "5": "Excelente"
     },
+    "review": {
+      "title": "Opiniónes",
+      "deleted-message": "La opinión de {fullname} fue eliminada"
+    },
     "actions": {
       "edit": "Editar",
       "delete": "Eliminar",
       "itinerary": "Itinerario",
-      "asked-questions": "Preguntas frecuentes"
+      "asked-questions": "Preguntas frecuentes",
+      "reviews": "Opiniones"
     },
     "pagination": "Mostrando resultados de {start} a {end} de {total}"
   },
