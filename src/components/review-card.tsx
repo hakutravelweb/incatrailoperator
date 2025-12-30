@@ -1,6 +1,6 @@
 import { useLocale } from 'next-intl'
 import { formatDate } from '@/lib/utils'
-import { Review } from '@/interfaces/attraction-product'
+import { Review } from '@/interfaces/review'
 import { Rating } from './attraction-product/rating'
 
 interface Props {

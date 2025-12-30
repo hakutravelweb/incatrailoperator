@@ -246,6 +246,13 @@
       "DAY": "Days",
       "HOUR": "Hours"
     },
+    "rating": {
+      "1": "Appalling",
+      "2": "Bad",
+      "3": "Regular",
+      "4": "Very good",
+      "5": "Excellent"
+    },
     "actions": {
       "edit": "Edit",
       "delete": "Delete",
@@ -396,7 +403,20 @@
     "save-money": "Save {amount} in this limited-time offer!",
     "download-pdf": "Download PDF",
     "contact": "Contact",
-    "book-now": "Book now"
+    "book-now": "Book now",
+    "review": {
+      "title": "New opinion of {title}",
+      "created-message": "Hello {fullname}, your feedback has been received",
+      "create-label": "Post a review",
+      "traveller": "Traveller",
+      "form-field": {
+        "rating": "Rating",
+        "fullname": "Fullname",
+        "email": "Email",
+        "country": "Country",
+        "comment": "Comment"
+      }
+    }
   },
   "Destination": {
     "country": "Peru",

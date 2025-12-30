@@ -247,6 +247,13 @@
       "DAY": "Dias",
       "HOUR": "Horas"
     },
+    "rating": {
+      "1": "Terrible",
+      "2": "Malo",
+      "3": "Regular",
+      "4": "Muy bueno",
+      "5": "Excelente"
+    },
     "actions": {
       "edit": "Editar",
       "delete": "Eliminar",
@@ -397,7 +404,20 @@
     "save-money": "¡Ahorra {amount} en esta oferta limitada!",
     "download-pdf": "Descargar PDF",
     "contact": "Contactar",
-    "book-now": "Reservar ahora"
+    "book-now": "Reservar ahora",
+    "review": {
+      "title": "Nueva opinion de {title}",
+      "created-message": "Hola {fullname}, su opinión fue recibida",
+      "create-label": "Publicar opinión",
+      "traveller": "Viajero",
+      "form-field": {
+        "rating": "Clasificación",
+        "fullname": "Nombre completo",
+        "email": "Correo Electrónico",
+        "country": "Pais",
+        "comment": "Comentario"
+      }
+    }
   },
   "Destination": {
     "country": "Perú",
