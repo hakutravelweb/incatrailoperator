@@ -37,6 +37,15 @@ export async function deleteCategory(id: string) {
     },
   })
 
+  const deletedAttractionProducts = await prisma.attractionProduct.findMany({
+    where: {
+      categoryId: category.id,
+    },
+  })
+  if (deletedAttractionProducts.length > 0) {
+    throw new Error('CANNOT DELETE CATEGORY WITH ATTRACTION PRODUCTS')
+  }
+
   const deleted = await prisma.category.delete({
     where: {
       id: category.id,

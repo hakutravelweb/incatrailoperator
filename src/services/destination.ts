@@ -37,6 +37,15 @@ export async function deleteDestination(id: string) {
     },
   })
 
+  const deletedAttractionProducts = await prisma.attractionProduct.findMany({
+    where: {
+      destinationId: destination.id,
+    },
+  })
+  if (deletedAttractionProducts.length > 0) {
+    throw new Error('CANNOT DELETE DESTINATION WITH ATTRACTION PRODUCTS')
+  }
+
   const deleted = await prisma.destination.delete({
     where: {
       id: destination.id,
