@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://www.incatrailoperator.com" target="blank"><img src="./public/logos/logo.svg" width="120" alt="Inca Trail Operator" /></a>
+  <a href="https://incatrailoperator.com" target="blank"><img src="./public/logos/logo.svg" width="120" alt="Inca Trail Operator" /></a>
 </p>
 
 <p align="center">Travel agency <a href="https://incatrailoperator.com" target="_blank">Inca Trail Operator</a>

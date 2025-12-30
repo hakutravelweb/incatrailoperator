@@ -93,7 +93,7 @@ export function Editor({
     editorProps: {
       attributes: {
         class: cn(
-          'prose max-w-full min-h-25 text-dark-charcoal border-chinese-white focus:border-black rounded-sm border-2 outline-hidden prose-headings:text-black prose-headings:font-bold text-base leading-5 prose-base p-4 prose-blockquote:border-s-chinese-white prose-hr:border-t-chinese-white [&_nav]:data-toc-id:w-fit [&_nav]:data-toc-id:rounded-md [&_nav]:data-toc-id:px-2 [&_nav]:data-toc-id:bg-observatory/20 [&_nav]:data-toc-id:prose-headings:text-black [&_nav]:data-toc-id:prose-headings:font-extrabold [&_nav]:data-toc-id:prose-headings:m-0 [&_nav]:data-toc-id:prose-p:my-0 prose-a:text-observatory prose-a:hover:text-strong-dark-green',
+          'prose max-w-full min-h-25 text-dark-charcoal border-chinese-white focus:border-black rounded-sm border-2 outline-hidden prose-headings:text-black prose-headings:font-bold text-base leading-5 prose-base p-4 prose-blockquote:border-s-chinese-white prose-hr:border-t-chinese-white [&_nav]:data-toc-id:w-fit [&_nav]:data-toc-id:rounded-md [&_nav]:data-toc-id:px-2 [&_nav]:data-toc-id:bg-observatory/20 [&_nav]:data-toc-id:prose-headings:text-black [&_nav]:data-toc-id:prose-headings:font-black [&_nav]:data-toc-id:prose-headings:m-0 [&_nav]:data-toc-id:prose-p:my-0 prose-a:text-observatory prose-a:hover:text-strong-dark-green',
           {
             'border-ue-red': invalid,
           },

@@ -208,7 +208,7 @@ export default async function AboutUs() {
               <div className='bg-ue-red rounded-full px-4 py-2 text-base leading-5 font-medium text-white'>
                 {t('why-choose-us.slogan')}
               </div>
-              <strong className='text-2xl leading-7.25 font-extrabold'>
+              <strong className='text-2xl leading-7.25 font-black'>
                 {t('why-choose-us.title')}
               </strong>
               <span className='text-dark-charcoal text-base leading-6'>
@@ -279,7 +279,7 @@ export default async function AboutUs() {
               <div className='text-observatory rounded-full bg-white px-4 py-2 text-base leading-5 font-medium'>
                 {t('start-adventure.slogan')}
               </div>
-              <strong className='text-2xl leading-7.25 font-extrabold text-white'>
+              <strong className='text-2xl leading-7.25 font-black text-white'>
                 {t('start-adventure.title')}
               </strong>
               <span className='text-base leading-6 text-white'>
