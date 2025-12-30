@@ -40,7 +40,7 @@ export default async function Home() {
 
   return (
     <Layout localizations={localizations}>
-      <div className='relative flex h-100 items-center bg-black'>
+      <div className='relative flex h-100 items-center justify-center bg-black'>
         <div className='bg-gradient-shadow absolute inset-0 z-1' />
         <img
           className='absolute size-full object-cover object-center'

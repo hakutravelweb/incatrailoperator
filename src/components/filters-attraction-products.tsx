@@ -35,7 +35,7 @@ export function FiltersAttractionProducts() {
   }
 
   return (
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col gap-4'>
       <div className='shadow-deep z-overlay relative -mt-10 grid grid-cols-1 items-end gap-4 rounded-xl bg-white p-6 md:mx-auto md:w-max md:grid-cols-[1fr_1fr_auto]'>
         <Controller
           control={form.control}
@@ -95,7 +95,7 @@ export function FiltersAttractionProducts() {
           <Icons.Loading className='size-6' />
         </div>
       )}
-      <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+      <div className='grid grid-cols-1 gap-6 py-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {attractionProducts.data.map((attractionProduct) => {
           return (
             <AttractionProductCard

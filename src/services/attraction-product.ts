@@ -166,6 +166,16 @@ export async function deleteAttractionProduct(id: string) {
         },
       },
     })
+    await transaction.askedQuestion.deleteMany({
+      where: {
+        attractionProductId: attractionProduct.id,
+      },
+    })
+    await transaction.review.deleteMany({
+      where: {
+        attractionProductId: attractionProduct.id,
+      },
+    })
   })
 
   const deleted = await prisma.attractionProduct.delete({
@@ -174,6 +184,12 @@ export async function deleteAttractionProduct(id: string) {
     },
   })
 
+  if (attractionProduct.attractionMap) {
+    attractionProduct.photos.push(attractionProduct.attractionMap)
+  }
+  if (attractionProduct.attractionPdf) {
+    attractionProduct.photos.push(attractionProduct.attractionPdf)
+  }
   await storageDeleteFiles({ fileNames: attractionProduct.photos })
 
   return deleted
@@ -397,3 +413,25 @@ export const getAttractionProducts = cache(
     return attractionProductsTranslate
   },
 )
+
+export const getPopularAttractionProducts = cache(async (locale: Locale) => {
+  const attractionProducts = await prisma.attractionProduct.findMany({
+    orderBy: {
+      reviews: {
+        _count: 'desc',
+      },
+    },
+    take: 5,
+  })
+
+  const attractionProductsTranslate = attractionProducts.map<
+    Partial<AttractionProduct>
+  >((attractionProduct) => {
+    return {
+      slug: attractionProduct.slug[locale],
+      title: attractionProduct.title[locale],
+    }
+  })
+
+  return attractionProductsTranslate
+})

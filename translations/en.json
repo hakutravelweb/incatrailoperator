@@ -15,6 +15,33 @@
     "destinatons": "Destinations",
     "travel": "Travel"
   },
+  "Footer": {
+    "slogan": "Unforgettable adventures in the Peruvian Andes",
+    "contact": {
+      "title": "Contact",
+      "company-name": "Company Name:",
+      "ruc": "RUC:",
+      "address": "Address:",
+      "email": "Email:",
+      "phone": "Phone:",
+      "schedule": "Business hours:"
+    },
+    "support": {
+      "title": "Support",
+      "contact-us": "Contact us",
+      "terms-and-conditions": "Terms and Conditions",
+      "privacy-policy": "Privacy Policy"
+    },
+    "popularts-attractions": {
+      "title": "Popular Attractions"
+    },
+    "information": {
+      "title": "Information",
+      "about-us": "About Us",
+      "articles": "Articles"
+    },
+    "author": "© {year} Inca Trail Operator. All rights reserved."
+  },
   "AuthSignIn": {
     "metadata": {
       "title": "Dashboard - IncaTrailOperator.com"

@@ -32,6 +32,10 @@ import HorizontalRule from './horizontal-rule.svg'
 import Strike from './strike.svg'
 import Check from './check.svg'
 import PdfPlus from './pdf-plus.svg'
+import Facebook from './facebook.svg'
+import Instagram from './instagram.svg'
+import Twitter from './twitter.svg'
+import Youtube from './youtube.svg'
 
 export const Icons = {
   Language,
@@ -68,4 +72,8 @@ export const Icons = {
   Strike,
   Check,
   PdfPlus,
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
 }
