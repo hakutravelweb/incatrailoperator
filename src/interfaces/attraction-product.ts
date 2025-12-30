@@ -90,8 +90,9 @@ export type AttractionView =
   | 'CREATE'
   | 'EDIT'
   | 'ITINERARY'
-  | 'FAQ'
+  | 'FAQS'
   | 'ATTRACTIONS'
+  | 'REVIEWS'
 
 export type DestinationView = 'CREATE' | 'EDIT' | 'DESTINATIONS'
 export type CategoryView = 'CREATE' | 'EDIT' | 'CATEGORIES'

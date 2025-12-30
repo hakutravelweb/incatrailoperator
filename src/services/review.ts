@@ -5,6 +5,15 @@ import { Locale } from '@/i18n/config'
 import { ReviewSchema } from '@/schemas/review'
 
 export async function createReview(input: ReviewSchema) {
+  await prisma.review.findFirstOrThrow({
+    where: {
+      traveller: {
+        path: ['email'],
+        equals: input.traveller.email,
+      },
+    },
+  })
+
   const created = await prisma.review.create({
     data: input,
   })
