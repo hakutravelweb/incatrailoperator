@@ -67,12 +67,12 @@ export function Footer() {
             </div>
             <div className='flex flex-col gap-4'>
               <strong className='text-base leading-5'>
-                {t('popularts-attractions.title')}
+                {t('populars-attractions.title')}
               </strong>
               {!attractionProducts.loading &&
                 attractionProducts.data.length === 0 && (
                   <span className='text-dav-ys-grey text-sm leading-4.5'>
-                    {t('popularts-attractions.empty-message')}
+                    {t('populars-attractions.empty-message')}
                   </span>
                 )}
               {attractionProducts.loading && (
