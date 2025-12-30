@@ -41,18 +41,18 @@ export default async function Articles() {
 
   return (
     <Layout localizations={localizations}>
-      <div className='bg-strong-dark-green py-10'>
+      <div className='bg-cinnabar py-10'>
         <Section>
           <div className='flex flex-col gap-6 md:flex-row md:items-center md:justify-between'>
             <div className='flex flex-col gap-2'>
               <strong className='text-2xl leading-7.25 font-black text-white md:text-[28px] md:leading-8.5'>
-                Inka Jungle
+                Inca Trail Operator
               </strong>
               <span className='text-base leading-6 text-white'>
                 {t('title')}
               </span>
             </div>
-            <div className='bg-blue-green/50 flex flex-col gap-4 rounded-lg p-4'>
+            <div className='bg-outrageous-orange/50 flex flex-col gap-4 rounded-lg p-4'>
               <div className='flex flex-col gap-2'>
                 <span className='text-base leading-6 font-bold text-white'>
                   {t('destinations')}
@@ -83,7 +83,7 @@ export default async function Articles() {
                 <Link
                   href='/'
                   target='_blank'
-                  className='bg-strong-dark-green rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold text-white'
+                  className='bg-cinnabar rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold text-white'
                 >
                   {t('book-attractions')}
                 </Link>

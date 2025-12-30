@@ -15,7 +15,7 @@ export function SectionList({ variant, title, list }: Props) {
           return (
             <div key={index} className='flex items-center gap-2'>
               {variant === 'includes' ? (
-                <Icons.Check className='text-observatory size-5' />
+                <Icons.Check className='text-inferno size-5' />
               ) : variant === 'not-included' ? (
                 <Icons.Close className='text-ue-red size-5' />
               ) : (

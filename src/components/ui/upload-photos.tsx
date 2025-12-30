@@ -109,7 +109,7 @@ export function UploadPhotos({
                     className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 left-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
                   >
                     <div
-                      className={cn('bg-observatory size-4 rounded-full', {
+                      className={cn('bg-inferno size-4 rounded-full', {
                         'bg-ue-red': activeDeleted,
                       })}
                     />

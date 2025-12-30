@@ -27,7 +27,7 @@ export function Checkbox({
         className={cn(
           'border-chinese-white flex size-6 items-center justify-center rounded-md border-2',
           {
-            'border-observatory bg-observatory': active,
+            'border-inferno bg-inferno': active,
           },
         )}
       >
@@ -65,7 +65,7 @@ export function CheckboxNumber({
         className={cn(
           'border-chinese-white flex size-6 items-center justify-center rounded-md border-2',
           {
-            'border-observatory bg-observatory': active,
+            'border-inferno bg-inferno': active,
           },
         )}
       >

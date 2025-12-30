@@ -29,9 +29,9 @@ export function MenuNavigation({ navigation }: Props) {
             key={item.id}
             onClick={handleNavigation(item.id)}
             className={cn(
-              'hover:bg-blue-green/10 text-dark-charcoal hover:text-observatory cursor-pointer rounded-md p-2 transition-colors duration-100',
+              'hover:bg-outrageous-orange/10 text-dark-charcoal hover:text-inferno cursor-pointer rounded-md p-2 transition-colors duration-100',
               {
-                'bg-blue-green/10 text-observatory': active,
+                'bg-outrageous-orange/10 text-inferno': active,
               },
             )}
           >

@@ -56,8 +56,8 @@ export function InputNumber({
         </span>
         <input
           ref={ref}
-          className='arrow-hidden flex-1 text-base leading-4.75 font-bold outline-hidden'
-          type='number'
+          className='flex-1 text-base leading-4.75 font-bold outline-hidden'
+          type='text'
           min={0}
           value={price}
           onChange={handleChange}

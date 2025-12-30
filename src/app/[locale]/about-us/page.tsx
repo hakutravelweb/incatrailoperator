@@ -38,7 +38,7 @@ export default async function AboutUs() {
   return (
     <Layout localizations={localizations}>
       <div className='flex flex-col gap-10'>
-        <div className='bg-strong-dark-green py-20'>
+        <div className='bg-cinnabar py-20'>
           <Section>
             <div className='flex flex-col items-center gap-4 text-center'>
               <div className='bg-ue-red animate-bounce rounded-full border-2 border-white px-4 py-2 text-base leading-5 font-medium text-white'>
@@ -176,7 +176,7 @@ export default async function AboutUs() {
                   <strong className='text-base leading-5'>
                     {t('our-mission.title')}
                   </strong>
-                  <div className='bg-blue-green h-1 w-10' />
+                  <div className='bg-outrageous-orange h-1 w-10' />
                 </div>
                 <span className='text-dark-charcoal text-sm leading-4.5'>
                   {t('our-mission.description')}
@@ -273,10 +273,10 @@ export default async function AboutUs() {
             </div>
           </Section>
         </div>
-        <div className='bg-strong-dark-green py-10'>
+        <div className='bg-cinnabar py-10'>
           <Section>
             <div className='flex flex-col items-center gap-6'>
-              <div className='text-observatory rounded-full bg-white px-4 py-2 text-base leading-5 font-medium'>
+              <div className='text-inferno rounded-full bg-white px-4 py-2 text-base leading-5 font-medium'>
                 {t('start-adventure.slogan')}
               </div>
               <strong className='text-2xl leading-7.25 font-black text-white'>
@@ -287,7 +287,7 @@ export default async function AboutUs() {
               </span>
               <Link
                 href='/'
-                className='bg-blue-green rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold'
+                className='bg-outrageous-orange rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold'
               >
                 {t('start-adventure.explore-attractions')}
               </Link>

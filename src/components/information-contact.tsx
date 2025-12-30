@@ -17,10 +17,10 @@ export function InformationContact() {
         Av. Ayahuayco N-3, Cusco, Perú
       </Information>
       <embed
-        className='bg-observatory/10 h-50 rounded-xl'
-        src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1072.379880657275!2d-71.98818350326623!3d-13.51400104089811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2afbdcc496d06f8d%3A0xc9398e30faf402e4!2sInka%20Jungle!5e0!3m2!1ses-419!2spe!4v1766522172587!5m2!1ses-419!2spe'
+        className='bg-inferno/10 h-50 rounded-xl'
+        src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d877.1011797588441!2d-71.98817253080612!3d-13.514255409180706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916dd74a4f3e3f13%3A0x159c9fc691efe075!2sInca%20Trail%20Operator!5e0!3m2!1ses-419!2spe!4v1767079156491!5m2!1ses-419!2spe'
       />
-      <div className='bg-observatory/10 border-l-observatory flex flex-col gap-4 rounded-xl border-l-2 p-4'>
+      <div className='bg-inferno/10 border-l-inferno flex flex-col gap-4 rounded-xl border-l-2 p-4'>
         <strong className='text-base leading-5 font-medium'>
           {t('information.company-title')}
         </strong>
@@ -53,7 +53,7 @@ function Information({
   return (
     <div className='flex items-center gap-2'>
       <div className='bg-anti-flash-white flex size-8 items-center justify-center rounded-full'>
-        <Icon className='text-observatory size-4' />
+        <Icon className='text-inferno size-4' />
       </div>
       <div className='flex flex-col gap-1'>
         <span className='text-base leading-5 font-medium'>{label}</span>
@@ -75,7 +75,7 @@ function InformationCompany({
 }: PropsWithChildren<InformationCompanyProps>) {
   return (
     <div className='flex items-center gap-4'>
-      <span className='text-observatory text-sm leading-4.5'>{label}</span>
+      <span className='text-inferno text-sm leading-4.5'>{label}</span>
       <span className='text-dav-ys-grey text-sm leading-4.5'>{children}</span>
     </div>
   )

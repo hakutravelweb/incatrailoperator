@@ -39,7 +39,7 @@ export default async function ContactUs() {
 
   return (
     <Layout localizations={localizations}>
-      <div className='bg-observatory flex flex-col gap-10 py-20'>
+      <div className='bg-inferno flex flex-col gap-10 py-20'>
         <Section>
           <div className='flex flex-col items-center gap-2 text-center'>
             <strong className='text-2xl leading-7 font-black text-white'>

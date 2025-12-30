@@ -24,7 +24,7 @@ export function ArticleCard({ article }: Props) {
           alt={article.title}
           loading='lazy'
         />
-        <div className='bg-strong-dark-green absolute top-2 left-2 rounded-md p-2 text-xs leading-4 font-medium text-white'>
+        <div className='bg-cinnabar absolute top-2 left-2 rounded-md p-2 text-xs leading-4 font-medium text-white'>
           {article.category.title}
         </div>
       </div>

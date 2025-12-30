@@ -6,7 +6,7 @@ export function CompanyHours() {
 
   return (
     <div className='flex items-center justify-center gap-4 rounded-xl bg-white p-6'>
-      <div className='bg-observatory flex size-10 items-center justify-center rounded-full'>
+      <div className='bg-inferno flex size-10 items-center justify-center rounded-full'>
         <Icons.Clock className='size-6 text-white' />
       </div>
       <div className='flex flex-col gap-4'>
@@ -30,7 +30,7 @@ export function CompanyHours() {
               <span className='text-sm leading-4.5 font-medium'>
                 {t('company-hours.whatsapp-phone')}
               </span>
-              <span className='text-observatory text-sm leading-4.5 font-medium'>
+              <span className='text-inferno text-sm leading-4.5 font-medium'>
                 +51 984 259 412
               </span>
             </div>

@@ -52,7 +52,7 @@ export default async function AttractionProduct({ params }: Props) {
         <Section>
           <ArticleHeader article={article} />
         </Section>
-        <div className='bg-strong-dark-green h-100'>
+        <div className='bg-cinnabar h-100'>
           <img
             className='size-full object-cover'
             src={getFullMediaUrl(article.photo)}
@@ -63,7 +63,7 @@ export default async function AttractionProduct({ params }: Props) {
         <Section>
           <ParseHtml content={article.content} />
         </Section>
-        <div className='bg-strong-dark-green py-10'>
+        <div className='bg-cinnabar py-10'>
           <Section>
             <div className='flex flex-col items-center gap-6'>
               <strong className='text-2xl leading-7.25 font-black text-white'>
@@ -74,7 +74,7 @@ export default async function AttractionProduct({ params }: Props) {
               </span>
               <Link
                 href='/'
-                className='bg-blue-green rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold'
+                className='bg-outrageous-orange rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold'
               >
                 {t('start-adventure.view-available-attractions')}
               </Link>
