@@ -12,12 +12,13 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  email     String   @unique
+  email     String    @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  articles  Article[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model AttractionProduct {
@@ -144,6 +145,7 @@ model Category {
   /// [Translate]
   title              Json
   attractionProducts AttractionProduct[]
+  articles           Article[]
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
 }
@@ -159,4 +161,39 @@ model Destination {
   attractionProducts AttractionProduct[]
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
+}
+
+model Article {
+  id          String   @id @default(cuid())
+  /// [Translate]
+  slug        Json
+  photo       String
+  /// [Translate]
+  title       Json
+  /// [Translate]
+  description Json
+  /// [TranslateMultiple]
+  labels      Json
+  /// [Translate]
+  content     Json
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Home {
+  id                 String   @id @default(cuid())
+  locale             String
+  photo              String
+  title              String
+  subtitle           String
+  /// [Link]
+  link               Json
+  termsAndConditions String
+  privacyPolicy      String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }

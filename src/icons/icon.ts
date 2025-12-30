@@ -40,6 +40,7 @@ import Location from './location.svg'
 import Persons from './persons.svg'
 import Email from './email.svg'
 import Whatsapp from './whatsapp.svg'
+import Menu from './menu.svg'
 
 export const Icons = {
   Language,
@@ -84,4 +85,5 @@ export const Icons = {
   Persons,
   Email,
   Whatsapp,
+  Menu,
 }
