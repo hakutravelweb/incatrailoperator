@@ -10,6 +10,11 @@ export async function DestinationsPerDepartment() {
   return (
     <div className='flex flex-col gap-6 py-10'>
       <strong className='text-2xl leading-7.25'>{t('title')}</strong>
+      {destinationsPerDepartment.length === 0 && (
+        <span className='text-dav-ys-grey text-sm leading-4.5'>
+          {t('empty-message')}
+        </span>
+      )}
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
         {destinationsPerDepartment.map((destination) => {
           return (

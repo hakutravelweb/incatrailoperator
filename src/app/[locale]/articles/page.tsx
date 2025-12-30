@@ -57,6 +57,11 @@ export default async function Articles() {
                 <span className='text-base leading-6 font-bold text-white'>
                   {t('destinations')}
                 </span>
+                {destinations.length === 0 && (
+                  <span className='text-sm leading-4.5 text-white'>
+                    {t('destinations-empty')}
+                  </span>
+                )}
                 <div className='flex flex-wrap gap-2'>
                   {destinations.map((destination) => {
                     return (

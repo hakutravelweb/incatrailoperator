@@ -25,9 +25,7 @@ export function DestinationCard({ destination }: Props) {
         )}
       </div>
       <div className='flex flex-col gap-4 p-4'>
-        <strong className='text-base leading-5 font-bold'>
-          {destination.title}
-        </strong>
+        <strong className='text-base leading-5'>{destination.title}</strong>
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-1'>
             <Icons.Location className='size-4' />

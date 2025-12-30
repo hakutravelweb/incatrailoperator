@@ -69,6 +69,12 @@ export function Footer() {
               <strong className='text-base leading-5'>
                 {t('popularts-attractions.title')}
               </strong>
+              {!attractionProducts.loading &&
+                attractionProducts.data.length === 0 && (
+                  <span className='text-dav-ys-grey text-sm leading-4.5'>
+                    {t('popularts-attractions.empty-message')}
+                  </span>
+                )}
               {attractionProducts.loading && (
                 <div className='bg-chinese-white h-10 w-full animate-pulse' />
               )}

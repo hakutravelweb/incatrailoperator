@@ -479,9 +479,7 @@ export function AttractionProductCreate({ onClose, onRefresh }: Props) {
               onChange={field.onChange}
               placeholder={t('attraction.form-field.select-category')}
               invalid={fieldState.invalid}
-              emptyMessage={
-                categories.data.length === 0 ? t('category.empty-message') : ''
-              }
+              emptyMessage={t('category.empty-message')}
             >
               {categories.data.map((category) => {
                 return (
@@ -504,11 +502,7 @@ export function AttractionProductCreate({ onClose, onRefresh }: Props) {
               onChange={field.onChange}
               placeholder={t('attraction.form-field.select-destination')}
               invalid={fieldState.invalid}
-              emptyMessage={
-                destinations.data.length === 0
-                  ? t('destination.empty-message')
-                  : ''
-              }
+              emptyMessage={t('destination.empty-message')}
             >
               {destinations.data.map((destination) => {
                 return (

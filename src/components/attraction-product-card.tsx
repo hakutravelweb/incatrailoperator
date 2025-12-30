@@ -40,7 +40,7 @@ export function AttractionProductCard({ attractionProduct }: Props) {
           {t(`variant.${attractionProduct.variant}`)}
         </div>
         <div className='flex items-start gap-2'>
-          <strong className='text-base leading-5 font-bold'>
+          <strong className='text-base leading-5'>
             {attractionProduct.title}
           </strong>
           <div className='flex gap-1'>

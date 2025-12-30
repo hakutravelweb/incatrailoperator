@@ -61,11 +61,7 @@ export function FiltersAttractionProducts() {
               onChange={field.onChange}
               placeholder={t('select-category')}
               invalid={fieldState.invalid}
-              emptyMessage={
-                categories.data.length === 0
-                  ? t('categories-empty-message')
-                  : ''
-              }
+              emptyMessage={t('categories-empty-message')}
             >
               {categories.data.map((category) => {
                 return (

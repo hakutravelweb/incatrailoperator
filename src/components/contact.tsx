@@ -86,6 +86,7 @@ export function Contact() {
             onChange={field.onChange}
             placeholder={t('contact.attraction-product-placeholder')}
             invalid={fieldState.invalid}
+            emptyMessage={t('contact.attraction-products-empty-message')}
           >
             {attractionProducts.data.map((attractionProduct) => {
               return (
