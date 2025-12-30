@@ -183,7 +183,6 @@
       "search-placeholder": "Search...",
       "add-label": "Add article",
       "empty-message": "No articles were found",
-      "quantity": "{number, plural, =0 {# articles} =1 {# article} other {# articles}}",
       "new-label": "New article",
       "create-label": "Create article",
       "created-message": "The article {title} was created",
@@ -199,6 +198,36 @@
         "content": "Content",
         "category": "Category",
         "select-category": "Select a category"
+      }
+    },
+    "home": {
+      "title": "Homes",
+      "search-placeholder": "Search...",
+      "add-label": "Add home",
+      "empty-message": "No homes were found",
+      "new-label": "New home",
+      "create-label": "Create home",
+      "created-message": "The home {title} was created",
+      "deleted-message": "The home {title} was deleted",
+      "update-label": "Update home",
+      "updated-message": "The home {title} was updated",
+      "form-field": {
+        "locale": "Locale",
+        "select-locale": "Select a locale",
+        "photo": "Photo",
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "link": {
+          "title": "Link",
+          "href": "Url",
+          "label": "Label"
+        },
+        "terms-and-conditions": "Terms and Conditions",
+        "privacy-policy": "Privacy Policy"
+      },
+      "language": {
+        "es": "Spanish",
+        "en": "English"
       }
     },
     "input-list": {

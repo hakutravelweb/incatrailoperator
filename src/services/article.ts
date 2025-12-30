@@ -28,13 +28,13 @@ export async function createArticle(input: ArticleSchema) {
 }
 
 export async function updateArticle(id: string, input: ArticleSchema) {
+  const { photo, previewPhoto, ...data } = input
+
   const article = await prisma.article.findUniqueOrThrow({
     where: {
       id,
     },
   })
-
-  const { photo, previewPhoto, ...data } = input
 
   if (photo) {
     article.photo = await storageUpdate({
@@ -100,7 +100,7 @@ export const getArticlesPagination = cache(
         ...article,
         slug: article.slug[locale],
         title: article.title[locale],
-        description: article.description[locale],
+        introduction: article.introduction[locale],
         labels: article.labels[locale],
         content: article.content[locale],
         category: {
