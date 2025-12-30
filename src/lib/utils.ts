@@ -2,6 +2,7 @@ import { clsx, ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { Locale } from '@/i18n/config'
 import { SLUG_REGEX } from './constants'
+import { ObserverSelector } from '@/interfaces/root'
 
 export function cn(...args: ClassValue[]) {
   return twMerge(clsx(args))
@@ -43,4 +44,29 @@ export function generateTimes() {
   })
 
   return times
+}
+
+export function navigateScrollInto(selector: ObserverSelector, value: string) {
+  const element = document.querySelector(`[${selector}="${value}"`)
+  if (!element) return
+  element.scrollIntoView({
+    block: 'center',
+    behavior: 'smooth',
+  })
+}
+
+interface FormatDate {
+  locale: Locale
+  date: Date
+  options?: Intl.DateTimeFormatOptions
+}
+
+export function formatDate({ locale, date, options }: FormatDate) {
+  const defaultOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }
+  const formatOptions = options || defaultOptions
+  return new Intl.DateTimeFormat(`${locale}-PE`, formatOptions).format(date)
 }

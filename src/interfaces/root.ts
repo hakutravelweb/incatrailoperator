@@ -19,3 +19,5 @@ export interface Navigation {
   id: string
   title: string
 }
+
+export type ObserverSelector = 'data-toc-id'

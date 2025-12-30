@@ -59,7 +59,7 @@ export function Homes() {
             className='text-dark-charcoal flex-1 p-2 text-sm leading-4.5 outline-hidden'
             value={homes.search}
             onChange={handleChange}
-            placeholder={t('article.search-placeholder')}
+            placeholder={t('home.search-placeholder')}
           />
         </div>
         <Button
@@ -67,14 +67,14 @@ export function Homes() {
           icon='Plus'
           onClick={handleChangeView('CREATE')}
         >
-          {t('article.add-label')}
+          {t('home.add-label')}
         </Button>
       </div>
       <div className='divide-chinese-white divide-y'>
         {!homes.loading && homes.data.length === 0 && (
           <div className='flex justify-center py-4'>
             <span className='text-dav-ys-grey text-sm leading-4.5'>
-              {t('article.empty-message')}
+              {t('home.empty-message')}
             </span>
           </div>
         )}

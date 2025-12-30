@@ -264,12 +264,9 @@
     "deleted-message": "{number, plural, =0 {Se elijieron # fotos para ser eliminadas} =1 {Se elijio # foto para ser eliminada} other {Se elijieron # fotos para ser eliminadas}}"
   },
   "Home": {
-    "title": "Inca Trail Operator: Viajes, actividades y cosas que hacer",
-    "description": "Sitio web oficial de Inca Trail Operator: explore y reserve más de 1000 actividades con Inca Trail Operator. Además, ofrecemos cancelación gratuita y opciones de pago flexibles para que pueda viajar sin preocupaciones.",
-    "hero": {
-      "title": "Descubre el Perú con Inca Trail Operator",
-      "subtitle": "Aventuras inolvidables en la selva amazonic y Machu Picchu",
-      "explore-tours-label": "Explorar Tours"
+    "metadata": {
+      "title": "Inca Trail Operator: Viajes, actividades y cosas que hacer",
+      "description": "Sitio web oficial de Inca Trail Operator: explore y reserve más de 1000 actividades con Inca Trail Operator. Además, ofrecemos cancelación gratuita y opciones de pago flexibles para que pueda viajar sin preocupaciones."
     }
   },
   "FiltersAttractionProducts": {
@@ -331,5 +328,21 @@
     },
     "success-message": "¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.",
     "error-message": "Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde."
+  },
+  "TermsAndConditions": {
+    "metadata": {
+      "title": "Términos y condiciones"
+    },
+    "title": "Términos y condiciones",
+    "navigation-title": "Contenido"
+  },
+  "PrivacyPolicy": {
+    "metadata": {
+      "title": "Política de privacidad"
+    },
+    "title": "Política de privacidad",
+    "description": "Protegemos tu información personal con los más altos estándares de seguridad y transparencia",
+    "effective-from": "Vigente desde: {date}",
+    "navigation-title": "Contenido"
   }
 }
