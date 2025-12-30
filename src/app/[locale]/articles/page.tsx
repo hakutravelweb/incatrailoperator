@@ -46,7 +46,7 @@ export default async function Articles() {
           <div className='flex flex-col gap-6 md:flex-row md:items-center md:justify-between'>
             <div className='flex flex-col gap-2'>
               <strong className='text-2xl leading-7.25 font-extrabold text-white md:text-[28px] md:leading-8.5'>
-                Inka Jungle
+                Inca Trail Operator
               </strong>
               <span className='text-base leading-6 text-white'>
                 {t('title')}

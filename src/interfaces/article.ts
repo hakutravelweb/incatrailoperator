@@ -1,4 +1,4 @@
-import { Navigation } from './root'
+import { Localization, Navigation } from './root'
 import { User } from './user'
 import { Category } from './attraction-product'
 
@@ -14,6 +14,7 @@ export interface Article {
   author: User
   category: Category
   createdAt: Date
+  localizations: Localization[]
 }
 
 export type ArticleView = 'CREATE' | 'EDIT' | 'ARTICLES'
