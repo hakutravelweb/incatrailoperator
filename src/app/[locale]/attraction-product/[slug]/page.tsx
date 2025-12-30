@@ -16,6 +16,7 @@ import { WaypointItem } from '@/components/attraction-product/waypoint-item'
 import { ParseHtml } from '@/components/parse-html'
 import { AskedQuestionItem } from '@/components/attraction-product/asked-question-item'
 import { Booking } from '@/components/attraction-product/booking'
+import { MapVideo } from '@/components/attraction-product/map-video'
 
 const localizations = locales.map<Localization>((locale) => {
   return {
@@ -97,15 +98,15 @@ export default async function AttractionProduct({ params }: Props) {
               </span>
               <span className='text-gray-x11 text-base leading-5'>•</span>
               <div className='flex items-center gap-1'>
-                <Icons.Location className='text-observatory size-4' />
+                <Icons.Location className='text-observatory size-5' />
                 <span className='text-dark-charcoal text-base leading-5'>
                   {attractionProduct.destination}, {t('country')}
                 </span>
               </div>
               <span className='text-gray-x11 text-base leading-5'>•</span>
               <div className='flex items-center gap-1'>
-                <Icons.Clock className='text-observatory size-4' />
-                <span className='text-dark-charcoal text-sm leading-4.5 font-medium'>
+                <Icons.Clock className='text-observatory size-5' />
+                <span className='text-dark-charcoal text-base leading-5'>
                   {attractionProduct.duration.type === 'HOUR'
                     ? t('duration-hours', {
                         quantity: attractionProduct.duration.quantity,
@@ -239,7 +240,7 @@ export default async function AttractionProduct({ params }: Props) {
                 title={t('recommendations')}
                 list={attractionProduct.recommendations}
               />
-              <div className='border-l-observatory bg-strong-dark-green/10 flex flex-col gap-4 rounded-xl border-l-4 p-6'>
+              <div className='border-l-observatory bg-blue-green/10 flex flex-col gap-4 rounded-xl border-l-4 p-6'>
                 <strong className='text-lg leading-6'>
                   {t('additional-advice')}
                 </strong>
@@ -266,29 +267,7 @@ export default async function AttractionProduct({ params }: Props) {
               <hr className='border-chinese-white border-t' />
               <div className='flex flex-col gap-4'>
                 <strong className='text-xl leading-6'>{t('map-video')}</strong>
-                <div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
-                  {attractionProduct.attractionMap && (
-                    <div className='bg-anti-flash-white aspect-video overflow-hidden rounded-xl'>
-                      <img
-                        className='size-full object-contain'
-                        src={getFullMediaUrl(attractionProduct.attractionMap)}
-                        alt={attractionProduct.title}
-                        loading='lazy'
-                      />
-                    </div>
-                  )}
-                  {attractionProduct.attractionVideo && (
-                    <div className='bg-anti-flash-white aspect-video overflow-hidden rounded-xl'>
-                      <iframe
-                        className='size-full object-cover'
-                        src={attractionProduct.attractionVideo}
-                        title={attractionProduct.title}
-                        loading='lazy'
-                        allow='autoplay; fullscreen; picture-in-picture'
-                      />
-                    </div>
-                  )}
-                </div>
+                <MapVideo attractionProduct={attractionProduct} />
               </div>
               <hr className='border-chinese-white border-t' />
               <div className='flex flex-col gap-4'>
