@@ -16,7 +16,9 @@ export function AskedQuestionItem({ askedQuestion }: Props) {
         onClick={toggle.onToggle}
         className='flex cursor-pointer items-center justify-between gap-4 p-4'
       >
-        <strong className='text-lg leading-6'>{askedQuestion.title}</strong>
+        <strong className='flex-1 text-lg leading-6'>
+          {askedQuestion.title}
+        </strong>
         {toggle.isOpen ? (
           <Icons.Up className='size-5' />
         ) : (

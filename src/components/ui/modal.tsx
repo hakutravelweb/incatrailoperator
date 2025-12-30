@@ -1,14 +1,20 @@
 import { useEffect, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
 import { Icons } from '@/icons/icon'
-import { verifyOpenedModals } from '@/lib/utils'
+import { cn, verifyOpenedModals } from '@/lib/utils'
 
 interface Props {
+  variant?: 'preview'
   isOpen: boolean
   onClose: () => void
 }
 
-export function Modal({ isOpen, onClose, children }: PropsWithChildren<Props>) {
+export function Modal({
+  variant,
+  isOpen,
+  onClose,
+  children,
+}: PropsWithChildren<Props>) {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('overflow-hidden', 'touch-none')
@@ -28,7 +34,14 @@ export function Modal({ isOpen, onClose, children }: PropsWithChildren<Props>) {
               onClick={onClose}
               className='absolute inset-0 bg-black/40 opacity-80'
             />
-            <div className='animate-fade-in z-overlay relative m-4 flex w-125 max-w-full flex-col rounded-2xl bg-white'>
+            <div
+              className={cn(
+                'animate-fade-in z-overlay relative m-4 flex w-125 max-w-full flex-col rounded-2xl bg-white',
+                {
+                  'w-250': variant === 'preview',
+                },
+              )}
+            >
               <div className='flex justify-end px-6 py-4'>
                 <Icons.Close
                   onClick={onClose}

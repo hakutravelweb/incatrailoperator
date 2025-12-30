@@ -99,12 +99,16 @@ export function Banner({ attractionProduct }: Props) {
             </span>
           </button>
         )}
-        <Modal isOpen={gallery.isOpen} onClose={gallery.onClose}>
+        <Modal
+          variant='preview'
+          isOpen={gallery.isOpen}
+          onClose={gallery.onClose}
+        >
           <div className='flex flex-col gap-4'>
             <strong className='text-xl leading-7'>
               {attractionProduct.title}
             </strong>
-            <div className='relative bg-black'>
+            <div className='bg-strong-dark-green relative flex items-center justify-center'>
               <button
                 onClick={handlePrev}
                 className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2/4 left-5 flex size-10 -translate-y-2/4 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'

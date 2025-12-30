@@ -6,6 +6,7 @@ import { Link } from '@/i18n/routing'
 import { AttractionProduct } from '@/interfaces/attraction-product'
 import { Button } from '@/components/ui/button'
 import { Rating } from './rating'
+import { Icons } from '@/icons/icon'
 
 interface Props {
   attractionProduct: AttractionProduct
@@ -73,15 +74,25 @@ export function Booking({ attractionProduct }: Props) {
         {attractionProduct.codeWetravel && (
           <PaymentButton codWetravel={attractionProduct.codeWetravel} />
         )}
-        {attractionProduct.attractionPdf && (
+        <div className='grid grid-cols-2 items-center gap-2'>
+          {attractionProduct.attractionPdf && (
+            <Link
+              className='hover:bg-dark-charcoal active:bg-dav-ys-grey rounded-full bg-black px-4 py-3.5 text-center text-base leading-5 font-bold text-white transition-colors duration-100 active:text-white/50'
+              href={getFullMediaUrl(attractionProduct.attractionPdf)}
+              target='_blank'
+            >
+              {t('download-pdf')}
+            </Link>
+          )}
           <Link
-            className='hover:bg-dark-charcoal active:bg-dav-ys-grey rounded-full bg-black px-4 py-3.5 text-center text-base leading-5 font-bold text-white transition-colors duration-100 active:text-white/50'
-            href={getFullMediaUrl(attractionProduct.attractionPdf)}
+            className='hover:bg-anti-flash-white active:bg-chinese-white active:text-dav-ys-grey border-chinese-white flex items-center justify-center gap-2 rounded-full border-2 bg-white px-4 py-3 text-base leading-5 font-bold'
+            href='https://api.whatsapp.com/send/?phone=+51984259412&text=%C2%A1Hola!,%20necesito%20mas%20informaci%C3%B3n...'
             target='_blank'
           >
-            {t('download-pdf')}
+            <Icons.Whatsapp className='size-5' />
+            {t('contact')}
           </Link>
-        )}
+        </div>
       </div>
       <hr className='border-chinese-white border-t' />
       <div className='flex flex-col gap-1'>
