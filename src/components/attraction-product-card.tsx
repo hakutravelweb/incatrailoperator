@@ -36,7 +36,7 @@ export function AttractionProductCard({ attractionProduct }: Props) {
         </div>
       </div>
       <div className='flex flex-col items-start gap-2 px-4 py-2'>
-        <div className='border-chinese-white bg-anti-flash-white rounded-md border-2 px-2 py-1 text-sm leading-4.5 font-bold uppercase'>
+        <div className='rounded-sm border border-black px-2 py-1 text-sm leading-4.5 font-medium uppercase'>
           {t(`variant.${attractionProduct.variant}`)}
         </div>
         <div className='flex items-start gap-2'>

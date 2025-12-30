@@ -57,7 +57,7 @@ export default async function AttractionProduct({ params }: Props) {
               <div className='border-chinese-white bg-anti-flash-white rounded-md border-2 px-2 py-1 text-sm leading-4.5 font-bold uppercase'>
                 {t(`variant.${attractionProduct.variant}`)}
               </div>
-              <strong className='text-2xl leading-7.25 font-extrabold md:text-[28px] md:leading-8.5'>
+              <strong className='text-2xl leading-7.25 font-black md:text-[28px] md:leading-8.5'>
                 {t('review.title', {
                   title: attractionProduct.title,
                 })}

@@ -66,7 +66,7 @@ export default async function AttractionProduct({ params }: Props) {
         <div className='bg-strong-dark-green py-10'>
           <Section>
             <div className='flex flex-col items-center gap-6'>
-              <strong className='text-2xl leading-7.25 font-extrabold text-white'>
+              <strong className='text-2xl leading-7.25 font-black text-white'>
                 {t('start-adventure.title')}
               </strong>
               <span className='text-base leading-6 text-white'>

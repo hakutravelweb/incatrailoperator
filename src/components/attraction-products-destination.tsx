@@ -45,7 +45,7 @@ export function AttractionProductDestination({ destination }: Props) {
               </span>
             </div>
             <div className='flex flex-col gap-4'>
-              <strong className='text-2xl leading-7.25 font-extrabold text-white md:text-[28px] md:leading-8.5'>
+              <strong className='text-2xl leading-7.25 font-black text-white md:text-[28px] md:leading-8.5'>
                 {t('discover', {
                   title: destination.title,
                 })}
