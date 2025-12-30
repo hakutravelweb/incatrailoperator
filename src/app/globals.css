@@ -24,7 +24,6 @@
   --spacing-sidebar: calc(100vw - 64px);
 
   --bg-gradient-shadow: linear-gradient(180deg, #0000 0, #0009 80%, #0009 100%);
-  --shadow-sidebar: 0 2px 4px rgba(0, 0, 0, 0.25);
 
   --grid-cols-auto-fill: repeat(
     auto-fill,
@@ -33,6 +32,7 @@
 
   --shadow-soft-drop: 0 2px 12px 0 rgba(0, 0, 0, 0.15);
   --shadow-deep: 0 2px 54px rgba(0, 0, 0, 0.1);
+  --shadow-sidebar: 0 2px 4px rgba(0, 0, 0, 0.25);
 
   --animate-fade-in: fade-in 0.3s;
 
