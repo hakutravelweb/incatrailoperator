@@ -68,6 +68,8 @@ model AttractionProduct {
   attractionMap       String
   attractionVideo     String
   attractionPdf       String
+  /// [Translate]
+  codeWetravel        Json
   retailPrice         Float
   specialPrice        Float
   categoryId          String
@@ -152,6 +154,8 @@ model Category {
 
 model Destination {
   id                 String              @id @default(cuid())
+  /// [Translate]
+  slug               Json
   /// [Translate]
   title              Json
   /// [Translate]

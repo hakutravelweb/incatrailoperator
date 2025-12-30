@@ -108,6 +108,7 @@
         "attraction-map": "Mapa de la attracción",
         "attraction-video": "Video de la attracción",
         "attraction-pdf": "Pdf de la attracción",
+        "code-wetravel": "Codigo de wetravel",
         "retail-price": "Precio de venta",
         "special-price": "Precio especial",
         "time": "Hora",
@@ -173,6 +174,7 @@
       "update-label": "Actualizar destino",
       "updated-message": "El destino {title} fue actualizado",
       "form-field": {
+        "slug": "Url",
         "title": "Titulo",
         "department": "Departamento",
         "about": "Acerca de"

@@ -79,6 +79,7 @@ export const getDestinationsPagination = cache(
       (destination) => {
         return {
           ...destination,
+          slug: destination.slug[locale],
           title: destination.title[locale],
           department: destination.department[locale],
           about: destination.about[locale],
@@ -110,6 +111,7 @@ export const getDestinations = cache(async (locale: Locale) => {
   const destinationsTranslate = destinations.map<Destination>((destination) => {
     return {
       ...destination,
+      slug: destination.slug[locale],
       title: destination.title[locale],
       department: destination.department[locale],
       about: destination.about[locale],
@@ -134,6 +136,7 @@ export const getDestinationsPerDepartment = cache(async (locale: Locale) => {
     if (destination.attractionProducts.length === 0) {
       return {
         id: destination.id,
+        slug: destination.slug[locale],
         photo: '',
         title: destination.title[locale],
         department: destination.department[locale],
@@ -170,6 +173,7 @@ export const getDestinationsPerDepartment = cache(async (locale: Locale) => {
 
     return {
       id: destination.id,
+      slug: destination.slug[locale],
       photo: cheapestProduct.photos[0],
       title: destination.title[locale],
       department: destination.department[locale],

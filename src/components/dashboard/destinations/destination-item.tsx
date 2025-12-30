@@ -2,6 +2,7 @@ import { useTransition } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
+import { Link } from '@/i18n/routing'
 import { Destination } from '@/interfaces/attraction-product'
 import { deleteDestination } from '@/services/destination'
 import { Dropdown } from '@/components/ui/dropdown'
@@ -59,7 +60,13 @@ export function DestinationItem({ destination, onEdit, onRefresh }: Props) {
             <span className='text-dark-charcoal text-sm leading-4.5'>
               {destination.department}
             </span>
-            <span className='text-base leading-4.75'>{destination.title}</span>
+            <Link
+              href={`/destination/${destination.slug}`}
+              target='_blank'
+              className='text-base leading-4.75 underline'
+            >
+              {destination.title}
+            </Link>
           </div>
           <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
             {t('destination.attractions-number', {
