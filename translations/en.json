@@ -408,13 +408,19 @@
     "metadata": {
       "title": "Travel Articles: Inspiration and Tips"
     },
+    "country": "Peru",
+    "articles": "Articles",
     "title": "Your adventure in Peru starts here",
     "destinations": "Destinations",
     "tickets-machu-picchu": "Machu Picchu Tickets",
     "book-attractions": "Book attractions",
     "categories": "Categories",
-    "card": {
-      "share": "Share:"
+    "share": "Share:",
+    "reading-time": "{time} min reading",
+    "start-adventure": {
+      "title": "Start your adventure today",
+      "description": "Book your spot in advance and secure your place on this unique experience. Our expert guides will accompany you every step of the way.",
+      "view-available-attractions": "View available attractions"
     }
   }
 }

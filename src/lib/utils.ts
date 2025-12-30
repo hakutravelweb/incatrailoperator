@@ -70,3 +70,11 @@ export function formatDate({ locale, date, options }: FormatDate) {
   const formatOptions = options || defaultOptions
   return new Intl.DateTimeFormat(`${locale}-PE`, formatOptions).format(date)
 }
+
+export function calculateReadingTime(html: string) {
+  const content = html.replace(/<[^>]*>/g, '')
+  const wordsPerMinute = 200
+  const words = content.split(/\s+/).length
+  const readingTime = Math.ceil(words / wordsPerMinute)
+  return readingTime
+}

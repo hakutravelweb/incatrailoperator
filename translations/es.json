@@ -409,13 +409,19 @@
     "metadata": {
       "title": "Articulos de Viajes: Inspiración y Consejos"
     },
+    "country": "Perú",
+    "articles": "Artículos",
     "title": "Tu aventura en Perú comienza aquí",
     "destinations": "Destinos",
     "tickets-machu-picchu": "Boletos Machu Picchu",
     "book-attractions": "Reserva atracciones",
     "categories": "Categorias",
-    "card": {
-      "share": "Compartir:"
+    "share": "Compartir:",
+    "reading-time": "{time} min lectura",
+    "start-adventure": {
+      "title": "Comienza tu aventura hoy",
+      "description": "Reserva tu plaza con anticipación y asegura tu lugar en esta experiencia única. Nuestros guías expertos te acompañarán en cada paso del camino.",
+      "view-available-attractions": "Ver atracciones disponibles"
     }
   }
 }

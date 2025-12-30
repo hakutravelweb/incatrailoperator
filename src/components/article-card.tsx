@@ -63,14 +63,14 @@ export function ArticleCard({ article }: Props) {
           </span>
         </div>
         <hr className='border-chinese-white border-t' />
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center justify-between gap-4'>
           <span className='text-dav-ys-grey text-sm leading-4.5 font-medium'>
-            {t('card.share')}
+            {t('share')}
           </span>
           <div className='flex items-center gap-1'>
             <Icons.Facebook className='size-6' />
-            <Icons.Instagram className='size-6' />
             <Icons.Twitter className='size-6' />
+            <Icons.Whatsapp className='size-6' />
           </div>
         </div>
       </div>

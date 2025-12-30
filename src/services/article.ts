@@ -1,10 +1,11 @@
 'use server'
 import { cache } from 'react'
-import { Locale } from '@/i18n/config'
+import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
-import { storageSave, storageUpdate, storageDelete } from '@/services/storage'
 import { ArticleSchema } from '@/schemas/article'
+import { Localization } from '@/interfaces/root'
 import { Article } from '@/interfaces/article'
+import { storageSave, storageUpdate, storageDelete } from '@/services/storage'
 import { ArticleWhereInput } from '@/generated/prisma/models'
 
 export async function createArticle(input: ArticleSchema) {
@@ -109,6 +110,7 @@ export const getArticlesPagination = cache(
           title: article.category.title[locale],
           attractionProductsCount: 0,
         },
+        localizations: [],
       }
     })
 
@@ -161,6 +163,7 @@ export const getArticlesCategoryPagination = cache(
           title: article.category.title[locale],
           attractionProductsCount: 0,
         },
+        localizations: [],
       }
     })
 
@@ -170,3 +173,42 @@ export const getArticlesCategoryPagination = cache(
     }
   },
 )
+
+export const getArticleBySlug = cache(async (locale: Locale, slug: string) => {
+  const article = await prisma.article.findFirstOrThrow({
+    where: {
+      slug: {
+        path: [locale],
+        equals: slug,
+      },
+    },
+    include: {
+      author: true,
+      category: true,
+    },
+  })
+
+  const localizations = locales.map<Localization>((locale) => {
+    return {
+      locale,
+      slug: `/article/${article.slug[locale]}`,
+    }
+  })
+
+  const articleTranslate: Article = {
+    ...article,
+    slug: article.slug[locale],
+    title: article.title[locale],
+    introduction: article.introduction[locale],
+    labels: article.labels[locale],
+    content: article.content[locale],
+    category: {
+      ...article.category,
+      title: article.category.title[locale],
+      attractionProductsCount: 0,
+    },
+    localizations,
+  }
+
+  return articleTranslate
+})
