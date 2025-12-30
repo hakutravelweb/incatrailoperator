@@ -18,6 +18,10 @@ declare global {
       email: string
       country: string
     }
+    type Navigation = {
+      id: string
+      title: string
+    }
     type Link = {
       href: string
       label: string

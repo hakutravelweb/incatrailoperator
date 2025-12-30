@@ -194,8 +194,8 @@
         "slug": "Url",
         "photo": "Photo",
         "title": "Title",
-        "description": "Description",
-        "labels": "Tags",
+        "introduction": "Introduction",
+        "labels": "Labels",
         "content": "Content",
         "category": "Category",
         "select-category": "Select a category"

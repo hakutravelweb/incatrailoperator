@@ -7,6 +7,8 @@ import {
   articleResolver,
   articleDefaultValues,
 } from '@/schemas/article'
+import { Navigation } from '@/interfaces/root'
+import { auth } from '@/services/user'
 import { createArticle } from '@/services/article'
 import { useCategories } from '@/hooks/use-categories'
 import { Button } from '@/components/ui/button'
@@ -34,8 +36,14 @@ export function ArticleCreate({ onClose, onRefresh }: Props) {
 
   const categories = useCategories()
 
+  const handleNavigation = (navigation: Navigation[]) => {
+    form.setValue('navigation', navigation)
+  }
+
   const handleCreate = async (data: ArticleSchema) => {
     try {
+      const user = await auth()
+      data.authorId = user.id
       const { title } = await createArticle(data)
       toast.success(
         t('article.created-message', {
@@ -112,11 +120,11 @@ export function ArticleCreate({ onClose, onRefresh }: Props) {
         />
         <Controller
           control={form.control}
-          name='description'
+          name='introduction'
           render={({ field, formState }) => (
             <TextareaTranslate
               ref={field.ref}
-              label={t('article.form-field.description')}
+              label={t('article.form-field.introduction')}
               value={field.value}
               onChange={field.onChange}
               errors={formState.errors[field.name]}
@@ -147,6 +155,8 @@ export function ArticleCreate({ onClose, onRefresh }: Props) {
               label={t('article.form-field.content')}
               value={field.value}
               onChange={field.onChange}
+              onNavigation={handleNavigation}
+              enabledNavigation
               errors={formState.errors[field.name]}
             />
           )}

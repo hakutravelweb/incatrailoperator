@@ -164,24 +164,26 @@ model Destination {
 }
 
 model Article {
-  id          String   @id @default(cuid())
+  id           String   @id @default(cuid())
   /// [Translate]
-  slug        Json
-  photo       String
+  slug         Json
+  photo        String
   /// [Translate]
-  title       Json
+  title        Json
   /// [Translate]
-  description Json
+  introduction Json
   /// [TranslateMultiple]
-  labels      Json
+  labels       Json
+  /// [Navigation]
+  navigation   Json[]
   /// [Translate]
-  content     Json
-  authorId    String
-  author      User     @relation(fields: [authorId], references: [id])
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  content      Json
+  authorId     String
+  author       User     @relation(fields: [authorId], references: [id])
+  categoryId   String
+  category     Category @relation(fields: [categoryId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Home {
@@ -192,7 +194,11 @@ model Home {
   subtitle           String
   /// [Link]
   link               Json
+  /// [Navigation]
+  navigationTerms    Json[]
   termsAndConditions String
+  /// [Navigation]
+  navigationPrivacy  Json[]
   privacyPolicy      String
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
