@@ -441,5 +441,105 @@
   "Packages": {
     "title": "Extended Adventure Packages",
     "description": "Experience complete adventures that combine the best of Peru in multi-day itineraries"
+  },
+  "AboutUs": {
+    "metadata": {
+      "title": "About Us: Our History and Commitment"
+    },
+    "slogan": "🇵🇪 100% PERUVIAN AND LOCAL COMPANY",
+    "title": "Connecting travelers with Peru",
+    "description": "Since 2005, we have helped thousands of travelers discover the magic of the Andes, the Amazon, and the cultural wonders of Peru.",
+    "labels": {
+      "label-1": "🏠 Family Property in Cusco",
+      "label-2": "🌱 100% Peruvian Capital",
+      "label-3": "❌ NO Foreign Franchise"
+    },
+    "proudly-peruvian": {
+      "title": "Proudly 100% Peruvian",
+      "slogan": "LOCAL COMPANY - PERUVIAN CAPITAL - FAMILY OWNED",
+      "description": "We are a 100% Peruvian company, founded and operated by families from Cusco with deep roots in our sacred land. We are not a foreign franchise nor do we have international investment: we are authentically Peruvian, with our hearts in the Andes and our souls in our ancient culture.",
+      "features": {
+        "feature-1": {
+          "title": "Cusco Roots",
+          "description": "Born and raised in Cusco, the capital of the Inca Empire"
+        },
+        "feature-2": {
+          "title": "Quechua Tradition",
+          "description": "We preserve and share our ancestral traditions"
+        },
+        "feature-3": {
+          "title": "Inca Culture",
+          "description": "Direct heirs of the greatest civilization in South America"
+        }
+      }
+    },
+    "we-are-locals": {
+      "title": "🇵🇪 Why does it matter that we are 100% local?",
+      "subtitle": "Our commitment to Peru goes beyond tourism",
+      "features": {
+        "feature-1": {
+          "title": "Your money stays in Peru",
+          "description": "Unlike foreign franchises that send profits out of the country, every sol you invest with us stays in Peru: in our families, our employees, and our communities."
+        },
+        "feature-2": {
+          "title": "Authentic connections",
+          "description": "As locals, we have genuine relationships with Andean communities that have lasted for generations. We are not foreign intermediaries; we are your Peruvian family."
+        },
+        "feature-3": {
+          "title": "First-hand knowledge",
+          "description": "Our guides were born here, grew up here, and know every corner of the Andes. We didn't read about Peru in a manual: we live it every day."
+        },
+        "feature-4": {
+          "title": "A real commitment to Peru",
+          "description": "We're not here just for the tourist season. This is our home, our future, and the legacy we'll leave to our children. We take care of Peru because it's ours."
+        }
+      }
+    },
+    "our-mission": {
+      "title": "Our Mission",
+      "description": "We facilitate authentic and memorable travel experiences in Peru, connecting travelers from around the world with the best adventures, cultural tours, and unique experiences. We work with reliable local operators to guarantee quality, safety, and respect for the environment."
+    },
+    "our-vision": {
+      "title": "Our Vision",
+      "description-1": "To be the leading agency in sustainable and responsible tourism in Peru, internationally recognized for creating transformative experiences that connect travelers with the country's cultural, natural and historical richness.",
+      "description-2": "We aspire to be a bridge between cultures, promoting respect for and preservation of Peruvian heritage while generating a positive impact on the local communities we visit."
+    },
+    "why-choose-us": {
+      "slogan": "🇵🇪 PERUVIAN DIFFERENCE",
+      "title": "Why choose Inca Trail Operator?",
+      "subtitle": "What makes us different from other agencies",
+      "features": {
+        "feature-1": {
+          "title": "100% Local and Family-owned",
+          "description": "Operated by native Cusco families with authentic connections to local communities. We're not a foreign franchise, we're your family in Peru."
+        },
+        "feature-2": {
+          "title": "Small Groups",
+          "description": "Máximo 8-12 personas por grupo. Experiencias íntimas y personalizadas, nunca tours masivos. Tu guía conoce tu nombre, no tu número."
+        },
+        "feature-3": {
+          "title": "Ethics and Sustainability",
+          "description": "Certified fair wages, respected load limits, carbon-neutral operations and direct reinvestment in local communities."
+        },
+        "feature-4": {
+          "title": "No Hidden Fees",
+          "description": "Transparent and direct pricing. When you book with us, you eliminate intermediaries and your money goes directly to local communities."
+        },
+        "feature-5": {
+          "title": "Total Flexibility",
+          "description": "Customizable tours tailored to your needs. Private dates available, dietary adjustments, pace adaptable to your fitness level."
+        },
+        "feature-6": {
+          "title": "Real 24/7 Support",
+          "description": "Personalized attention before, during, and after your trip. Direct emergency numbers, not automated call centers."
+        }
+      }
+    },
+    "start-adventure": {
+      "slogan": "🇵🇪 100% PERUVIAN ADVENTURE",
+      "title": "Start your Peruvian adventure",
+      "description": "Thousands of travelers have trusted us to discover Peru. Now it's your turn to live an unforgettable experience with a 100% local company.",
+      "explore-attractions": "Explore attractions"
+    }
   }
 }

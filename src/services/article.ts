@@ -212,3 +212,31 @@ export const getArticleBySlug = cache(async (locale: Locale, slug: string) => {
 
   return articleTranslate
 })
+
+export const getArticles = cache(async (locale: Locale) => {
+  const articles = await prisma.article.findMany({
+    include: {
+      author: true,
+      category: true,
+    },
+  })
+
+  const articlesTranslate = articles.map<Article>((article) => {
+    return {
+      ...article,
+      slug: article.slug[locale],
+      title: article.title[locale],
+      introduction: article.introduction[locale],
+      labels: article.labels[locale],
+      content: article.content[locale],
+      category: {
+        ...article.category,
+        title: article.category.title[locale],
+        attractionProductsCount: 0,
+      },
+      localizations: [],
+    }
+  })
+
+  return articlesTranslate
+})

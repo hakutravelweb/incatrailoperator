@@ -442,5 +442,105 @@
   "Packages": {
     "title": "Paquetes de aventura extendida",
     "description": "Vive experiencias completas que combinan lo mejor del Perú en itinerarios de multiples dias"
+  },
+  "AboutUs": {
+    "metadata": {
+      "title": "Sobre Nosotros: Nuestra Historia y Compromiso"
+    },
+    "slogan": "🇵🇪 100% EMPRESA PERUANA Y LOCAL",
+    "title": "Conectando viajeros con Perú",
+    "description": "Desde 2005, hemos ayudado a miles de viajeros a descubrir la magia de los Andes, la Amazonía y las maravillas culturales del Perú",
+    "labels": {
+      "label-1": "🏠 Propiedad Familiar Cusqueña",
+      "label-2": "🌱 Capital 100% Peruano",
+      "label-3": "❌ NO Franquicia Extranjera"
+    },
+    "proudly-peruvian": {
+      "title": "Orgullosamente 100% Peruanos",
+      "slogan": "EMPRESA LOCAL - CAPITAL PERUANO - PROPIEDAD FAMILIAR",
+      "description": "Somos una empresa 100% peruana, fundada y operada por familias cusqueñas con profundas raíces en nuestra tierra sagrada. No somos una franquicia extranjera ni tenemos inversión internacional: somos auténticamente peruanos, con el corazón en los Andes y el alma en nuestra cultura milenaria.",
+      "features": {
+        "feature-1": {
+          "title": "Raíces Cusqueñas",
+          "description": "Nacidos y criados en Cusco, la capital del Imperio Inca"
+        },
+        "feature-2": {
+          "title": "Tradición Quechua",
+          "description": "Preservamos y compartimos nuestras tradiciones ancestrales"
+        },
+        "feature-3": {
+          "title": "Cultura Inca",
+          "description": "Herederos directos de la civilización más grande de Sudamérica"
+        }
+      }
+    },
+    "we-are-locals": {
+      "title": "🇵🇪 ¿Por qué importa que seamos 100% locales?",
+      "subtitle": "Nuestro compromiso con Perú va más allá del turismo",
+      "features": {
+        "feature-1": {
+          "title": "Tu dinero se queda en Perú",
+          "description": "Al contrario de las franquicias extranjeras que envían ganancias fuera del país, cada sol que inviertes con nosotros se queda en Perú: en nuestras familias, nuestros empleados y nuestras comunidades."
+        },
+        "feature-2": {
+          "title": "Conexiones auténticas",
+          "description": "Como locales, tenemos relaciones genuinas con comunidades andinas que han durado generaciones. No somos intermediarios extranjeros, somos tu familia peruana."
+        },
+        "feature-3": {
+          "title": "Conocimiento de primera mano",
+          "description": "Nuestros guías nacieron aquí, crecieron aquí y conocen cada rincón de los Andes. No leímos sobre Perú en un manual: lo vivimos cada día."
+        },
+        "feature-4": {
+          "title": "Compromiso real con Perú",
+          "description": "No estamos aquí solo por temporadas turísticas. Este es nuestro hogar, nuestro futuro y el legado que dejaremos a nuestros hijos. Cuidamos Perú porque es nuestro."
+        }
+      }
+    },
+    "our-mission": {
+      "title": "Nuestra Misión",
+      "description": "Facilitamos experiencias de viaje auténticas y memorables en Perú, conectando a viajeros de todo el mundo con las mejores aventuras, tours culturales y experiencias únicas. Trabajamos con operadores locales confiables para garantizar calidad, seguridad y respeto por el medio ambiente."
+    },
+    "our-vision": {
+      "title": "Nuestra Visión",
+      "description-1": "Ser la agencia líder en turismo sostenible y responsable en Perú, reconocida internacionalmente por crear experiencias transformadoras que conectan a los viajeros con la riqueza cultural, natural e histórica del país.",
+      "description-2": "Aspiramos a ser un puente entre culturas, promoviendo el respeto y preservación del patrimonio peruano mientras generamos impacto positivo en las comunidades locales que visitamos."
+    },
+    "why-choose-us": {
+      "slogan": "🇵🇪 DIFERENCIA PERUANA",
+      "title": "¿Por qué elegir Inca Trail Operator?",
+      "subtitle": "Lo que nos hace diferentes de otras agencias",
+      "features": {
+        "feature-1": {
+          "title": "100% Local y Familiar",
+          "description": "Operado por familias cusqueñas nativas con conexiones auténticas a comunidades locales. No somos una franquicia extranjera, somos tu familia en Perú."
+        },
+        "feature-2": {
+          "title": "Grupos Pequeños",
+          "description": "Máximo 8-12 personas por grupo. Experiencias íntimas y personalizadas, nunca tours masivos. Tu guía conoce tu nombre, no tu número."
+        },
+        "feature-3": {
+          "title": "Ética y Sostenibilidad",
+          "description": "Salarios justos certificados, límites de carga respetados, operaciones carbono-neutral y reinversión directa en comunidades locales."
+        },
+        "feature-4": {
+          "title": "Sin Comisiones Ocultas",
+          "description": "Precios transparentes y directos. Al reservar con nosotros eliminas intermediarios y tu dinero va directo a las comunidades locales."
+        },
+        "feature-5": {
+          "title": "Flexibilidad Total",
+          "description": "Tours personalizables según tus necesidades. Fechas privadas disponibles, ajustes dietéticos, ritmo adaptable a tu condición física."
+        },
+        "feature-6": {
+          "title": "Soporte 24/7 Real",
+          "description": "Atención personalizada antes, durante y después de tu viaje. Números directos de emergencia, no centros de llamadas automatizados."
+        }
+      }
+    },
+    "start-adventure": {
+      "slogan": "🇵🇪 AVENTURA 100% PERUANA",
+      "title": "Comienza tu aventura peruana",
+      "description": "Miles de viajeros han confiado en nosotros para descubrir Perú. Ahora es tu turno de vivir una experiencia inolvidable con una empresa 100% local",
+      "explore-attractions": "Explorar atracciones"
+    }
   }
 }
