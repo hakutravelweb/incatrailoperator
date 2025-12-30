@@ -63,3 +63,7 @@
 @utility grid-cols-* {
   grid-template-columns: --value(--grid-cols-*);
 }
+
+@utility bg-gradient-* {
+  background-image: --value(--bg-gradient-*);
+}

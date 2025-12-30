@@ -1,17 +1,16 @@
 import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
+import { Link } from '@/i18n/routing'
 import { locales } from '@/i18n/config'
 import { Localization } from '@/interfaces/root'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
-import { Button } from '@/components/ui/button'
 import { FiltersAttractionProducts } from '@/components/filters-attraction-products'
 import {
   DestinationsPerDepartment,
   DestinationsPerDepartmentSkeleton,
 } from '@/components/destinations-per-department'
-import { Link } from '@/i18n/routing'
 
 const localizations = locales.map<Localization>((locale) => {
   return {
