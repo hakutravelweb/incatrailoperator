@@ -9,6 +9,11 @@ import {
 import { locales } from '@/i18n/config'
 import { isSlug } from '@/lib/utils'
 
+const navigationSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+})
+
 const articleSchema = z
   .object({
     slug: translateSchema.superRefine((value, ctx) => {
@@ -26,8 +31,9 @@ const articleSchema = z
     photo: z.file().nullable(),
     previewPhoto: z.string(),
     title: translateSchema,
-    description: translateSchema,
+    introduction: translateSchema,
     labels: translateMultipleSchema,
+    navigation: z.array(navigationSchema),
     content: translateSchema,
     authorId: z.string(),
     categoryId: z.string().min(1),
@@ -51,8 +57,9 @@ export const articleDefaultValues: ArticleSchema = {
   photo: null,
   previewPhoto: '',
   title: translateDefaultValues,
-  description: translateDefaultValues,
+  introduction: translateDefaultValues,
   labels: translateMultipleDefaultValues,
+  navigation: [],
   content: translateDefaultValues,
   authorId: '',
   categoryId: '',

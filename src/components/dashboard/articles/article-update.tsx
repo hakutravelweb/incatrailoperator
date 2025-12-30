@@ -2,6 +2,7 @@
 import { useLocale, useTranslations } from 'next-intl'
 import { useForm, Controller } from 'react-hook-form'
 import { Icons } from '@/icons/icon'
+import { Navigation } from '@/interfaces/root'
 import { ArticleSchema, articleResolver } from '@/schemas/article'
 import { updateArticle, getArticle } from '@/services/article'
 import { useCategories } from '@/hooks/use-categories'
@@ -34,8 +35,9 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
         photo: null,
         previewPhoto: article.photo,
         title: article.title,
-        description: article.description,
+        introduction: article.introduction,
         labels: article.labels,
+        navigation: article.navigation,
         content: article.content,
         authorId: article.authorId,
         categoryId: article.categoryId,
@@ -45,6 +47,10 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
   const { isDirty, isValid } = form.formState
 
   const categories = useCategories()
+
+  const handleNavigation = (navigation: Navigation[]) => {
+    form.setValue('navigation', navigation)
+  }
 
   const handleUpdate = async (data: ArticleSchema) => {
     try {
@@ -133,11 +139,11 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
         />
         <Controller
           control={form.control}
-          name='description'
+          name='introduction'
           render={({ field, formState }) => (
             <TextareaTranslate
               ref={field.ref}
-              label={t('article.form-field.description')}
+              label={t('article.form-field.introduction')}
               value={field.value}
               onChange={field.onChange}
               errors={formState.errors[field.name]}
@@ -168,6 +174,8 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
               label={t('article.form-field.content')}
               value={field.value}
               onChange={field.onChange}
+              onNavigation={handleNavigation}
+              enabledNavigation
               errors={formState.errors[field.name]}
             />
           )}
