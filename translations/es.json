@@ -74,7 +74,7 @@
       "title": "Producto de atracciones",
       "search-placeholder": "Buscar...",
       "add-label": "Agregar atracción",
-      "empty-message": "No se encontraron atracciones",
+      "empty-message": "No se encontraron productos de atracciones",
       "new-label": "Atracción nueva",
       "create-label": "Crear atracción",
       "created-message": "La atracción {title} fue creada",
@@ -466,7 +466,8 @@
   },
   "Packages": {
     "title": "Paquetes de aventura extendida",
-    "description": "Vive experiencias completas que combinan lo mejor del Perú en itinerarios de multiples dias"
+    "description": "Vive experiencias completas que combinan lo mejor del Perú en itinerarios de multiples dias",
+    "empty-message": "No se encontraron productos de atracciones"
   },
   "AboutUs": {
     "metadata": {

@@ -43,6 +43,7 @@ import Whatsapp from './whatsapp.svg'
 import Menu from './menu.svg'
 import Link from './link.svg'
 import Unlink from './unlink.svg'
+import Range from './range.svg'
 
 export const Icons = {
   Language,
@@ -90,4 +91,5 @@ export const Icons = {
   Menu,
   Link,
   Unlink,
+  Range,
 }

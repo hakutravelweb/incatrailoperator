@@ -74,7 +74,7 @@
       "title": "Attractions product",
       "search-placeholder": "Search...",
       "add-label": "Add attraction",
-      "empty-message": "No attractions found",
+      "empty-message": "No attraction products found",
       "new-label": "New attraction",
       "create-label": "Create attraction",
       "created-message": "The attraction {title} was created",
@@ -465,7 +465,8 @@
   },
   "Packages": {
     "title": "Extended Adventure Packages",
-    "description": "Experience complete adventures that combine the best of Peru in multi-day itineraries"
+    "description": "Experience complete adventures that combine the best of Peru in multi-day itineraries",
+    "empty-message": "No attraction products found"
   },
   "AboutUs": {
     "metadata": {

@@ -135,7 +135,7 @@ interface InfoSectionProps {
 }
 function InfoSection({ label, children }: PropsWithChildren<InfoSectionProps>) {
   return (
-    <div className='flex flex-col gap-1'>
+    <div className='space-x-1'>
       <span className='text-dark-charcoal text-sm leading-4.5 font-medium'>
         {label}
       </span>
