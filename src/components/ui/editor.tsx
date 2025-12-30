@@ -1,6 +1,9 @@
 'use client'
-import { useCallback, useState, useEffect } from 'react'
-import { RefCallBack } from 'react-hook-form'
+import { useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { useForm, Controller, RefCallBack } from 'react-hook-form'
+import Link from '@tiptap/extension-link'
+import Image from '@tiptap/extension-image'
 import {
   getHierarchicalIndexes,
   TableOfContentData,
@@ -8,14 +11,18 @@ import {
 } from '@tiptap/extension-table-of-contents'
 import DragHandle from '@tiptap/extension-drag-handle-react'
 import Placeholder from '@tiptap/extension-placeholder'
-import { TextSelection } from '@tiptap/pm/state'
 import { useEditor, EditorContent } from '@tiptap/react'
 import { BubbleMenu, FloatingMenu } from '@tiptap/react/menus'
 import StarterKit from '@tiptap/starter-kit'
 import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
 import { Navigation } from '@/interfaces/root'
+import { LinkSchema, linkResolver, linkDefaultValues } from '@/schemas/article'
+import { useDisclosure } from '@/hooks/use-disclosure'
 import { CustomHeading } from './extensions/custom-heading'
+import { Modal } from './modal'
+import { Input } from './input'
+import { Button } from './button'
 
 interface Props {
   ref?: RefCallBack
@@ -40,8 +47,15 @@ export function Editor({
   onNavigation,
   enabledNavigation,
 }: Props) {
+  const t = useTranslations('Dashboard')
+  const link = useDisclosure()
   const [navigation, setNavigation] = useState<TableOfContentData>([])
-  const [activeNavigation, setActiveNavigation] = useState<string>()
+
+  const form = useForm<LinkSchema>({
+    mode: 'onChange',
+    resolver: linkResolver,
+    defaultValues: linkDefaultValues,
+  })
 
   const editor = useEditor({
     extensions: [
@@ -73,11 +87,13 @@ export function Editor({
           }
         },
       }),
+      Link,
+      Image,
     ],
     editorProps: {
       attributes: {
         class: cn(
-          'prose max-w-full min-h-25 border-chinese-white focus:border-black rounded-sm border-2 outline-hidden prose-headings:text-black prose-headings:font-bold text-base leading-4.75 prose-base p-4 prose-blockquote:border-s-chinese-white prose-hr:border-t-chinese-white [&_nav]:data-toc-id:w-fit [&_nav]:data-toc-id:prose-headings:text-black [&_nav]:data-toc-id:prose-headings:font-extrabold [&_nav]:data-toc-id:prose-headings:m-0 [&_nav]:data-toc-id:prose-p:my-0',
+          'prose max-w-full min-h-25 text-dark-charcoal border-chinese-white focus:border-black rounded-sm border-2 outline-hidden prose-headings:text-black prose-headings:font-bold text-base leading-4.75 prose-base p-4 prose-blockquote:border-s-chinese-white prose-hr:border-t-chinese-white [&_nav]:data-toc-id:w-fit [&_nav]:data-toc-id:prose-headings:text-black [&_nav]:data-toc-id:prose-headings:font-extrabold [&_nav]:data-toc-id:prose-headings:m-0 [&_nav]:data-toc-id:prose-p:my-0 prose-a:text-observatory prose-a:hover:text-strong-dark-green',
           {
             'border-ue-red': invalid,
           },
@@ -93,40 +109,22 @@ export function Editor({
     },
   })
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveNavigation(entry.target.id)
-        }
-      })
-    })
-    const elementsNavigation = document.querySelectorAll('[data-toc-id]')
-    elementsNavigation.forEach((elementNavigation) => {
-      observer.observe(elementNavigation)
-    })
-    return () => {
-      observer.disconnect()
-    }
-  }, [navigation.length])
+  const handleLink = () => {
+    const url = editor?.getAttributes('link').href
+    form.reset({ url })
+    link.onOpen()
+  }
 
-  const navigateTo = useCallback(
-    (id: string) => () => {
-      if (!editor) return
-      const element = editor.view.dom.querySelector(`[data-toc-id="${id}"`)
-      if (!element) return
-      const pos = editor.view.posAtDOM(element, 0)
-      const tr = editor.view.state.tr
-      tr.setSelection(new TextSelection(tr.doc.resolve(pos)))
-      editor.view.dispatch(tr)
-      editor.view.focus()
-      element.scrollIntoView({
-        block: 'center',
-        behavior: 'smooth',
-      })
-    },
-    [editor],
-  )
+  const handleSaveLink = (data: LinkSchema) => {
+    editor
+      ?.chain()
+      .focus()
+      .extendMarkRange('link')
+      .setLink({ href: data.url })
+      .run()
+    form.reset(linkDefaultValues)
+    link.onClose()
+  }
 
   return (
     <div className='relative flex flex-col items-start gap-px'>
@@ -148,25 +146,41 @@ export function Editor({
           <div className='grid-cols-auto-fill grid gap-2 px-4 py-2'>
             {navigation.map((item) => {
               return (
-                <button
+                <span
                   key={item.id}
-                  onClick={navigateTo(item.id)}
-                  className={cn(
-                    'text-dark-charcoal hover:text-dav-ys-grey cursor-pointer transition-colors duration-100 after:invisible after:block after:border-b-2 after:border-b-black after:pt-1 after:content-[""] hover:after:visible',
-                    {
-                      'text-black after:visible': item.id === activeNavigation,
-                    },
-                  )}
+                  className='text-dark-charcoal text-sm leading-4.5 font-medium'
                 >
-                  <span className='text-sm leading-4.5 font-medium'>
-                    {item.textContent}
-                  </span>
-                </button>
+                  {item.textContent}
+                </span>
               )
             })}
           </div>
         )}
       </div>
+      <Modal isOpen={link.isOpen} onClose={link.onClose}>
+        <div className='flex flex-col gap-4'>
+          <Controller
+            control={form.control}
+            name='url'
+            render={({ field, fieldState }) => (
+              <Input
+                ref={field.ref}
+                label={t('editor.link')}
+                value={field.value}
+                onChange={field.onChange}
+                placeholder='https://'
+                invalid={fieldState.invalid}
+              />
+            )}
+          />
+          <Button
+            disabled={form.formState.isSubmitting}
+            onClick={form.handleSubmit(handleSaveLink)}
+          >
+            {t('editor.save-label')}
+          </Button>
+        </div>
+      </Modal>
       {editor && (
         <BubbleMenu
           className='shadow-deep flex flex-wrap items-center rounded-xl bg-white p-1'
@@ -206,6 +220,17 @@ export function Editor({
             onClick={() => editor.chain().focus().toggleStrike().run()}
             active={editor.isActive('strike')}
           />
+          <MenuItem
+            icon='Link'
+            onClick={handleLink}
+            active={editor.isActive('link')}
+          />
+          {editor.isActive('link') && (
+            <MenuItem
+              icon='Unlink'
+              onClick={() => editor.chain().focus().unsetLink().run()}
+            />
+          )}
           <MenuItem
             icon='BulletList'
             onClick={() => editor.chain().focus().toggleBulletList().run()}
