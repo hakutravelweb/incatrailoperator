@@ -5,6 +5,7 @@ const withNextIntl = createNextIntlPlugin()
 const nextConfig: NextConfig = {
   env: {
     STORAGE_API_URL: process.env.STORAGE_API_URL,
+    APP_URL: process.env.APP_URL,
   },
   experimental: {
     serverActions: {

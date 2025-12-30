@@ -12,7 +12,7 @@ interface Props {
 export function ArticleHeader({ article }: Props) {
   const locale = useLocale()
   const t = useTranslations('Articles')
-  const url = `https://www.incatrailoperator.com/es/article/${article.slug}`
+  const url = `${process.env.APP_URL}/es/article/${article.slug}`
 
   return (
     <div className='flex flex-col gap-4'>
