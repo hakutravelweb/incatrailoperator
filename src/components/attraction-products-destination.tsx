@@ -73,6 +73,11 @@ export function AttractionProductDestination({ destination }: Props) {
             <div className='flex flex-col gap-4'>
               <strong className='text-lg leading-6'>{t('categories')}</strong>
               <div className='flex flex-col gap-1'>
+                {!categories.loading && categories.data.length === 0 && (
+                  <span className='text-dav-ys-grey text-sm leading-4.5'>
+                    {t('categories-empty')}
+                  </span>
+                )}
                 {categories.loading && (
                   <div className='flex justify-center py-2'>
                     <Icons.Loading className='size-6' />

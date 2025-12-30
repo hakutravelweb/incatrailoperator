@@ -44,7 +44,7 @@ export function AttractionProductVerticalCard({ attractionProduct }: Props) {
         <span className='text-cinnabar text-sm leading-4.5 font-medium'>
           {attractionProduct.category.title}
         </span>
-        <strong className='text-base leading-5 font-bold'>
+        <strong className='text-base leading-5'>
           {attractionProduct.title}
         </strong>
         <div className='flex items-center gap-1'>

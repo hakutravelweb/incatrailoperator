@@ -38,7 +38,8 @@
       "privacy-policy": "Política de privacidad"
     },
     "popularts-attractions": {
-      "title": "Atracciones populares"
+      "title": "Atracciones populares",
+      "empty-message": "No se encontraron productos de atracciones"
     },
     "information": {
       "title": "Información",
@@ -308,7 +309,8 @@
     "see-itinerary": "Ver itinerario"
   },
   "DestinationsPerDepartment": {
-    "title": "Destinos por departamento"
+    "title": "Destinos por departamento",
+    "empty-message": "No se encontraron destinos"
   },
   "DestinationCard": {
     "travellers-number": "{number, plural, =0 {# viajeros} =1 {# viajero} other {# viajeros}}",
@@ -328,6 +330,7 @@
       "phone-label": "Teléfono / WhatsApp",
       "attraction-product-label": "Producto de atracción de interés",
       "attraction-product-placeholder": "Selecciona un producto de atracción",
+      "attraction-products-empty-message": "No se encontraron productos de atracciones",
       "message-label": "Mensaje",
       "send-label": "Enviar mensaje",
       "message": "Hola, soy {fullname}%0A Correo electrónico: {email}%0A Teléfono: {phone}%0A Atracción: {attractionProduct}%0A Mensaje: {message}"
@@ -429,6 +432,7 @@
     "discover": "Descubre {title}",
     "search-placeholder": "¿Qué quieres hacer?",
     "categories": "Categorias",
+    "categories-empty": "No se encontraron categorias",
     "price": "Precio",
     "qualification": "Calificación",
     "empty-message": "No se encontraron productos de atracciones"
@@ -453,9 +457,12 @@
     "articles": "Artículos",
     "title": "Tu aventura en Perú comienza aquí",
     "destinations": "Destinos",
+    "destinations-empty": "No se encontraron destinos",
     "tickets-machu-picchu": "Boletos Machu Picchu",
     "book-attractions": "Reserva atracciones",
     "categories": "Categorias",
+    "categories-empty": "No se encontraron categorias",
+    "empty-message": "No se encontraron articulos",
     "share": "Compartir:",
     "reading-time": "{time} min lectura",
     "start-adventure": {

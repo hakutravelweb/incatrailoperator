@@ -183,9 +183,7 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
               onChange={field.onChange}
               placeholder={t('article.form-field.select-category')}
               invalid={fieldState.invalid}
-              emptyMessage={
-                categories.data.length === 0 ? t('article.empty-message') : ''
-              }
+              emptyMessage={t('article.empty-message')}
             >
               {categories.data.map((category) => {
                 return (

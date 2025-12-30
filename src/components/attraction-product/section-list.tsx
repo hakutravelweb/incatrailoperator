@@ -9,7 +9,7 @@ interface Props {
 export function SectionList({ variant, title, list }: Props) {
   return (
     <div className='flex flex-col gap-2'>
-      <strong className='text-base leading-5.25 font-bold'>{title}</strong>
+      <strong className='text-base leading-5.25'>{title}</strong>
       <div className='flex flex-col gap-1'>
         {list.map((item, index) => {
           return (

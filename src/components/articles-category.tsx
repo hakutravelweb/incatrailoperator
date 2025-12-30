@@ -25,6 +25,11 @@ export function ArticlesCategory() {
       <div className='shadow-deep flex flex-col gap-4 rounded-xl bg-white p-4 md:sticky md:top-2'>
         <strong className='text-lg leading-6'>{t('categories')}</strong>
         <div className='flex flex-col gap-2'>
+          {categories.data.length === 0 && (
+            <span className='text-dav-ys-grey text-sm leading-4.5'>
+              {t('categories-empty')}
+            </span>
+          )}
           {categories.loading && (
             <div className='flex justify-center py-2'>
               <Icons.Loading className='size-6' />
@@ -53,6 +58,13 @@ export function ArticlesCategory() {
         </div>
       </div>
       <div className='flex flex-col gap-4'>
+        {!articlesCategory.loading && articlesCategory.data.length === 0 && (
+          <div className='flex justify-center py-4'>
+            <span className='text-dav-ys-grey text-sm leading-4.5'>
+              {t('empty-message')}
+            </span>
+          </div>
+        )}
         {articlesCategory.loading && (
           <div className='flex justify-center py-2'>
             <Icons.Loading className='size-6' />

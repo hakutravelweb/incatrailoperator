@@ -38,7 +38,8 @@
       "privacy-policy": "Privacy Policy"
     },
     "popularts-attractions": {
-      "title": "Popular Attractions"
+      "title": "Popular Attractions",
+      "empty-message": "No attraction products found"
     },
     "information": {
       "title": "Information",
@@ -307,7 +308,8 @@
     "see-itinerary": "View itinerary"
   },
   "DestinationsPerDepartment": {
-    "title": "Destinations per department"
+    "title": "Destinations per department",
+    "empty-message": "No destinations were found"
   },
   "DestinationCard": {
     "travellers-number": "{number, plural, =0 {# travellers} =1 {# traveller} other {# travellers}}",
@@ -327,6 +329,7 @@
       "phone-label": "Phone / WhatsApp",
       "attraction-product-label": "Attraction Product of Interest",
       "attraction-product-placeholder": "Select an attraction product",
+      "attraction-products-empty-message": "No attraction products were found",
       "message-label": "Message",
       "send-label": "Send Message",
       "message": "Hello, I am {fullname}%0A Email: {email}%0A Phone: {phone}%0A Atrraction: {attractionProduct}%0A Message: {message}"
@@ -428,6 +431,7 @@
     "discover": "Discover {title}",
     "search-placeholder": "What do you want to do?",
     "categories": "Categories",
+    "categories-empty": "No categories were found",
     "price": "Price",
     "qualification": "Qualification",
     "empty-message": "No attraction products found"
@@ -452,9 +456,12 @@
     "articles": "Articles",
     "title": "Your adventure in Peru starts here",
     "destinations": "Destinations",
+    "destinations-empty": "No destinations were found",
     "tickets-machu-picchu": "Machu Picchu Tickets",
     "book-attractions": "Book attractions",
     "categories": "Categories",
+    "categories-empty": "No categories were found",
+    "empty-message": "No articles were found",
     "share": "Share:",
     "reading-time": "{time} min reading",
     "start-adventure": {
