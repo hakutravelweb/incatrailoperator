@@ -13,6 +13,7 @@ export interface Article {
   content: string
   author: User
   category: Category
+  createdAt: Date
 }
 
 export type ArticleView = 'CREATE' | 'EDIT' | 'ARTICLES'

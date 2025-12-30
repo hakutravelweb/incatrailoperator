@@ -79,7 +79,7 @@ export const getCategoriesPagination = cache(
       return {
         ...category,
         title: category.title[locale],
-        productAttractionQuantity: category.attractionProducts.length,
+        attractionProductsCount: category.attractionProducts.length,
       }
     })
 
@@ -107,6 +107,7 @@ export const getCategories = cache(async (locale: Locale) => {
     return {
       ...category,
       title: category.title[locale],
+      attractionProductsCount: 0,
     }
   })
 

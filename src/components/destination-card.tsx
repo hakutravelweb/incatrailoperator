@@ -63,7 +63,7 @@ export function DestinationCard({ destination }: Props) {
             </span>
           </div>
           <Link
-            href='/filters-attraction-products'
+            href={`/destination/${destination.slug}`}
             className='hover:bg-dark-charcoal active:bg-dav-ys-grey rounded-full bg-black px-4 py-2.5 text-sm leading-4.5 font-bold text-white transition-colors duration-100 active:text-white/50'
           >
             {t('see-attractions')}

@@ -86,7 +86,7 @@
         "select-variant": "Elije la variante",
         "slug": "Url",
         "title": "Titulo",
-        "duration": "Duracion",
+        "duration": "Duración",
         "photos": "Fotos",
         "about": "Acerca de",
         "labels": "Etiquetas",
@@ -103,7 +103,7 @@
         "important-warning": "Advertencia importante",
         "recommendations": "Recomendaciones",
         "additional-advice": "Consejo adicional",
-        "free-cancellation": "Cancelación gratuita / duracion",
+        "free-cancellation": "Cancelación gratuita / duración",
         "refundable": "Reembolsable / duracion",
         "attraction-map": "Mapa de la attracción",
         "attraction-video": "Video de la attracción",
@@ -387,5 +387,35 @@
     "download-pdf": "Descargar PDF",
     "contact": "Contactar",
     "book-now": "Reservar ahora"
+  },
+  "Destination": {
+    "country": "Perú",
+    "discover": "Descubre {title}",
+    "search-placeholder": "¿Qué quieres hacer?",
+    "categories": "Categorias",
+    "price": "Precio",
+    "qualification": "Calificación",
+    "empty-message": "No se encontraron productos de atracciones"
+  },
+  "AttractionProductVerticalCard": {
+    "duration-days": "{quantity, plural, =0 {# dias} =1 {# dia} other {# dias}}",
+    "duration-hours": "{quantity, plural, =0 {# horas} =1 {# hora} other {# horas}}",
+    "free-cancellation": "Cancelación gratuita hasta {duration} antes",
+    "not-refundable": "No reembolsable",
+    "refundable": "Reembolsable total hasta {duration} antes",
+    "you-save-percent": "-{percentage}% de descuento"
+  },
+  "Articles": {
+    "metadata": {
+      "title": "Articulos de Viajes: Inspiración y Consejos"
+    },
+    "title": "Tu aventura en Perú comienza aquí",
+    "destinations": "Destinos",
+    "tickets-machu-picchu": "Boletos Machu Picchu",
+    "book-attractions": "Reserva atracciones",
+    "categories": "Categorias",
+    "card": {
+      "share": "Compartir:"
+    }
   }
 }

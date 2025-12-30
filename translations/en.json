@@ -386,5 +386,35 @@
     "download-pdf": "Download PDF",
     "contact": "Contact",
     "book-now": "Book now"
+  },
+  "Destination": {
+    "country": "Peru",
+    "discover": "Discover {title}",
+    "search-placeholder": "What do you want to do?",
+    "categories": "Categories",
+    "price": "Price",
+    "qualification": "Qualification",
+    "empty-message": "No attraction products found"
+  },
+  "AttractionProductVerticalCard": {
+    "duration-days": "{quantity, plural, =0 {# days} =1 {# day} other {# days}}",
+    "duration-hours": "{quantity, plural, =0 {# hours} =1 {# hour} other {# hours}}",
+    "free-cancellation": "Free cancellation up to {duration} before",
+    "not-refundable": "Not refundable",
+    "refundable": "Refundable up to {duration} before",
+    "you-save-percent": "-{percentage}% discount"
+  },
+  "Articles": {
+    "metadata": {
+      "title": "Travel Articles: Inspiration and Tips"
+    },
+    "title": "Your adventure in Peru starts here",
+    "destinations": "Destinations",
+    "tickets-machu-picchu": "Machu Picchu Tickets",
+    "book-attractions": "Book attractions",
+    "categories": "Categories",
+    "card": {
+      "share": "Share:"
+    }
   }
 }

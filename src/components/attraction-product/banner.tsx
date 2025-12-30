@@ -63,10 +63,10 @@ export function Banner({ attractionProduct }: Props) {
         </Link>
         <Icons.Right className='text-dav-ys-grey size-4' />
         <Link
-          href={`/destination/${attractionProduct.destination}`}
+          href={`/destination/${attractionProduct.destination.slug}`}
           className='text-dark-charcoal text-base leading-5 hover:underline'
         >
-          {attractionProduct.destination}
+          {attractionProduct.destination.title}
         </Link>
       </div>
       <div className='bg-strong-dark-green relative -mx-6 h-80 lg:mx-0 lg:overflow-hidden lg:rounded-xl'>

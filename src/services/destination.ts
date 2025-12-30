@@ -1,7 +1,8 @@
 'use server'
 import { cache } from 'react'
-import { Locale } from '@/i18n/config'
+import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
+import { Localization } from '@/interfaces/root'
 import { DestinationSchema } from '@/schemas/destination'
 import { Destination } from '@/interfaces/attraction-product'
 
@@ -84,6 +85,11 @@ export const getDestinationsPagination = cache(
           department: destination.department[locale],
           about: destination.about[locale],
           attractionProductsCount: destination.attractionProducts.length,
+          photo: '',
+          rating: 0,
+          travellersCount: 0,
+          lowestPrice: 0,
+          localizations: [],
         }
       },
     )
@@ -115,6 +121,12 @@ export const getDestinations = cache(async (locale: Locale) => {
       title: destination.title[locale],
       department: destination.department[locale],
       about: destination.about[locale],
+      attractionProductsCount: 0,
+      photo: '',
+      rating: 0,
+      travellersCount: 0,
+      lowestPrice: 0,
+      localizations: [],
     }
   })
 
@@ -137,13 +149,15 @@ export const getDestinationsPerDepartment = cache(async (locale: Locale) => {
       return {
         id: destination.id,
         slug: destination.slug[locale],
-        photo: '',
         title: destination.title[locale],
         department: destination.department[locale],
+        about: destination.about[locale],
+        attractionProductsCount: 0,
+        photo: '',
         rating: 0,
         travellersCount: 0,
-        about: destination.about[locale],
         lowestPrice: 0,
+        localizations: [],
       }
     }
 
@@ -174,15 +188,53 @@ export const getDestinationsPerDepartment = cache(async (locale: Locale) => {
     return {
       id: destination.id,
       slug: destination.slug[locale],
-      photo: cheapestProduct.photos[0],
       title: destination.title[locale],
       department: destination.department[locale],
+      about: destination.about[locale],
+      photo: cheapestProduct.photos[0],
+      attractionProductsCount: 0,
       rating,
       travellersCount: totalReviews,
-      about: destination.about[locale],
       lowestPrice: cheapestProduct.retailPrice,
+      localizations: [],
     }
   })
 
   return destinationsTranslate
 })
+
+export const getDestinationBySlug = cache(
+  async (locale: Locale, slug: string) => {
+    const destination = await prisma.destination.findFirstOrThrow({
+      where: {
+        slug: {
+          path: [locale],
+          equals: slug,
+        },
+      },
+    })
+
+    const localizations = locales.map<Localization>((locale) => {
+      return {
+        locale,
+        slug: `/destination/${destination.slug[locale]}`,
+      }
+    })
+
+    const destinationTranslate: Destination = {
+      ...destination,
+      slug: destination.slug[locale],
+      title: destination.title[locale],
+      department: destination.department[locale],
+      about: destination.about[locale],
+      attractionProductsCount: 0,
+      photo: '',
+      rating: 0,
+      travellersCount: 0,
+      lowestPrice: 0,
+      localizations,
+    }
+
+    return destinationTranslate
+  },
+)
