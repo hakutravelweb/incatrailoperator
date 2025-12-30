@@ -10,9 +10,7 @@ export async function createHome(input: HomeSchema) {
 
   const existHome = await prisma.home.findFirst({
     where: {
-      NOT: {
-        locale: data.locale,
-      },
+      locale: data.locale,
     },
   })
   if (existHome) {
@@ -49,9 +47,7 @@ export async function updateHome(id: string, input: HomeSchema) {
   if (data.locale !== home.locale) {
     const existHome = await prisma.home.findFirst({
       where: {
-        NOT: {
-          locale: data.locale,
-        },
+        locale: data.locale,
       },
     })
     if (existHome) {

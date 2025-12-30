@@ -35,7 +35,7 @@ export function HomeItem({ home, onEdit, onRefresh }: Props) {
         try {
           const { title } = await deleteHome(home.id)
           toast.success(
-            t('article.deleted-message', {
+            t('home.deleted-message', {
               title,
             }),
           )

@@ -1,14 +1,12 @@
-'use client'
-import { PropsWithChildren } from 'react'
-import { useTranslations } from 'next-intl'
+import { PropsWithChildren, Suspense } from 'react'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { Icons } from '@/icons/icon'
 import { Link } from '@/i18n/routing'
-import { usePopularAttractionProducts } from '@/hooks/use-popular-attraction-products'
+import { getPopularAttractionProducts } from '@/services/attraction-product'
 import { Section } from './section'
 
-export function Footer() {
-  const t = useTranslations('Footer')
-  const popularAttractionProducts = usePopularAttractionProducts()
+export async function Footer() {
+  const t = await getTranslations('Footer')
 
   return (
     <footer className='bg-anti-flash-white flex flex-col gap-6 py-10'>
@@ -69,19 +67,13 @@ export function Footer() {
               <strong className='text-base leading-5'>
                 {t('popularts-attractions.title')}
               </strong>
-              <div className='flex flex-col gap-2'>
-                {popularAttractionProducts.loading && (
+              <Suspense
+                fallback={
                   <div className='bg-chinese-white h-10 w-full animate-pulse' />
-                )}
-                {popularAttractionProducts.data.map((attractionProduct) => (
-                  <FooterLink
-                    key={attractionProduct.id}
-                    href={`/attraction-product/${attractionProduct.slug}`}
-                  >
-                    {attractionProduct.title}
-                  </FooterLink>
-                ))}
-              </div>
+                }
+              >
+                <PopularAttractionProducts />
+              </Suspense>
             </div>
             <div className='flex flex-col gap-4'>
               <strong className='text-base leading-5'>
@@ -178,5 +170,23 @@ function SocialIconLink({ href, icon }: SocialIconLinkProps) {
     >
       <Icon className='size-5' />
     </Link>
+  )
+}
+
+async function PopularAttractionProducts() {
+  const locale = await getLocale()
+  const popularAttractionProducts = await getPopularAttractionProducts(locale)
+
+  return (
+    <div className='flex flex-col gap-2'>
+      {popularAttractionProducts.map((popularAttractionProduct) => (
+        <FooterLink
+          key={popularAttractionProduct.id}
+          href={`/attraction-product/${popularAttractionProduct.slug}`}
+        >
+          {popularAttractionProduct.title}
+        </FooterLink>
+      ))}
+    </div>
   )
 }

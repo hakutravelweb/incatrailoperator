@@ -263,12 +263,9 @@
     "deleted-message": "{number, plural, =0 {# photos were chosen to be deleted} =1 {Photo # was chosen to be deleted} other {# photos were chosen to be deleted}}"
   },
   "Home": {
-    "title": "Inca Trail Operator: Travel Tours, Activities, and Things to Do",
-    "description": "Inca Trail Operator Official Site – Browse and book over 1,000 things to do with Inca Trail Operator. Plus, we offer free cancellation and flexible payment options for stress-free travel.",
-    "hero": {
-      "title": "Discover Peru with Inca Trail Operator",
-      "subtitle": "Unforgettable adventures in the Amazon rainforest and Machu Picchu",
-      "explore-tours-label": "Explore Tours"
+    "metadata": {
+      "title": "Inca Trail Operator: Travel Tours, Activities, and Things to Do",
+      "description": "Inca Trail Operator Official Site – Browse and book over 1,000 things to do with Inca Trail Operator. Plus, we offer free cancellation and flexible payment options for stress-free travel."
     }
   },
   "FiltersAttractionProducts": {
@@ -330,5 +327,21 @@
     },
     "success-message": "Your message has been sent successfully. We will get back to you soon.",
     "error-message": "There was an error sending your message. Please try again later."
+  },
+  "TermsAndConditions": {
+    "metadata": {
+      "title": "Terms and conditions"
+    },
+    "title": "Terms and conditions",
+    "navigation-title": "Content"
+  },
+  "PrivacyPolicy": {
+    "metadata": {
+      "title": "Privacy Policy"
+    },
+    "title": "Privacy Policy",
+    "description": "We protect your personal information with the highest standards of security and transparency",
+    "effective-from": "Effective from: {date}",
+    "navigation-title": "Content"
   }
 }
