@@ -38,6 +38,9 @@ export function AttractionProductVerticalCard({ attractionProduct }: Props) {
         </div>
       </div>
       <div className='flex flex-col items-start gap-2 px-4 py-2'>
+        <div className='border-chinese-white bg-anti-flash-white rounded-md border-2 px-2 py-1 text-sm leading-4.5 font-bold uppercase'>
+          {t(`variant.${attractionProduct.variant}`)}
+        </div>
         <span className='text-strong-dark-green text-sm leading-4.5 font-medium'>
           {attractionProduct.category.title}
         </span>

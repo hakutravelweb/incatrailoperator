@@ -9,7 +9,7 @@ export async function DestinationsPerDepartment() {
 
   return (
     <div className='flex flex-col gap-6 py-10'>
-      <strong className='text-lg leading-6'>{t('title')}</strong>
+      <strong className='text-2xl leading-7.25'>{t('title')}</strong>
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
         {destinationsPerDepartment.map((destination) => {
           return (

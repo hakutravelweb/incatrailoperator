@@ -24,20 +24,21 @@ export function AttractionProductCard({ attractionProduct }: Props) {
           alt={attractionProduct.title}
           loading='lazy'
         />
-        <div className='absolute top-2 right-2'>
-          <span className='bg-ue-red rounded-md p-2 text-xs leading-4 font-medium text-white'>
-            {t('you-save-percent', {
-              percentage: Math.round(
-                ((attractionProduct.retailPrice -
-                  attractionProduct.specialPrice) /
-                  attractionProduct.retailPrice) *
-                  100,
-              ),
-            })}
-          </span>
+        <div className='bg-ue-red absolute top-2 right-2 rounded-md p-2 text-xs leading-4 font-medium text-white'>
+          {t('you-save-percent', {
+            percentage: Math.round(
+              ((attractionProduct.retailPrice -
+                attractionProduct.specialPrice) /
+                attractionProduct.retailPrice) *
+                100,
+            ),
+          })}
         </div>
       </div>
-      <div className='flex flex-col gap-2 px-4 py-2'>
+      <div className='flex flex-col items-start gap-2 px-4 py-2'>
+        <div className='border-chinese-white bg-anti-flash-white rounded-md border-2 px-2 py-1 text-sm leading-4.5 font-bold uppercase'>
+          {t(`variant.${attractionProduct.variant}`)}
+        </div>
         <div className='flex items-start gap-2'>
           <strong className='text-base leading-5 font-bold'>
             {attractionProduct.title}
@@ -126,7 +127,7 @@ export function AttractionProductCard({ attractionProduct }: Props) {
             </span>
           </div>
         )}
-        <div className='flex items-center justify-between gap-4'>
+        <div className='flex w-full items-center justify-between gap-4'>
           {attractionProduct.specialPrice > 0 ? (
             <div className='flex flex-col gap-px'>
               <span className='text-dav-ys-grey text-sm leading-4.5 line-through'>

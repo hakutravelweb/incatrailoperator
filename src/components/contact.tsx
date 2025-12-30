@@ -20,7 +20,19 @@ export function Contact() {
   })
   const attractionProducts = useAttractionProducts()
 
-  const handleContact = (data: ContactUsSchema) => {}
+  const handleContact = (data: ContactUsSchema) => {
+    const whatsappMessage = t('contact.message', {
+      fullname: data.fullname,
+      email: data.email,
+      phone: data.phone,
+      attractionProduct: data.attractionProduct,
+      message: data.message,
+    })
+
+    const whatsappUrl = `https://wa.me/+51984259412?text=${whatsappMessage}`
+
+    window.open(whatsappUrl, '_blank')
+  }
 
   return (
     <div className='flex flex-col gap-4'>

@@ -38,14 +38,14 @@ export function DestinationCard({ destination }: Props) {
           <div className='flex items-center gap-1'>
             <Icons.Star className='text-yellow-sea size-4' />
             <span className='text-dav-ys-grey text-sm leading-4.5'>
-              {destination.rating?.toFixed(1) ?? '0.0'} / 5
+              {destination.rating.toFixed(1)} / 5
             </span>
           </div>
           <div className='flex items-center gap-1'>
             <Icons.Persons className='size-4' />
             <span className='text-dav-ys-grey text-sm leading-4.5'>
               {t('travellers-number', {
-                number: destination.travellersCount ?? 0,
+                number: destination.travellersCount,
               })}
             </span>
           </div>
