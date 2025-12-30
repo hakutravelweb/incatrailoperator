@@ -1,4 +1,5 @@
 'use client'
+import { PropsWithChildren } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
@@ -15,7 +16,7 @@ interface Props {
 
 export function Header({ localizations }: Props) {
   const locale = useLocale()
-  const t = useTranslations('Language')
+  const t = useTranslations('Header')
   const router = useRouter()
   const isMobile = useMediaQuery('max-w', 1024)
   const language = useDisclosure()
@@ -41,12 +42,21 @@ export function Header({ localizations }: Props) {
               loading='lazy'
             />
           </Link>
-          <div
-            onClick={language.onOpen}
-            className='hover:bg-anti-flash-white active:bg-chinese-white active:text-dav-ys-grey flex cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5'
-          >
-            <Icons.Language className='size-5' />
-            <span className='text-base leading-5 font-medium'>{t(locale)}</span>
+          <div className='flex items-center gap-2'>
+            <div className='hidden md:flex md:gap-4'>
+              <HeaderLink href='/articles'>{t('articles')}</HeaderLink>
+              <HeaderLink href='/about-us'>{t('about-us')}</HeaderLink>
+              <HeaderLink href='/contact-us'>{t('contact-us')}</HeaderLink>
+            </div>
+            <div
+              onClick={language.onOpen}
+              className='hover:bg-anti-flash-white active:bg-chinese-white active:text-dav-ys-grey flex cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5'
+            >
+              <Icons.Language className='size-5' />
+              <span className='text-base leading-5 font-medium'>
+                {t(`language.${locale}`)}
+              </span>
+            </div>
           </div>
         </nav>
       </Section>
@@ -67,7 +77,7 @@ export function Header({ localizations }: Props) {
                 )}
               >
                 <span className='text-base leading-5 font-medium'>
-                  {t(localization.locale)}
+                  {t(`language.${localization.locale}`)}
                 </span>
               </div>
             )
@@ -75,5 +85,20 @@ export function Header({ localizations }: Props) {
         </div>
       </Modal>
     </header>
+  )
+}
+
+interface HeaderLinkProps {
+  href: string
+}
+
+function HeaderLink({ href, children }: PropsWithChildren<HeaderLinkProps>) {
+  return (
+    <Link
+      href={href}
+      className='text-dark-charcoal text-sm leading-4.5 font-medium hover:underline'
+    >
+      {children}
+    </Link>
   )
 }

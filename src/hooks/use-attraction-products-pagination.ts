@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
 import { AttractionProduct } from '@/interfaces/attraction-product'
 import { getAttractionProductsPagination } from '@/services/attraction-product'
@@ -7,7 +7,7 @@ import { toast } from '@/components/ui/toast'
 
 export function useAttractionProductsPagination() {
   const locale = useLocale()
-  const [isPending, startTransition] = useTransition()
+  const [loading, setLoading] = useState<boolean>(true)
   const [data, setData] = useState<AttractionProduct[]>([])
   const [limit, setLimit] = useState<number>(10)
   const [offset, setOffset] = useState<number>(0)
@@ -27,21 +27,22 @@ export function useAttractionProductsPagination() {
     setOffset(value)
   }
 
-  const fetchData = () => {
-    startTransition(async () => {
-      try {
-        const attractionProducts = await getAttractionProductsPagination(
-          locale,
-          debouncedSearch,
-          limit,
-          offset,
-        )
-        setData(attractionProducts.data)
-        setTotal(attractionProducts.total)
-      } catch {
-        toast.error('ERROR INTERNAL SERVER')
-      }
-    })
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const attractionProducts = await getAttractionProductsPagination(
+        locale,
+        debouncedSearch,
+        limit,
+        offset,
+      )
+      setData(attractionProducts.data)
+      setTotal(attractionProducts.total)
+    } catch {
+      toast.error('ERROR INTERNAL SERVER')
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export function useAttractionProductsPagination() {
   }, [locale, debouncedSearch, limit, offset])
 
   return {
-    isPending,
+    loading,
     data,
     search,
     limit,

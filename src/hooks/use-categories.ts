@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
 import { Category } from '@/interfaces/attraction-product'
 import { getCategories } from '@/services/category'
@@ -6,18 +6,19 @@ import { toast } from '@/components/ui/toast'
 
 export function useCategories() {
   const locale = useLocale()
-  const [isPending, startTransition] = useTransition()
+  const [loading, setLoading] = useState<boolean>(true)
   const [data, setData] = useState<Category[]>([])
 
-  const fetchData = () => {
-    startTransition(async () => {
-      try {
-        const categories = await getCategories(locale)
-        setData(categories)
-      } catch {
-        toast.error('ERROR INTERNAL SERVER')
-      }
-    })
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      const categories = await getCategories(locale)
+      setData(categories)
+    } catch {
+      toast.error('ERROR INTERNAL SERVER')
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export function useCategories() {
   }, [locale])
 
   return {
-    isPending,
+    loading,
     data,
   }
 }

@@ -1,8 +1,4 @@
 {
-  "Language": {
-    "es": "Spanish",
-    "en": "English"
-  },
   "Error": {
     "title": "Discover the 500th wonder of the world.",
     "description": "Manage a trip.",
@@ -14,6 +10,15 @@
     "description": "Manage a trip.",
     "destinatons": "Destinations",
     "travel": "Travel"
+  },
+  "Header": {
+    "articles": "Articles",
+    "about-us": "About Us",
+    "contact-us": "Contact Us",
+    "language": {
+      "es": "Spanish",
+      "en": "English"
+    }
   },
   "Footer": {
     "slogan": "Unforgettable adventures in the Peruvian Andes",
@@ -223,6 +228,8 @@
     "duration-days": "{quantity, plural, =0 {# days} =1 {# day} other {# days}}",
     "duration-hours": "{quantity, plural, =0 {# hours} =1 {# hour} other {# hours}}",
     "free-cancellation": "Free cancellation up to {duration} before",
+    "not-refundable": "Not refundable",
+    "refundable": "Refundable up to {duration} before",
     "you-save": "You save {amount}",
     "you-save-percent": "-{percentage}% discount"
   },
@@ -232,6 +239,6 @@
   "DestinationCard": {
     "travellers-number": "{number, plural, =0 {# travellers} =1 {# traveller} other {# travellers}}",
     "from-price": "From",
-    "see-tours": "See tours"
+    "see-attractions": "See attractions"
   }
 }

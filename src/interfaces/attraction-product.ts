@@ -12,6 +12,7 @@ export interface AttractionProduct {
   notIncluded: string[]
   recommendations: string[]
   freeCancellation: Duration
+  refundable: Duration
   retailPrice: number
   specialPrice: number
   category?: string

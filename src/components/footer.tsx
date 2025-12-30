@@ -70,7 +70,7 @@ export function Footer() {
                 {t('popularts-attractions.title')}
               </strong>
               <div className='flex flex-col gap-2'>
-                {popularAttractionProducts.isPending && (
+                {popularAttractionProducts.loading && (
                   <div className='bg-chinese-white h-10 w-full animate-pulse' />
                 )}
                 {popularAttractionProducts.data.map((attractionProduct) => (

@@ -1,7 +1,6 @@
 'use client'
 import { useTranslations } from 'next-intl'
 import { useForm, Controller } from 'react-hook-form'
-import { Icons } from '@/icons/icon'
 import {
   FiltersAttractionProductsSchema,
   filtersAttractionProductsResolver,
@@ -82,18 +81,15 @@ export function FiltersAttractionProducts() {
           {t('search-label')}
         </Button>
       </div>
-      {!attractionProducts.isPending &&
-        attractionProducts.data.length === 0 && (
-          <div className='flex justify-center py-4'>
-            <span className='text-dav-ys-grey text-sm leading-4.5'>
-              {t('empty-message')}
-            </span>
-          </div>
-        )}
-      {attractionProducts.isPending && (
-        <div className='flex justify-center py-2'>
-          <Icons.Loading className='size-6' />
+      {!attractionProducts.loading && attractionProducts.data.length === 0 && (
+        <div className='flex justify-center py-4'>
+          <span className='text-dav-ys-grey text-sm leading-4.5'>
+            {t('empty-message')}
+          </span>
         </div>
+      )}
+      {attractionProducts.loading && (
+        <div className='bg-chinese-white my-10 h-50 w-full animate-pulse' />
       )}
       <div className='grid grid-cols-1 gap-6 py-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {attractionProducts.data.map((attractionProduct) => {
