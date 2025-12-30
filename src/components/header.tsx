@@ -9,6 +9,7 @@ import { useMediaQuery } from '@/hooks/use-media-query'
 import { useDisclosure } from '@/hooks/use-disclosure'
 import { Section } from './section'
 import { Modal } from './ui/modal'
+import { Sidebar } from './sidebar'
 
 interface Props {
   localizations: Localization[]
@@ -20,6 +21,7 @@ export function Header({ localizations }: Props) {
   const router = useRouter()
   const isMobile = useMediaQuery('max-w', 1024)
   const language = useDisclosure()
+  const sidebar = useDisclosure({ animateSlide: true })
 
   const handleChange = (localization: Localization) => () => {
     router.replace(localization.slug, {
@@ -42,22 +44,29 @@ export function Header({ localizations }: Props) {
               loading='lazy'
             />
           </Link>
-          <div className='flex items-center gap-2'>
-            <div className='hidden md:flex md:gap-4'>
-              <HeaderLink href='/articles'>{t('articles')}</HeaderLink>
-              <HeaderLink href='/about-us'>{t('about-us')}</HeaderLink>
-              <HeaderLink href='/contact-us'>{t('contact-us')}</HeaderLink>
+          {isMobile ? (
+            <Icons.Menu
+              onClick={sidebar.onOpen}
+              className='size-8 cursor-pointer'
+            />
+          ) : (
+            <div className='flex items-center gap-2'>
+              <div className='hidden md:flex md:gap-4'>
+                <HeaderLink href='/articles'>{t('articles')}</HeaderLink>
+                <HeaderLink href='/about-us'>{t('about-us')}</HeaderLink>
+                <HeaderLink href='/contact-us'>{t('contact-us')}</HeaderLink>
+              </div>
+              <div
+                onClick={language.onOpen}
+                className='hover:bg-anti-flash-white active:bg-chinese-white active:text-dav-ys-grey flex cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5'
+              >
+                <Icons.Language className='size-5' />
+                <span className='text-base leading-5 font-medium'>
+                  {t(`language.${locale}`)}
+                </span>
+              </div>
             </div>
-            <div
-              onClick={language.onOpen}
-              className='hover:bg-anti-flash-white active:bg-chinese-white active:text-dav-ys-grey flex cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5'
-            >
-              <Icons.Language className='size-5' />
-              <span className='text-base leading-5 font-medium'>
-                {t(`language.${locale}`)}
-              </span>
-            </div>
-          </div>
+          )}
         </nav>
       </Section>
       <Modal isOpen={language.isOpen} onClose={language.onClose}>
@@ -84,6 +93,7 @@ export function Header({ localizations }: Props) {
           })}
         </div>
       </Modal>
+      <Sidebar disclosure={sidebar} localizations={localizations} />
     </header>
   )
 }
@@ -92,7 +102,10 @@ interface HeaderLinkProps {
   href: string
 }
 
-function HeaderLink({ href, children }: PropsWithChildren<HeaderLinkProps>) {
+export function HeaderLink({
+  href,
+  children,
+}: PropsWithChildren<HeaderLinkProps>) {
   return (
     <Link
       href={href}

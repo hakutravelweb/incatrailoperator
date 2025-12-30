@@ -18,5 +18,9 @@ declare global {
       email: string
       country: string
     }
+    type Link = {
+      href: string
+      label: string
+    }
   }
 }
