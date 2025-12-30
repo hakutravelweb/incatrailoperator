@@ -241,5 +241,39 @@
     "travellers-number": "{number, plural, =0 {# viajeros} =1 {# viajero} other {# viajeros}}",
     "from-price": "Desde",
     "see-attractions": "Ver atracciones"
+  },
+  "ContactUs": {
+    "metadata": {
+      "title": "Contáctanos - IncaTrailOperator.com"
+    },
+    "title": "Contáctanos",
+    "description": "Estamos aquí para ayudarte a planificar tu aventura perfecta en Inca Trail Operator",
+    "contact": {
+      "title": "Envíanos un mensaje",
+      "fullname-label": "Nombre completo",
+      "email-label": "Correo electrónico",
+      "phone-label": "Teléfono / WhatsApp",
+      "attraction-product-label": "Producto de atracción de interés",
+      "attraction-product-placeholder": "Selecciona un producto de atracción",
+      "message-label": "Mensaje",
+      "send-label": "Enviar mensaje"
+    },
+    "information": {
+      "title": "Información de Contacto",
+      "email-label": "Correo electrónico",
+      "office-label": "Oficina",
+      "company-title": "Información de la Empresa",
+      "company-name-label": "Razón Social:",
+      "comercial-name-label": "Nombre Comercial:"
+    },
+    "company-hours": {
+      "title": "HORARIO DE ATENCIÓN",
+      "time-one": "Lunes a Viernes de 09:00 am a 19:00 pm",
+      "time-two": "Sábados de 09:00 am a 13:00 pm",
+      "emergency-24": "Emergencias las 24 Horas",
+      "whatsapp-phone": "WhatsApp / Celular:"
+    },
+    "success-message": "¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.",
+    "error-message": "Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde."
   }
 }

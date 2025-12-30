@@ -39,7 +39,7 @@ export function Footer() {
                   Av. El Sol 123, Cusco
                 </InfoSection>
                 <InfoSection label={t('contact.email')}>
-                  info@inkajungle.com
+                  info@incatrailoperator.com
                 </InfoSection>
                 <InfoSection label={t('contact.phone')}>
                   +51 987 654 321
@@ -108,19 +108,19 @@ export function Footer() {
           </span>
           <div className='flex gap-2'>
             <SocialIconLink
-              href='https://www.facebook.com/inkajungle'
+              href='https://www.facebook.com/incatrailoperator'
               icon='Facebook'
             />
             <SocialIconLink
-              href='https://www.instagram.com/inkajungle'
+              href='https://www.instagram.com/incatrailoperator'
               icon='Instagram'
             />
             <SocialIconLink
-              href='https://www.twitter.com/inkajungle'
+              href='https://www.twitter.com/incatrailoperator'
               icon='Twitter'
             />
             <SocialIconLink
-              href='https://www.youtube.com/inkajungle'
+              href='https://www.youtube.com/incatrailoperator'
               icon='Youtube'
             />
           </div>

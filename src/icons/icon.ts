@@ -38,6 +38,8 @@ import Twitter from './twitter.svg'
 import Youtube from './youtube.svg'
 import Location from './location.svg'
 import Persons from './persons.svg'
+import Email from './email.svg'
+import Whatsapp from './whatsapp.svg'
 
 export const Icons = {
   Language,
@@ -80,4 +82,6 @@ export const Icons = {
   Youtube,
   Location,
   Persons,
+  Email,
+  Whatsapp,
 }
