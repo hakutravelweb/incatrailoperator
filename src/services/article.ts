@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { storageSave, storageUpdate, storageDelete } from '@/services/storage'
 import { ArticleSchema } from '@/schemas/article'
 import { Article } from '@/interfaces/article'
+import { ArticleWhereInput } from '@/generated/prisma/models'
 
 export async function createArticle(input: ArticleSchema) {
   const { photo, previewPhoto, ...data } = input
@@ -127,3 +128,45 @@ export const getArticle = cache(async (id: string) => {
 
   return article
 })
+
+export const getArticlesCategoryPagination = cache(
+  async (locale: Locale, categoryId: string, limit: number, offset: number) => {
+    const where: ArticleWhereInput = {}
+    if (categoryId) {
+      where.categoryId = categoryId
+    }
+    const [articles, total] = await Promise.all([
+      prisma.article.findMany({
+        where,
+        take: limit,
+        skip: offset,
+        include: {
+          author: true,
+          category: true,
+        },
+      }),
+      prisma.article.count(),
+    ])
+
+    const articlesTranslate = articles.map<Article>((article) => {
+      return {
+        ...article,
+        slug: article.slug[locale],
+        title: article.title[locale],
+        introduction: article.introduction[locale],
+        labels: article.labels[locale],
+        content: article.content[locale],
+        category: {
+          ...article.category,
+          title: article.category.title[locale],
+          attractionProductsCount: 0,
+        },
+      }
+    })
+
+    return {
+      data: articlesTranslate,
+      total,
+    }
+  },
+)

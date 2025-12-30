@@ -404,5 +404,18 @@
     "not-refundable": "No reembolsable",
     "refundable": "Reembolsable total hasta {duration} antes",
     "you-save-percent": "-{percentage}% de descuento"
+  },
+  "Articles": {
+    "metadata": {
+      "title": "Articulos de Viajes: Inspiración y Consejos"
+    },
+    "title": "Tu aventura en Perú comienza aquí",
+    "destinations": "Destinos",
+    "tickets-machu-picchu": "Boletos Machu Picchu",
+    "book-attractions": "Reserva atracciones",
+    "categories": "Categorias",
+    "card": {
+      "share": "Compartir:"
+    }
   }
 }

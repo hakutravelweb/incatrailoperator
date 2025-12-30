@@ -17,7 +17,7 @@ export function AttractionProductVerticalCard({ attractionProduct }: Props) {
       href={`/attraction-product/${attractionProduct.slug}`}
       className='border-anti-flash-white grid grid-cols-1 rounded-xl border-2 bg-white md:grid-cols-[35%_1fr]'
     >
-      <div className='bg-anti-flash-white relative overflow-hidden rounded-t-xl max-md:aspect-video md:rounded-l-xl'>
+      <div className='bg-anti-flash-white relative overflow-hidden rounded-t-xl max-md:aspect-video md:rounded-t-none md:rounded-l-xl'>
         <img
           className='size-full object-cover'
           src={getFullMediaUrl(attractionProduct.photos[0])}
@@ -37,7 +37,7 @@ export function AttractionProductVerticalCard({ attractionProduct }: Props) {
           </span>
         </div>
       </div>
-      <div className='flex flex-col gap-2 px-4 py-2'>
+      <div className='flex flex-col items-start gap-2 px-4 py-2'>
         <span className='text-strong-dark-green text-sm leading-4.5 font-medium'>
           {attractionProduct.category.title}
         </span>
@@ -119,7 +119,7 @@ export function AttractionProductVerticalCard({ attractionProduct }: Props) {
             </span>
           </div>
         )}
-        <div className='flex items-center justify-between gap-4'>
+        <div className='flex w-full items-center justify-between gap-4'>
           <div className='flex items-center gap-1'>
             <Icons.Star className='text-yellow-sea size-4' />
             <span className='text-dark-charcoal text-sm leading-4.5 font-medium'>

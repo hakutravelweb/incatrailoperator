@@ -403,5 +403,18 @@
     "not-refundable": "Not refundable",
     "refundable": "Refundable up to {duration} before",
     "you-save-percent": "-{percentage}% discount"
+  },
+  "Articles": {
+    "metadata": {
+      "title": "Travel Articles: Inspiration and Tips"
+    },
+    "title": "Your adventure in Peru starts here",
+    "destinations": "Destinations",
+    "tickets-machu-picchu": "Machu Picchu Tickets",
+    "book-attractions": "Book attractions",
+    "categories": "Categories",
+    "card": {
+      "share": "Share:"
+    }
   }
 }
