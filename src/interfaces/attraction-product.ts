@@ -8,17 +8,32 @@ export interface AttractionProduct {
   duration: Duration
   about: string
   labels: string[]
+  guideLanguages: string
+  pickUpService: string
+  startTime: string
+  finishTime: string
+  highlights: string[]
+  detailedDescription: string
+  importantNote: string
   includes: string[]
   notIncluded: string[]
+  importantWarning: string
   recommendations: string[]
+  additionalAdvice: string
   freeCancellation: Duration
   refundable: Duration
+  attractionMap: string
+  attractionVideo: string
+  attractionPdf: string
   retailPrice: number
   specialPrice: number
   category?: string
-  routes?: Route[]
-  rating?: number
-  reviewsCount?: number
+  destination?: string
+  routes: Route[]
+  askedQuestions: AskedQuestion[]
+  reviews: Review[]
+  rating: number
+  reviewsCount: number
 }
 
 export interface Route {
@@ -55,6 +70,25 @@ export interface Destination {
   rating?: number
   travellersCount?: number
   lowestPrice?: number
+}
+
+export interface AskedQuestion {
+  id: string
+  title: string
+  description: string
+}
+
+export interface Review {
+  id: string
+  rating: number
+  traveller: Traveller
+  comment: string
+}
+
+export interface Traveller {
+  fullname: string
+  email: string
+  country: string
 }
 
 export type AttractionView =

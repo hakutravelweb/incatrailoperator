@@ -12,7 +12,12 @@ import {
   AttractionProductSchema,
   ItinerarySchema,
 } from '@/schemas/attraction-product'
-import { AttractionProduct } from '@/interfaces/attraction-product'
+import {
+  AttractionProduct,
+  Route,
+  Waypoint,
+  AskedQuestion,
+} from '@/interfaces/attraction-product'
 import { AttractionProductWhereInput } from '@/generated/prisma/models'
 
 export async function createAttractionProduct(input: AttractionProductSchema) {
@@ -35,7 +40,7 @@ export async function createAttractionProduct(input: AttractionProductSchema) {
   let newAttractionMap = ''
   if (attractionMap) {
     newAttractionMap = await storageSave({
-      file: attractionMap!,
+      file: attractionMap,
       folder: 'attraction-products',
       subfolder: 'attraction-maps',
     })
@@ -44,7 +49,7 @@ export async function createAttractionProduct(input: AttractionProductSchema) {
   let newAttractionPdf = ''
   if (attractionPdf) {
     newAttractionPdf = await storageSave({
-      file: attractionPdf!,
+      file: attractionPdf,
       folder: 'attraction-products',
       subfolder: 'attraction-pdfs',
     })
@@ -103,6 +108,14 @@ export async function updateAttractionProduct(
       file: attractionMap,
       oldFileName: attractionProduct.attractionMap,
     })
+  } else {
+    if (attractionMap) {
+      attractionProduct.attractionMap = await storageSave({
+        file: attractionMap,
+        folder: 'attraction-products',
+        subfolder: 'attraction-maps',
+      })
+    }
   }
 
   if (attractionPdf && attractionProduct.attractionPdf) {
@@ -110,6 +123,14 @@ export async function updateAttractionProduct(
       file: attractionPdf,
       oldFileName: attractionProduct.attractionPdf,
     })
+  } else {
+    if (attractionPdf) {
+      attractionProduct.attractionPdf = await storageSave({
+        file: attractionPdf,
+        folder: 'attraction-products',
+        subfolder: 'attraction-pdfs',
+      })
+    }
   }
 
   const updated = await prisma.attractionProduct.update({
@@ -224,11 +245,25 @@ export const getAttractionProductsPagination = cache(
           ...attractionProduct,
           slug: attractionProduct.slug[locale],
           title: attractionProduct.title[locale],
-          labels: attractionProduct.labels[locale],
           about: attractionProduct.about[locale],
+          labels: attractionProduct.labels[locale],
+          guideLanguages: attractionProduct.guideLanguages[locale],
+          pickUpService: attractionProduct.pickUpService[locale],
+          startTime: attractionProduct.startTime[locale],
+          finishTime: attractionProduct.finishTime[locale],
+          highlights: attractionProduct.highlights[locale],
+          detailedDescription: attractionProduct.detailedDescription[locale],
+          importantNote: attractionProduct.importantNote[locale],
           includes: attractionProduct.includes[locale],
           notIncluded: attractionProduct.notIncluded[locale],
+          importantWarning: attractionProduct.importantWarning[locale],
           recommendations: attractionProduct.recommendations[locale],
+          additionalAdvice: attractionProduct.additionalAdvice[locale],
+          routes: [],
+          askedQuestions: [],
+          reviews: [],
+          rating: 0,
+          reviewsCount: 0,
         }
       })
 
@@ -304,12 +339,17 @@ export async function saveItinerary(input: ItinerarySchema) {
             },
           })
         } else {
+          const waypoints = data.waypoints.map((waypoint) => {
+            const { waypointId, routeId, ...data } = waypoint
+
+            return data
+          })
           await transaction.route.create({
             data: {
               title: data.title,
               attractionProductId: data.attractionProductId,
               waypoints: {
-                createMany: { data: data.waypoints },
+                createMany: { data: waypoints },
               },
             },
           })
@@ -386,7 +426,7 @@ export const getAttractionProducts = cache(
     const attractionProductsTranslate =
       attractionProducts.map<AttractionProduct>((attractionProduct) => {
         const reviewsCount = attractionProduct.reviews.length
-        const totalRating: number = attractionProduct.reviews.reduce(
+        const totalRating = attractionProduct.reviews.reduce(
           (sum, review) => sum + review.rating,
           0,
         )
@@ -399,12 +439,24 @@ export const getAttractionProducts = cache(
           ...attractionProduct,
           slug: attractionProduct.slug[locale],
           title: attractionProduct.title[locale],
-          labels: attractionProduct.labels[locale],
           about: attractionProduct.about[locale],
+          labels: attractionProduct.labels[locale],
+          guideLanguages: attractionProduct.guideLanguages[locale],
+          pickUpService: attractionProduct.pickUpService[locale],
+          startTime: attractionProduct.startTime[locale],
+          finishTime: attractionProduct.finishTime[locale],
+          highlights: attractionProduct.highlights[locale],
+          detailedDescription: attractionProduct.detailedDescription[locale],
+          importantNote: attractionProduct.importantNote[locale],
           includes: attractionProduct.includes[locale],
           notIncluded: attractionProduct.notIncluded[locale],
+          importantWarning: attractionProduct.importantWarning[locale],
           recommendations: attractionProduct.recommendations[locale],
+          additionalAdvice: attractionProduct.additionalAdvice[locale],
           category: attractionProduct.category.title[locale],
+          routes: [],
+          askedQuestions: [],
+          reviews: [],
           rating,
           reviewsCount,
         }
@@ -436,3 +488,95 @@ export const getPopularAttractionProducts = cache(async (locale: Locale) => {
 
   return attractionProductsTranslate
 })
+
+export const getAttractionProductBySlug = cache(
+  async (locale: Locale, slug: string) => {
+    const attractionProduct = await prisma.attractionProduct.findFirstOrThrow({
+      where: {
+        slug: {
+          path: [locale],
+          equals: slug,
+        },
+      },
+      include: {
+        category: true,
+        destination: true,
+        routes: {
+          include: {
+            waypoints: true,
+          },
+        },
+        askedQuestions: true,
+        reviews: {
+          where: {
+            locale,
+          },
+        },
+      },
+    })
+
+    const routes = attractionProduct.routes.map<Route>((route) => {
+      const waypoints = route.waypoints.map<Waypoint>((waypoint) => {
+        return {
+          ...waypoint,
+          title: waypoint.title[locale],
+          description: waypoint.description[locale],
+        }
+      })
+
+      return {
+        ...route,
+        title: route.title[locale],
+        waypoints,
+      }
+    })
+
+    const askedQuestions = attractionProduct.askedQuestions.map<AskedQuestion>(
+      (askedQuestion) => {
+        return {
+          ...askedQuestion,
+          title: askedQuestion.title[locale],
+          description: askedQuestion.description[locale],
+        }
+      },
+    )
+
+    const reviewsCount = attractionProduct.reviews.length
+    const totalRating = attractionProduct.reviews.reduce(
+      (sum, review) => sum + review.rating,
+      0,
+    )
+    const rating =
+      attractionProduct.reviews.length > 0
+        ? Math.round(totalRating / attractionProduct.reviews.length)
+        : 0
+
+    const attractionProductTranslate: AttractionProduct = {
+      ...attractionProduct,
+      slug: attractionProduct.slug[locale],
+      title: attractionProduct.title[locale],
+      about: attractionProduct.about[locale],
+      labels: attractionProduct.labels[locale],
+      guideLanguages: attractionProduct.guideLanguages[locale],
+      pickUpService: attractionProduct.pickUpService[locale],
+      startTime: attractionProduct.startTime[locale],
+      finishTime: attractionProduct.finishTime[locale],
+      highlights: attractionProduct.highlights[locale],
+      detailedDescription: attractionProduct.detailedDescription[locale],
+      importantNote: attractionProduct.importantNote[locale],
+      includes: attractionProduct.includes[locale],
+      notIncluded: attractionProduct.notIncluded[locale],
+      importantWarning: attractionProduct.importantWarning[locale],
+      recommendations: attractionProduct.recommendations[locale],
+      additionalAdvice: attractionProduct.additionalAdvice[locale],
+      category: attractionProduct.category.title[locale],
+      destination: attractionProduct.destination.title[locale],
+      routes,
+      askedQuestions,
+      rating,
+      reviewsCount,
+    }
+
+    return attractionProductTranslate
+  },
+)
