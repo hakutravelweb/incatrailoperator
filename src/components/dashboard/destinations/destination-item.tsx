@@ -70,7 +70,7 @@ export function DestinationItem({ destination, onEdit, onRefresh }: Props) {
           </div>
           <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
             {t('destination.attractions-number', {
-              number: destination.attractionProductsCount ?? 0,
+              number: destination.attractionProductsCount,
             })}
           </div>
         </div>

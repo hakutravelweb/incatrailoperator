@@ -58,7 +58,7 @@ export function CategoryItem({ category, onEdit, onRefresh }: Props) {
           <span className='text-base leading-4.75'>{category.title}</span>
           <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
             {t('category.attractions-number', {
-              number: category.attractionProductsCount ?? 0,
+              number: category.attractionProductsCount,
             })}
           </div>
         </div>

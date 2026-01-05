@@ -512,29 +512,6 @@ export const getAttractionProducts = cache(
   },
 )
 
-export const getPopularAttractionProducts = cache(async (locale: Locale) => {
-  const attractionProducts = await prisma.attractionProduct.findMany({
-    orderBy: {
-      reviews: {
-        _count: 'desc',
-      },
-    },
-    take: 5,
-  })
-
-  const attractionProductsTranslate = attractionProducts.map<
-    Partial<AttractionProduct>
-  >((attractionProduct) => {
-    return {
-      id: attractionProduct.id,
-      slug: attractionProduct.slug[locale],
-      title: attractionProduct.title[locale],
-    }
-  })
-
-  return attractionProductsTranslate
-})
-
 export const getAttractionProductBySlug = cache(
   async (locale: Locale, slug: string) => {
     const attractionProduct = await prisma.attractionProduct.findFirstOrThrow({
