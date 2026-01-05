@@ -28,7 +28,7 @@ import { Button } from '@/components/ui/button'
 import { confirmation } from '@/components/ui/confirmation'
 import { Dropdown } from '@/components/ui/dropdown'
 import { InputTranslate } from '@/components/ui/input-translate'
-import { TextareaTranslate } from '../ui/textarea-translate'
+import { TextareaTranslate } from '@/components/ui/textarea-translate'
 
 interface Props {
   attractionProductId: string

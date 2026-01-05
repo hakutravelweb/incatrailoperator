@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next'
 
 export default async function manifest(): Promise<MetadataRoute.Manifest> {
   return {
-    name: 'InCaTrailOperator',
-    short_name: 'IJ',
+    name: 'IncaTrailOperator',
+    short_name: 'ITO',
     start_url: '/',
     display: 'standalone',
     theme_color: '#ff5533',
