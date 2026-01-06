@@ -1,5 +1,5 @@
 'use client'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, HTMLAttributeAnchorTarget } from 'react'
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { Link } from '@/i18n/routing'
@@ -34,9 +34,9 @@ export function Footer() {
                 <InfoSection label={t('contact.company-name')}>
                   Inca Trail Operator E.I.R.L.
                 </InfoSection>
-                <InfoSection label={t('contact.ruc')}>20615005097</InfoSection>
+                <InfoSection label={t('contact.ruc')}>20608224387</InfoSection>
                 <InfoSection label={t('contact.address')}>
-                  Av. Ayahuayco N-3, Cusco, Perú
+                  Av. Ayahuayco N.º 3 Cusco - Perú
                 </InfoSection>
                 <InfoSection label={t('contact.email')}>
                   info@incatrailoperator.com
@@ -62,6 +62,12 @@ export function Footer() {
                 </FooterLink>
                 <FooterLink href='/privacy-policy'>
                   {t('support.privacy-policy')}
+                </FooterLink>
+                <FooterLink
+                  href='https://cuscowanderer.com/doc/Protegeme.webp'
+                  target='_blank'
+                >
+                  {t('support.code-esnna')}
                 </FooterLink>
               </div>
             </div>
@@ -152,12 +158,18 @@ function InfoSection({ label, children }: PropsWithChildren<InfoSectionProps>) {
 
 interface FooterLinkProps {
   href: string
+  target?: HTMLAttributeAnchorTarget
 }
 
-function FooterLink({ href, children }: PropsWithChildren<FooterLinkProps>) {
+function FooterLink({
+  href,
+  target,
+  children,
+}: PropsWithChildren<FooterLinkProps>) {
   return (
     <Link
       href={href}
+      target={target}
       className='text-dav-ys-grey text-sm leading-4.5 hover:underline'
     >
       {children}
