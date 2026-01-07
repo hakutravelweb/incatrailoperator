@@ -38,6 +38,9 @@ export function ArticleCreate({ onClose, onRefresh }: Props) {
   const handleCreate = async (data: ArticleSchema) => {
     try {
       const user = await auth()
+      if (!user) {
+        return toast.warning('SESSION NOT FOUND')
+      }
       data.authorId = user.id
       const { title } = await createArticle(data)
       toast.success(

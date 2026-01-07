@@ -26,7 +26,7 @@ export async function signIn(input: SignInSchema) {
 
 export const auth = cache(async () => {
   const session = await getSession()
-  if (!session) throw new Error('SESSION NOT FOUND')
+  if (!session) return null
 
   const user = await prisma.user.findUniqueOrThrow({
     where: {

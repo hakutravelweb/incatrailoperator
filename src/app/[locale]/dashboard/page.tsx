@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { locales } from '@/i18n/config'
+import { redirect } from '@/i18n/routing'
 import { Localization } from '@/interfaces/root'
 import { auth } from '@/services/user'
 import { Layout } from '@/components/layout'
@@ -12,6 +13,13 @@ import { Categories } from '@/components/dashboard/categories/categories'
 import { Destinations } from '@/components/dashboard/destinations/destinations'
 import { Articles } from '@/components/dashboard/articles/articles'
 import { Homes } from '@/components/dashboard/homes/homes'
+
+const localizations = locales.map<Localization>((locale) => {
+  return {
+    locale,
+    slug: '/auth/signin',
+  }
+})
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Dashboard')
@@ -33,15 +41,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Dashboard() {
+  const locale = await getLocale()
   const t = await getTranslations('Dashboard')
   const user = await auth()
-
-  const localizations = locales.map<Localization>((locale) => {
-    return {
+  if (!user) {
+    return redirect({
+      href: '/auth/signin',
       locale,
-      slug: '/auth/signin',
-    }
-  })
+    })
+  }
 
   return (
     <Layout localizations={localizations}>

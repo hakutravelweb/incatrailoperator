@@ -64,7 +64,7 @@ export function Footer() {
                   {t('support.privacy-policy')}
                 </FooterLink>
                 <FooterLink
-                  href='https://cuscowanderer.com/doc/Protegeme.webp'
+                  href={`${process.env.APP_URL}/doc/protegeme.jpg`}
                   target='_blank'
                 >
                   {t('support.code-esnna')}
