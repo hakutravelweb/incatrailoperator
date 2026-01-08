@@ -42,8 +42,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const t = await getTranslations('Home')
-
   return (
     <Layout localizations={localizations}>
       <Suspense fallback={<HomeBannerSkeleton />}>
