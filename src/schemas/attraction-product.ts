@@ -70,7 +70,7 @@ const attractionProductSchema = z
     }),
     previewAttractionPdf: z.string(),
     retailPrice: z.number().min(1),
-    specialPrice: z.number().min(1),
+    specialPrice: z.number(),
     categoryId: z.string().min(1),
     destinationId: z.string().min(1),
   })
