@@ -122,7 +122,10 @@ export async function storageDeleteFiles({ fileNames }: DeleteFiles) {
       body: JSON.stringify({
         fileNames,
       }),
-      headers: storage.headers,
+      headers: {
+        ...storage.headers,
+        'Content-Type': 'application/json',
+      },
     })
     const response: ResponseFiles = await request.json()
 

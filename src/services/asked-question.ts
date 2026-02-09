@@ -14,25 +14,30 @@ export const getAskedQuestions = cache(async (attractionProductId: string) => {
 })
 
 export async function saveAskedQuestions(input: AskedQuestionsSchema) {
-  await prisma.$transaction(async (transaction) => {
-    await Promise.all(
-      input.askedQuestions.map(async (askedQuestion) => {
-        const { askedQuestionId, ...data } = askedQuestion
-        if (askedQuestionId) {
-          await transaction.askedQuestion.update({
-            data,
-            where: {
-              id: askedQuestionId,
-            },
-          })
-        } else {
-          await transaction.askedQuestion.create({
-            data,
-          })
-        }
-      }),
-    )
-  })
+  await prisma.$transaction(
+    async (transaction) => {
+      await Promise.all(
+        input.askedQuestions.map(async (askedQuestion) => {
+          const { askedQuestionId, ...data } = askedQuestion
+          if (askedQuestionId) {
+            await transaction.askedQuestion.update({
+              data,
+              where: {
+                id: askedQuestionId,
+              },
+            })
+          } else {
+            await transaction.askedQuestion.create({
+              data,
+            })
+          }
+        }),
+      )
+    },
+    {
+      timeout: 10000,
+    },
+  )
 }
 
 export async function deleteAskedQuestion(id: string) {

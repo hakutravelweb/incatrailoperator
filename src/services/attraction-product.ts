@@ -166,40 +166,45 @@ export async function deleteAttractionProduct(id: string) {
     },
   })
 
-  await prisma.$transaction(async (transaction) => {
-    const routeIds = routes.map((route) => route.id)
-    const waypointIds = routes
-      .map((route) => {
-        const ids = route.waypoints.map((waypoint) => waypoint.id)
-        return ids
-      })
-      .flatMap((id) => id)
+  await prisma.$transaction(
+    async (transaction) => {
+      const routeIds = routes.map((route) => route.id)
+      const waypointIds = routes
+        .map((route) => {
+          const ids = route.waypoints.map((waypoint) => waypoint.id)
+          return ids
+        })
+        .flatMap((id) => id)
 
-    await transaction.waypoint.deleteMany({
-      where: {
-        id: {
-          in: waypointIds,
+      await transaction.waypoint.deleteMany({
+        where: {
+          id: {
+            in: waypointIds,
+          },
         },
-      },
-    })
-    await transaction.route.deleteMany({
-      where: {
-        id: {
-          in: routeIds,
+      })
+      await transaction.route.deleteMany({
+        where: {
+          id: {
+            in: routeIds,
+          },
         },
-      },
-    })
-    await transaction.askedQuestion.deleteMany({
-      where: {
-        attractionProductId: attractionProduct.id,
-      },
-    })
-    await transaction.review.deleteMany({
-      where: {
-        attractionProductId: attractionProduct.id,
-      },
-    })
-  })
+      })
+      await transaction.askedQuestion.deleteMany({
+        where: {
+          attractionProductId: attractionProduct.id,
+        },
+      })
+      await transaction.review.deleteMany({
+        where: {
+          attractionProductId: attractionProduct.id,
+        },
+      })
+    },
+    {
+      timeout: 10000,
+    },
+  )
 
   const deleted = await prisma.attractionProduct.delete({
     where: {
@@ -328,61 +333,66 @@ export const getItinerary = cache(async (attractionProductId: string) => {
 })
 
 export async function saveItinerary(input: ItinerarySchema) {
-  await prisma.$transaction(async (transaction) => {
-    await Promise.all(
-      input.routes.map(async (route) => {
-        const { routeId, ...data } = route
-        if (route.routeId) {
-          const waypointsToUpdate = data.waypoints.filter(
-            (waypoint) => waypoint.waypointId,
-          )
-          const waypointsToCreate = data.waypoints.filter(
-            (waypoint) => !waypoint.waypointId,
-          )
-          const waypoints = waypointsToUpdate.map((waypoint) => {
-            const { waypointId, routeId, ...data } = waypoint
+  await prisma.$transaction(
+    async (transaction) => {
+      await Promise.all(
+        input.routes.map(async (route) => {
+          const { routeId, ...data } = route
+          if (route.routeId) {
+            const waypointsToUpdate = data.waypoints.filter(
+              (waypoint) => waypoint.waypointId,
+            )
+            const waypointsToCreate = data.waypoints.filter(
+              (waypoint) => !waypoint.waypointId,
+            )
+            const waypoints = waypointsToUpdate.map((waypoint) => {
+              const { waypointId, routeId, ...data } = waypoint
 
-            return {
-              data,
-              where: {
-                id: waypointId,
-              },
-            }
-          })
+              return {
+                data,
+                where: {
+                  id: waypointId,
+                },
+              }
+            })
 
-          await transaction.route.update({
-            data: {
-              title: data.title,
-              waypoints: {
-                updateMany: waypoints,
-                createMany: {
-                  data: waypointsToCreate,
+            await transaction.route.update({
+              data: {
+                title: data.title,
+                waypoints: {
+                  updateMany: waypoints,
+                  createMany: {
+                    data: waypointsToCreate,
+                  },
                 },
               },
-            },
-            where: {
-              id: routeId,
-            },
-          })
-        } else {
-          const waypoints = data.waypoints.map((waypoint) => {
-            const { waypointId, routeId, ...data } = waypoint
-
-            return data
-          })
-          await transaction.route.create({
-            data: {
-              title: data.title,
-              attractionProductId: data.attractionProductId,
-              waypoints: {
-                createMany: { data: waypoints },
+              where: {
+                id: routeId,
               },
-            },
-          })
-        }
-      }),
-    )
-  })
+            })
+          } else {
+            const waypoints = data.waypoints.map((waypoint) => {
+              const { waypointId, routeId, ...data } = waypoint
+
+              return data
+            })
+            await transaction.route.create({
+              data: {
+                title: data.title,
+                attractionProductId: data.attractionProductId,
+                waypoints: {
+                  createMany: { data: waypoints },
+                },
+              },
+            })
+          }
+        }),
+      )
+    },
+    {
+      timeout: 10000,
+    },
+  )
 }
 
 export async function deleteRoute(id: string) {
