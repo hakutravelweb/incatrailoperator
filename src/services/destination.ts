@@ -1,5 +1,6 @@
 'use server'
 import { revalidateTag, unstable_cache } from 'next/cache'
+import { getTranslations } from 'next-intl/server'
 import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import { Localization } from '@/interfaces/root'
@@ -7,6 +8,27 @@ import { DestinationSchema } from '@/schemas/destination'
 import { Destination } from '@/interfaces/attraction-product'
 
 export async function createDestination(input: DestinationSchema) {
+  const t = await getTranslations('Language')
+
+  const destinationExisting = await prisma.destination.findFirst({
+    where: {
+      OR: locales.map((locale) => {
+        return {
+          slug: { path: [locale], equals: input.slug[locale] },
+        }
+      }),
+    },
+  })
+  if (destinationExisting) {
+    const duplicatedLocales = locales
+      .filter(
+        (locale) => destinationExisting.slug[locale] === input.slug[locale],
+      )
+      .map((locale) => t(locale))
+      .join(', ')
+    throw new Error(`DUPLICATED_SLUG_ERROR_LOCALES: ${duplicatedLocales}`)
+  }
+
   const created = await prisma.destination.create({
     data: input,
   })
@@ -16,6 +38,27 @@ export async function createDestination(input: DestinationSchema) {
 }
 
 export async function updateDestination(id: string, input: DestinationSchema) {
+  const t = await getTranslations('Language')
+
+  const destinationExisting = await prisma.destination.findFirst({
+    where: {
+      OR: locales.map((locale) => {
+        return {
+          slug: { path: [locale], equals: input.slug[locale] },
+        }
+      }),
+    },
+  })
+  if (destinationExisting) {
+    const duplicatedLocales = locales
+      .filter(
+        (locale) => destinationExisting.slug[locale] === input.slug[locale],
+      )
+      .map((locale) => t(locale))
+      .join(', ')
+    throw new Error(`DUPLICATED_SLUG_ERROR_LOCALES: ${duplicatedLocales}`)
+  }
+
   const destination = await prisma.destination.findUniqueOrThrow({
     where: {
       id,

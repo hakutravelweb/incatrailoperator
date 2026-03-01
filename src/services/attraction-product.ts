@@ -1,5 +1,6 @@
 'use server'
 import { revalidateTag, unstable_cache } from 'next/cache'
+import { getTranslations } from 'next-intl/server'
 import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import {
@@ -23,6 +24,8 @@ import {
 import { AttractionProductWhereInput } from '@/generated/prisma/models'
 
 export async function createAttractionProduct(input: AttractionProductSchema) {
+  const t = await getTranslations('Language')
+
   const {
     photos,
     previewPhotos,
@@ -33,6 +36,26 @@ export async function createAttractionProduct(input: AttractionProductSchema) {
     previewAttractionPdf,
     ...data
   } = input
+
+  const attractionProductExisting = await prisma.attractionProduct.findFirst({
+    where: {
+      OR: locales.map((locale) => {
+        return {
+          slug: { path: [locale], equals: data.slug[locale] },
+        }
+      }),
+    },
+  })
+  if (attractionProductExisting) {
+    const duplicatedLocales = locales
+      .filter(
+        (locale) =>
+          attractionProductExisting.slug[locale] === data.slug[locale],
+      )
+      .map((locale) => t(locale))
+      .join(', ')
+    throw new Error(`DUPLICATED_SLUG_ERROR_LOCALES: ${duplicatedLocales}`)
+  }
 
   const newPhotos = await storageSaveFiles({
     files: photos,
@@ -74,6 +97,8 @@ export async function updateAttractionProduct(
   id: string,
   input: AttractionProductSchema,
 ) {
+  const t = await getTranslations('Language')
+
   const {
     photos,
     previewPhotos,
@@ -84,6 +109,26 @@ export async function updateAttractionProduct(
     previewAttractionPdf,
     ...data
   } = input
+
+  const attractionProductExisting = await prisma.attractionProduct.findFirst({
+    where: {
+      OR: locales.map((locale) => {
+        return {
+          slug: { path: [locale], equals: data.slug[locale] },
+        }
+      }),
+    },
+  })
+  if (attractionProductExisting) {
+    const duplicatedLocales = locales
+      .filter(
+        (locale) =>
+          attractionProductExisting.slug[locale] === data.slug[locale],
+      )
+      .map((locale) => t(locale))
+      .join(', ')
+    throw new Error(`DUPLICATED_SLUG_ERROR_LOCALES: ${duplicatedLocales}`)
+  }
 
   const attractionProduct = await prisma.attractionProduct.findUniqueOrThrow({
     where: {

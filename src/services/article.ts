@@ -1,5 +1,6 @@
 'use server'
 import { revalidateTag, unstable_cache } from 'next/cache'
+import { getTranslations } from 'next-intl/server'
 import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import { ArticleSchema } from '@/schemas/article'
@@ -9,7 +10,26 @@ import { storageSave, storageUpdate, storageDelete } from '@/services/storage'
 import { ArticleWhereInput } from '@/generated/prisma/models'
 
 export async function createArticle(input: ArticleSchema) {
+  const t = await getTranslations('Language')
+
   const { photo, previewPhoto, ...data } = input
+
+  const articleExisting = await prisma.article.findFirst({
+    where: {
+      OR: locales.map((locale) => {
+        return {
+          slug: { path: [locale], equals: data.slug[locale] },
+        }
+      }),
+    },
+  })
+  if (articleExisting) {
+    const duplicatedLocales = locales
+      .filter((locale) => articleExisting.slug[locale] === input.slug[locale])
+      .map((locale) => t(locale))
+      .join(', ')
+    throw new Error(`DUPLICATED_SLUG_ERROR_LOCALES: ${duplicatedLocales}`)
+  }
 
   let newPhoto = ''
   if (photo) {
@@ -31,7 +51,26 @@ export async function createArticle(input: ArticleSchema) {
 }
 
 export async function updateArticle(id: string, input: ArticleSchema) {
+  const t = await getTranslations('Language')
+
   const { photo, previewPhoto, ...data } = input
+
+  const articleExisting = await prisma.article.findFirst({
+    where: {
+      OR: locales.map((locale) => {
+        return {
+          slug: { path: [locale], equals: data.slug[locale] },
+        }
+      }),
+    },
+  })
+  if (articleExisting) {
+    const duplicatedLocales = locales
+      .filter((locale) => articleExisting.slug[locale] === input.slug[locale])
+      .map((locale) => t(locale))
+      .join(', ')
+    throw new Error(`DUPLICATED_SLUG_ERROR_LOCALES: ${duplicatedLocales}`)
+  }
 
   const article = await prisma.article.findUniqueOrThrow({
     where: {
