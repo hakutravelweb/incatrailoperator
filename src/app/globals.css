@@ -2,15 +2,15 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-  --font-aeonik: 'GtEestiProDisplay';
+  --font-outfit: 'Outfit';
 
   --color-inferno: #ff5533;
   --color-outrageous-orange: #ff6a4c;
   --color-cinnabar: #df4a2c;
   --color-yellow-sea: #ffaa00;
   --color-white: #ffffff;
-  --color-black: #000000;
-  --color-dark-charcoal: #333333;
+  --color-black: #002b11;
+  --color-dark-charcoal: #38443a;
   --color-anti-flash-white: #f2f2f2;
   --color-chinese-white: #e0e0e0;
   --color-gray-x11: #bababa;

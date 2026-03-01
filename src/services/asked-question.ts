@@ -1,17 +1,23 @@
 'use server'
-import { cache } from 'react'
+import { revalidateTag, unstable_cache } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { AskedQuestionsSchema } from '@/schemas/asked-question'
 
-export const getAskedQuestions = cache(async (attractionProductId: string) => {
-  const askedQuestions = await prisma.askedQuestion.findMany({
-    where: {
-      attractionProductId,
+export async function getAskedQuestions(attractionProductId: string) {
+  const askedQuestions = await unstable_cache(
+    async () => {
+      return await prisma.askedQuestion.findMany({
+        where: {
+          attractionProductId,
+        },
+      })
     },
-  })
+    [`asked-questions-${attractionProductId}`],
+    { tags: ['asked-questions'] },
+  )()
 
   return askedQuestions
-})
+}
 
 export async function saveAskedQuestions(input: AskedQuestionsSchema) {
   await prisma.$transaction(
@@ -38,6 +44,8 @@ export async function saveAskedQuestions(input: AskedQuestionsSchema) {
       timeout: 10000,
     },
   )
+
+  revalidateTag('asked-questions', { expire: 0 })
 }
 
 export async function deleteAskedQuestion(id: string) {
@@ -53,5 +61,6 @@ export async function deleteAskedQuestion(id: string) {
     },
   })
 
+  revalidateTag('asked-questions', { expire: 0 })
   return deleted
 }

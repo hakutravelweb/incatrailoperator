@@ -6,7 +6,7 @@ import { Localization } from '@/interfaces/root'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 
-const localizations = locales.map<Localization>((locale) => {
+const localizations = locales.map((locale): Localization => {
   return {
     locale,
     slug: '/about-us',

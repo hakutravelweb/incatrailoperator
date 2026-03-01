@@ -57,8 +57,8 @@ export function AttractionProductItinerary({
       }
     }
 
-    const routes = itinerary.map<RouteSchema>((route) => {
-      const waypoints = route.waypoints.map<WaypointSchema>((waypoint) => {
+    const routes = itinerary.map((route): RouteSchema => {
+      const waypoints = route.waypoints.map((waypoint): WaypointSchema => {
         return {
           waypointId: waypoint.id,
           time: waypoint.time,

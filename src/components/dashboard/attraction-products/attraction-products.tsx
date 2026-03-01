@@ -81,13 +81,11 @@ export function AttractionProducts() {
   return (
     <div className='flex flex-col gap-2'>
       <div className='flex flex-col items-start justify-between gap-4 md:flex-row'>
-        <div className='divide-chinese-white border-chinese-white flex w-75 divide-x-2 rounded-sm border-2 focus-within:divide-black focus-within:border-black'>
-          <div className='p-2'>
-            <Icons.Search className='size-5' />
-          </div>
+        <div className='border-chinese-white flex w-75 items-center gap-2 rounded-full border-2 px-4 focus-within:divide-black focus-within:border-black'>
+          <Icons.Search className='size-5' />
           <input
             type='text'
-            className='text-dark-charcoal flex-1 p-2 text-sm leading-4.5 outline-hidden'
+            className='text-dark-charcoal flex-1 py-2 text-sm leading-4.5 outline-hidden'
             value={attractionProducts.search}
             onChange={handleChange}
             placeholder={t('attraction.search-placeholder')}

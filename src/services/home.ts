@@ -1,9 +1,9 @@
 'use server'
-import { cache } from 'react'
+import { revalidateTag, unstable_cache } from 'next/cache'
 import { Locale } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
-import { storageSave, storageUpdate, storageDelete } from '@/services/storage'
 import { HomeSchema } from '@/schemas/home'
+import { storageSave, storageUpdate, storageDelete } from '@/services/storage'
 
 export async function createHome(input: HomeSchema) {
   const { photo, previewPhoto, ...data } = input
@@ -32,6 +32,7 @@ export async function createHome(input: HomeSchema) {
     },
   })
 
+  revalidateTag('homes', { expire: 0 })
   return created
 }
 
@@ -72,6 +73,8 @@ export async function updateHome(id: string, input: HomeSchema) {
     },
   })
 
+  revalidateTag(`home-${id}`, { expire: 0 })
+  revalidateTag('homes', { expire: 0 })
   return updated
 }
 
@@ -90,48 +93,70 @@ export async function deleteHome(id: string) {
 
   await storageDelete({ fileName: home.photo })
 
+  revalidateTag(`home-${id}`, { expire: 0 })
+  revalidateTag('homes', { expire: 0 })
   return deleted
 }
 
-export const getHomeLocale = cache(async (locale: Locale) => {
-  const home = await prisma.home.findFirstOrThrow({
-    where: {
-      locale,
-    },
-  })
-
-  return home
-})
-
-export const getHomesPagination = cache(
-  async (search: string, limit: number, offset: number) => {
-    const [homes, total] = await Promise.all([
-      prisma.home.findMany({
+export async function getHomeLocale(locale: Locale) {
+  const home = await unstable_cache(
+    async () => {
+      return await prisma.home.findFirstOrThrow({
         where: {
-          title: {
-            contains: search,
-            mode: 'insensitive',
-          },
+          locale,
         },
-        take: limit,
-        skip: offset,
-      }),
-      prisma.home.count(),
-    ])
-
-    return {
-      data: homes,
-      total,
-    }
-  },
-)
-
-export const getHome = cache(async (id: string) => {
-  const home = await prisma.home.findUniqueOrThrow({
-    where: {
-      id,
+      })
     },
-  })
+    [`home-${locale}`],
+    { tags: ['homes'] },
+  )()
 
   return home
-})
+}
+
+export async function getHomesPagination(
+  search: string,
+  limit: number,
+  offset: number,
+) {
+  const [homes, total] = await unstable_cache(
+    async () => {
+      return await Promise.all([
+        prisma.home.findMany({
+          where: {
+            title: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+          take: limit,
+          skip: offset,
+        }),
+        prisma.home.count(),
+      ])
+    },
+    [`homes-pagination-${search}-${limit}-${offset}`],
+    { tags: ['homes'] },
+  )()
+
+  return {
+    data: homes,
+    total,
+  }
+}
+
+export async function getHome(id: string) {
+  const home = await unstable_cache(
+    async () => {
+      return await prisma.home.findUniqueOrThrow({
+        where: {
+          id,
+        },
+      })
+    },
+    [`home-${id}`],
+    { tags: [`home-${id}`, 'homes'] },
+  )()
+
+  return home
+}

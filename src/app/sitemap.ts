@@ -7,7 +7,7 @@ import { getAttractionProductsList } from '@/services/attraction-product'
 const host = process.env.APP_URL
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const root = routing.locales.map<MetadataRoute.Sitemap[0]>((locale) => {
+  const root = routing.locales.map((locale): MetadataRoute.Sitemap[0] => {
     return {
       url: `${host}/${locale}`,
       lastModified: new Date(),
@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     }
   })
-  const about = routing.locales.map<MetadataRoute.Sitemap[0]>((locale) => {
+  const about = routing.locales.map((locale): MetadataRoute.Sitemap[0] => {
     return {
       url: `${host}/${locale}/about-us`,
       lastModified: new Date(),
@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }
   })
-  const articles = routing.locales.map<MetadataRoute.Sitemap[0]>((locale) => {
+  const articles = routing.locales.map((locale): MetadataRoute.Sitemap[0] => {
     return {
       url: `${host}/${locale}/articles`,
       lastModified: new Date(),
@@ -31,10 +31,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     }
   })
-  const articlesPromise = routing.locales.map<Promise<MetadataRoute.Sitemap>>(
-    async (locale) => {
+  const articlesPromise = routing.locales.map(
+    async (locale): Promise<MetadataRoute.Sitemap> => {
       const articles = await getArticles(locale)
-      const sitemap = articles.map<MetadataRoute.Sitemap[0]>((article) => {
+      const sitemap = articles.map((article): MetadataRoute.Sitemap[0] => {
         return {
           url: `${host}/${locale}/article/${article.slug}`,
           lastModified: new Date(),
@@ -50,7 +50,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articlesList = articlesResult.flatMap((dept) =>
     dept.flatMap((dest) => dest),
   )
-  const contactUs = routing.locales.map<MetadataRoute.Sitemap[0]>((locale) => {
+  const contactUs = routing.locales.map((locale): MetadataRoute.Sitemap[0] => {
     return {
       url: `${host}/${locale}/contact-us`,
       lastModified: new Date(),
@@ -58,8 +58,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }
   })
-  const privacyPolicy = routing.locales.map<MetadataRoute.Sitemap[0]>(
-    (locale) => {
+  const privacyPolicy = routing.locales.map(
+    (locale): MetadataRoute.Sitemap[0] => {
       return {
         url: `${host}/${locale}/privacy-policy`,
         lastModified: new Date(),
@@ -68,8 +68,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     },
   )
-  const termsAndConditions = routing.locales.map<MetadataRoute.Sitemap[0]>(
-    (locale) => {
+  const termsAndConditions = routing.locales.map(
+    (locale): MetadataRoute.Sitemap[0] => {
       return {
         url: `${host}/${locale}/terms-and-conditions`,
         lastModified: new Date(),
@@ -78,23 +78,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     },
   )
-  const attractionProductsPromise = routing.locales.map<
-    Promise<MetadataRoute.Sitemap>
-  >(async (locale) => {
-    const attractionProducts = await getAttractionProductsList(locale)
-    const sitemap = attractionProducts.map<MetadataRoute.Sitemap[0]>(
-      (attractionProduct) => {
-        return {
-          url: `${host}/${locale}/attraction-product/${attractionProduct.slug}`,
-          lastModified: new Date(),
-          changeFrequency: 'weekly',
-          priority: 0.5,
-          images: [getFullMediaUrl(attractionProduct.photos[0])],
-        }
-      },
-    )
-    return sitemap
-  })
+  const attractionProductsPromise = routing.locales.map(
+    async (locale): Promise<MetadataRoute.Sitemap> => {
+      const attractionProducts = await getAttractionProductsList(locale)
+      const sitemap = attractionProducts.map(
+        (attractionProduct): MetadataRoute.Sitemap[0] => {
+          return {
+            url: `${host}/${locale}/attraction-product/${attractionProduct.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.5,
+            images: [getFullMediaUrl(attractionProduct.photos[0])],
+          }
+        },
+      )
+      return sitemap
+    },
+  )
   const attractionProductsResult = await Promise.all(attractionProductsPromise)
   const attractionProducts = attractionProductsResult.flatMap((dept) =>
     dept.flatMap((dest) => dest),

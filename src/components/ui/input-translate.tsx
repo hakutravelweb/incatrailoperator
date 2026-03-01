@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import {
   Merge,
   FieldError,
@@ -7,6 +8,7 @@ import {
 import { Locale, locales } from '@/i18n/config'
 import { Translate } from '@/interfaces/root'
 import { Input } from './input'
+import { Tabs, Tab } from './tabs'
 
 interface Props {
   ref?: RefCallBack
@@ -17,6 +19,9 @@ interface Props {
 }
 
 export function InputTranslate({ ref, label, value, onChange, errors }: Props) {
+  const t = useTranslations('Language')
+  const tabError = locales.findIndex((locale) => !!errors?.[locale]?.message)
+
   const handleChange = (locale: Locale) => (text: string) => {
     onChange({
       ...value,
@@ -25,23 +30,22 @@ export function InputTranslate({ ref, label, value, onChange, errors }: Props) {
   }
 
   return (
-    <div className='flex flex-col gap-2 border-l-2 border-l-black pl-4'>
+    <div className='border-l-anti-flash-white flex flex-col gap-2 border-l-3 pl-4'>
       <strong className='text-base leading-4.75'>{label}</strong>
-      <div className='flex flex-col gap-4'>
+      <Tabs tabError={tabError}>
         {locales.map((locale) => {
           return (
-            <Input
-              key={locale}
-              ref={ref}
-              label={locale}
-              value={value[locale]}
-              onChange={handleChange(locale)}
-              invalid={!!errors?.[locale]?.message}
-              translate
-            />
+            <Tab key={locale} label={t(locale)}>
+              <Input
+                ref={ref}
+                value={value[locale]}
+                onChange={handleChange(locale)}
+                invalid={!!errors?.[locale]?.message}
+              />
+            </Tab>
           )
         })}
-      </div>
+      </Tabs>
     </div>
   )
 }

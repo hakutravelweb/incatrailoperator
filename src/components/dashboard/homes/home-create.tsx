@@ -174,7 +174,6 @@ export function HomeCreate({ onClose, onRefresh }: Props) {
               onChange={field.onChange}
               invalid={fieldState.invalid}
               onNavigation={handleNavigationTerms}
-              enabledNavigation
             />
           )}
         />
@@ -189,7 +188,6 @@ export function HomeCreate({ onClose, onRefresh }: Props) {
               onChange={field.onChange}
               invalid={fieldState.invalid}
               onNavigation={handleNavigationPrivacy}
-              enabledNavigation
             />
           )}
         />

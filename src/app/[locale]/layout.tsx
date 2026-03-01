@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { Toaster } from 'sonner'
-import { gtEestiProDisplay } from '@/fonts/font'
+import { Outfit } from '@/fonts/font'
 import { locales } from '@/i18n/config'
 
 interface Params {
@@ -27,7 +27,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${gtEestiProDisplay.className} scroll-smooth bg-white text-black antialiased`}
+        className={`${Outfit.className} scroll-smooth bg-white text-black antialiased`}
       >
         <NextIntlClientProvider>
           {children}

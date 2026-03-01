@@ -9,11 +9,10 @@ import { Dropdown } from './dropdown'
 
 interface Props {
   ref?: RefCallBack
-  label: string
+  label?: string
   value: string[]
   onChange: (value: string[]) => void
   errors?: Merge<FieldError, (FieldError | undefined)[]>
-  translate?: boolean
   deleteText: string
   addListText: string
 }
@@ -24,7 +23,6 @@ export function InputList({
   value,
   onChange,
   errors,
-  translate,
   deleteText,
   addListText,
 }: Props) {
@@ -51,11 +49,7 @@ export function InputList({
 
   return (
     <div className='flex flex-col items-start gap-px'>
-      {translate ? (
-        <span className='bg-anti-flash-white mb-1 rounded-sm px-2 py-1 text-sm leading-4.5'>
-          {label}
-        </span>
-      ) : (
+      {label && (
         <label className='text-base leading-4.75 font-bold'>{label}</label>
       )}
       <div className='flex flex-col items-start gap-4'>

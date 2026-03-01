@@ -1,5 +1,4 @@
 import 'server-only'
-import { cache } from 'react'
 import { SignJWT, jwtVerify, JWTPayload } from 'jose'
 import { cookies } from 'next/headers'
 import { SESSION_COOKIE } from './constants'
@@ -41,13 +40,13 @@ export async function createSession(userId: string) {
   })
 }
 
-export const getSession = cache(async () => {
+export async function getSession() {
   const cookie = await cookies()
   const session = cookie.get(SESSION_COOKIE)
   if (!session) return null
   const payload = await decrypt(session.value)
   return payload
-})
+}
 
 export async function deleteSession() {
   const cookie = await cookies()

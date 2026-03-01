@@ -1,23 +1,22 @@
 import { mergeAttributes, Node } from '@tiptap/core'
 
-export interface CustomHeadingOptions {
+export interface NavigatorOptions {
   HTMLAttributes: object
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    customHeading: {
-      setCustomHeading: () => ReturnType
-      removeCustomHeading: () => ReturnType
+    navigator: {
+      toggleNavigator: () => ReturnType
     }
   }
 }
 
-export const CustomHeading = Node.create<CustomHeadingOptions>({
-  name: 'customHeading',
+export const Navigator = Node.create<NavigatorOptions>({
+  name: 'navigator',
   group: 'block',
   content: 'block+',
-  draggable: true,
+  draggable: false,
   parseHTML() {
     return [
       {
@@ -30,21 +29,19 @@ export const CustomHeading = Node.create<CustomHeadingOptions>({
   },
   addCommands() {
     return {
-      setCustomHeading:
+      toggleNavigator:
         () =>
-        ({ chain }) => {
-          const id = `heading-${Date.now()}`
+        ({ editor, chain }) => {
+          if (editor.isActive('navigator')) {
+            return chain().lift(this.name).run()
+          }
+          const id = `navigator-${Date.now()}`
           return chain()
             .wrapIn(this.name, {
               id,
               'data-toc-id': id,
             })
             .run()
-        },
-      removeCustomHeading:
-        () =>
-        ({ chain }) => {
-          return chain().lift(this.name).run()
         },
     }
   },

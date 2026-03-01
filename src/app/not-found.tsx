@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/routing'
 import { locales } from '@/i18n/config'
-import { gtEestiProDisplay } from '@/fonts/font'
+import { Outfit } from '@/fonts/font'
 import { Localization } from '@/interfaces/root'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
@@ -12,7 +12,7 @@ export default async function NotFound() {
   const locale = await getLocale()
   const t = await getTranslations('NotFound')
 
-  const localizations = locales.map<Localization>((locale) => {
+  const localizations = locales.map((locale): Localization => {
     return {
       locale,
       slug: '/',
@@ -22,7 +22,7 @@ export default async function NotFound() {
   return (
     <html lang={locale}>
       <body
-        className={`${gtEestiProDisplay.className} scroll-smooth bg-white text-black antialiased`}
+        className={`${Outfit.className} scroll-smooth bg-white text-black antialiased`}
       >
         <NextIntlClientProvider>
           <Layout localizations={localizations}>

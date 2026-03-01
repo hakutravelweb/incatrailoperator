@@ -9,7 +9,7 @@ import { Section } from '@/components/section'
 import { MenuNavigation } from '@/components/menu-navigation'
 import { ParseHtml } from '@/components/parse-html'
 
-const localizations = locales.map<Localization>((locale) => {
+const localizations = locales.map((locale): Localization => {
   return {
     locale,
     slug: '/privacy-policy',

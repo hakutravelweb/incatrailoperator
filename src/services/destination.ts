@@ -1,5 +1,5 @@
 'use server'
-import { cache } from 'react'
+import { revalidateTag, unstable_cache } from 'next/cache'
 import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import { Localization } from '@/interfaces/root'
@@ -11,6 +11,7 @@ export async function createDestination(input: DestinationSchema) {
     data: input,
   })
 
+  revalidateTag('destinations', { expire: 0 })
   return created
 }
 
@@ -28,6 +29,8 @@ export async function updateDestination(id: string, input: DestinationSchema) {
     data: input,
   })
 
+  revalidateTag(`destination-${id}`, { expire: 0 })
+  revalidateTag('destinations', { expire: 0 })
   return updated
 }
 
@@ -53,68 +56,89 @@ export async function deleteDestination(id: string) {
     },
   })
 
+  revalidateTag(`destination-${id}`, { expire: 0 })
+  revalidateTag('destinations', { expire: 0 })
   return deleted
 }
 
-export const getDestinationsPagination = cache(
-  async (locale: Locale, search: string, limit: number, offset: number) => {
-    const [destinations, total] = await Promise.all([
-      prisma.destination.findMany({
-        where: {
-          title: {
-            path: [locale],
-            string_contains: search,
-            mode: 'insensitive',
+export async function getDestinationsPagination(
+  locale: Locale,
+  search: string,
+  limit: number,
+  offset: number,
+) {
+  const [destinations, total] = await unstable_cache(
+    async () => {
+      return await Promise.all([
+        prisma.destination.findMany({
+          where: {
+            title: {
+              path: [locale],
+              string_contains: search,
+              mode: 'insensitive',
+            },
           },
-        },
-        take: limit,
-        skip: offset,
-        include: {
-          attractionProducts: true,
-        },
-      }),
-      prisma.destination.count(),
-    ])
-
-    const destinationsTranslate = destinations.map<Destination>(
-      (destination) => {
-        return {
-          ...destination,
-          slug: destination.slug[locale],
-          title: destination.title[locale],
-          department: destination.department[locale],
-          about: destination.about[locale],
-          attractionProductsCount: destination.attractionProducts.length,
-          photo: '',
-          rating: 0,
-          travellersCount: 0,
-          lowestPrice: 0,
-          localizations: [],
-        }
-      },
-    )
-
-    return {
-      data: destinationsTranslate,
-      total,
-    }
-  },
-)
-
-export const getDestination = cache(async (id: string) => {
-  const destination = await prisma.destination.findUniqueOrThrow({
-    where: {
-      id,
+          take: limit,
+          skip: offset,
+          include: {
+            attractionProducts: true,
+          },
+        }),
+        prisma.destination.count(),
+      ])
     },
+    [`destinations-pagination-${locale}-${search}-${limit}-${offset}`],
+    { tags: ['destinations'] },
+  )()
+
+  const destinationsTranslate = destinations.map((destination): Destination => {
+    return {
+      ...destination,
+      slug: destination.slug[locale],
+      title: destination.title[locale],
+      department: destination.department[locale],
+      about: destination.about[locale],
+      attractionProductsCount: destination.attractionProducts.length,
+      photo: '',
+      rating: 0,
+      travellersCount: 0,
+      lowestPrice: 0,
+      localizations: [],
+    }
   })
 
+  return {
+    data: destinationsTranslate,
+    total,
+  }
+}
+
+export async function getDestination(id: string) {
+  const destination = await unstable_cache(
+    async () => {
+      return await prisma.destination.findUniqueOrThrow({
+        where: {
+          id,
+        },
+      })
+    },
+    [`destination-${id}`],
+    { tags: [`destination-${id}`, 'destinations'] },
+  )()
+
   return destination
-})
+}
 
-export const getDestinations = cache(async (locale: Locale) => {
-  const destinations = await prisma.destination.findMany()
+export async function getDestinations(locale: Locale) {
+  const destinations = await unstable_cache(
+    async () => {
+      return await prisma.destination.findMany()
+    },
+    [`destinations-${locale}`],
+    { tags: ['destinations'] },
+  )()
 
-  const destinationsTranslate = destinations.map<Destination>((destination) => {
+  const destinationsTranslate = destinations.map((destination): Destination => {
     return {
       ...destination,
       slug: destination.slug[locale],
@@ -131,20 +155,26 @@ export const getDestinations = cache(async (locale: Locale) => {
   })
 
   return destinationsTranslate
-})
+}
 
-export const getDestinationsPerDepartment = cache(async (locale: Locale) => {
-  const destinations = await prisma.destination.findMany({
-    include: {
-      attractionProducts: {
+export async function getDestinationsPerDepartment(locale: Locale) {
+  const destinations = await unstable_cache(
+    async () => {
+      return await prisma.destination.findMany({
         include: {
-          reviews: true,
+          attractionProducts: {
+            include: {
+              reviews: true,
+            },
+          },
         },
-      },
+      })
     },
-  })
+    [`destinations-per-deparment-${locale}`],
+    { tags: ['destinations'] },
+  )()
 
-  const destinationsTranslate = destinations.map<Destination>((destination) => {
+  const destinationsTranslate = destinations.map((destination): Destination => {
     if (destination.attractionProducts.length === 0) {
       return {
         id: destination.id,
@@ -201,40 +231,44 @@ export const getDestinationsPerDepartment = cache(async (locale: Locale) => {
   })
 
   return destinationsTranslate
-})
+}
 
-export const getDestinationBySlug = cache(
-  async (locale: Locale, slug: string) => {
-    const destination = await prisma.destination.findFirstOrThrow({
-      where: {
-        slug: {
-          path: [locale],
-          equals: slug,
+export async function getDestinationBySlug(locale: Locale, slug: string) {
+  const destination = await unstable_cache(
+    async () => {
+      return await prisma.destination.findFirstOrThrow({
+        where: {
+          slug: {
+            path: [locale],
+            equals: slug,
+          },
         },
-      },
-    })
+      })
+    },
+    [`destination-by-slug-${locale}-${slug}`],
+    { tags: ['destinations'] },
+  )()
 
-    const localizations = locales.map<Localization>((locale) => {
-      return {
-        locale,
-        slug: `/destination/${destination.slug[locale]}`,
-      }
-    })
-
-    const destinationTranslate: Destination = {
-      ...destination,
-      slug: destination.slug[locale],
-      title: destination.title[locale],
-      department: destination.department[locale],
-      about: destination.about[locale],
-      attractionProductsCount: 0,
-      photo: '',
-      rating: 0,
-      travellersCount: 0,
-      lowestPrice: 0,
-      localizations,
+  const localizations = locales.map((locale): Localization => {
+    return {
+      locale,
+      slug: `/destination/${destination.slug[locale]}`,
     }
+  })
 
-    return destinationTranslate
-  },
-)
+  const destinationTranslate: Destination = {
+    ...destination,
+    slug: destination.slug[locale],
+    title: destination.title[locale],
+    department: destination.department[locale],
+    about: destination.about[locale],
+    attractionProductsCount: 0,
+    photo: '',
+    rating: 0,
+    travellersCount: 0,
+    lowestPrice: 0,
+    localizations,
+  }
+
+  return destinationTranslate
+}

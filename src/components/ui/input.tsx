@@ -7,13 +7,12 @@ import { cn } from '@/lib/utils'
 interface Props {
   ref?: RefCallBack
   variant?: 'standard'
-  label: string
+  label?: string
   type?: 'text' | 'password'
   value: string
   onChange: (value: string) => void
   placeholder?: string
   invalid?: boolean
-  translate?: boolean
 }
 
 export function Input({
@@ -25,7 +24,6 @@ export function Input({
   onChange,
   placeholder,
   invalid,
-  translate,
 }: Props) {
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -40,11 +38,7 @@ export function Input({
 
   return (
     <div className='flex flex-col items-start gap-px'>
-      {translate ? (
-        <span className='bg-anti-flash-white mb-1 rounded-sm px-2 py-1 text-sm leading-4.5'>
-          {label}
-        </span>
-      ) : (
+      {label && (
         <label className='text-base leading-4.75 font-bold'>{label}</label>
       )}
       <div className='relative w-full'>
