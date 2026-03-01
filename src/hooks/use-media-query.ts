@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 export function useMediaQuery(
   type: 'min-w' | 'max-w' = 'min-w',
   value: number,
-): boolean {
+) {
   const [matches, setMatches] = useState<boolean>(false)
 
   useEffect(() => {

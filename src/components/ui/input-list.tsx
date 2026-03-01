@@ -28,7 +28,7 @@ export function InputList({
 }: Props) {
   const handleChange =
     (index: number) => (event: ChangeEvent<HTMLTextAreaElement>) => {
-      const text: string = event.target.value
+      const text = event.target.value
       value[index] = text
       onChange([...value])
     }

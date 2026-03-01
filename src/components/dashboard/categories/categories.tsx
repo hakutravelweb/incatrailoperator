@@ -17,7 +17,7 @@ export function Categories() {
   const [categoryView, setCategoryView] = useState<CategoryView>('CATEGORIES')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const text: string = event.target.value
+    const text = event.target.value
     categories.onSearch(text)
   }
 

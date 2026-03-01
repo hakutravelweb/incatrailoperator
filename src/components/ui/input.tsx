@@ -28,7 +28,7 @@ export function Input({
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const text: string = event.target.value
+    const text = event.target.value
     onChange(text)
   }
 

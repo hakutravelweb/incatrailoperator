@@ -18,7 +18,7 @@ export function Destinations() {
     useState<DestinationView>('DESTINATIONS')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const text: string = event.target.value
+    const text = event.target.value
     destinations.onSearch(text)
   }
 

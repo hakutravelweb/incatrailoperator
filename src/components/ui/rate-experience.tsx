@@ -46,8 +46,7 @@ export function RateExperience({
       <div className='flex items-center gap-2'>
         <div className='flex items-center gap-px'>
           {ratings.map((rating) => {
-            const active: boolean =
-              score > 0 ? score >= rating : value >= rating
+            const active = score > 0 ? score >= rating : value >= rating
 
             return (
               <Icons.Star

@@ -21,7 +21,7 @@ export function AttractionProducts() {
     useState<AttractionView>('ATTRACTIONS')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const text: string = event.target.value
+    const text = event.target.value
     attractionProducts.onSearch(text)
   }
 
