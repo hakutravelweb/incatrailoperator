@@ -17,7 +17,7 @@ export function Homes() {
   const [homeView, setHomeView] = useState<HomeView>('HOMES')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const text: string = event.target.value
+    const text = event.target.value
     homes.onSearch(text)
   }
 

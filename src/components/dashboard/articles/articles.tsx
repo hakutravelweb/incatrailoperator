@@ -17,7 +17,7 @@ export function Articles() {
   const [articleView, setArticleView] = useState<ArticleView>('ARTICLES')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const text: string = event.target.value
+    const text = event.target.value
     articles.onSearch(text)
   }
 

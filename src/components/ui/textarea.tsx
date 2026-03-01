@@ -20,7 +20,7 @@ export function Textarea({
   invalid,
 }: Props) {
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const text: string = event.target.value
+    const text = event.target.value
     onChange(text)
   }
 

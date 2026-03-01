@@ -15,11 +15,11 @@ export function verifyOpenedModals() {
   }
 }
 
-export function isSlug(value: string): boolean {
+export function isSlug(value: string) {
   return SLUG_REGEX.test(value)
 }
 
-export function getFullMediaUrl(path: string): string {
+export function getFullMediaUrl(path: string) {
   return `${process.env.STORAGE_API_URL}/media/${path}`
 }
 

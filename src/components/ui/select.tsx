@@ -79,7 +79,7 @@ export function Select({
           )}
           {Children.map(children, (child) => {
             const element = child as ReactElement<DropdownOptionProps>
-            const active: boolean = element.props.value === value
+            const active = element.props.value === value
 
             return cloneElement<DropdownOptionProps>(element, {
               active,

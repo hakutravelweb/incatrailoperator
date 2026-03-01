@@ -9,8 +9,8 @@ export function Rating({ rating }: Props) {
   return (
     <div className='flex items-center gap-0.5'>
       {Array.from({ length: 5 }).map((_, index) => {
-        const score: number = index + 1
-        const active: boolean = score <= rating
+        const score = index + 1
+        const active = score <= rating
 
         return (
           <Icons.Star

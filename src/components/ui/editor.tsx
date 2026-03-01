@@ -99,8 +99,8 @@ export function Editor({
     content: value,
     immediatelyRender: false,
     onUpdate: ({ editor }) => {
-      const html: string = editor.getHTML()
-      const text: string = html === '<p></p>' ? '' : html
+      const html = editor.getHTML()
+      const text = html === '<p></p>' ? '' : html
       onChange(text)
     },
   })
