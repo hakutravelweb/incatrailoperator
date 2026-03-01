@@ -8,7 +8,7 @@ import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 import { ArticlesCategory } from '@/components/articles-category'
 
-const localizations = locales.map<Localization>((locale) => {
+const localizations = locales.map((locale): Localization => {
   return {
     locale,
     slug: '/articles',

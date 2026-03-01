@@ -54,8 +54,8 @@ export function AttractionProductAskedQuestions({
       }
     }
 
-    const newAskedQuestions = askedQuestions.map<AskedQuestionSchema>(
-      (askedQuestion) => {
+    const newAskedQuestions = askedQuestions.map(
+      (askedQuestion): AskedQuestionSchema => {
         return {
           askedQuestionId: askedQuestion.id,
           title: askedQuestion.title,

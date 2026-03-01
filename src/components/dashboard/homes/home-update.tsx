@@ -200,7 +200,6 @@ export function HomeUpdate({ homeId, onClose, onRefresh }: Props) {
               onChange={field.onChange}
               invalid={fieldState.invalid}
               onNavigation={handleNavigationTerms}
-              enabledNavigation
             />
           )}
         />
@@ -215,7 +214,6 @@ export function HomeUpdate({ homeId, onClose, onRefresh }: Props) {
               onChange={field.onChange}
               invalid={fieldState.invalid}
               onNavigation={handleNavigationPrivacy}
-              enabledNavigation
             />
           )}
         />

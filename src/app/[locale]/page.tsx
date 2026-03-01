@@ -13,7 +13,7 @@ import {
 } from '@/components/destinations-per-department'
 import { Packages, PackagesSkeleton } from '@/components/packages'
 
-const localizations = locales.map<Localization>((locale) => {
+const localizations = locales.map((locale): Localization => {
   return {
     locale,
     slug: '/',

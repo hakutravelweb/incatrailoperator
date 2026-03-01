@@ -1,5 +1,5 @@
 'use server'
-import { cache } from 'react'
+import { revalidateTag, unstable_cache } from 'next/cache'
 import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import { ArticleSchema } from '@/schemas/article'
@@ -26,6 +26,7 @@ export async function createArticle(input: ArticleSchema) {
     },
   })
 
+  revalidateTag('articles', { expire: 0 })
   return created
 }
 
@@ -55,6 +56,8 @@ export async function updateArticle(id: string, input: ArticleSchema) {
     },
   })
 
+  revalidateTag(`article-${id}`, { expire: 0 })
+  revalidateTag('articles', { expire: 0 })
   return updated
 }
 
@@ -73,122 +76,154 @@ export async function deleteArticle(id: string) {
 
   await storageDelete({ fileName: article.photo })
 
+  revalidateTag(`article-${id}`, { expire: 0 })
+  revalidateTag('articles', { expire: 0 })
   return deleted
 }
 
-export const getArticlesPagination = cache(
-  async (locale: Locale, search: string, limit: number, offset: number) => {
-    const [articles, total] = await Promise.all([
-      prisma.article.findMany({
-        where: {
-          title: {
-            path: [locale],
-            string_contains: search,
-            mode: 'insensitive',
+export async function getArticlesPagination(
+  locale: Locale,
+  search: string,
+  limit: number,
+  offset: number,
+) {
+  const [articles, total] = await unstable_cache(
+    async () => {
+      return await Promise.all([
+        prisma.article.findMany({
+          where: {
+            title: {
+              path: [locale],
+              string_contains: search,
+              mode: 'insensitive',
+            },
           },
-        },
-        take: limit,
-        skip: offset,
-        include: {
-          author: true,
-          category: true,
-        },
-      }),
-      prisma.article.count(),
-    ])
-
-    const articlesTranslate = articles.map<Article>((article) => {
-      return {
-        ...article,
-        slug: article.slug[locale],
-        title: article.title[locale],
-        introduction: article.introduction[locale],
-        labels: article.labels[locale],
-        content: article.content[locale],
-        category: {
-          ...article.category,
-          title: article.category.title[locale],
-          attractionProductsCount: 0,
-        },
-        localizations: [],
-      }
-    })
-
-    return {
-      data: articlesTranslate,
-      total,
-    }
-  },
-)
-
-export const getArticle = cache(async (id: string) => {
-  const article = await prisma.article.findUniqueOrThrow({
-    where: {
-      id,
+          take: limit,
+          skip: offset,
+          include: {
+            author: true,
+            category: true,
+          },
+        }),
+        prisma.article.count(),
+      ])
     },
+    [`articles-pagination-${locale}-${search}-${limit}-${offset}`],
+    { tags: ['articles'] },
+  )()
+
+  const articlesTranslate = articles.map((article): Article => {
+    return {
+      ...article,
+      slug: article.slug[locale],
+      title: article.title[locale],
+      introduction: article.introduction[locale],
+      labels: article.labels[locale],
+      content: article.content[locale],
+      category: {
+        ...article.category,
+        title: article.category.title[locale],
+        attractionProductsCount: 0,
+      },
+      localizations: [],
+    }
   })
+
+  return {
+    data: articlesTranslate,
+    total,
+  }
+}
+
+export async function getArticle(id: string) {
+  const article = await unstable_cache(
+    async () => {
+      return await prisma.article.findUniqueOrThrow({
+        where: {
+          id,
+        },
+      })
+    },
+    [`article-${id}`],
+    { tags: [`article-${id}`, 'articles'] },
+  )()
 
   return article
-})
+}
 
-export const getArticlesCategoryPagination = cache(
-  async (locale: Locale, categoryId: string, limit: number, offset: number) => {
-    const where: ArticleWhereInput = {}
-    if (categoryId) {
-      where.categoryId = categoryId
+export async function getArticlesCategoryPagination(
+  locale: Locale,
+  categoryId: string,
+  limit: number,
+  offset: number,
+) {
+  const where: ArticleWhereInput = {}
+  if (categoryId) {
+    where.categoryId = categoryId
+  }
+  const [articles, total] = await unstable_cache(
+    async () => {
+      return await Promise.all([
+        prisma.article.findMany({
+          where,
+          take: limit,
+          skip: offset,
+          include: {
+            author: true,
+            category: true,
+          },
+        }),
+        prisma.article.count(),
+      ])
+    },
+    [`articles-${locale}-${categoryId}-${limit}-${offset}`],
+    { tags: ['articles'] },
+  )()
+
+  const articlesTranslate = articles.map((article): Article => {
+    return {
+      ...article,
+      slug: article.slug[locale],
+      title: article.title[locale],
+      introduction: article.introduction[locale],
+      labels: article.labels[locale],
+      content: article.content[locale],
+      category: {
+        ...article.category,
+        title: article.category.title[locale],
+        attractionProductsCount: 0,
+      },
+      localizations: [],
     }
-    const [articles, total] = await Promise.all([
-      prisma.article.findMany({
-        where,
-        take: limit,
-        skip: offset,
+  })
+
+  return {
+    data: articlesTranslate,
+    total,
+  }
+}
+
+export async function getArticleBySlug(locale: Locale, slug: string) {
+  const article = await unstable_cache(
+    async () => {
+      return await prisma.article.findFirstOrThrow({
+        where: {
+          slug: {
+            path: [locale],
+            equals: slug,
+          },
+        },
         include: {
           author: true,
           category: true,
         },
-      }),
-      prisma.article.count(),
-    ])
-
-    const articlesTranslate = articles.map<Article>((article) => {
-      return {
-        ...article,
-        slug: article.slug[locale],
-        title: article.title[locale],
-        introduction: article.introduction[locale],
-        labels: article.labels[locale],
-        content: article.content[locale],
-        category: {
-          ...article.category,
-          title: article.category.title[locale],
-          attractionProductsCount: 0,
-        },
-        localizations: [],
-      }
-    })
-
-    return {
-      data: articlesTranslate,
-      total,
-    }
-  },
-)
-
-export const getArticleBySlug = cache(async (locale: Locale, slug: string) => {
-  const article = await prisma.article.findFirstOrThrow({
-    where: {
-      slug: {
-        path: [locale],
-        equals: slug,
-      },
+      })
     },
-    include: {
-      author: true,
-      category: true,
-    },
-  })
+    [`article-by-slug-${locale}-${slug}`],
+    { tags: ['articles'] },
+  )()
 
-  const localizations = locales.map<Localization>((locale) => {
+  const localizations = locales.map((locale): Localization => {
     return {
       locale,
       slug: `/article/${article.slug[locale]}`,
@@ -211,17 +246,23 @@ export const getArticleBySlug = cache(async (locale: Locale, slug: string) => {
   }
 
   return articleTranslate
-})
+}
 
-export const getArticles = cache(async (locale: Locale) => {
-  const articles = await prisma.article.findMany({
-    include: {
-      author: true,
-      category: true,
+export async function getArticles(locale: Locale) {
+  const articles = await unstable_cache(
+    async () => {
+      return await prisma.article.findMany({
+        include: {
+          author: true,
+          category: true,
+        },
+      })
     },
-  })
+    [`articles-${locale}`],
+    { tags: ['articles'] },
+  )()
 
-  const articlesTranslate = articles.map<Article>((article) => {
+  const articlesTranslate = articles.map((article): Article => {
     return {
       ...article,
       slug: article.slug[locale],
@@ -239,4 +280,4 @@ export const getArticles = cache(async (locale: Locale) => {
   })
 
   return articlesTranslate
-})
+}

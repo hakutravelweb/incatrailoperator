@@ -1,5 +1,5 @@
 'use server'
-import { cache } from 'react'
+import { revalidateTag, unstable_cache } from 'next/cache'
 import { Locale } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import { CategorySchema } from '@/schemas/category'
@@ -10,6 +10,7 @@ export async function createCategory(input: CategorySchema) {
     data: input,
   })
 
+  revalidateTag('categories', { expire: 0 })
   return created
 }
 
@@ -27,6 +28,8 @@ export async function updateCategory(id: string, input: CategorySchema) {
     data: input,
   })
 
+  revalidateTag(`category-${id}`, { expire: 0 })
+  revalidateTag('categories', { expire: 0 })
   return updated
 }
 
@@ -52,58 +55,81 @@ export async function deleteCategory(id: string) {
     },
   })
 
+  revalidateTag(`category-${id}`, { expire: 0 })
+  revalidateTag('categories', { expire: 0 })
   return deleted
 }
 
-export const getCategoriesPagination = cache(
-  async (locale: Locale, search: string, limit: number, offset: number) => {
-    const [categories, total] = await Promise.all([
-      prisma.category.findMany({
-        where: {
-          title: {
-            path: [locale],
-            string_contains: search,
-            mode: 'insensitive',
+export async function getCategoriesPagination(
+  locale: Locale,
+  search: string,
+  limit: number,
+  offset: number,
+) {
+  const [categories, total] = await unstable_cache(
+    async () => {
+      return await Promise.all([
+        prisma.category.findMany({
+          where: {
+            title: {
+              path: [locale],
+              string_contains: search,
+              mode: 'insensitive',
+            },
           },
-        },
-        take: limit,
-        skip: offset,
-        include: {
-          attractionProducts: true,
-        },
-      }),
-      prisma.category.count(),
-    ])
-
-    const categoriesTranslate = categories.map<Category>((category) => {
-      return {
-        ...category,
-        title: category.title[locale],
-        attractionProductsCount: category.attractionProducts.length,
-      }
-    })
-
-    return {
-      data: categoriesTranslate,
-      total,
-    }
-  },
-)
-
-export const getCategory = cache(async (id: string) => {
-  const category = await prisma.category.findUniqueOrThrow({
-    where: {
-      id,
+          take: limit,
+          skip: offset,
+          include: {
+            attractionProducts: true,
+          },
+        }),
+        prisma.category.count(),
+      ])
     },
+    [`categories-pagination-${locale}-${search}-${limit}-${offset}`],
+    { tags: ['categories'] },
+  )()
+
+  const categoriesTranslate = categories.map((category): Category => {
+    return {
+      ...category,
+      title: category.title[locale],
+      attractionProductsCount: category.attractionProducts.length,
+    }
   })
 
+  return {
+    data: categoriesTranslate,
+    total,
+  }
+}
+
+export async function getCategory(id: string) {
+  const category = await unstable_cache(
+    async () => {
+      return await prisma.category.findUniqueOrThrow({
+        where: {
+          id,
+        },
+      })
+    },
+    [`category-${id}`],
+    { tags: [`category-${id}`, 'categories'] },
+  )()
+
   return category
-})
+}
 
-export const getCategories = cache(async (locale: Locale) => {
-  const categories = await prisma.category.findMany()
+export async function getCategories(locale: Locale) {
+  const categories = await unstable_cache(
+    async () => {
+      return await prisma.category.findMany()
+    },
+    [`categories-${locale}`],
+    { tags: ['categories'] },
+  )()
 
-  const categoriesTranslate = categories.map<Category>((category) => {
+  const categoriesTranslate = categories.map((category): Category => {
     return {
       ...category,
       title: category.title[locale],
@@ -112,4 +138,4 @@ export const getCategories = cache(async (locale: Locale) => {
   })
 
   return categoriesTranslate
-})
+}

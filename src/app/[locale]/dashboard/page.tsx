@@ -14,7 +14,7 @@ import { Destinations } from '@/components/dashboard/destinations/destinations'
 import { Articles } from '@/components/dashboard/articles/articles'
 import { Homes } from '@/components/dashboard/homes/homes'
 
-const localizations = locales.map<Localization>((locale) => {
+const localizations = locales.map((locale): Localization => {
   return {
     locale,
     slug: '/auth/signin',

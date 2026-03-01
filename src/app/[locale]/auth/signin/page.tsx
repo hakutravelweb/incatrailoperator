@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function AuthSignIn() {
   const t = await getTranslations('AuthSignIn')
 
-  const localizations = locales.map<Localization>((locale) => {
+  const localizations = locales.map((locale): Localization => {
     return {
       locale,
       slug: '/auth/signin',

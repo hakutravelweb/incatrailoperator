@@ -26,7 +26,7 @@ function Toast({ id, message, status }: Props) {
         },
       )}
     >
-      <span className='font-aeonik flex-1 text-sm leading-4.25 font-medium text-white'>
+      <span className='font-outfit flex-1 text-sm leading-4.25 font-medium text-white'>
         {message}
       </span>
       <button

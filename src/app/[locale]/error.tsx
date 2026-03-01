@@ -17,7 +17,7 @@ export default function Error({ reset }: Props) {
   const pathname = usePathname()
   const router = useRouter()
 
-  const localizations = locales.map<Localization>((locale) => {
+  const localizations = locales.map((locale): Localization => {
     return {
       locale,
       slug: pathname,

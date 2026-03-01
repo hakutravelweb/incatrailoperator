@@ -1,5 +1,4 @@
 'use server'
-import { cache } from 'react'
 import { getLocale } from 'next-intl/server'
 import bcrypt from 'bcrypt'
 import { redirect } from '@/i18n/routing'
@@ -24,7 +23,7 @@ export async function signIn(input: SignInSchema) {
   return user
 }
 
-export const auth = cache(async () => {
+export async function auth() {
   const session = await getSession()
   if (!session) return null
 
@@ -35,11 +34,11 @@ export const auth = cache(async () => {
   })
 
   return user
-})
+}
 
 export async function signOut() {
-  const locale = await getLocale()
   await deleteSession()
+  const locale = await getLocale()
   redirect({
     href: '/auth/signin',
     locale,

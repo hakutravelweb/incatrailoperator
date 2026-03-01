@@ -1,4 +1,8 @@
 {
+  "Language": {
+    "es": "Spanish",
+    "en": "English"
+  },
   "Error": {
     "title": "Discover the 500th wonder of the world.",
     "description": "Manage a trip.",

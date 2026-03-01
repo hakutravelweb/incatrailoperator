@@ -8,7 +8,7 @@ import { Contact } from '@/components/contact'
 import { InformationContact } from '@/components/information-contact'
 import { CompanyHours } from '@/components/company-hours'
 
-const localizations = locales.map<Localization>((locale) => {
+const localizations = locales.map((locale): Localization => {
   return {
     locale,
     slug: '/contact-us',

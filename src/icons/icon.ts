@@ -24,7 +24,6 @@ import H3 from './h3.svg'
 import Bold from './bold.svg'
 import Italic from './italic.svg'
 import Navigation from './navigation.svg'
-import UnNavigation from './unnavigation.svg'
 import BulletList from './bullet-list.svg'
 import OrderedList from './ordered-list.svg'
 import Blockquote from './blockquote.svg'
@@ -72,7 +71,6 @@ export const Icons = {
   Bold,
   Italic,
   Navigation,
-  UnNavigation,
   BulletList,
   OrderedList,
   Blockquote,

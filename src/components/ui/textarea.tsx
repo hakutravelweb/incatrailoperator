@@ -4,12 +4,11 @@ import { cn } from '@/lib/utils'
 
 interface Props {
   ref?: RefCallBack
-  label: string
+  label?: string
   value: string
   onChange: (value: string) => void
   placeholder?: string
   invalid: boolean
-  translate?: boolean
 }
 
 export function Textarea({
@@ -19,7 +18,6 @@ export function Textarea({
   onChange,
   placeholder,
   invalid,
-  translate,
 }: Props) {
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const text: string = event.target.value
@@ -28,11 +26,7 @@ export function Textarea({
 
   return (
     <div className='flex flex-col items-start gap-px'>
-      {translate ? (
-        <span className='bg-anti-flash-white mb-1 rounded-sm px-2 py-1 text-sm leading-4.5'>
-          {label}
-        </span>
-      ) : (
+      {label && (
         <label className='text-base leading-4.75 font-bold'>{label}</label>
       )}
       <textarea

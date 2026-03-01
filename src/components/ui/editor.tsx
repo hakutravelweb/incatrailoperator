@@ -11,7 +11,7 @@ import {
 } from '@tiptap/extension-table-of-contents'
 import DragHandle from '@tiptap/extension-drag-handle-react'
 import Placeholder from '@tiptap/extension-placeholder'
-import { useEditor, EditorContent } from '@tiptap/react'
+import { useEditor, EditorContent, useEditorState } from '@tiptap/react'
 import { BubbleMenu, FloatingMenu } from '@tiptap/react/menus'
 import StarterKit from '@tiptap/starter-kit'
 import { Icons } from '@/icons/icon'
@@ -19,21 +19,19 @@ import { cn } from '@/lib/utils'
 import { Navigation } from '@/interfaces/root'
 import { LinkSchema, linkResolver, linkDefaultValues } from '@/schemas/article'
 import { useDisclosure } from '@/hooks/use-disclosure'
-import { CustomHeading } from './extensions/custom-heading'
+import { Navigator } from './extensions/navigator'
 import { Modal } from './modal'
 import { Input } from './input'
 import { Button } from './button'
 
 interface Props {
   ref?: RefCallBack
-  label: string
+  label?: string
   value: string
   onChange: (value: string) => void
   placeholder?: string
   invalid?: boolean
-  translate?: boolean
   onNavigation?: (value: Navigation[]) => void
-  enabledNavigation?: boolean
 }
 
 export function Editor({
@@ -43,9 +41,7 @@ export function Editor({
   onChange,
   placeholder,
   invalid,
-  translate,
   onNavigation,
-  enabledNavigation,
 }: Props) {
   const t = useTranslations('Dashboard')
   const link = useDisclosure()
@@ -72,13 +68,13 @@ export function Editor({
         emptyEditorClass:
           'before:text-sonic-silver before:content-[attr(data-placeholder)] before:float-left before:h-0 before:pointer-events-none',
       }),
-      CustomHeading,
+      Navigator,
       TableOfContents.configure({
-        anchorTypes: ['customHeading'],
+        anchorTypes: ['navigator'],
         getIndex: getHierarchicalIndexes,
         onUpdate(content) {
           setNavigation(content)
-          if (onNavigation && enabledNavigation) {
+          if (onNavigation) {
             const navigation: Navigation[] = content.map((navigation) => ({
               id: navigation.id,
               title: navigation.textContent,
@@ -93,7 +89,7 @@ export function Editor({
     editorProps: {
       attributes: {
         class: cn(
-          'prose max-w-full min-h-25 text-dark-charcoal border-chinese-white focus:border-black rounded-sm border-2 outline-hidden prose-headings:text-black text-base leading-5 prose-base p-4 prose-blockquote:border-s-chinese-white prose-hr:border-t-chinese-white [&_nav]:data-toc-id:w-fit [&_nav]:data-toc-id:rounded-md [&_nav]:data-toc-id:px-2 [&_nav]:data-toc-id:bg-inferno/20 [&_nav]:data-toc-id:prose-headings:text-black [&_nav]:data-toc-id:prose-headings:font-black [&_nav]:data-toc-id:prose-headings:m-0 [&_nav]:data-toc-id:prose-p:my-0 prose-a:text-inferno prose-a:hover:text-cinnabar',
+          'prose max-w-full min-h-25 text-dark-charcoal border-chinese-white focus:border-black rounded-sm border-2 outline-hidden prose-headings:text-black text-base leading-5 prose-base p-4 prose-blockquote:border-s-chinese-white prose-hr:border-t-chinese-white [&_nav]:data-toc-id:w-fit [&_nav]:data-toc-id:rounded-md [&_nav]:data-toc-id:px-2 [&_nav]:data-toc-id:bg-inferno/20 [&_nav]:data-toc-id:prose-headings:text-black [&_nav]:data-toc-id:prose-headings:font-bold [&_nav]:data-toc-id:prose-headings:m-0 [&_nav]:data-toc-id:prose-p:my-0 prose-a:text-inferno prose-a:hover:text-cinnabar',
           {
             'border-ue-red': invalid,
           },
@@ -106,6 +102,25 @@ export function Editor({
       const html: string = editor.getHTML()
       const text: string = html === '<p></p>' ? '' : html
       onChange(text)
+    },
+  })
+  const editorState = useEditorState({
+    editor,
+    selector: (ctx) => {
+      return {
+        isParagraph: ctx.editor?.isActive('paragraph'),
+        isH2: ctx.editor?.isActive('heading', { level: 2 }),
+        isH3: ctx.editor?.isActive('heading', { level: 3 }),
+        isBold: ctx.editor?.isActive('bold'),
+        isItalic: ctx.editor?.isActive('italic'),
+        isStrike: ctx.editor?.isActive('strike'),
+        isBulletList: ctx.editor?.isActive('bulletList'),
+        isOrderedList: ctx.editor?.isActive('orderedList'),
+        isBlockquote: ctx.editor?.isActive('blockquote'),
+        isHorizontalRule: ctx.editor?.isActive('horizontalRule'),
+        isLink: ctx.editor?.isActive('link'),
+        isNavigator: ctx.editor?.isActive('navigator'),
+      }
     },
   })
 
@@ -129,20 +144,16 @@ export function Editor({
   return (
     <div className='relative flex flex-col items-start gap-px'>
       <input ref={ref} readOnly className='absolute size-px outline-none' />
-      {translate ? (
-        <span className='bg-anti-flash-white mb-1 rounded-sm px-2 py-1 text-sm leading-4.5'>
-          {label}
-        </span>
-      ) : (
+      {label && (
         <label className='text-base leading-4.75 font-bold'>{label}</label>
       )}
       <div
         className={cn('w-full', {
           'border-gray-x11 mb-2 rounded-md border border-dashed':
-            navigation.length > 0 && enabledNavigation,
+            navigation.length > 0 && onNavigation,
         })}
       >
-        {navigation.length > 0 && enabledNavigation && (
+        {navigation.length > 0 && onNavigation && (
           <div className='grid-cols-auto-fill grid gap-2 px-4 py-2'>
             {navigation.map((item) => {
               return (
@@ -189,43 +200,43 @@ export function Editor({
           <MenuItem
             icon='Paragraph'
             onClick={() => editor.chain().focus().setParagraph().run()}
-            active={editor.isActive('paragraph')}
+            active={editorState?.isParagraph}
           />
           <MenuItem
             icon='H2'
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
-            active={editor.isActive('heading', { level: 2 })}
+            active={editorState?.isH2}
           />
           <MenuItem
             icon='H3'
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 3 }).run()
             }
-            active={editor.isActive('heading', { level: 3 })}
+            active={editorState?.isH3}
           />
           <MenuItem
             icon='Bold'
             onClick={() => editor.chain().focus().toggleBold().run()}
-            active={editor.isActive('bold')}
+            active={editorState?.isBold}
           />
           <MenuItem
             icon='Italic'
             onClick={() => editor.chain().focus().toggleItalic().run()}
-            active={editor.isActive('italic')}
+            active={editorState?.isItalic}
           />
           <MenuItem
             icon='Strike'
             onClick={() => editor.chain().focus().toggleStrike().run()}
-            active={editor.isActive('strike')}
+            active={editorState?.isStrike}
           />
           <MenuItem
             icon='Link'
             onClick={handleLink}
-            active={editor.isActive('link')}
+            active={editorState?.isLink}
           />
-          {editor.isActive('link') && (
+          {editorState?.isLink && (
             <MenuItem
               icon='Unlink'
               onClick={() => editor.chain().focus().unsetLink().run()}
@@ -234,39 +245,29 @@ export function Editor({
           <MenuItem
             icon='BulletList'
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            active={editor.isActive('bulletList')}
+            active={editorState?.isBulletList}
           />
           <MenuItem
             icon='OrderedList'
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            active={editor.isActive('orderedList')}
+            active={editorState?.isOrderedList}
           />
           <MenuItem
             icon='Blockquote'
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            active={editor.isActive('blockquote')}
+            active={editorState?.isBlockquote}
           />
           <MenuItem
             icon='HorizontalRule'
             onClick={() => editor.chain().focus().setHorizontalRule().run()}
-            active={editor.isActive('horizontalRule')}
+            active={editorState?.isHorizontalRule}
           />
-          {enabledNavigation && (
-            <>
-              <MenuItem
-                icon='Navigation'
-                onClick={() => editor.chain().focus().setCustomHeading().run()}
-                active={editor.isActive('customHeading')}
-              />
-              {editor.isActive('customHeading') && (
-                <MenuItem
-                  icon='UnNavigation'
-                  onClick={() =>
-                    editor.chain().focus().removeCustomHeading().run()
-                  }
-                />
-              )}
-            </>
+          {onNavigation && (
+            <MenuItem
+              icon='Navigation'
+              onClick={() => editor.chain().focus().toggleNavigator().run()}
+              active={editorState?.isNavigator}
+            />
           )}
         </BubbleMenu>
       )}
@@ -278,56 +279,56 @@ export function Editor({
           <MenuItem
             icon='Paragraph'
             onClick={() => editor.chain().focus().setParagraph().run()}
-            active={editor.isActive('paragraph')}
+            active={editorState?.isParagraph}
           />
           <MenuItem
             icon='H2'
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
-            active={editor.isActive('heading', { level: 2 })}
+            active={editorState?.isH2}
           />
           <MenuItem
             icon='H3'
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 3 }).run()
             }
-            active={editor.isActive('heading', { level: 3 })}
+            active={editorState?.isH3}
           />
           <MenuItem
             icon='Bold'
             onClick={() => editor.chain().focus().toggleBold().run()}
-            active={editor.isActive('bold')}
+            active={editorState?.isBold}
           />
           <MenuItem
             icon='Italic'
             onClick={() => editor.chain().focus().toggleItalic().run()}
-            active={editor.isActive('italic')}
+            active={editorState?.isItalic}
           />
           <MenuItem
             icon='Strike'
             onClick={() => editor.chain().focus().toggleStrike().run()}
-            active={editor.isActive('strike')}
+            active={editorState?.isStrike}
           />
           <MenuItem
             icon='BulletList'
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            active={editor.isActive('bulletList')}
+            active={editorState?.isBulletList}
           />
           <MenuItem
             icon='OrderedList'
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            active={editor.isActive('orderedList')}
+            active={editorState?.isOrderedList}
           />
           <MenuItem
             icon='Blockquote'
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            active={editor.isActive('blockquote')}
+            active={editorState?.isBlockquote}
           />
           <MenuItem
             icon='HorizontalRule'
             onClick={() => editor.chain().focus().setHorizontalRule().run()}
-            active={editor.isActive('horizontalRule')}
+            active={editorState?.isHorizontalRule}
           />
         </FloatingMenu>
       )}

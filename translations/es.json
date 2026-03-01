@@ -1,4 +1,8 @@
 {
+  "Language": {
+    "es": "Español",
+    "en": "Ingles"
+  },
   "Error": {
     "title": "Conoce la 500ª maravilla del mundo.",
     "description": "Administra un viaje.",

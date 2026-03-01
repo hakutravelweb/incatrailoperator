@@ -1,5 +1,5 @@
 'use server'
-import { cache } from 'react'
+import { revalidateTag, unstable_cache } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { Locale } from '@/i18n/config'
 import { ReviewSchema } from '@/schemas/review'
@@ -18,6 +18,7 @@ export async function createReview(input: ReviewSchema) {
     data: input,
   })
 
+  revalidateTag('reviews', { expire: 0 })
   return created
 }
 
@@ -34,18 +35,26 @@ export async function deleteReview(id: string) {
     },
   })
 
+  revalidateTag('reviews', { expire: 0 })
   return deleted
 }
 
-export const getReviewsByAttractionProduct = cache(
-  async (locale: Locale, attractionProductId: string) => {
-    const reviews = await prisma.review.findMany({
-      where: {
-        locale,
-        attractionProductId,
-      },
-    })
+export async function getReviewsByAttractionProduct(
+  locale: Locale,
+  attractionProductId: string,
+) {
+  const reviews = await unstable_cache(
+    async () => {
+      return await prisma.review.findMany({
+        where: {
+          locale,
+          attractionProductId,
+        },
+      })
+    },
+    [`reviews-${locale}-${attractionProductId}`],
+    { tags: ['reviews'] },
+  )()
 
-    return reviews
-  },
-)
+  return reviews
+}
