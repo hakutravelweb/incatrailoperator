@@ -57,6 +57,9 @@ export async function updateArticle(id: string, input: ArticleSchema) {
 
   const articleExisting = await prisma.article.findFirst({
     where: {
+      NOT: {
+        id,
+      },
       OR: locales.map((locale) => {
         return {
           slug: { path: [locale], equals: data.slug[locale] },

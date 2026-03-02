@@ -52,7 +52,12 @@ export function AttractionProductCreate({ onClose, onRefresh }: Props) {
       )
       onClose()
       onRefresh()
-    } catch {
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('DUPLICATED_SLUG_ERROR_LOCALES')) {
+          toast.error(error.message)
+        }
+      }
       toast.error('ERROR INTERNAL SERVER')
     }
   }

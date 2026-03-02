@@ -42,6 +42,9 @@ export async function updateDestination(id: string, input: DestinationSchema) {
 
   const destinationExisting = await prisma.destination.findFirst({
     where: {
+      NOT: {
+        id,
+      },
       OR: locales.map((locale) => {
         return {
           slug: { path: [locale], equals: input.slug[locale] },
