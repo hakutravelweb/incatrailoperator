@@ -112,6 +112,9 @@ export async function updateAttractionProduct(
 
   const attractionProductExisting = await prisma.attractionProduct.findFirst({
     where: {
+      NOT: {
+        id,
+      },
       OR: locales.map((locale) => {
         return {
           slug: { path: [locale], equals: data.slug[locale] },
