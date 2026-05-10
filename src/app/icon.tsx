@@ -3,17 +3,17 @@ import { ImageResponse } from 'next/og'
 export async function generateImageMetadata() {
   return [
     {
-      contentType: 'image/png',
+      contentType: 'image/svg+xml',
       size: { width: 32, height: 32 },
       id: 'small',
     },
     {
-      contentType: 'image/png',
+      contentType: 'image/svg+xml',
       size: { width: 192, height: 192 },
       id: 'large',
     },
     {
-      contentType: 'image/png',
+      contentType: 'image/svg+xml',
       size: { width: 512, height: 512 },
       id: 'huge',
     },
@@ -35,7 +35,7 @@ export default function Icon({ id }: Props) {
   return new ImageResponse(
     <img
       style={{ width: '100%', height: '100%' }}
-      src={`${process.env.APP_URL}/logos/icon.png`}
+      src={`${process.env.APP_URL}/logos/logo.svg`}
       alt='Incatrailoperator'
     />,
     { width: size, height: size },
