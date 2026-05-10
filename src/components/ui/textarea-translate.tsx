@@ -6,7 +6,7 @@ import {
   RefCallBack,
 } from 'react-hook-form'
 import { Locale, locales } from '@/i18n/config'
-import { Translate } from '@/interfaces/root'
+import { Translate } from '@/shared/interfaces'
 import { Textarea } from './textarea'
 import { Tabs, Tab } from './tabs'
 
@@ -37,7 +37,7 @@ export function TextareaTranslate({
 
   return (
     <div className='border-l-anti-flash-white flex flex-col gap-2 border-l-3 pl-4'>
-      <strong className='text-base leading-4.75'>{label}</strong>
+      <label className='text-base leading-5.25 font-medium'>{label}</label>
       <Tabs tabError={tabError}>
         {locales.map((locale) => {
           return (

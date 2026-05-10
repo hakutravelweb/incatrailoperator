@@ -19,16 +19,13 @@ import CloseCircle from './close-circle.svg'
 import Plus from './plus.svg'
 import Minus from './minus.svg'
 import Paragraph from './paragraph.svg'
-import H2 from './h2.svg'
 import H3 from './h3.svg'
 import Bold from './bold.svg'
 import Italic from './italic.svg'
 import Navigation from './navigation.svg'
 import BulletList from './bullet-list.svg'
 import OrderedList from './ordered-list.svg'
-import Blockquote from './blockquote.svg'
 import HorizontalRule from './horizontal-rule.svg'
-import Strike from './strike.svg'
 import Check from './check.svg'
 import PdfPlus from './pdf-plus.svg'
 import Facebook from './facebook.svg'
@@ -41,7 +38,7 @@ import Email from './email.svg'
 import Whatsapp from './whatsapp.svg'
 import Menu from './menu.svg'
 import Link from './link.svg'
-import Unlink from './unlink.svg'
+import Unsetlink from './unset-link.svg'
 import Range from './range.svg'
 
 export const Icons = {
@@ -66,16 +63,13 @@ export const Icons = {
   Plus,
   Minus,
   Paragraph,
-  H2,
   H3,
   Bold,
   Italic,
   Navigation,
   BulletList,
   OrderedList,
-  Blockquote,
   HorizontalRule,
-  Strike,
   Check,
   PdfPlus,
   Facebook,
@@ -88,6 +82,6 @@ export const Icons = {
   Whatsapp,
   Menu,
   Link,
-  Unlink,
+  Unsetlink,
   Range,
 }

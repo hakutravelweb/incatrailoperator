@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { Header } from './header'
 import { Footer } from './footer'
 

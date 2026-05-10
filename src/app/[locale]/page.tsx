@@ -2,11 +2,11 @@ import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { locales } from '@/i18n/config'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 import { HomeBanner, HomeBannerSkeleton } from '@/components/home-banner'
-import { FiltersAttractionProducts } from '@/components/filters-attraction-products'
+import { FiltersJourneys } from '@/components/filters-journeys'
 import {
   DestinationsPerDepartment,
   DestinationsPerDepartmentSkeleton,
@@ -48,7 +48,7 @@ export default async function Home() {
         <HomeBanner />
       </Suspense>
       <Section>
-        <FiltersAttractionProducts />
+        <FiltersJourneys />
       </Section>
       <Section>
         <Suspense fallback={<PackagesSkeleton />}>

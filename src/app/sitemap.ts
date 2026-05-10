@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { getFullMediaUrl } from '@/lib/utils'
 import { routing } from '@/i18n/routing'
 import { getArticles } from '@/services/article'
-import { getAttractionProductsList } from '@/services/attraction-product'
+import { getJourneysList } from '@/services/journey'
 
 const host = process.env.APP_URL
 
@@ -78,27 +78,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     },
   )
-  const attractionProductsPromise = routing.locales.map(
+  const journeysPromise = routing.locales.map(
     async (locale): Promise<MetadataRoute.Sitemap> => {
-      const attractionProducts = await getAttractionProductsList(locale)
-      const sitemap = attractionProducts.map(
-        (attractionProduct): MetadataRoute.Sitemap[0] => {
-          return {
-            url: `${host}/${locale}/attraction-product/${attractionProduct.slug}`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.5,
-            images: [getFullMediaUrl(attractionProduct.photos[0])],
-          }
-        },
-      )
+      const journeys = await getJourneysList(locale)
+      const sitemap = journeys.map((journey): MetadataRoute.Sitemap[0] => {
+        return {
+          url: `${host}/${locale}/journey/${journey.slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly',
+          priority: 0.5,
+          images: [getFullMediaUrl(journey.photos[0])],
+        }
+      })
       return sitemap
     },
   )
-  const attractionProductsResult = await Promise.all(attractionProductsPromise)
-  const attractionProducts = attractionProductsResult.flatMap((dept) =>
-    dept.flatMap((dest) => dest),
-  )
+  const journeysResult = await Promise.all(journeysPromise)
+  const journey = journeysResult.flatMap((dept) => dept.flatMap((dest) => dest))
 
   return [
     ...root,
@@ -108,6 +104,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...contactUs,
     ...privacyPolicy,
     ...termsAndConditions,
-    ...attractionProducts,
+    ...journey,
   ]
 }

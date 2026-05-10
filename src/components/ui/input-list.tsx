@@ -50,7 +50,7 @@ export function InputList({
   return (
     <div className='flex flex-col items-start gap-px'>
       {label && (
-        <label className='text-base leading-4.75 font-bold'>{label}</label>
+        <label className='text-base leading-5.25 font-medium'>{label}</label>
       )}
       <div className='flex flex-col items-start gap-4'>
         {value.length > 0 && (
@@ -105,7 +105,7 @@ export function InputList({
                     value={value}
                     onChange={handleChange(props.key!)}
                   />
-                  <Dropdown position='top-right'>
+                  <Dropdown>
                     <Dropdown.Trigger>
                       <div className='border-chinese-white hover:bg-anti-flash-white active:bg-chinese-white flex size-8 items-center justify-center rounded-md border-2'>
                         <Icons.Dots className='size-4' />

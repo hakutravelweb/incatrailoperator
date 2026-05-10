@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
-import { Category } from '@/interfaces/attraction-product'
+import { Category } from '@/interfaces/journey'
 import { getCategories } from '@/services/category'
 import { toast } from '@/components/ui/toast'
 

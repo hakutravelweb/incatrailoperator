@@ -3,9 +3,9 @@ import { revalidateTag, unstable_cache } from 'next/cache'
 import { getTranslations } from 'next-intl/server'
 import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { DestinationSchema } from '@/schemas/destination'
-import { Destination } from '@/interfaces/attraction-product'
+import { Destination } from '@/interfaces/journey'
 
 export async function createDestination(input: DestinationSchema) {
   const t = await getTranslations('Language')
@@ -87,13 +87,13 @@ export async function deleteDestination(id: string) {
     },
   })
 
-  const deletedAttractionProducts = await prisma.attractionProduct.findMany({
+  const deletedJourneys = await prisma.journey.findMany({
     where: {
       destinationId: destination.id,
     },
   })
-  if (deletedAttractionProducts.length > 0) {
-    throw new Error('CANNOT DELETE DESTINATION WITH ATTRACTION PRODUCTS')
+  if (deletedJourneys.length > 0) {
+    throw new Error('CANNOT DELETE DESTINATION WITH JOURNEYS')
   }
 
   const deleted = await prisma.destination.delete({
@@ -127,7 +127,7 @@ export async function getDestinationsPagination(
           take: limit,
           skip: offset,
           include: {
-            attractionProducts: true,
+            journeys: true,
           },
         }),
         prisma.destination.count(),
@@ -144,7 +144,7 @@ export async function getDestinationsPagination(
       title: destination.title[locale],
       department: destination.department[locale],
       about: destination.about[locale],
-      attractionProductsCount: destination.attractionProducts.length,
+      journeysCount: destination.journeys.length,
       photo: '',
       rating: 0,
       travellersCount: 0,
@@ -191,7 +191,7 @@ export async function getDestinations(locale: Locale) {
       title: destination.title[locale],
       department: destination.department[locale],
       about: destination.about[locale],
-      attractionProductsCount: 0,
+      journeysCount: 0,
       photo: '',
       rating: 0,
       travellersCount: 0,
@@ -208,7 +208,7 @@ export async function getDestinationsPerDepartment(locale: Locale) {
     async () => {
       return await prisma.destination.findMany({
         include: {
-          attractionProducts: {
+          journeys: {
             include: {
               reviews: true,
             },
@@ -221,14 +221,14 @@ export async function getDestinationsPerDepartment(locale: Locale) {
   )()
 
   const destinationsTranslate = destinations.map((destination): Destination => {
-    if (destination.attractionProducts.length === 0) {
+    if (destination.journeys.length === 0) {
       return {
         id: destination.id,
         slug: destination.slug[locale],
         title: destination.title[locale],
         department: destination.department[locale],
         about: destination.about[locale],
-        attractionProductsCount: 0,
+        journeysCount: 0,
         photo: '',
         rating: 0,
         travellersCount: 0,
@@ -237,10 +237,10 @@ export async function getDestinationsPerDepartment(locale: Locale) {
       }
     }
 
-    const { totalReviews, totalRating } = destination.attractionProducts.reduce(
-      (acc, attractionProduct) => {
-        const reviewsCount = attractionProduct.reviews.length
-        const productRating = attractionProduct.reviews.reduce(
+    const { totalReviews, totalRating } = destination.journeys.reduce(
+      (acc, journey) => {
+        const reviewsCount = journey.reviews.length
+        const productRating = journey.reviews.reduce(
           (sum, review) => sum + review.rating,
           0,
         )
@@ -255,10 +255,10 @@ export async function getDestinationsPerDepartment(locale: Locale) {
 
     const rating = totalReviews > 0 ? Math.round(totalRating / totalReviews) : 0
 
-    const cheapestProduct = destination.attractionProducts.reduce(
-      (lowest, product) =>
-        product.retailPrice < lowest.retailPrice ? product : lowest,
-      destination.attractionProducts[0],
+    const cheapestProduct = destination.journeys.reduce(
+      (lowest, journey) =>
+        journey.retailPrice < lowest.retailPrice ? journey : lowest,
+      destination.journeys[0],
     )
 
     return {
@@ -268,7 +268,7 @@ export async function getDestinationsPerDepartment(locale: Locale) {
       department: destination.department[locale],
       about: destination.about[locale],
       photo: cheapestProduct.photos[0],
-      attractionProductsCount: 0,
+      journeysCount: 0,
       rating,
       travellersCount: totalReviews,
       lowestPrice: cheapestProduct.retailPrice,
@@ -308,7 +308,7 @@ export async function getDestinationBySlug(locale: Locale, slug: string) {
     title: destination.title[locale],
     department: destination.department[locale],
     about: destination.about[locale],
-    attractionProductsCount: 0,
+    journeysCount: 0,
     photo: '',
     rating: 0,
     travellersCount: 0,

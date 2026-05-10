@@ -18,18 +18,18 @@ export async function HomeBanner() {
       />
       <Section>
         <div className='relative z-2 flex flex-col items-center gap-6 text-center'>
-          <strong className='text-4xl leading-10 font-black text-white'>
+          <strong className='text-4xl leading-10 text-white'>
             {home.title}
           </strong>
           <span className='text-xl leading-6 font-medium text-white'>
             {home.subtitle}
           </span>
           <Link
-            href={home.link.href}
+            href={home.resource.url}
             target='_blank'
             className='not-disabled:bg-inferno not-disabled:hover:bg-outrageous-orange not-disabled:active:bg-cinnabar rounded-full px-6 py-3.5 text-base leading-5 font-bold text-white transition-colors duration-100'
           >
-            {home.link.label}
+            {home.resource.text}
           </Link>
         </div>
       </Section>

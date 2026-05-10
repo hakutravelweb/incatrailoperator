@@ -13,7 +13,7 @@ export function Profile({ user }: Props) {
   const t = useTranslations('Dashboard')
 
   return (
-    <Dropdown position='top-right'>
+    <Dropdown>
       <Dropdown.Trigger>
         <div className='flex items-center gap-1'>
           <div className='flex flex-col gap-px'>

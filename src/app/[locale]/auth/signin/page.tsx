@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { locales } from '@/i18n/config'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 import { SignIn } from '@/components/signin'
@@ -39,7 +39,7 @@ export default async function AuthSignIn() {
     <Layout localizations={localizations}>
       <Section>
         <div className='mx-auto flex max-w-xl flex-col gap-6 py-20'>
-          <h1 className='text-3xl leading-9 font-black'>{t('title')}</h1>
+          <h1 className='text-3xl leading-9 font-bold'>{t('title')}</h1>
           <SignIn />
         </div>
       </Section>

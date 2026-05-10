@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { translateSchema, translateDefaultValues } from './root'
+import { translateSchema, translateDefaultValues } from '@/shared/schemas'
 
 const destinationSchema = z.object({
   slug: translateSchema,

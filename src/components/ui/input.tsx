@@ -39,7 +39,7 @@ export function Input({
   return (
     <div className='flex flex-col items-start gap-px'>
       {label && (
-        <label className='text-base leading-4.75 font-bold'>{label}</label>
+        <label className='text-base leading-4.75 font-medium'>{label}</label>
       )}
       <div className='relative w-full'>
         <input

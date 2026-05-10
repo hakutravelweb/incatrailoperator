@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useForm, Controller, RefCallBack } from 'react-hook-form'
 import Link from '@tiptap/extension-link'
-import Image from '@tiptap/extension-image'
 import {
   getHierarchicalIndexes,
   TableOfContentData,
@@ -11,12 +10,13 @@ import {
 } from '@tiptap/extension-table-of-contents'
 import DragHandle from '@tiptap/extension-drag-handle-react'
 import Placeholder from '@tiptap/extension-placeholder'
+import { TextStyle } from '@tiptap/extension-text-style'
 import { useEditor, EditorContent, useEditorState } from '@tiptap/react'
 import { BubbleMenu, FloatingMenu } from '@tiptap/react/menus'
 import StarterKit from '@tiptap/starter-kit'
 import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
-import { Navigation } from '@/interfaces/root'
+import { Navigation } from '@/shared/interfaces'
 import { LinkSchema, linkResolver, linkDefaultValues } from '@/schemas/article'
 import { useDisclosure } from '@/hooks/use-disclosure'
 import { Navigator } from './extensions/navigator'
@@ -58,8 +58,9 @@ export function Editor({
       StarterKit.configure({
         code: false,
         codeBlock: false,
+        blockquote: false,
         heading: {
-          levels: [2, 3],
+          levels: [3],
         },
         hardBreak: false,
       }),
@@ -83,13 +84,16 @@ export function Editor({
           }
         },
       }),
-      Link,
-      Image,
+      Link.configure({
+        openOnClick: false,
+        enableClickSelection: true,
+      }),
+      TextStyle,
     ],
     editorProps: {
       attributes: {
         class: cn(
-          'prose max-w-full min-h-25 text-dark-charcoal border-chinese-white focus:border-black rounded-sm border-2 outline-hidden prose-headings:text-black text-base leading-5 prose-base p-4 prose-blockquote:border-s-chinese-white prose-hr:border-t-chinese-white [&_nav]:data-toc-id:w-fit [&_nav]:data-toc-id:rounded-md [&_nav]:data-toc-id:px-2 [&_nav]:data-toc-id:bg-inferno/20 [&_nav]:data-toc-id:prose-headings:text-black [&_nav]:data-toc-id:prose-headings:font-bold [&_nav]:data-toc-id:prose-headings:m-0 [&_nav]:data-toc-id:prose-p:my-0 prose-a:text-inferno prose-a:hover:text-cinnabar',
+          'min-h-39 border-chinese-white border-2 focus:border-black rounded-sm outline-hidden p-4 text-trout [&_:is(h3,strong)]:text-black [&_a]:text-inferno [&_hr]:border-t-chinese-white [&_ul_li,&_ol_li]:marker:text-inferno text-base leading-6 [&_:is(h3)]:mb-3 [&_a]:underline [&_h3]:text-xl [&_h3]:leading-5 [&_hr]:my-4 [&_ol]:list-decimal [&_p:not(:last-child)]:mb-4 [&_:is(h3,strong)]:font-medium [&_ul]:list-disc [&_ul_li,&_ol_li]:ml-6 [&_ul_li:not(:first-child),&_ol_li:not(:first-child)]:mt-2 [&_ul:not(:last-child),&_ol:not(:last-child)]:mb-4 [&_nav]:bg-inferno/20 [&_nav]:px-2 [&_nav]:py-1 [&_nav]:mb-2 [&_nav_:is(h3)]:mb-0 [&_nav]:rounded-lg',
           {
             'border-ue-red': invalid,
           },
@@ -100,8 +104,10 @@ export function Editor({
     immediatelyRender: false,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML()
-      const text = html === '<p></p>' ? '' : html
-      onChange(text)
+      const cleaned = html
+        .replace(/<br class="ProseMirror-trailingBreak">/g, '')
+        .replace(/<p>\s*<\/p>$/g, '')
+      onChange(cleaned)
     },
   })
   const editorState = useEditorState({
@@ -109,14 +115,11 @@ export function Editor({
     selector: (ctx) => {
       return {
         isParagraph: ctx.editor?.isActive('paragraph'),
-        isH2: ctx.editor?.isActive('heading', { level: 2 }),
         isH3: ctx.editor?.isActive('heading', { level: 3 }),
         isBold: ctx.editor?.isActive('bold'),
         isItalic: ctx.editor?.isActive('italic'),
-        isStrike: ctx.editor?.isActive('strike'),
         isBulletList: ctx.editor?.isActive('bulletList'),
         isOrderedList: ctx.editor?.isActive('orderedList'),
-        isBlockquote: ctx.editor?.isActive('blockquote'),
         isHorizontalRule: ctx.editor?.isActive('horizontalRule'),
         isLink: ctx.editor?.isActive('link'),
         isNavigator: ctx.editor?.isActive('navigator'),
@@ -145,7 +148,7 @@ export function Editor({
     <div className='relative flex flex-col items-start gap-px'>
       <input ref={ref} readOnly className='absolute size-px outline-none' />
       {label && (
-        <label className='text-base leading-4.75 font-bold'>{label}</label>
+        <label className='text-base leading-5.25 font-medium'>{label}</label>
       )}
       <div
         className={cn('w-full', {
@@ -203,13 +206,6 @@ export function Editor({
             active={editorState?.isParagraph}
           />
           <MenuItem
-            icon='H2'
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 2 }).run()
-            }
-            active={editorState?.isH2}
-          />
-          <MenuItem
             icon='H3'
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 3 }).run()
@@ -227,18 +223,13 @@ export function Editor({
             active={editorState?.isItalic}
           />
           <MenuItem
-            icon='Strike'
-            onClick={() => editor.chain().focus().toggleStrike().run()}
-            active={editorState?.isStrike}
-          />
-          <MenuItem
             icon='Link'
             onClick={handleLink}
             active={editorState?.isLink}
           />
           {editorState?.isLink && (
             <MenuItem
-              icon='Unlink'
+              icon='Unsetlink'
               onClick={() => editor.chain().focus().unsetLink().run()}
             />
           )}
@@ -251,11 +242,6 @@ export function Editor({
             icon='OrderedList'
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
             active={editorState?.isOrderedList}
-          />
-          <MenuItem
-            icon='Blockquote'
-            onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            active={editorState?.isBlockquote}
           />
           <MenuItem
             icon='HorizontalRule'
@@ -282,13 +268,6 @@ export function Editor({
             active={editorState?.isParagraph}
           />
           <MenuItem
-            icon='H2'
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 2 }).run()
-            }
-            active={editorState?.isH2}
-          />
-          <MenuItem
             icon='H3'
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 3 }).run()
@@ -306,11 +285,6 @@ export function Editor({
             active={editorState?.isItalic}
           />
           <MenuItem
-            icon='Strike'
-            onClick={() => editor.chain().focus().toggleStrike().run()}
-            active={editorState?.isStrike}
-          />
-          <MenuItem
             icon='BulletList'
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             active={editorState?.isBulletList}
@@ -319,11 +293,6 @@ export function Editor({
             icon='OrderedList'
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
             active={editorState?.isOrderedList}
-          />
-          <MenuItem
-            icon='Blockquote'
-            onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            active={editorState?.isBlockquote}
           />
           <MenuItem
             icon='HorizontalRule'

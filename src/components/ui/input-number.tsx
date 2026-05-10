@@ -42,7 +42,7 @@ export function InputNumber({
 
   return (
     <div className='flex flex-col gap-px'>
-      <label className='text-base leading-4.75 font-bold'>{label}</label>
+      <label className='text-base leading-5.25 font-medium'>{label}</label>
       <div
         className={cn(
           'border-chinese-white flex gap-1.25 rounded-sm border-2 bg-white p-4 focus-within:border-black',

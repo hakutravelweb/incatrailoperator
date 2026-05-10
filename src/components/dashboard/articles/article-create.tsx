@@ -7,7 +7,7 @@ import {
   articleResolver,
   articleDefaultValues,
 } from '@/schemas/article'
-import { auth } from '@/services/user'
+import { getAuth } from '@/services/user'
 import { createArticle } from '@/services/article'
 import { useCategories } from '@/hooks/use-categories'
 import { Button } from '@/components/ui/button'
@@ -37,7 +37,7 @@ export function ArticleCreate({ onClose, onRefresh }: Props) {
 
   const handleCreate = async (data: ArticleSchema) => {
     try {
-      const user = await auth()
+      const user = await getAuth()
       if (!user) {
         return toast.warning('SESSION NOT FOUND')
       }

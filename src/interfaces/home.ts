@@ -1,21 +1,22 @@
-import { Navigation } from './root'
+import { Locale } from '@/generated/prisma/enums'
+import { Navigation } from '@/shared/interfaces'
 
 export interface Home {
   id: string
-  locale: string
+  locale: Locale
   photo: string
   title: string
   subtitle: string
-  link: Link
+  resource: Resource
   navigationTerms: Navigation[]
   termsAndConditions: string
   navigationPrivacy: Navigation[]
   privacyPolicy: string
 }
 
-interface Link {
-  href: string
-  label: string
+interface Resource {
+  url: string
+  text: string
 }
 
 export type HomeView = 'CREATE' | 'EDIT' | 'HOMES'

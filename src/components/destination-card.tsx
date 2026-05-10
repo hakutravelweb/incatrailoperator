@@ -2,7 +2,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { formatPrice, getFullMediaUrl } from '@/lib/utils'
 import { Link } from '@/i18n/routing'
-import { Destination } from '@/interfaces/attraction-product'
+import { Destination } from '@/interfaces/journey'
 
 interface Props {
   destination: Destination
@@ -64,7 +64,7 @@ export function DestinationCard({ destination }: Props) {
             href={`/destination/${destination.slug}`}
             className='hover:bg-dark-charcoal active:bg-dav-ys-grey rounded-full bg-black px-4 py-2.5 text-sm leading-4.5 font-bold text-white transition-colors duration-100 active:text-white/50'
           >
-            {t('see-attractions')}
+            {t('see-journeys')}
           </Link>
         </div>
       </div>

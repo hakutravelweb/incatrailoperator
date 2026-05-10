@@ -5,7 +5,7 @@ import {
   translateMultipleSchema,
   translateDefaultValues,
   translateMultipleDefaultValues,
-} from './root'
+} from '@/shared/schemas'
 import { locales } from '@/i18n/config'
 import { isSlug } from '@/lib/utils'
 
@@ -23,9 +23,9 @@ const articleSchema = z
         }
       })
     }),
+    title: translateSchema,
     photo: z.file().nullable(),
     previewPhoto: z.string(),
-    title: translateSchema,
     introduction: translateSchema,
     labels: translateMultipleSchema,
     content: translateSchema,
@@ -48,9 +48,9 @@ export const articleResolver = zodResolver(articleSchema)
 
 export const articleDefaultValues: ArticleSchema = {
   slug: translateDefaultValues,
+  title: translateDefaultValues,
   photo: null,
   previewPhoto: '',
-  title: translateDefaultValues,
   introduction: translateDefaultValues,
   labels: translateMultipleDefaultValues,
   content: translateDefaultValues,

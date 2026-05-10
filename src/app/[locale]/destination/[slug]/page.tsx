@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { Locale } from '@/i18n/config'
 import { getDestinationBySlug } from '@/services/destination'
 import { Layout } from '@/components/layout'
-import { AttractionProductDestination } from '@/components/attraction-products-destination'
+import { JourneysDestination } from '@/components/journeys-destination'
 
 interface Params {
   locale: Locale
@@ -41,7 +41,7 @@ export default async function Destination({ params }: Props) {
 
   return (
     <Layout localizations={destination.localizations}>
-      <AttractionProductDestination destination={destination} />
+      <JourneysDestination destination={destination} />
     </Layout>
   )
 }

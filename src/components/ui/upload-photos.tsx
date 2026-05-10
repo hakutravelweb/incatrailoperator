@@ -79,7 +79,7 @@ export function UploadPhotos({
   return (
     <div className='relative flex flex-col gap-px'>
       <input ref={ref} readOnly className='absolute size-px outline-none' />
-      <label className='text-base leading-4.75 font-bold'>{label}</label>
+      <label className='text-base leading-5.25 font-medium'>{label}</label>
       {deletedPhotos.length > 0 && (
         <span className='text-ue-red my-2 text-sm leading-4.5 font-medium'>
           {t('deleted-message', {

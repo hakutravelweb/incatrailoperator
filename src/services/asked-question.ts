@@ -3,16 +3,16 @@ import { revalidateTag, unstable_cache } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { AskedQuestionsSchema } from '@/schemas/asked-question'
 
-export async function getAskedQuestions(attractionProductId: string) {
+export async function getAskedQuestions(journeyId: string) {
   const askedQuestions = await unstable_cache(
     async () => {
       return await prisma.askedQuestion.findMany({
         where: {
-          attractionProductId,
+          journeyId,
         },
       })
     },
-    [`asked-questions-${attractionProductId}`],
+    [`asked-questions-${journeyId}`],
     { tags: ['asked-questions'] },
   )()
 

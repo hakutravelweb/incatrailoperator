@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
-import { Destination } from '@/interfaces/attraction-product'
+import { Destination } from '@/interfaces/journey'
 import { getDestinations } from '@/services/destination'
 import { toast } from '@/components/ui/toast'
 

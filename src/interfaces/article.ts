@@ -1,12 +1,12 @@
-import { Localization } from './root'
+import { Localization } from '@/shared/interfaces'
 import { User } from './user'
-import { Category } from './attraction-product'
+import { Category } from './journey'
 
 export interface Article {
   id: string
   slug: string
-  photo: string
   title: string
+  photo: string
   introduction: string
   labels: string[]
   content: string

@@ -76,7 +76,7 @@ export function Tab({
         },
       )}
     >
-      <span className='text-base leading-4.75 font-bold'>{label}</span>
+      <span className='text-base leading-4.75 font-medium'>{label}</span>
     </button>
   )
 }

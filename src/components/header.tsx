@@ -4,8 +4,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
 import { Link, useRouter } from '@/i18n/routing'
-import { Localization } from '@/interfaces/root'
-import { useMediaQuery } from '@/hooks/use-media-query'
+import { Localization } from '@/shared/interfaces'
 import { useDisclosure } from '@/hooks/use-disclosure'
 import { Section } from './section'
 import { Modal } from './ui/modal'
@@ -19,7 +18,6 @@ export function Header({ localizations }: Props) {
   const locale = useLocale()
   const t = useTranslations('Header')
   const router = useRouter()
-  const isMobile = useMediaQuery('max-w', 1024)
   const language = useDisclosure()
   const sidebar = useDisclosure({ animateSlide: true })
 
@@ -35,21 +33,30 @@ export function Header({ localizations }: Props) {
       <Section>
         <nav className='flex h-15 items-center justify-between gap-4 md:gap-6'>
           <Link href='/'>
-            <img
-              className={cn('w-18.75 md:w-25', {
-                'size-8': isMobile,
-              })}
-              src={isMobile ? '/logos/logo.svg' : '/logos/wordmark.svg'}
-              alt='Inca Trail Operator'
-              loading='lazy'
-            />
+            <div className='block lg:hidden'>
+              <img
+                className='size-8'
+                src='/logos/logo.svg'
+                alt='Inca Trail Operator'
+                loading='lazy'
+              />
+            </div>
+            <div className='hidden lg:block'>
+              <img
+                className='w-18.75 md:w-25'
+                src='/logos/wordmark.svg'
+                alt='Inca Trail Operator'
+                loading='lazy'
+              />
+            </div>
           </Link>
-          {isMobile ? (
+          <div className='block lg:hidden'>
             <Icons.Menu
               onClick={sidebar.onOpen}
               className='size-8 cursor-pointer'
             />
-          ) : (
+          </div>
+          <div className='hidden lg:block'>
             <div className='flex items-center gap-2'>
               <div className='hidden md:flex md:gap-4'>
                 <HeaderLink href='/articles'>{t('articles')}</HeaderLink>
@@ -66,7 +73,7 @@ export function Header({ localizations }: Props) {
                 </span>
               </div>
             </div>
-          )}
+          </div>
         </nav>
       </Section>
       <Modal isOpen={language.isOpen} onClose={language.onClose}>

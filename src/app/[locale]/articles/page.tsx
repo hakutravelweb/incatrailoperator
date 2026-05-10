@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { locales } from '@/i18n/config'
 import { Link } from '@/i18n/routing'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { getDestinations } from '@/services/destination'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
@@ -45,7 +45,7 @@ export default async function Articles() {
         <Section>
           <div className='flex flex-col gap-6 md:flex-row md:items-center md:justify-between'>
             <div className='flex flex-col gap-2'>
-              <strong className='text-2xl leading-7.25 font-black text-white md:text-[28px] md:leading-8.5'>
+              <strong className='text-2xl leading-7.25 text-white md:text-[28px] md:leading-8.5'>
                 Inca Trail Operator
               </strong>
               <span className='text-base leading-6 text-white'>
@@ -90,7 +90,7 @@ export default async function Articles() {
                   target='_blank'
                   className='bg-cinnabar rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold text-white'
                 >
-                  {t('book-attractions')}
+                  {t('book-journeys')}
                 </Link>
               </div>
             </div>

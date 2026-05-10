@@ -90,7 +90,7 @@ export function ArticleItem({ article, onEdit, onRefresh }: Props) {
             </span>
           </div>
         </div>
-        <Dropdown position='top-right'>
+        <Dropdown>
           <Dropdown.Trigger>
             <div className='border-chinese-white hover:bg-anti-flash-white active:bg-chinese-white flex size-8 items-center justify-center rounded-md border-2'>
               <Icons.Dots className='size-4' />

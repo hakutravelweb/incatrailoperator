@@ -1,8 +1,7 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/typography';
 
 @theme {
-  --font-outfit: 'Outfit';
+  --font-gt-eesti: 'GTEesti';
 
   --color-inferno: #ff5533;
   --color-outrageous-orange: #ff6a4c;
@@ -33,6 +32,9 @@
   --shadow-soft-drop: 0 2px 12px 0 rgba(0, 0, 0, 0.15);
   --shadow-deep: 0 2px 54px rgba(0, 0, 0, 0.1);
   --shadow-sidebar: 0 2px 4px rgba(0, 0, 0, 0.25);
+
+  --drop-shadow-deep: 0 2px 54px rgba(0, 0, 0, 0.1);
+  --drop-shadow-tiny: 0 2px 4px rgba(0, 0, 0, 0.25);
 
   --animate-fade-in: fade-in 0.3s;
 

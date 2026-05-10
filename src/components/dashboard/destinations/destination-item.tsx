@@ -3,7 +3,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
 import { Link } from '@/i18n/routing'
-import { Destination } from '@/interfaces/attraction-product'
+import { Destination } from '@/interfaces/journey'
 import { deleteDestination } from '@/services/destination'
 import { Dropdown } from '@/components/ui/dropdown'
 import { toast } from '@/components/ui/toast'
@@ -69,12 +69,12 @@ export function DestinationItem({ destination, onEdit, onRefresh }: Props) {
             </Link>
           </div>
           <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
-            {t('destination.attractions-number', {
-              number: destination.attractionProductsCount,
+            {t('destination.journeys-number', {
+              number: destination.journeysCount,
             })}
           </div>
         </div>
-        <Dropdown position='top-right'>
+        <Dropdown>
           <Dropdown.Trigger>
             <div className='border-chinese-white hover:bg-anti-flash-white active:bg-chinese-white flex size-8 items-center justify-center rounded-md border-2'>
               <Icons.Dots className='size-4' />

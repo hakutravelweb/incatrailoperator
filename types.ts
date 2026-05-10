@@ -22,9 +22,9 @@ declare global {
       id: string
       title: string
     }
-    type Link = {
-      href: string
-      label: string
+    type Resource = {
+      url: string
+      text: string
     }
   }
 }

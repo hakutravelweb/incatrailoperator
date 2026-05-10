@@ -27,7 +27,7 @@ export function Textarea({
   return (
     <div className='flex flex-col items-start gap-px'>
       {label && (
-        <label className='text-base leading-4.75 font-bold'>{label}</label>
+        <label className='text-base leading-5.25 font-medium'>{label}</label>
       )}
       <textarea
         ref={ref}

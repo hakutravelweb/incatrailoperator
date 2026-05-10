@@ -20,6 +20,12 @@ export default async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL('/', request.nextUrl))
     }
 
+    if (pathname === '/') {
+      return NextResponse.rewrite(
+        new URL(`/${routing.defaultLocale}`, request.url),
+      )
+    }
+
     const i18nRouting = createMiddleware(routing)
     const response = i18nRouting(request)
 
