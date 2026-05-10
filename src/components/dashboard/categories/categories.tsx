@@ -2,7 +2,7 @@
 import { useState, ChangeEvent } from 'react'
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
-import { CategoryView } from '@/interfaces/attraction-product'
+import { CategoryView } from '@/interfaces/journey'
 import { useCategoriesPagination } from '@/hooks/use-categories-pagination'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'

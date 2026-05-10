@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { locales } from '@/i18n/config'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { getHomeLocale } from '@/services/home'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'

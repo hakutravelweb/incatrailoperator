@@ -23,7 +23,7 @@ export async function signIn(input: SignInSchema) {
   return user
 }
 
-export async function auth() {
+export async function getAuth() {
   const session = await getSession()
   if (!session) return null
 

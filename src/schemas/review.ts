@@ -12,7 +12,7 @@ const reviewSchema = z.object({
   traveller: travellerSchema,
   comment: z.string().min(1),
   locale: z.string().min(1),
-  attractionProductId: z.string().min(1),
+  journeyId: z.string().min(1),
 })
 
 export type ReviewSchema = z.infer<typeof reviewSchema>
@@ -28,5 +28,5 @@ export const reviewDefaultValues: ReviewSchema = {
   },
   comment: '',
   locale: '',
-  attractionProductId: '',
+  journeyId: '',
 }

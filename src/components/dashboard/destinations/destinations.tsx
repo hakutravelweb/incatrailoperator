@@ -2,7 +2,7 @@
 import { useState, ChangeEvent } from 'react'
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
-import { DestinationView } from '@/interfaces/attraction-product'
+import { DestinationView } from '@/interfaces/journey'
 import { useDestinationsPagination } from '@/hooks/use-destinations-pagination'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'

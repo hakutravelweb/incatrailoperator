@@ -2,7 +2,6 @@ import { clsx, ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { Locale } from '@/i18n/config'
 import { SLUG_REGEX } from './constants'
-import { ObserverSelector } from '@/interfaces/root'
 
 export function cn(...args: ClassValue[]) {
   return twMerge(clsx(args))
@@ -46,8 +45,8 @@ export function generateTimes() {
   return times
 }
 
-export function navigateScrollInto(selector: ObserverSelector, value: string) {
-  const element = document.querySelector(`[${selector}="${value}"`)
+export function navigateScrollInto(selector: string, value: string) {
+  const element = document.querySelector(`[${selector}="${value}"]`)
   if (!element) return
   element.scrollIntoView({
     block: 'center',

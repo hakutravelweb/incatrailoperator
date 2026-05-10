@@ -1,11 +1,22 @@
 import localFont from 'next/font/local'
 
-export const Outfit = localFont({
-  src: './Outfit.woff2',
+export const GTEesti = localFont({
+  src: [
+    {
+      path: './GT-Eesti-Regular.woff2',
+      weight: '400',
+    },
+    {
+      path: './GT-Eesti-Medium.woff2',
+      weight: '500',
+    },
+    {
+      path: './GT-Eesti-Bold.woff2',
+      weight: '700',
+    },
+  ],
   display: 'swap',
-  weight: '100 900',
   style: 'normal',
-  fallback: ['arial', 'sans-serif'],
-  adjustFontFallback: false,
+  fallback: ['sans-serif'],
   preload: true,
 })

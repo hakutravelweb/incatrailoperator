@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, ChangeEvent } from 'react'
 import { Icons } from '@/icons/icon'
-import { RangePrice } from '@/interfaces/attraction-product'
+import { RangePrice } from '@/interfaces/journey'
 
 interface Props {
   prefix: string

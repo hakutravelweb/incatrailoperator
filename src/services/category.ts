@@ -3,7 +3,7 @@ import { revalidateTag, unstable_cache } from 'next/cache'
 import { Locale } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import { CategorySchema } from '@/schemas/category'
-import { Category } from '@/interfaces/attraction-product'
+import { Category } from '@/interfaces/journey'
 
 export async function createCategory(input: CategorySchema) {
   const created = await prisma.category.create({
@@ -40,13 +40,13 @@ export async function deleteCategory(id: string) {
     },
   })
 
-  const deletedAttractionProducts = await prisma.attractionProduct.findMany({
+  const deletedJourneys = await prisma.journey.findMany({
     where: {
       categoryId: category.id,
     },
   })
-  if (deletedAttractionProducts.length > 0) {
-    throw new Error('CANNOT DELETE CATEGORY WITH ATTRACTION PRODUCTS')
+  if (deletedJourneys.length > 0) {
+    throw new Error('CANNOT DELETE CATEGORY WITH JOURNEYS')
   }
 
   const deleted = await prisma.category.delete({
@@ -80,7 +80,7 @@ export async function getCategoriesPagination(
           take: limit,
           skip: offset,
           include: {
-            attractionProducts: true,
+            journeys: true,
           },
         }),
         prisma.category.count(),
@@ -94,7 +94,7 @@ export async function getCategoriesPagination(
     return {
       ...category,
       title: category.title[locale],
-      attractionProductsCount: category.attractionProducts.length,
+      journeysCount: category.journeys.length,
     }
   })
 
@@ -133,7 +133,7 @@ export async function getCategories(locale: Locale) {
     return {
       ...category,
       title: category.title[locale],
-      attractionProductsCount: 0,
+      journeysCount: 0,
     }
   })
 

@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Icons } from '@/icons/icon'
 import { locales } from '@/i18n/config'
 import { HomeSchema, homeResolver, homeDefaultValues } from '@/schemas/home'
-import { Navigation } from '@/interfaces/root'
+import { Navigation } from '@/shared/interfaces'
 import { createHome } from '@/services/home'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
@@ -137,11 +137,11 @@ export function HomeCreate({ onClose, onRefresh }: Props) {
           <div className='flex flex-col gap-4'>
             <Controller
               control={form.control}
-              name='link.href'
+              name='resource.url'
               render={({ field, fieldState }) => (
                 <Input
                   ref={field.ref}
-                  label={t('home.form-field.link.href')}
+                  label={t('home.form-field.link.url')}
                   value={field.value}
                   onChange={field.onChange}
                   invalid={fieldState.invalid}
@@ -150,11 +150,11 @@ export function HomeCreate({ onClose, onRefresh }: Props) {
             />
             <Controller
               control={form.control}
-              name='link.label'
+              name='resource.text'
               render={({ field, fieldState }) => (
                 <Input
                   ref={field.ref}
-                  label={t('home.form-field.link.label')}
+                  label={t('home.form-field.link.text')}
                   value={field.value}
                   onChange={field.onChange}
                   invalid={fieldState.invalid}

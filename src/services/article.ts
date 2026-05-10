@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { Locale, locales } from '@/i18n/config'
 import { prisma } from '@/lib/prisma'
 import { ArticleSchema } from '@/schemas/article'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { Article } from '@/interfaces/article'
 import { storageSave, storageUpdate, storageDelete } from '@/services/storage'
 import { ArticleWhereInput } from '@/generated/prisma/models'
@@ -165,7 +165,7 @@ export async function getArticlesPagination(
       category: {
         ...article.category,
         title: article.category.title[locale],
-        attractionProductsCount: 0,
+        journeysCount: 0,
       },
       localizations: [],
     }
@@ -233,7 +233,7 @@ export async function getArticlesCategoryPagination(
       category: {
         ...article.category,
         title: article.category.title[locale],
-        attractionProductsCount: 0,
+        journeysCount: 0,
       },
       localizations: [],
     }
@@ -282,7 +282,7 @@ export async function getArticleBySlug(locale: Locale, slug: string) {
     category: {
       ...article.category,
       title: article.category.title[locale],
-      attractionProductsCount: 0,
+      journeysCount: 0,
     },
     localizations,
   }
@@ -315,7 +315,7 @@ export async function getArticles(locale: Locale) {
       category: {
         ...article.category,
         title: article.category.title[locale],
-        attractionProductsCount: 0,
+        journeysCount: 0,
       },
       localizations: [],
     }

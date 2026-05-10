@@ -2,12 +2,12 @@ import { MetadataRoute } from 'next'
 
 export default async function manifest(): Promise<MetadataRoute.Manifest> {
   return {
-    name: 'IncaTrailOperator',
-    short_name: 'ITO',
+    name: 'Inca Trail Operator',
+    short_name: 'Incatrailoperator',
     start_url: '/',
     display: 'standalone',
     theme_color: '#ff5533',
-    background_color: '#ff5533',
+    background_color: '#ff6a4c',
     icons: [
       {
         src: '/favicon.ico',
@@ -15,13 +15,18 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
         type: 'image/x-icon',
       },
       {
-        src: '/icon-192.png',
+        src: '/icon?small',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+      {
+        src: '/icon?large',
         sizes: '192x192',
         type: 'image/png',
         purpose: 'maskable',
       },
       {
-        src: '/icon-512.png',
+        src: '/icon?huge',
         sizes: '512x512',
         type: 'image/png',
         purpose: 'maskable',

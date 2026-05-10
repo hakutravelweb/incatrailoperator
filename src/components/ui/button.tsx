@@ -46,7 +46,7 @@ export function Button({
       )}
     >
       {Icon && <Icon className='size-5' />}
-      <span className='text-base leading-5 font-bold'>{children}</span>
+      <span className='text-base leading-5 font-medium'>{children}</span>
     </button>
   )
 }

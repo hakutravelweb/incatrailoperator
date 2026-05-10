@@ -42,9 +42,9 @@
       "privacy-policy": "Privacy Policy",
       "code-esnna": "ESNNA code"
     },
-    "populars-attractions": {
-      "title": "Popular Attractions",
-      "empty-message": "No attraction products found"
+    "populars-journeys": {
+      "title": "Popular Journeys",
+      "empty-message": "No journeys found"
     },
     "information": {
       "title": "Information",
@@ -68,7 +68,7 @@
   },
   "Dashboard": {
     "metadata": {
-      "title": "Attraction Product - IncaTrailOperator.com"
+      "title": "Control panel - IncaTrailOperator.com"
     },
     "log-out": "Log out",
     "confirmation": {
@@ -76,20 +76,21 @@
       "confirm": "Accept",
       "decline": "Cancel"
     },
-    "attraction": {
-      "title": "Attractions product",
+    "journey": {
+      "title": "Journeys",
       "search-placeholder": "Search...",
-      "add-label": "Add attraction",
-      "empty-message": "No attraction products found",
-      "new-label": "New attraction",
-      "create-label": "Create attraction",
-      "created-message": "The attraction {title} was created",
-      "deleted-message": "The attraction {title} has been deleted",
-      "update-label": "Update attraction",
-      "updated-message": "The attraction {title} has been updated",
+      "add-label": "Add journey",
+      "empty-message": "No journeys found",
+      "new-label": "New journey",
+      "create-label": "Create journey",
+      "created-message": "The journey {title} was created",
+      "deleted-message": "The journey {title} has been deleted",
+      "update-label": "Update journey",
+      "updated-message": "The journey {title} has been updated",
       "form-field": {
         "variant": "Variant",
-        "select-variant": "Select the variant",
+        "select-option": "Select a option",
+        "select-options": "Elije the options",
         "slug": "Url",
         "title": "Title",
         "duration": "Duration",
@@ -111,9 +112,9 @@
         "additional-advice": "Additional advice",
         "free-cancellation": "Free cancellation / duration",
         "refundable": "Refundable / duration",
-        "attraction-map": "Map of the attraction",
-        "attraction-video": "Video of the attraction",
-        "attraction-pdf": "Attraction PDF",
+        "journey-map": "Map of the journey",
+        "journey-video": "Video of the journey",
+        "journey-pdf": "Journey PDF",
         "code-wetravel": "Code of wetravel",
         "retail-price": "Retail price",
         "special-price": "Special price",
@@ -147,7 +148,7 @@
         "deleted-question-message": "The question {title} has been deleted"
       },
       "variants": {
-        "ATTRACTION": "Attraction",
+        "JOURNEY": "Journey",
         "PACKAGE": "Package"
       }
     },
@@ -156,7 +157,7 @@
       "search-placeholder": "Search...",
       "add-label": "Add category",
       "empty-message": "No categories found",
-      "attractions-number": "{number, plural, =0 {# attractions} =1 {# attraction} other {# attractions}}",
+      "journeys-number": "{number, plural, =0 {# journeys} =1 {# journey} other {# journeys}}",
       "new-label": "New category",
       "create-label": "Create category",
       "created-message": "The category {title} was created",
@@ -172,7 +173,7 @@
       "search-placeholder": "Search...",
       "add-label": "Add destination",
       "empty-message": "No destinations found",
-      "attractions-number": "{number, plural, =0 {# attractions} =1 {# attraction} other {# attractions}}",
+      "journeys-number": "{number, plural, =0 {# journeys} =1 {# journey} other {# journeys}}",
       "new-label": "New destination",
       "create-label": "Create destination",
       "created-message": "The destination {title} was created",
@@ -227,8 +228,8 @@
         "subtitle": "Subtitle",
         "link": {
           "title": "Link",
-          "href": "Url",
-          "label": "Label"
+          "url": "Url",
+          "text": "Text"
         },
         "terms-and-conditions": "Terms and Conditions",
         "privacy-policy": "Privacy Policy"
@@ -288,16 +289,16 @@
       "description": "Inca Trail Operator Official Site – Browse and book over 1,000 things to do with Inca Trail Operator. Plus, we offer free cancellation and flexible payment options for stress-free travel."
     }
   },
-  "FiltersAttractionProducts": {
+  "FiltersJourneys": {
     "destination-label": "Destination",
     "destination-search-placeholder": "Where would you like to go?",
     "category-label": "Category",
     "select-category": "Select a category",
     "categories-empty-message": "No categories found",
     "search-label": "Search",
-    "empty-message": "No attraction products found"
+    "empty-message": "No journeys found"
   },
-  "AttractionProductCard": {
+  "JourneyCard": {
     "duration-days": "{quantity, plural, =0 {# days} =1 {# day} other {# days}}",
     "duration-hours": "{quantity, plural, =0 {# hours} =1 {# hour} other {# hours}}",
     "free-cancellation": "Free cancellation up to {duration} before",
@@ -306,7 +307,7 @@
     "you-save": "You save {amount}",
     "you-save-percent": "-{percentage}% discount",
     "variant": {
-      "ATTRACTION": "Attraction",
+      "JOURNEY": "Journey",
       "PACKAGE": "Package"
     },
     "per-person": "Per person",
@@ -319,7 +320,7 @@
   "DestinationCard": {
     "travellers-number": "{number, plural, =0 {# travellers} =1 {# traveller} other {# travellers}}",
     "from-price": "From",
-    "see-attractions": "See attractions"
+    "see-journeys": "See journeys"
   },
   "ContactUs": {
     "metadata": {
@@ -332,12 +333,12 @@
       "fullname-label": "Full Name",
       "email-label": "Email",
       "phone-label": "Phone / WhatsApp",
-      "attraction-product-label": "Attraction Product of Interest",
-      "attraction-product-placeholder": "Select an attraction product",
-      "attraction-products-empty-message": "No attraction products were found",
+      "journey-product-label": "Journey of Interest",
+      "journey-product-placeholder": "Select an journey",
+      "journey-products-empty-message": "No journeys were found",
       "message-label": "Message",
       "send-label": "Send Message",
-      "message": "Hello, I am {fullname}%0A Email: {email}%0A Phone: {phone}%0A Atrraction: {attractionProduct}%0A Message: {message}"
+      "message": "Hello, I am {fullname}%0A Email: {email}%0A Phone: {phone}%0A Atrraction: {journey}%0A Message: {message}"
     },
     "information": {
       "title": "Contact Information",
@@ -373,10 +374,10 @@
     "effective-from": "Effective from: {date}",
     "navigation-title": "Content"
   },
-  "AttractionProduct": {
+  "Journey": {
     "country": "Peru",
     "variant": {
-      "ATTRACTION": "Attraction",
+      "JOURNEY": "Journey",
       "PACKAGE": "Package"
     },
     "view-all-photos": "View all photos",
@@ -395,6 +396,10 @@
       "duration-days-message": "{quantity, plural, =0 {# days} =1 {# day} other {# days}} complete. Check the availability of start times for your selected date.",
       "duration-hours-message": "{quantity, plural, =0 {# horas} =1 {# hora} other {# horas}} complete. Check the availability of start times for your selected date.",
       "guide-languages": "Guide Languages",
+      "language": {
+        "es": "Spanish",
+        "en": "English"
+      },
       "pickup-service": "Pickup Service",
       "start-time": "Start Time",
       "finish-time": "End time"
@@ -439,9 +444,9 @@
     "categories-empty": "No categories were found",
     "price": "Price",
     "qualification": "Qualification",
-    "empty-message": "No attraction products found"
+    "empty-message": "No journeys found"
   },
-  "AttractionProductVerticalCard": {
+  "JourneyVerticalCard": {
     "duration-days": "{quantity, plural, =0 {# days} =1 {# day} other {# days}}",
     "duration-hours": "{quantity, plural, =0 {# hours} =1 {# hour} other {# hours}}",
     "free-cancellation": "Free cancellation up to {duration} before",
@@ -449,7 +454,7 @@
     "refundable": "Refundable up to {duration} before",
     "you-save-percent": "-{percentage}% discount",
     "variant": {
-      "ATTRACTION": "Attraction",
+      "JOURNEY": "Journey",
       "PACKAGE": "Package"
     }
   },
@@ -463,7 +468,7 @@
     "destinations": "Destinations",
     "destinations-empty": "No destinations were found",
     "tickets-machu-picchu": "Machu Picchu Tickets",
-    "book-attractions": "Book attractions",
+    "book-journeys": "Book journeys",
     "categories": "Categories",
     "categories-empty": "No categories were found",
     "empty-message": "No articles were found",
@@ -472,13 +477,13 @@
     "start-adventure": {
       "title": "Start your adventure today",
       "description": "Book your spot in advance and secure your place on this unique experience. Our expert guides will accompany you every step of the way.",
-      "view-available-attractions": "View available attractions"
+      "view-available-journeys": "View available journeys"
     }
   },
   "Packages": {
     "title": "Extended Adventure Packages",
     "description": "Experience complete adventures that combine the best of Peru in multi-day itineraries",
-    "empty-message": "No attraction products found"
+    "empty-message": "No journeys found"
   },
   "AboutUs": {
     "metadata": {
@@ -577,7 +582,7 @@
       "slogan": "🇵🇪 100% PERUVIAN ADVENTURE",
       "title": "Start your Peruvian adventure",
       "description": "Thousands of travelers have trusted us to discover Peru. Now it's your turn to live an unforgettable experience with a 100% local company.",
-      "explore-attractions": "Explore attractions"
+      "explore-journeys": "Explore journeys"
     }
   }
 }

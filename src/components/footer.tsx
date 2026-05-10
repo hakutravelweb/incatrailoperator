@@ -3,12 +3,12 @@ import { PropsWithChildren, HTMLAttributeAnchorTarget } from 'react'
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { Link } from '@/i18n/routing'
-import { useAttractionProducts } from '@/hooks/use-attraction-products'
+import { useJourneys } from '@/hooks/use-journeys'
 import { Section } from './section'
 
 export function Footer() {
   const t = useTranslations('Footer')
-  const attractionProducts = useAttractionProducts()
+  const journeys = useJourneys()
 
   return (
     <footer className='bg-anti-flash-white flex flex-col gap-6 py-10'>
@@ -73,24 +73,23 @@ export function Footer() {
             </div>
             <div className='flex flex-col gap-4'>
               <strong className='text-base leading-5'>
-                {t('populars-attractions.title')}
+                {t('populars-journeys.title')}
               </strong>
-              {!attractionProducts.loading &&
-                attractionProducts.data.length === 0 && (
-                  <span className='text-dav-ys-grey text-sm leading-4.5'>
-                    {t('populars-attractions.empty-message')}
-                  </span>
-                )}
-              {attractionProducts.loading && (
+              {!journeys.loading && journeys.data.length === 0 && (
+                <span className='text-dav-ys-grey text-sm leading-4.5'>
+                  {t('populars-journeys.empty-message')}
+                </span>
+              )}
+              {journeys.loading && (
                 <div className='bg-chinese-white h-10 w-full animate-pulse' />
               )}
               <div className='flex flex-col gap-2'>
-                {attractionProducts.data.map((attractionProduct) => (
+                {journeys.data.map((journey) => (
                   <FooterLink
-                    key={attractionProduct.id}
-                    href={`/attraction-product/${attractionProduct.slug}`}
+                    key={journey.id}
+                    href={`/journey/${journey.slug}`}
                   >
-                    {attractionProduct.title}
+                    {journey.title}
                   </FooterLink>
                 ))}
               </div>

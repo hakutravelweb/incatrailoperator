@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
-import { Destination } from '@/interfaces/attraction-product'
+import { Destination } from '@/interfaces/journey'
 import { getDestinationsPagination } from '@/services/destination'
 import { useDebounce } from './use-debounce'
 import { toast } from '@/components/ui/toast'

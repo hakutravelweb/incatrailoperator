@@ -1,7 +1,7 @@
 import { useLocale } from 'next-intl'
 import { formatDate } from '@/lib/utils'
 import { Review } from '@/interfaces/review'
-import { Rating } from './attraction-product/rating'
+import { Rating } from './journey/rating'
 
 interface Props {
   review: Review

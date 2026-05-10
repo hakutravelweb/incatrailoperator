@@ -1,12 +1,12 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { translateSchema, translateDefaultValues } from './root'
+import { translateSchema, translateDefaultValues } from '@/shared/schemas'
 
 const askedQuestionSchema = z.object({
   askedQuestionId: z.string(),
   title: translateSchema,
   description: translateSchema,
-  attractionProductId: z.string().min(1),
+  journeyId: z.string().min(1),
 })
 
 const askedQuestionsSchema = z.object({
@@ -23,7 +23,7 @@ export const askedQuestionDefaultValues: AskedQuestionSchema = {
   askedQuestionId: '',
   title: translateDefaultValues,
   description: translateDefaultValues,
-  attractionProductId: '',
+  journeyId: '',
 }
 
 export const askedQuestionsDefaultValues: AskedQuestionsSchema = {

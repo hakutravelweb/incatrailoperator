@@ -39,20 +39,17 @@ export async function deleteReview(id: string) {
   return deleted
 }
 
-export async function getReviewsByAttractionProduct(
-  locale: Locale,
-  attractionProductId: string,
-) {
+export async function getReviewsByJourney(locale: Locale, journeyId: string) {
   const reviews = await unstable_cache(
     async () => {
       return await prisma.review.findMany({
         where: {
           locale,
-          attractionProductId,
+          journeyId,
         },
       })
     },
-    [`reviews-${locale}-${attractionProductId}`],
+    [`reviews-${locale}-${journeyId}`],
     { tags: ['reviews'] },
   )()
 

@@ -3,8 +3,8 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/routing'
 import { locales } from '@/i18n/config'
-import { Outfit } from '@/fonts/font'
-import { Localization } from '@/interfaces/root'
+import { GTEesti } from '@/fonts/font'
+import { Localization } from '@/shared/interfaces'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 
@@ -21,15 +21,13 @@ export default async function NotFound() {
 
   return (
     <html lang={locale}>
-      <body
-        className={`${Outfit.className} scroll-smooth bg-white text-black antialiased`}
-      >
+      <body className={`${GTEesti.className} bg-white text-black antialiased`}>
         <NextIntlClientProvider>
           <Layout localizations={localizations}>
             <Section>
               <div className='mx-auto flex flex-col gap-8 px-4 py-10 lg:w-2/6 lg:gap-10 lg:py-6'>
                 <div className='flex flex-col items-center gap-4'>
-                  <h1 className='text-center text-[28px] leading-7.75 font-black lg:text-[44px] lg:leading-12 xl:text-[62px] xl:leading-17'>
+                  <h1 className='text-center text-[28px] leading-7.75 font-bold lg:text-[44px] lg:leading-12 xl:text-[62px] xl:leading-17'>
                     {t('title')}
                   </h1>
                   <p className='text-dark-charcoal text-xl leading-6 font-medium'>

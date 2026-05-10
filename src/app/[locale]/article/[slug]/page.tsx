@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function AttractionProduct({ params }: Props) {
+export default async function Article({ params }: Props) {
   const { locale, slug } = await params
   const t = await getTranslations('Articles')
   const article = await getArticleBySlug(locale, slug)
@@ -66,7 +66,7 @@ export default async function AttractionProduct({ params }: Props) {
         <div className='bg-cinnabar py-10'>
           <Section>
             <div className='flex flex-col items-center gap-6'>
-              <strong className='text-2xl leading-7.25 font-black text-white'>
+              <strong className='text-2xl leading-7.25 text-white'>
                 {t('start-adventure.title')}
               </strong>
               <span className='text-base leading-6 text-white'>
@@ -76,7 +76,7 @@ export default async function AttractionProduct({ params }: Props) {
                 href='/'
                 className='bg-outrageous-orange rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold'
               >
-                {t('start-adventure.view-available-attractions')}
+                {t('start-adventure.view-available-journeys')}
               </Link>
             </div>
           </Section>

@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { formatDate } from '@/lib/utils'
 import { locales } from '@/i18n/config'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { getHomeLocale } from '@/services/home'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
@@ -43,9 +43,7 @@ export default async function PrivacyPolicy() {
   return (
     <Layout localizations={localizations}>
       <div className='bg-cinnabar flex flex-col items-center gap-4 px-10 py-20 text-center'>
-        <strong className='text-2xl leading-8 font-black text-white'>
-          {t('title')}
-        </strong>
+        <strong className='text-2xl leading-8 text-white'>{t('title')}</strong>
         <span className='text-base leading-6 text-white'>
           {t('description')}
         </span>
@@ -53,7 +51,7 @@ export default async function PrivacyPolicy() {
           {t('effective-from', {
             date: formatDate({
               locale,
-              date: home.createdAt,
+              date: new Date(home.createdAt),
               options: {
                 day: 'numeric',
                 month: 'long',

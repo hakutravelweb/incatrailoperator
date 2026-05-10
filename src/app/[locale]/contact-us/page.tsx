@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { locales } from '@/i18n/config'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 import { Contact } from '@/components/contact'
@@ -42,7 +42,7 @@ export default async function ContactUs() {
       <div className='bg-inferno flex flex-col gap-10 py-20'>
         <Section>
           <div className='flex flex-col items-center gap-2 text-center'>
-            <strong className='text-2xl leading-7 font-black text-white'>
+            <strong className='text-2xl leading-7 text-white'>
               {t('title')}
             </strong>
             <span className='text-base leading-5 font-medium text-white'>

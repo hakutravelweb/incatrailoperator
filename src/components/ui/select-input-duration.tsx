@@ -3,8 +3,8 @@ import { useEffect, useState, ChangeEvent } from 'react'
 import { useTranslations } from 'next-intl'
 import { RefCallBack } from 'react-hook-form'
 import { cn } from '@/lib/utils'
-import { TYPES } from '@/lib/constants'
-import { Duration } from '@/interfaces/attraction-product'
+import { durationTypes } from '@/lib/constants'
+import { Duration } from '@/interfaces/journey'
 import { DurationType } from '@/generated/prisma/enums'
 import { Dropdown } from './dropdown'
 
@@ -54,7 +54,7 @@ export function SelectInputDuration({
 
   return (
     <div className='flex flex-col gap-px'>
-      <label className='text-base leading-4.75 font-bold'>{label}</label>
+      <label className='text-base leading-5.25 font-medium'>{label}</label>
       <div
         className={cn(
           'border-chinese-white flex gap-1.25 rounded-sm border-2 bg-white p-4 focus-within:border-black',
@@ -72,16 +72,16 @@ export function SelectInputDuration({
             </div>
           </Dropdown.Trigger>
           <Dropdown.Content>
-            {TYPES.map((type) => {
-              const active = type === value.type
+            {durationTypes.map((durationType) => {
+              const active = durationType === value.type
 
               return (
                 <Dropdown.Option
-                  key={type}
+                  key={durationType}
                   active={active}
-                  onClick={handleClick(type)}
+                  onClick={handleClick(durationType)}
                 >
-                  {t(`duration.${type}`)}
+                  {t(`duration.${durationType}`)}
                 </Dropdown.Option>
               )
             })}

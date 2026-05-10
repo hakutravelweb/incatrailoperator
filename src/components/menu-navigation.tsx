@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { cn, navigateScrollInto } from '@/lib/utils'
-import { Navigation } from '@/interfaces/root'
+import { Navigation } from '@/shared/interfaces'
 import { useObserver } from '@/hooks/use-observer'
 
 interface Props {

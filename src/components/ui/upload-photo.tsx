@@ -69,7 +69,7 @@ export function UploadPhoto({
   return (
     <div className='relative flex flex-col gap-px'>
       <input ref={ref} readOnly className='absolute size-px outline-none' />
-      <label className='text-base leading-4.75 font-bold'>{label}</label>
+      <label className='text-base leading-5.25 font-medium'>{label}</label>
       <div
         {...getRootProps()}
         className={cn(

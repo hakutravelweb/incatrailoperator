@@ -6,7 +6,7 @@ import {
   contactUsResolver,
   contactUsDefaultValues,
 } from '@/schemas/contact-us'
-import { useAttractionProducts } from '@/hooks/use-attraction-products'
+import { useJourneys } from '@/hooks/use-journeys'
 import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
@@ -18,14 +18,14 @@ export function Contact() {
     resolver: contactUsResolver,
     defaultValues: contactUsDefaultValues,
   })
-  const attractionProducts = useAttractionProducts()
+  const journeys = useJourneys()
 
   const handleContact = (data: ContactUsSchema) => {
     const whatsappMessage = t('contact.message', {
       fullname: data.fullname,
       email: data.email,
       phone: data.phone,
-      attractionProduct: data.attractionProduct,
+      journey: data.journey,
       message: data.message,
     })
 
@@ -77,24 +77,21 @@ export function Contact() {
       />
       <Controller
         control={form.control}
-        name='attractionProduct'
+        name='journey'
         render={({ field, fieldState }) => (
           <Select
             ref={field.ref}
-            label={t('contact.attraction-product-label')}
+            label={t('contact.journey-product-label')}
             value={field.value}
             onChange={field.onChange}
-            placeholder={t('contact.attraction-product-placeholder')}
+            placeholder={t('contact.journey-product-placeholder')}
             invalid={fieldState.invalid}
-            emptyMessage={t('contact.attraction-products-empty-message')}
+            emptyMessage={t('contact.journey-products-empty-message')}
           >
-            {attractionProducts.data.map((attractionProduct) => {
+            {journeys.data.map((journey) => {
               return (
-                <Select.Option
-                  key={attractionProduct.id}
-                  value={attractionProduct.title}
-                >
-                  {attractionProduct.title}
+                <Select.Option key={journey.id} value={journey.title}>
+                  {journey.title}
                 </Select.Option>
               )
             })}

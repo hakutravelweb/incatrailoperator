@@ -1,0 +1,136 @@
+'use client'
+import { useState, useMemo } from 'react'
+import { useTranslations } from 'next-intl'
+import { Icons } from '@/icons/icon'
+import { getFullMediaUrl } from '@/lib/utils'
+import { Link } from '@/i18n/routing'
+import { Journey } from '@/interfaces/journey'
+import { useDisclosure } from '@/hooks/use-disclosure'
+import { Modal } from '@/components/ui/modal'
+
+interface Props {
+  journey: Journey
+}
+
+export function Banner({ journey }: Props) {
+  const t = useTranslations('Journey')
+  const photos = journey.photos.slice(0, 3)
+  const morePhotos = journey.photos.length - photos.length
+  const sizes = [
+    'col-[1/3] row-[1/3]',
+    'col-[3/5] row-[1/2]',
+    'col-[3/5] row-[2/3]',
+  ]
+  const gallery = useDisclosure()
+  const [current, setCurrent] = useState<number>(0)
+  const photo = useMemo(() => {
+    return journey.photos[current]
+  }, [journey.photos, current])
+
+  const handleViewPhoto = (current: number) => () => {
+    if (photos[current]) {
+      setCurrent(current)
+      gallery.onOpen()
+    }
+  }
+
+  const handlePrev = () => {
+    const prev = current - 1
+    if (prev < 0) {
+      setCurrent(journey.photos.length - 1)
+    } else {
+      setCurrent(prev)
+    }
+  }
+
+  const handleNext = () => {
+    const next = current + 1
+    if (next > journey.photos.length - 1) {
+      setCurrent(0)
+    } else {
+      setCurrent(next)
+    }
+  }
+
+  return (
+    <div className='flex flex-col gap-6'>
+      <div className='flex items-center gap-1'>
+        <Link
+          href='/'
+          className='text-dark-charcoal text-base leading-5 hover:underline'
+        >
+          {t('country')}
+        </Link>
+        <Icons.Right className='text-dav-ys-grey size-4' />
+        <Link
+          href={`/destination/${journey.destination.slug}`}
+          className='text-dark-charcoal text-base leading-5 hover:underline'
+        >
+          {journey.destination.title}
+        </Link>
+      </div>
+      <div className='bg-cinnabar relative -mx-6 h-80 lg:mx-0 lg:overflow-hidden lg:rounded-xl'>
+        <div className='grid size-full grid-cols-4 grid-rows-2 gap-2'>
+          {photos.map((photo, index) => {
+            return (
+              <div
+                key={index}
+                onClick={handleViewPhoto(index)}
+                className={`cursor-pointer ${sizes[index]}`}
+              >
+                <img
+                  className='size-full object-cover'
+                  src={getFullMediaUrl(photo)}
+                  alt={journey.title}
+                  loading='lazy'
+                />
+              </div>
+            )
+          })}
+        </div>
+        {morePhotos > 0 && (
+          <button
+            onClick={gallery.onOpen}
+            className='hover:bg-anti-flash-white active:bg-chinese-white absolute right-4 bottom-4 flex cursor-pointer items-center justify-center gap-1 rounded-full bg-white px-4 py-2 transition-colors duration-100'
+          >
+            <Icons.PhotoPlus className='size-5' />
+            <span className='text-sm leading-4.5 font-medium'>
+              {t('view-all-photos')}
+            </span>
+          </button>
+        )}
+        <Modal
+          variant='preview'
+          isOpen={gallery.isOpen}
+          onClose={gallery.onClose}
+        >
+          <div className='flex flex-col gap-4'>
+            <strong className='text-xl leading-7'>{journey.title}</strong>
+            <div className='bg-cinnabar relative flex items-center justify-center'>
+              <button
+                onClick={handlePrev}
+                className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2/4 left-5 flex size-10 -translate-y-2/4 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
+              >
+                <Icons.ArrowLeft onClick={handlePrev} className='size-6' />
+              </button>
+              <button
+                onClick={handleNext}
+                className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2/4 right-5 flex size-10 -translate-y-2/4 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
+              >
+                <Icons.ArrowRight onClick={handlePrev} className='size-6' />
+              </button>
+              {photo && (
+                <img
+                  className='aspect-video object-contain'
+                  src={getFullMediaUrl(photo)}
+                  alt={journey.title}
+                  loading='lazy'
+                />
+              )}
+            </div>
+          </div>
+        </Modal>
+      </div>
+    </div>
+  )
+}

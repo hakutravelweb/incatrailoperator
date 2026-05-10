@@ -1,32 +1,36 @@
-import { useEffect } from 'react'
-import { ObserverSelector } from '@/interfaces/root'
+import { useEffect, useRef } from 'react'
 
 export function useObserver(
-  selector: ObserverSelector,
+  selector: string,
   onIntersect: (selectorId: string) => void,
 ) {
+  const callbackRef = useRef(onIntersect)
+
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const selectorId = entry.target.getAttribute(selector)
-          if (selectorId) {
-            onIntersect(selectorId)
+    callbackRef.current = onIntersect
+  }, [onIntersect])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const selectorId = entry.target.getAttribute(selector)
+            if (selectorId) {
+              callbackRef.current(selectorId)
+            }
           }
-        }
-      })
-    })
+        })
+      },
+      {
+        rootMargin: '-25% 0px -70% 0px',
+        threshold: [0, 0.1, 0.2],
+      },
+    )
 
-    const elementsNavigation = document.querySelectorAll(`[${selector}]`)
-    elementsNavigation.forEach((elementNavigation) => {
-      observer.observe(elementNavigation)
-    })
+    const elements = document.querySelectorAll(`[${selector}]`)
+    elements.forEach((element) => observer.observe(element))
 
-    return () => {
-      elementsNavigation.forEach((elementNavigation) => {
-        observer.unobserve(elementNavigation)
-      })
-      observer.disconnect()
-    }
-  }, [selector, onIntersect])
+    return () => observer.disconnect()
+  }, [selector])
 }

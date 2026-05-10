@@ -1,11 +1,11 @@
 import { getLocale, getTranslations } from 'next-intl/server'
-import { getAttractionProductPackages } from '@/services/attraction-product'
-import { AttractionProductPackageCard } from './attraction-product-package-card'
+import { getJourneyPackages } from '@/services/journey'
+import { JourneyPackageCard } from './journey-package-card'
 
 export async function Packages() {
   const locale = await getLocale()
   const t = await getTranslations('Packages')
-  const attractionProducts = await getAttractionProductPackages(locale)
+  const journeys = await getJourneyPackages(locale)
 
   return (
     <div className='flex flex-col items-center gap-6 py-10'>
@@ -15,7 +15,7 @@ export async function Packages() {
           {t('description')}
         </span>
       </div>
-      {attractionProducts.length === 0 && (
+      {journeys.length === 0 && (
         <div className='flex justify-center py-4'>
           <span className='text-dav-ys-grey text-sm leading-4.5'>
             {t('empty-message')}
@@ -23,13 +23,8 @@ export async function Packages() {
         </div>
       )}
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-        {attractionProducts.map((attractionProduct) => {
-          return (
-            <AttractionProductPackageCard
-              key={attractionProduct.id}
-              attractionProduct={attractionProduct}
-            />
-          )
+        {journeys.map((journey) => {
+          return <JourneyPackageCard key={journey.id} journey={journey} />
         })}
       </div>
     </div>

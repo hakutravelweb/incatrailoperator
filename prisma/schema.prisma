@@ -21,14 +21,14 @@ model User {
   updatedAt DateTime  @updatedAt
 }
 
-model AttractionProduct {
+model Journey {
   id                  String          @id @default(cuid())
   variant             Variant
   /// [Translate]
   slug                Json
-  photos              String[]
   /// [Translate]
   title               Json
+  photos              String[]
   /// [Duration]
   duration            Json
   /// [Translate]
@@ -37,8 +37,7 @@ model AttractionProduct {
   labels              Json
   /// [Translate]
   cancellationPolicy  Json
-  /// [Translate]
-  guideLanguages      Json
+  guidedLanguages     Locale[]
   /// [Translate]
   pickUpService       Json
   /// [Translate]
@@ -52,9 +51,9 @@ model AttractionProduct {
   /// [Translate]
   importantNote       Json
   /// [TranslateMultiple]
-  includes            Json
+  inclusions          Json
   /// [TranslateMultiple]
-  notIncluded         Json
+  exclusions          Json
   /// [Translate]
   importantWarning    Json
   /// [TranslateMultiple]
@@ -65,11 +64,10 @@ model AttractionProduct {
   freeCancellation    Json
   /// [Duration]
   refundable          Json
-  attractionMap       String
-  attractionVideo     String
-  attractionPdf       String
-  /// [Translate]
-  codeWetravel        Json
+  photoMap            String
+  videoUrl            String
+  pdfItinerary        String
+  codeWetravel        String
   retailPrice         Float
   specialPrice        Float
   categoryId          String
@@ -84,7 +82,7 @@ model AttractionProduct {
 }
 
 enum Variant {
-  ATTRACTION
+  JOURNEY
   PACKAGE
 }
 
@@ -94,14 +92,14 @@ enum DurationType {
 }
 
 model Route {
-  id                  String            @id @default(cuid())
+  id        String     @id @default(cuid())
   /// [Translate]
-  title               Json
-  attractionProductId String
-  attractionProduct   AttractionProduct @relation(fields: [attractionProductId], references: [id])
-  waypoints           Waypoint[]
-  createdAt           DateTime          @default(now())
-  updatedAt           DateTime          @updatedAt
+  title     Json
+  journeyId String
+  journey   Journey    @relation(fields: [journeyId], references: [id])
+  waypoints Waypoint[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Waypoint {
@@ -118,62 +116,62 @@ model Waypoint {
 }
 
 model AskedQuestion {
-  id                  String            @id @default(cuid())
+  id          String   @id @default(cuid())
   /// [Translate]
-  title               Json
+  title       Json
   /// [Translate]
-  description         Json
-  attractionProductId String
-  attractionProduct   AttractionProduct @relation(fields: [attractionProductId], references: [id])
-  createdAt           DateTime          @default(now())
-  updatedAt           DateTime          @updatedAt
+  description Json
+  journeyId   String
+  journey     Journey  @relation(fields: [journeyId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Review {
-  id                  String            @id @default(cuid())
-  rating              Int
+  id        String   @id @default(cuid())
+  rating    Int
   /// [Traveller]
-  traveller           Json
-  comment             String
-  locale              String
-  attractionProductId String
-  attractionProduct   AttractionProduct @relation(fields: [attractionProductId], references: [id])
-  createdAt           DateTime          @default(now())
-  updatedAt           DateTime          @updatedAt
+  traveller Json
+  comment   String
+  locale    String
+  journeyId String
+  journey   Journey  @relation(fields: [journeyId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id                 String              @id @default(cuid())
+  id        String    @id @default(cuid())
   /// [Translate]
-  title              Json
-  attractionProducts AttractionProduct[]
-  articles           Article[]
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
+  title     Json
+  journeys  Journey[]
+  articles  Article[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Destination {
-  id                 String              @id @default(cuid())
+  id         String    @id @default(cuid())
   /// [Translate]
-  slug               Json
+  slug       Json
   /// [Translate]
-  title              Json
+  title      Json
   /// [Translate]
-  department         Json
+  department Json
   /// [Translate]
-  about              Json
-  attractionProducts AttractionProduct[]
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
+  about      Json
+  journeys   Journey[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 model Article {
   id           String   @id @default(cuid())
   /// [Translate]
   slug         Json
-  photo        String
   /// [Translate]
   title        Json
+  photo        String
   /// [Translate]
   introduction Json
   /// [TranslateMultiple]
@@ -190,12 +188,12 @@ model Article {
 
 model Home {
   id                 String   @id @default(cuid())
-  locale             String
+  locale             Locale   @unique
   photo              String
   title              String
   subtitle           String
-  /// [Link]
-  link               Json
+  /// [Resource]
+  resource           Json
   /// [Navigation]
   navigationTerms    Json[]
   termsAndConditions String
@@ -204,4 +202,9 @@ model Home {
   privacyPolicy      String
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
+}
+
+enum Locale {
+  es
+  en
 }

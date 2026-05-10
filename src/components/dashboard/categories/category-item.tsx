@@ -2,7 +2,7 @@ import { useTransition } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
-import { Category } from '@/interfaces/attraction-product'
+import { Category } from '@/interfaces/journey'
 import { deleteCategory } from '@/services/category'
 import { Dropdown } from '@/components/ui/dropdown'
 import { toast } from '@/components/ui/toast'
@@ -57,12 +57,12 @@ export function CategoryItem({ category, onEdit, onRefresh }: Props) {
         <div className='flex flex-wrap items-center gap-4'>
           <span className='text-base leading-4.75'>{category.title}</span>
           <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
-            {t('category.attractions-number', {
-              number: category.attractionProductsCount,
+            {t('category.journeys-number', {
+              number: category.journeysCount,
             })}
           </div>
         </div>
-        <Dropdown position='top-right'>
+        <Dropdown>
           <Dropdown.Trigger>
             <div className='border-chinese-white hover:bg-anti-flash-white active:bg-chinese-white flex size-8 items-center justify-center rounded-md border-2'>
               <Icons.Dots className='size-4' />

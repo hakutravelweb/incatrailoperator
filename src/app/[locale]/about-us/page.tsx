@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { locales } from '@/i18n/config'
 import { Link } from '@/i18n/routing'
-import { Localization } from '@/interfaces/root'
+import { Localization } from '@/shared/interfaces'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 
@@ -44,7 +44,7 @@ export default async function AboutUs() {
               <div className='bg-ue-red animate-bounce rounded-full border-2 border-white px-4 py-2 text-base leading-5 font-medium text-white'>
                 {t('slogan')}
               </div>
-              <strong className='text-2xl leading-8 font-black text-white'>
+              <strong className='text-2xl leading-8 text-white'>
                 {t('title')}
               </strong>
               <span className='text-base leading-6 text-white'>
@@ -69,7 +69,7 @@ export default async function AboutUs() {
             <div className='bg-ue-red shadow-yellow-sea flex size-10 items-center justify-center rounded-full shadow-sm'>
               🇵🇪
             </div>
-            <strong className='text-2xl leading-8 font-black'>
+            <strong className='text-2xl leading-8'>
               {t('proudly-peruvian.title')}
             </strong>
             <div className='bg-ue-red rounded-full px-4 py-2 text-base leading-5 font-medium text-white'>
@@ -112,7 +112,7 @@ export default async function AboutUs() {
         <div className='bg-anti-flash-white py-10'>
           <Section>
             <div className='flex flex-col items-center gap-4'>
-              <strong className='text-2xl leading-8 font-black'>
+              <strong className='text-2xl leading-8'>
                 {t('we-are-locals.title')}
               </strong>
               <span className='text-base leading-6'>
@@ -208,7 +208,7 @@ export default async function AboutUs() {
               <div className='bg-ue-red rounded-full px-4 py-2 text-base leading-5 font-medium text-white'>
                 {t('why-choose-us.slogan')}
               </div>
-              <strong className='text-2xl leading-7.25 font-black'>
+              <strong className='text-2xl leading-7.25'>
                 {t('why-choose-us.title')}
               </strong>
               <span className='text-dark-charcoal text-base leading-6'>
@@ -279,7 +279,7 @@ export default async function AboutUs() {
               <div className='text-inferno rounded-full bg-white px-4 py-2 text-base leading-5 font-medium'>
                 {t('start-adventure.slogan')}
               </div>
-              <strong className='text-2xl leading-7.25 font-black text-white'>
+              <strong className='text-2xl leading-7.25 text-white'>
                 {t('start-adventure.title')}
               </strong>
               <span className='text-base leading-6 text-white'>
@@ -289,7 +289,7 @@ export default async function AboutUs() {
                 href='/'
                 className='bg-outrageous-orange rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold'
               >
-                {t('start-adventure.explore-attractions')}
+                {t('start-adventure.explore-journeys')}
               </Link>
             </div>
           </Section>
