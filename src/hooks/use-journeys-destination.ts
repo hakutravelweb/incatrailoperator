@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
-import { Journey, RangePrice } from '@/interfaces/journey'
+import { Journey, PriceRange } from '@/interfaces/journey'
 import { getJourneysDestination } from '@/services/journey'
 import { useDebounce } from './use-debounce'
 import { toast } from '@/components/ui/toast'
@@ -11,9 +11,9 @@ export function useJourneysDestination(destinationId: string) {
   const [data, setData] = useState<Journey[]>([])
   const [search, setSearch] = useState<string>('')
   const [categoriesId, setCategoriesId] = useState<string[]>([])
-  const [rangePrice, setRangePrice] = useState<RangePrice>({
-    from: 0,
-    to: 2000,
+  const [priceRange, setPriceRange] = useState<PriceRange>({
+    min: 0,
+    max: 2000,
   })
   const [ratings, setRatings] = useState<number[]>([])
   const debouncedSearch = useDebounce(search, 600)
@@ -32,8 +32,8 @@ export function useJourneysDestination(destinationId: string) {
     setCategoriesId([...categoriesId])
   }
 
-  const handleRangePrice = (value: RangePrice) => {
-    setRangePrice(value)
+  const handlePriceRange = (value: PriceRange) => {
+    setPriceRange(value)
   }
 
   const handleRating = (value: number) => {
@@ -54,7 +54,7 @@ export function useJourneysDestination(destinationId: string) {
         destinationId,
         search,
         categoriesId,
-        rangePrice,
+        priceRange,
         ratings,
       })
       setData(journeys)
@@ -72,7 +72,7 @@ export function useJourneysDestination(destinationId: string) {
     destinationId,
     debouncedSearch,
     categoriesId,
-    rangePrice,
+    priceRange,
     ratings,
   ])
 
@@ -81,11 +81,11 @@ export function useJourneysDestination(destinationId: string) {
     data,
     search,
     categoriesId,
-    rangePrice,
+    priceRange,
     ratings,
     onSearch: handleSearch,
     onCategory: handleCategory,
-    onRangePrice: handleRangePrice,
+    onPriceRange: handlePriceRange,
     onRating: handleRating,
   }
 }

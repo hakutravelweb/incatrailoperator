@@ -30,6 +30,7 @@ export async function updateCategory(id: string, input: CategorySchema) {
 
   revalidateTag(`category-${id}`, { expire: 0 })
   revalidateTag('categories', { expire: 0 })
+
   return updated
 }
 
@@ -57,6 +58,7 @@ export async function deleteCategory(id: string) {
 
   revalidateTag(`category-${id}`, { expire: 0 })
   revalidateTag('categories', { expire: 0 })
+
   return deleted
 }
 

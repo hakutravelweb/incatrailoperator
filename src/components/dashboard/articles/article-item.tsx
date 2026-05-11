@@ -69,7 +69,7 @@ export function ArticleItem({ article, onEdit, onRefresh }: Props) {
               {article.slug}
             </span>
             <Link
-              href={`/articles/${article.slug}`}
+              href={`/article/${article.slug}`}
               target='_blank'
               className='text-base leading-4.75 underline'
             >

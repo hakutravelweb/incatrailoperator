@@ -5,12 +5,14 @@ import { cn, verifyOpenedModals } from '@/lib/utils'
 
 interface Props {
   variant?: 'preview'
+  title?: string
   isOpen: boolean
   onClose: () => void
 }
 
 export function Modal({
   variant,
+  title,
   isOpen,
   onClose,
   children,
@@ -36,9 +38,10 @@ export function Modal({
             />
             <div
               className={cn(
-                'animate-fade-in z-overlay relative m-4 flex w-125 max-w-full flex-col rounded-2xl bg-white',
+                'animate-fade-in z-overlay relative flex size-full max-w-full flex-col overflow-hidden bg-white md:m-4 md:h-auto md:w-125 md:rounded-xl',
                 {
-                  'w-250': variant === 'preview',
+                  'md:max-h-modal-height max-w-200 md:h-auto md:w-full':
+                    variant === 'preview',
                 },
               )}
             >
@@ -48,7 +51,16 @@ export function Modal({
                   className='size-5 cursor-pointer'
                 />
               </div>
-              <div className='scrollbar-hidden overflow-y-auto px-6 py-5'>
+              <div
+                className={cn('scrollbar-hidden overflow-y-auto px-6 py-5', {
+                  'size-full overflow-visible py-0': variant === 'preview',
+                })}
+              >
+                {title && (
+                  <h2 className='mb-4 text-2xl leading-7.25 font-bold md:text-[28px] md:leading-8.5'>
+                    {title}
+                  </h2>
+                )}
                 {children}
               </div>
             </div>

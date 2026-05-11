@@ -48,7 +48,7 @@ export function ArticleCard({ article }: Props) {
               <span className='text-dark-charcoal text-xs leading-4'>
                 {formatDate({
                   locale,
-                  date: article.createdAt,
+                  date: new Date(article.createdAt),
                   options: {
                     day: 'numeric',
                     month: 'long',

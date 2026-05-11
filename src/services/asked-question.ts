@@ -46,6 +46,7 @@ export async function saveAskedQuestions(input: AskedQuestionsSchema) {
   )
 
   revalidateTag('asked-questions', { expire: 0 })
+  revalidateTag('journeys', { expire: 0 })
 }
 
 export async function deleteAskedQuestion(id: string) {
@@ -62,5 +63,7 @@ export async function deleteAskedQuestion(id: string) {
   })
 
   revalidateTag('asked-questions', { expire: 0 })
+  revalidateTag('journeys', { expire: 0 })
+
   return deleted
 }

@@ -25,7 +25,7 @@ export function ReviewCard({ review }: Props) {
           <span className='text-dav-ys-grey text-sm leading-4.5 font-medium'>
             {formatDate({
               locale,
-              date: review.createdAt,
+              date: new Date(review.createdAt),
               options: {
                 month: 'long',
                 year: 'numeric',

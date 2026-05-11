@@ -102,11 +102,11 @@ export interface Filters {
   destinationId: string
   search: string
   categoriesId: string[]
-  rangePrice: RangePrice
+  priceRange: PriceRange
   ratings: number[]
 }
 
-export interface RangePrice {
-  from: number
-  to: number
+export interface PriceRange {
+  min: number
+  max: number
 }

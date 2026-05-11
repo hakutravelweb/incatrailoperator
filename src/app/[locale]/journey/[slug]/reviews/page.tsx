@@ -54,7 +54,7 @@ export default async function AttractionProduct({ params }: Props) {
         <Section>
           <div className='flex flex-col gap-4'>
             <div className='flex flex-col items-start gap-2'>
-              <div className='border-chinese-white bg-anti-flash-white rounded-md border-2 px-2 py-1 text-sm leading-4.5 font-bold uppercase'>
+              <div className='rounded-md border-2 bg-black px-2 py-1 text-sm leading-4.5 font-bold text-white uppercase'>
                 {t(`variant.${journey.variant}`)}
               </div>
               <strong className='text-2xl leading-7.25 md:text-[28px] md:leading-8.5'>
@@ -67,7 +67,7 @@ export default async function AttractionProduct({ params }: Props) {
               <div className='flex items-center gap-1'>
                 <Icons.Location className='text-inferno size-5' />
                 <span className='text-dark-charcoal text-base leading-5'>
-                  {journey.destination.title}, {t('country')}
+                  {t('country')}, {journey.destination.title}
                 </span>
               </div>
               <span className='text-gray-x11 text-base leading-5'>•</span>

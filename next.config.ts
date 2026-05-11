@@ -7,12 +7,6 @@ const nextConfig: NextConfig = {
     STORAGE_API_URL: process.env.STORAGE_API_URL,
     APP_URL: process.env.APP_URL,
   },
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '1000mb',
-    },
-    proxyClientMaxBodySize: '1000mb',
-  },
   turbopack: {
     rules: {
       '*.svg': {
@@ -20,6 +14,13 @@ const nextConfig: NextConfig = {
         as: '*.js',
       },
     },
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '100000mb',
+      allowedOrigins: [process.env.APP_URL!],
+    },
+    proxyClientMaxBodySize: '100000mb',
   },
   webpack(config) {
     config.module.rules.push({

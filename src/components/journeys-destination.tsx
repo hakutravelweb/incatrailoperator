@@ -9,8 +9,8 @@ import { useJourneysDestination } from '@/hooks/use-journeys-destination'
 import { Section } from './section'
 import { Checkbox, CheckboxNumber } from './ui/checkbox'
 import { Rating } from './journey/rating'
-import { RangeInputNumber } from './ui/range-input-number'
 import { JourneyVerticalCard } from './journey-vertical-card'
+import { PriceRangeSlider } from './ui/price-range-slider'
 
 interface Props {
   destination: Destination
@@ -101,10 +101,11 @@ export function JourneysDestination({ destination }: Props) {
             </div>
             <div className='flex flex-col gap-4'>
               <strong className='text-lg leading-6'>{t('price')}</strong>
-              <RangeInputNumber
-                prefix='$'
-                value={journeys.rangePrice}
-                onChange={journeys.onRangePrice}
+              <PriceRangeSlider
+                min={0}
+                max={2000}
+                value={journeys.priceRange}
+                onChange={journeys.onPriceRange}
               />
             </div>
             <div className='flex flex-col gap-4'>

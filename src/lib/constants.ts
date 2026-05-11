@@ -11,3 +11,8 @@ export const variants = Object.values(Variant)
 export const durationTypes = Object.values(DurationType)
 
 export const guidedLanguages = Object.values(Locale)
+
+export const localeCode: Record<Locale, string> = {
+  es: 'es-PE',
+  en: 'en-US',
+}

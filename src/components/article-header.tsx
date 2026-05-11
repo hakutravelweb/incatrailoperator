@@ -69,7 +69,7 @@ export function ArticleHeader({ article }: Props) {
             <span className='text-dark-charcoal text-sm leading-4.5'>
               {formatDate({
                 locale,
-                date: article.createdAt,
+                date: new Date(article.createdAt),
                 options: {
                   day: 'numeric',
                   month: 'long',

@@ -1,7 +1,12 @@
 'use client'
 import { useEffect } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
-import { cn, formatPrice, getFullMediaUrl } from '@/lib/utils'
+import {
+  calculatePercentageDifference,
+  cn,
+  formatPrice,
+  getFullMediaUrl,
+} from '@/lib/utils'
 import { Link } from '@/i18n/routing'
 import { Journey } from '@/interfaces/journey'
 import { Button } from '@/components/ui/button'
@@ -15,6 +20,10 @@ interface Props {
 export function Booking({ journey }: Props) {
   const locale = useLocale()
   const t = useTranslations('Journey')
+  const percentage = calculatePercentageDifference(
+    journey.retailPrice,
+    journey.specialPrice,
+  )
 
   return (
     <div className='shadow-deep sticky top-2 flex flex-col gap-4 rounded-xl bg-white p-6'>
@@ -49,15 +58,13 @@ export function Booking({ journey }: Props) {
             </span>
           )}
         </div>
-        <span className='bg-ue-red rounded-md p-2 text-sm leading-4.5 font-medium text-white'>
-          {t('you-save-percent', {
-            percentage: Math.round(
-              ((journey.retailPrice - journey.specialPrice) /
-                journey.retailPrice) *
-                100,
-            ),
-          })}
-        </span>
+        {percentage > 0 && (
+          <span className='bg-ue-red rounded-md p-2 text-sm leading-4.5 font-medium text-white'>
+            {t('you-save-percent', {
+              percentage,
+            })}
+          </span>
+        )}
       </div>
       {journey.specialPrice > 0 && (
         <span className='text-inferno text-base leading-5 font-medium'>
