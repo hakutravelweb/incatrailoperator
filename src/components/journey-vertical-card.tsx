@@ -1,6 +1,10 @@
 import { useLocale, useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
-import { formatPrice, getFullMediaUrl } from '@/lib/utils'
+import {
+  calculatePercentageDifference,
+  formatPrice,
+  getFullMediaUrl,
+} from '@/lib/utils'
 import { Link } from '@/i18n/routing'
 import { Journey } from '@/interfaces/journey'
 
@@ -11,6 +15,10 @@ interface Props {
 export function JourneyVerticalCard({ journey }: Props) {
   const locale = useLocale()
   const t = useTranslations('JourneyVerticalCard')
+  const percentage = calculatePercentageDifference(
+    journey.retailPrice,
+    journey.specialPrice,
+  )
 
   return (
     <Link
@@ -24,20 +32,18 @@ export function JourneyVerticalCard({ journey }: Props) {
           alt={journey.title}
           loading='lazy'
         />
-        <div className='absolute top-2 right-2'>
-          <span className='bg-ue-red rounded-md p-2 text-xs leading-4 font-medium text-white'>
-            {t('you-save-percent', {
-              percentage: Math.round(
-                ((journey.retailPrice - journey.specialPrice) /
-                  journey.retailPrice) *
-                  100,
-              ),
-            })}
-          </span>
-        </div>
+        {percentage > 0 && (
+          <div className='absolute top-2 right-2'>
+            <span className='bg-ue-red rounded-md p-2 text-xs leading-4 font-medium text-white'>
+              {t('you-save-percent', {
+                percentage,
+              })}
+            </span>
+          </div>
+        )}
       </div>
       <div className='flex flex-col items-start gap-2 px-4 py-2'>
-        <div className='rounded-sm border border-black px-2 py-1 text-sm leading-4.5 font-medium uppercase'>
+        <div className='rounded-sm bg-black px-2 py-1 text-xs leading-4 font-medium text-white uppercase'>
           {t(`variant.${journey.variant}`)}
         </div>
         <span className='text-cinnabar text-sm leading-4.5 font-medium'>
@@ -45,9 +51,9 @@ export function JourneyVerticalCard({ journey }: Props) {
         </span>
         <strong className='text-base leading-5'>{journey.title}</strong>
         <div className='flex items-center gap-1'>
-          <Icons.Location className='text-inferno size-4' />
+          <Icons.Location className='text-cinnabar size-4' />
           <span className='text-dark-charcoal text-sm leading-4.5'>
-            {journey.destination.title}, {journey.destination.department}
+            {journey.destination.department}, {journey.destination.title}
           </span>
         </div>
         <span className='text-dark-charcoal line-clamp-2 text-sm leading-4.5'>
@@ -78,9 +84,9 @@ export function JourneyVerticalCard({ journey }: Props) {
           </div>
         )}
         {journey.freeCancellation.quantity > 0 && (
-          <div className='bg-inferno flex items-center gap-2 rounded-md p-2'>
-            <Icons.Check className='size-4 text-white' />
-            <span className='flex-1 text-xs leading-4 font-medium text-white'>
+          <div className='border-cinnabar flex items-center gap-2 rounded-md border-2 p-2'>
+            <Icons.Check className='text-cinnabar size-4' />
+            <span className='text-cinnabar flex-1 text-xs leading-4 font-medium'>
               {t('free-cancellation', {
                 duration:
                   journey.freeCancellation.type === 'HOUR'

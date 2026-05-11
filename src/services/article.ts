@@ -47,6 +47,7 @@ export async function createArticle(input: ArticleSchema) {
   })
 
   revalidateTag('articles', { expire: 0 })
+
   return created
 }
 
@@ -100,6 +101,7 @@ export async function updateArticle(id: string, input: ArticleSchema) {
 
   revalidateTag(`article-${id}`, { expire: 0 })
   revalidateTag('articles', { expire: 0 })
+
   return updated
 }
 
@@ -120,6 +122,7 @@ export async function deleteArticle(id: string) {
 
   revalidateTag(`article-${id}`, { expire: 0 })
   revalidateTag('articles', { expire: 0 })
+
   return deleted
 }
 

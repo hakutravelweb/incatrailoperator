@@ -35,16 +35,18 @@ export function MapVideo({ journey }: Props) {
           />
         </div>
       )}
-      <Modal variant='preview' isOpen={map.isOpen} onClose={map.onClose}>
-        <div className='flex flex-col gap-4'>
-          <strong className='text-xl leading-7'>{journey.title}</strong>
-          <img
-            className='aspect-video object-contain'
-            src={getFullMediaUrl(journey.photoMap)}
-            alt={journey.title}
-            loading='lazy'
-          />
-        </div>
+      <Modal
+        variant='preview'
+        title={journey.title}
+        isOpen={map.isOpen}
+        onClose={map.onClose}
+      >
+        <img
+          className='w-full object-contain md:h-100'
+          src={getFullMediaUrl(journey.photoMap)}
+          alt={journey.title}
+          loading='lazy'
+        />
       </Modal>
     </div>
   )

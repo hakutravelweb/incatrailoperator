@@ -1,7 +1,7 @@
 import { clsx, ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { Locale } from '@/i18n/config'
-import { SLUG_REGEX } from './constants'
+import { localeCode, SLUG_REGEX } from './constants'
 
 export function cn(...args: ClassValue[]) {
   return twMerge(clsx(args))
@@ -23,7 +23,7 @@ export function getFullMediaUrl(path: string) {
 }
 
 export function formatPrice(locale: Locale, price: number) {
-  return new Intl.NumberFormat(locale, {
+  return new Intl.NumberFormat(localeCode[locale], {
     style: 'currency',
     currency: 'USD',
   }).format(price)
@@ -67,7 +67,7 @@ export function formatDate({ locale, date, options }: FormatDate) {
     day: 'numeric',
   }
   const formatOptions = options || defaultOptions
-  return new Intl.DateTimeFormat(`${locale}-PE`, formatOptions).format(date)
+  return new Intl.DateTimeFormat(localeCode[locale], formatOptions).format(date)
 }
 
 export function calculateReadingTime(html: string) {
@@ -76,4 +76,16 @@ export function calculateReadingTime(html: string) {
   const words = content.split(/\s+/).length
   const readingTime = Math.ceil(words / wordsPerMinute)
   return readingTime
+}
+
+export function calculatePercentageDifference(
+  priceBase: number,
+  totalDiscount: number,
+) {
+  if (priceBase === 0 && totalDiscount === 0) return 0
+  const difference = Math.abs(priceBase - totalDiscount)
+  const base = Math.max(priceBase, totalDiscount)
+  const percentage = Math.round((difference / base) * 100)
+  if (percentage === 100) return 0
+  return percentage
 }

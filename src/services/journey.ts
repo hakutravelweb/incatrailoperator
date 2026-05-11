@@ -8,6 +8,7 @@ import {
   storageSaveFiles,
   storageUpdate,
   storageDeleteFiles,
+  storageDelete,
 } from '@/services/storage'
 import { Localization } from '@/shared/interfaces'
 import { JourneySchema, ItinerarySchema } from '@/schemas/journey'
@@ -84,6 +85,8 @@ export async function createJourney(input: JourneySchema) {
   })
 
   revalidateTag('journeys', { expire: 0 })
+  revalidateTag('destinations', { expire: 0 })
+
   return created
 }
 
@@ -186,6 +189,8 @@ export async function updateJourney(id: string, input: JourneySchema) {
 
   revalidateTag(`journey-${id}`, { expire: 0 })
   revalidateTag('journeys', { expire: 0 })
+  revalidateTag('destinations', { expire: 0 })
+
   return updated
 }
 
@@ -194,56 +199,37 @@ export async function deleteJourney(id: string) {
     where: {
       id,
     },
+    include: {
+      routes: {
+        include: { waypoints: true },
+      },
+    },
   })
 
-  const routes = await prisma.route.findMany({
+  const routeIds = journey.routes.map((route) => route.id)
+  const waypointIds = journey.routes.flatMap((route) =>
+    route.waypoints.map((waypoint) => waypoint.id),
+  )
+
+  if (waypointIds.length > 0) {
+    await prisma.waypoint.deleteMany({ where: { id: { in: waypointIds } } })
+  }
+
+  if (routeIds.length > 0) {
+    await prisma.route.deleteMany({ where: { id: { in: routeIds } } })
+  }
+
+  await prisma.askedQuestion.deleteMany({
     where: {
       journeyId: journey.id,
     },
-    include: {
-      waypoints: true,
-    },
   })
 
-  await prisma.$transaction(
-    async (transaction) => {
-      const routeIds = routes.map((route) => route.id)
-      const waypointIds = routes
-        .map((route) => {
-          const ids = route.waypoints.map((waypoint) => waypoint.id)
-          return ids
-        })
-        .flatMap((id) => id)
-
-      await transaction.waypoint.deleteMany({
-        where: {
-          id: {
-            in: waypointIds,
-          },
-        },
-      })
-      await transaction.route.deleteMany({
-        where: {
-          id: {
-            in: routeIds,
-          },
-        },
-      })
-      await transaction.askedQuestion.deleteMany({
-        where: {
-          journeyId: journey.id,
-        },
-      })
-      await transaction.review.deleteMany({
-        where: {
-          journeyId: journey.id,
-        },
-      })
+  await prisma.review.deleteMany({
+    where: {
+      journeyId: journey.id,
     },
-    {
-      timeout: 10000,
-    },
-  )
+  })
 
   const deleted = await prisma.journey.delete({
     where: {
@@ -252,15 +238,22 @@ export async function deleteJourney(id: string) {
   })
 
   if (journey.photoMap) {
-    journey.photos.push(journey.photoMap)
+    await storageDelete({
+      fileName: journey.photoMap,
+    })
   }
   if (journey.pdfItinerary) {
-    journey.photos.push(journey.pdfItinerary)
+    await storageDelete({
+      fileName: journey.pdfItinerary,
+    })
   }
+
   await storageDeleteFiles({ fileNames: journey.photos })
 
   revalidateTag(`journey-${id}`, { expire: 0 })
   revalidateTag('journeys', { expire: 0 })
+  revalidateTag('destinations', { expire: 0 })
+
   return deleted
 }
 
@@ -459,6 +452,9 @@ export async function saveItinerary(input: ItinerarySchema) {
     revalidateTag(`itinerary-${input.routes[0].journeyId}`, {
       expire: 0,
     })
+    revalidateTag('journeys', {
+      expire: 0,
+    })
   }
 }
 
@@ -485,6 +481,8 @@ export async function deleteRoute(id: string) {
   })
 
   revalidateTag(`itinerary-${route.journeyId}`, { expire: 0 })
+  revalidateTag('journeys', { expire: 0 })
+
   return deleted
 }
 
@@ -504,9 +502,10 @@ export async function deleteWaypoint(id: string) {
     },
   })
 
-  revalidateTag(`itinerary-${waypoint.route.journeyId}`, {
+  revalidateTag('journeys', {
     expire: 0,
   })
+
   return deleted
 }
 
@@ -730,8 +729,8 @@ export async function getJourneysDestination(filters: Filters) {
       mode: 'insensitive',
     },
     retailPrice: {
-      gte: filters.rangePrice.from,
-      lte: filters.rangePrice.to,
+      gte: filters.priceRange.min,
+      lte: filters.priceRange.max,
     },
   }
   if (filters.categoriesId.length > 0) {
@@ -752,7 +751,7 @@ export async function getJourneysDestination(filters: Filters) {
       })
     },
     [
-      `journeys-destination-${filters.locale}-${filters.search}-${filters.rangePrice.from}-${filters.rangePrice.to}-${filters.categoriesId.join(',')}`,
+      `journeys-destination-${filters.locale}-${filters.search}-${filters.priceRange.min}-${filters.priceRange.max}-${filters.categoriesId.join(',')}`,
     ],
     { tags: ['journeys'] },
   )()

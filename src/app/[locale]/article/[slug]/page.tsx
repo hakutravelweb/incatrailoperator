@@ -52,7 +52,7 @@ export default async function Article({ params }: Props) {
         <Section>
           <ArticleHeader article={article} />
         </Section>
-        <div className='bg-cinnabar h-100'>
+        <div className='bg-cinnabar h-150'>
           <img
             className='size-full object-cover'
             src={getFullMediaUrl(article.photo)}

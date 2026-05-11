@@ -25,7 +25,7 @@ export function Checkbox({
     >
       <div
         className={cn(
-          'border-chinese-white flex size-6 items-center justify-center rounded-md border-2',
+          'border-gray-x11 flex size-5 items-center justify-center rounded-sm border-2',
           {
             'border-inferno bg-inferno': active,
           },
@@ -63,7 +63,7 @@ export function CheckboxNumber({
     >
       <div
         className={cn(
-          'border-chinese-white flex size-6 items-center justify-center rounded-md border-2',
+          'border-gray-x11 flex size-5 items-center justify-center rounded-sm border-2',
           {
             'border-inferno bg-inferno': active,
           },
