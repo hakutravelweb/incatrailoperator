@@ -2,12 +2,21 @@ import { useEffect, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
 import { Icons } from '@/icons/icon'
 import { cn, verifyOpenedModals } from '@/lib/utils'
+import { Button } from './button'
+
+interface Action {
+  type: 'close' | 'action'
+  disabled?: boolean
+  text: string
+  onClick?: () => void
+}
 
 interface Props {
-  variant?: 'preview'
+  variant?: 'preview' | 'manage'
   title?: string
   isOpen: boolean
   onClose: () => void
+  actions?: Action[]
 }
 
 export function Modal({
@@ -15,13 +24,14 @@ export function Modal({
   title,
   isOpen,
   onClose,
+  actions = [],
   children,
 }: PropsWithChildren<Props>) {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('overflow-hidden', 'touch-none')
     }
-    return verifyOpenedModals
+    return () => verifyOpenedModals()
   }, [isOpen])
 
   return (
@@ -42,6 +52,7 @@ export function Modal({
                 {
                   'md:max-h-modal-height max-w-200 md:h-auto md:w-full':
                     variant === 'preview',
+                  'md:max-h-modal-height md:w-145': variant === 'manage',
                 },
               )}
             >
@@ -54,6 +65,7 @@ export function Modal({
               <div
                 className={cn('scrollbar-hidden overflow-y-auto px-6 py-5', {
                   'size-full overflow-visible py-0': variant === 'preview',
+                  'px-6 py-4 md:px-12': variant === 'manage',
                 })}
               >
                 {title && (
@@ -63,6 +75,25 @@ export function Modal({
                 )}
                 {children}
               </div>
+              {actions.length > 0 && (
+                <div className='border-t-chinese-white shadow-soft-drop flex justify-end gap-3 border-t px-6 py-3'>
+                  {actions.map((action, index) => {
+                    return (
+                      <Button
+                        key={index}
+                        variant={
+                          action.type === 'action' ? 'primary' : undefined
+                        }
+                        widthFit
+                        disabled={action.disabled}
+                        onClick={action.onClick}
+                      >
+                        {action.text}
+                      </Button>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           </div>,
           document.body,

@@ -92,6 +92,7 @@ export function Journeys() {
         </div>
         <Button
           variant='action'
+          widthFit
           icon='Plus'
           onClick={handleChangeView('CREATE')}
         >

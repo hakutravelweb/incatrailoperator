@@ -24,12 +24,10 @@ export function useJourneysDestination(destinationId: string) {
 
   const handleCategory = (value: string) => {
     if (categoriesId.includes(value)) {
-      const index = categoriesId.indexOf(value)
-      categoriesId.splice(index, 1)
+      setCategoriesId(categoriesId.filter((id) => id !== value))
     } else {
-      categoriesId.push(value)
+      setCategoriesId([...categoriesId, value])
     }
-    setCategoriesId([...categoriesId])
   }
 
   const handlePriceRange = (value: PriceRange) => {
@@ -38,12 +36,10 @@ export function useJourneysDestination(destinationId: string) {
 
   const handleRating = (value: number) => {
     if (ratings.includes(value)) {
-      const index = ratings.indexOf(value)
-      ratings.splice(index, 1)
+      setRatings(ratings.filter((rating) => rating !== value))
     } else {
-      ratings.push(value)
+      setRatings([...ratings, value])
     }
-    setRatings([...ratings])
   }
 
   const fetchData = async () => {

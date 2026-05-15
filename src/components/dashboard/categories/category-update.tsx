@@ -6,7 +6,7 @@ import { CategorySchema, categoryResolver } from '@/schemas/category'
 import { updateCategory, getCategory } from '@/services/category'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
-import { InputTranslate } from '@/components/ui/input-translate'
+import { InputTranslation } from '@/components/ui/input-translation'
 
 interface Props {
   categoryId: string
@@ -68,6 +68,7 @@ export function CategoryUpdate({ categoryId, onClose, onRefresh }: Props) {
           </strong>
         </div>
         <Button
+          widthFit
           disabled={!isDirty || !isValid || form.formState.isSubmitting}
           onClick={form.handleSubmit(handleUpdate)}
         >
@@ -79,7 +80,7 @@ export function CategoryUpdate({ categoryId, onClose, onRefresh }: Props) {
           control={form.control}
           name='title'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('category.form-field.title')}
               value={field.value}

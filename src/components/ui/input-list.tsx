@@ -86,13 +86,13 @@ export function InputList({
                   <button
                     data-movable-handle
                     className={cn(
-                      'bg-anti-flash-white flex size-6 cursor-pointer items-center justify-center rounded-md',
+                      'flex size-6 cursor-pointer items-center justify-center',
                       {
                         'cursor-grabbing': isDragged,
                       },
                     )}
                   >
-                    <Icons.Drag className='text-dark-charcoal size-5' />
+                    <Icons.Drag className='size-5' />
                   </button>
                   <textarea
                     ref={ref}
@@ -107,9 +107,7 @@ export function InputList({
                   />
                   <Dropdown>
                     <Dropdown.Trigger>
-                      <div className='border-chinese-white hover:bg-anti-flash-white active:bg-chinese-white flex size-8 items-center justify-center rounded-md border-2'>
-                        <Icons.Dots className='size-4' />
-                      </div>
+                      <Icons.Dots className='size-5' />
                     </Dropdown.Trigger>
                     <Dropdown.Content>
                       <Dropdown.Option onClick={handleDelete(props.key!)}>
@@ -124,6 +122,7 @@ export function InputList({
         )}
         <Button
           variant='action'
+          widthFit
           invalid={!!errors?.message}
           onClick={handleAdd}
         >

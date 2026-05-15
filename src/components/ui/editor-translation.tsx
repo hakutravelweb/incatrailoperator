@@ -6,19 +6,25 @@ import {
   RefCallBack,
 } from 'react-hook-form'
 import { Locale, locales } from '@/i18n/config'
-import { Translate } from '@/shared/interfaces'
-import { Input } from './input'
+import { Translation } from '@/shared/interfaces'
+import { Editor } from './editor'
 import { Tabs, Tab } from './tabs'
 
 interface Props {
   ref?: RefCallBack
   label: string
-  value: Translate
-  onChange: (value: Translate) => void
-  errors?: Merge<FieldError, FieldErrorsImpl<Translate>>
+  value: Translation
+  onChange: (value: Translation) => void
+  errors?: Merge<FieldError, FieldErrorsImpl<Translation>>
 }
 
-export function InputTranslate({ ref, label, value, onChange, errors }: Props) {
+export function EditorTranslation({
+  ref,
+  label,
+  value,
+  onChange,
+  errors,
+}: Props) {
   const t = useTranslations('Language')
   const tabError = locales.findIndex((locale) => !!errors?.[locale]?.message)
 
@@ -36,7 +42,7 @@ export function InputTranslate({ ref, label, value, onChange, errors }: Props) {
         {locales.map((locale) => {
           return (
             <Tab key={locale} label={t(locale)}>
-              <Input
+              <Editor
                 ref={ref}
                 value={value[locale]}
                 onChange={handleChange(locale)}

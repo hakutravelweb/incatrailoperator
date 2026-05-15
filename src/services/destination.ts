@@ -137,24 +137,26 @@ export async function getDestinationsPagination(
     { tags: ['destinations'] },
   )()
 
-  const destinationsTranslate = destinations.map((destination): Destination => {
-    return {
-      ...destination,
-      slug: destination.slug[locale],
-      title: destination.title[locale],
-      department: destination.department[locale],
-      about: destination.about[locale],
-      journeysCount: destination.journeys.length,
-      photo: '',
-      rating: 0,
-      travellersCount: 0,
-      lowestPrice: 0,
-      localizations: [],
-    }
-  })
+  const destinationsTranslation = destinations.map(
+    (destination): Destination => {
+      return {
+        ...destination,
+        slug: destination.slug[locale],
+        title: destination.title[locale],
+        department: destination.department[locale],
+        about: destination.about[locale],
+        journeysCount: destination.journeys.length,
+        photo: '',
+        rating: 0,
+        travellersCount: 0,
+        lowestPrice: 0,
+        localizations: [],
+      }
+    },
+  )
 
   return {
-    data: destinationsTranslate,
+    data: destinationsTranslation,
     total,
   }
 }
@@ -184,23 +186,25 @@ export async function getDestinations(locale: Locale) {
     { tags: ['destinations'] },
   )()
 
-  const destinationsTranslate = destinations.map((destination): Destination => {
-    return {
-      ...destination,
-      slug: destination.slug[locale],
-      title: destination.title[locale],
-      department: destination.department[locale],
-      about: destination.about[locale],
-      journeysCount: 0,
-      photo: '',
-      rating: 0,
-      travellersCount: 0,
-      lowestPrice: 0,
-      localizations: [],
-    }
-  })
+  const destinationsTranslation = destinations.map(
+    (destination): Destination => {
+      return {
+        ...destination,
+        slug: destination.slug[locale],
+        title: destination.title[locale],
+        department: destination.department[locale],
+        about: destination.about[locale],
+        journeysCount: 0,
+        photo: '',
+        rating: 0,
+        travellersCount: 0,
+        lowestPrice: 0,
+        localizations: [],
+      }
+    },
+  )
 
-  return destinationsTranslate
+  return destinationsTranslation
 }
 
 export async function getDestinationsPerDepartment(locale: Locale) {
@@ -220,63 +224,66 @@ export async function getDestinationsPerDepartment(locale: Locale) {
     { tags: ['destinations'] },
   )()
 
-  const destinationsTranslate = destinations.map((destination): Destination => {
-    if (destination.journeys.length === 0) {
+  const destinationsTranslation = destinations.map(
+    (destination): Destination => {
+      if (destination.journeys.length === 0) {
+        return {
+          id: destination.id,
+          slug: destination.slug[locale],
+          title: destination.title[locale],
+          department: destination.department[locale],
+          about: destination.about[locale],
+          journeysCount: 0,
+          photo: '',
+          rating: 0,
+          travellersCount: 0,
+          lowestPrice: 0,
+          localizations: [],
+        }
+      }
+
+      const { totalReviews, totalRating } = destination.journeys.reduce(
+        (acc, journey) => {
+          const reviewsCount = journey.reviews.length
+          const productRating = journey.reviews.reduce(
+            (sum, review) => sum + review.rating,
+            0,
+          )
+
+          return {
+            totalReviews: acc.totalReviews + reviewsCount,
+            totalRating: acc.totalRating + productRating,
+          }
+        },
+        { totalReviews: 0, totalRating: 0 },
+      )
+
+      const rating =
+        totalReviews > 0 ? Math.round(totalRating / totalReviews) : 0
+
+      const cheapestProduct = destination.journeys.reduce(
+        (lowest, journey) =>
+          journey.retailPrice < lowest.retailPrice ? journey : lowest,
+        destination.journeys[0],
+      )
+
       return {
         id: destination.id,
         slug: destination.slug[locale],
         title: destination.title[locale],
         department: destination.department[locale],
         about: destination.about[locale],
+        photo: cheapestProduct.photos[0],
         journeysCount: 0,
-        photo: '',
-        rating: 0,
-        travellersCount: 0,
-        lowestPrice: 0,
+        rating,
+        travellersCount: totalReviews,
+        lowestPrice: cheapestProduct.retailPrice,
         localizations: [],
       }
-    }
+    },
+  )
 
-    const { totalReviews, totalRating } = destination.journeys.reduce(
-      (acc, journey) => {
-        const reviewsCount = journey.reviews.length
-        const productRating = journey.reviews.reduce(
-          (sum, review) => sum + review.rating,
-          0,
-        )
-
-        return {
-          totalReviews: acc.totalReviews + reviewsCount,
-          totalRating: acc.totalRating + productRating,
-        }
-      },
-      { totalReviews: 0, totalRating: 0 },
-    )
-
-    const rating = totalReviews > 0 ? Math.round(totalRating / totalReviews) : 0
-
-    const cheapestProduct = destination.journeys.reduce(
-      (lowest, journey) =>
-        journey.retailPrice < lowest.retailPrice ? journey : lowest,
-      destination.journeys[0],
-    )
-
-    return {
-      id: destination.id,
-      slug: destination.slug[locale],
-      title: destination.title[locale],
-      department: destination.department[locale],
-      about: destination.about[locale],
-      photo: cheapestProduct.photos[0],
-      journeysCount: 0,
-      rating,
-      travellersCount: totalReviews,
-      lowestPrice: cheapestProduct.retailPrice,
-      localizations: [],
-    }
-  })
-
-  return destinationsTranslate
+  return destinationsTranslation
 }
 
 export async function getDestinationBySlug(locale: Locale, slug: string) {
@@ -302,7 +309,7 @@ export async function getDestinationBySlug(locale: Locale, slug: string) {
     }
   })
 
-  const destinationTranslate: Destination = {
+  const destinationTranslation: Destination = {
     ...destination,
     slug: destination.slug[locale],
     title: destination.title[locale],
@@ -316,5 +323,5 @@ export async function getDestinationBySlug(locale: Locale, slug: string) {
     localizations,
   }
 
-  return destinationTranslate
+  return destinationTranslation
 }

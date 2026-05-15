@@ -62,6 +62,7 @@ export function Articles() {
         </div>
         <Button
           variant='action'
+          widthFit
           icon='Plus'
           onClick={handleChangeView('CREATE')}
         >

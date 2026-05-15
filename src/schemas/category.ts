@@ -1,9 +1,9 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { translateSchema, translateDefaultValues } from '@/shared/schemas'
+import { translationSchema, translationDefaultValues } from '@/shared/schemas'
 
 const categorySchema = z.object({
-  title: translateSchema,
+  title: translationSchema,
 })
 
 export type CategorySchema = z.infer<typeof categorySchema>
@@ -11,5 +11,5 @@ export type CategorySchema = z.infer<typeof categorySchema>
 export const categoryResolver = zodResolver(categorySchema)
 
 export const categoryDefaultValues: CategorySchema = {
-  title: translateDefaultValues,
+  title: translationDefaultValues,
 }

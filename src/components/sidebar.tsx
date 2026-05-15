@@ -24,7 +24,7 @@ export function Sidebar({ disclosure, localizations }: Props) {
     if (disclosure.isOpen) {
       document.body.classList.add('overflow-hidden', 'touch-none')
     }
-    return verifyOpenedModals
+    return () => verifyOpenedModals()
   }, [disclosure.isOpen])
 
   const handleChange = (localization: Localization) => () => {

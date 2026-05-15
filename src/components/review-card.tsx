@@ -11,7 +11,7 @@ export function ReviewCard({ review }: Props) {
   const locale = useLocale()
 
   return (
-    <div className='border-anti-flash-white flex flex-col gap-4 rounded-xl border-2 p-4'>
+    <div className='border-anti-flash-white flex flex-1 flex-col gap-4 rounded-xl border-2 p-4'>
       <Rating rating={review.rating} />
       <div className='flex flex-col gap-2'>
         <strong className='text-base leading-5'>

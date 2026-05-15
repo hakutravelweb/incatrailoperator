@@ -1,26 +1,28 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-export const translateSchema = z.object({
+export const translationSchema = z.object({
   es: z.string().min(1),
   en: z.string().min(1),
 })
 
-export const translateMultipleSchema = z.object({
+export const translationMultipleSchema = z.object({
   es: z.array(z.string().min(1)).min(1),
   en: z.array(z.string().min(1)).min(1),
 })
 
-export type TranslateSchema = z.infer<typeof translateSchema>
+export type TranslationSchema = z.infer<typeof translationSchema>
 
-export type TranslateMultipleSchema = z.infer<typeof translateMultipleSchema>
+export type TranslationMultipleSchema = z.infer<
+  typeof translationMultipleSchema
+>
 
-export const translateDefaultValues: TranslateSchema = {
+export const translationDefaultValues: TranslationSchema = {
   es: '',
   en: '',
 }
 
-export const translateMultipleDefaultValues: TranslateMultipleSchema = {
+export const translationMultipleDefaultValues: TranslationMultipleSchema = {
   es: [],
   en: [],
 }

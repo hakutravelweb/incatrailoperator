@@ -24,41 +24,41 @@ model User {
 model Journey {
   id                  String          @id @default(cuid())
   variant             Variant
-  /// [Translate]
+  /// [Translation]
   slug                Json
-  /// [Translate]
+  /// [Translation]
   title               Json
   photos              String[]
   /// [Duration]
   duration            Json
-  /// [Translate]
+  /// [Translation]
   about               Json
-  /// [TranslateMultiple]
+  /// [TranslationMultiple]
   labels              Json
-  /// [Translate]
+  /// [Translation]
   cancellationPolicy  Json
   guidedLanguages     Locale[]
-  /// [Translate]
+  /// [Translation]
   pickUpService       Json
-  /// [Translate]
+  /// [Translation]
   startTime           Json
-  /// [Translate]
+  /// [Translation]
   finishTime          Json
-  /// [TranslateMultiple]
+  /// [TranslationMultiple]
   highlights          Json
-  /// [Translate]
+  /// [Translation]
   detailedDescription Json
-  /// [Translate]
+  /// [Translation]
   importantNote       Json
-  /// [TranslateMultiple]
+  /// [TranslationMultiple]
   inclusions          Json
-  /// [TranslateMultiple]
+  /// [TranslationMultiple]
   exclusions          Json
-  /// [Translate]
+  /// [Translation]
   importantWarning    Json
-  /// [TranslateMultiple]
+  /// [TranslationMultiple]
   recommendations     Json
-  /// [Translate]
+  /// [Translation]
   additionalAdvice    Json
   /// [Duration]
   freeCancellation    Json
@@ -93,7 +93,7 @@ enum DurationType {
 
 model Route {
   id        String     @id @default(cuid())
-  /// [Translate]
+  /// [Translation]
   title     Json
   journeyId String
   journey   Journey    @relation(fields: [journeyId], references: [id])
@@ -105,9 +105,9 @@ model Route {
 model Waypoint {
   id          String   @id @default(cuid())
   time        String
-  /// [Translate]
+  /// [Translation]
   title       Json
-  /// [Translate]
+  /// [Translation]
   description Json
   routeId     String
   route       Route    @relation(fields: [routeId], references: [id])
@@ -117,9 +117,9 @@ model Waypoint {
 
 model AskedQuestion {
   id          String   @id @default(cuid())
-  /// [Translate]
+  /// [Translation]
   title       Json
-  /// [Translate]
+  /// [Translation]
   description Json
   journeyId   String
   journey     Journey  @relation(fields: [journeyId], references: [id])
@@ -142,7 +142,7 @@ model Review {
 
 model Category {
   id        String    @id @default(cuid())
-  /// [Translate]
+  /// [Translation]
   title     Json
   journeys  Journey[]
   articles  Article[]
@@ -152,13 +152,13 @@ model Category {
 
 model Destination {
   id         String    @id @default(cuid())
-  /// [Translate]
+  /// [Translation]
   slug       Json
-  /// [Translate]
+  /// [Translation]
   title      Json
-  /// [Translate]
+  /// [Translation]
   department Json
-  /// [Translate]
+  /// [Translation]
   about      Json
   journeys   Journey[]
   createdAt  DateTime  @default(now())
@@ -167,16 +167,16 @@ model Destination {
 
 model Article {
   id           String   @id @default(cuid())
-  /// [Translate]
+  /// [Translation]
   slug         Json
-  /// [Translate]
+  /// [Translation]
   title        Json
   photo        String
-  /// [Translate]
+  /// [Translation]
   introduction Json
-  /// [TranslateMultiple]
+  /// [TranslationMultiple]
   labels       Json
-  /// [Translate]
+  /// [Translation]
   content      Json
   authorId     String
   author       User     @relation(fields: [authorId], references: [id])

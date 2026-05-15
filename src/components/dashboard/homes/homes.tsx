@@ -62,6 +62,7 @@ export function Homes() {
         </div>
         <Button
           variant='action'
+          widthFit
           icon='Plus'
           onClick={handleChangeView('CREATE')}
         >

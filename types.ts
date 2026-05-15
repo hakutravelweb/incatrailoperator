@@ -3,10 +3,10 @@ import { Locale } from '@/i18n/config'
 export {}
 declare global {
   namespace PrismaJson {
-    type Translate = {
+    type Translation = {
       [key in Locale]: string
     }
-    type TranslateMultiple = {
+    type TranslationMultiple = {
       [key in Locale]: string[]
     }
     type Duration = {

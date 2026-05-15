@@ -63,6 +63,7 @@ export function Destinations() {
         </div>
         <Button
           variant='action'
+          widthFit
           icon='Plus'
           onClick={handleChangeView('CREATE')}
         >

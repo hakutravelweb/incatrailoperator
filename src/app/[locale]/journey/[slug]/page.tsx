@@ -189,7 +189,7 @@ export default async function AttractionProduct({ params }: Props) {
                       className='relative z-1 flex flex-col gap-4'
                     >
                       <div className='bg-inferno absolute top-4 left-3.5 -z-1 h-[calc(100%-32px)] w-1' />
-                      <RouteItem index={index} route={route} />
+                      <RouteItem step={index + 1} route={route} />
                       <div className='flex flex-col gap-2 pl-1'>
                         {route.waypoints.map((waypoint) => {
                           return (

@@ -1,32 +1,19 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { translateSchema, translateDefaultValues } from '@/shared/schemas'
+import { translationSchema, translationDefaultValues } from '@/shared/schemas'
 
 const askedQuestionSchema = z.object({
-  askedQuestionId: z.string(),
-  title: translateSchema,
-  description: translateSchema,
+  title: translationSchema,
+  description: translationSchema,
   journeyId: z.string().min(1),
 })
 
-const askedQuestionsSchema = z.object({
-  title: translateSchema,
-  askedQuestions: z.array(askedQuestionSchema),
-})
-
 export type AskedQuestionSchema = z.infer<typeof askedQuestionSchema>
-export type AskedQuestionsSchema = z.infer<typeof askedQuestionsSchema>
 
-export const askedQuestionsResolver = zodResolver(askedQuestionsSchema)
+export const askedQuestionResolver = zodResolver(askedQuestionSchema)
 
 export const askedQuestionDefaultValues: AskedQuestionSchema = {
-  askedQuestionId: '',
-  title: translateDefaultValues,
-  description: translateDefaultValues,
+  title: translationDefaultValues,
+  description: translationDefaultValues,
   journeyId: '',
-}
-
-export const askedQuestionsDefaultValues: AskedQuestionsSchema = {
-  title: translateDefaultValues,
-  askedQuestions: [askedQuestionDefaultValues],
 }

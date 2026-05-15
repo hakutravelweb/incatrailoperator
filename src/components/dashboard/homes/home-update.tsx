@@ -87,6 +87,7 @@ export function HomeUpdate({ homeId, onClose, onRefresh }: Props) {
           <strong className='text-lg leading-6'>{form.watch('title')}</strong>
         </div>
         <Button
+          widthFit
           disabled={!isDirty || !isValid || form.formState.isSubmitting}
           onClick={form.handleSubmit(handleUpdate)}
         >

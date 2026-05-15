@@ -86,6 +86,17 @@ export function calculatePercentageDifference(
   const difference = Math.abs(priceBase - totalDiscount)
   const base = Math.max(priceBase, totalDiscount)
   const percentage = Math.round((difference / base) * 100)
-  if (percentage === 100) return 0
   return percentage
+}
+
+export function formatTime(locale: Locale, time: string) {
+  const [hours, minutes] = time.split(':')
+  const date = new Date()
+  date.setHours(parseInt(hours))
+  date.setMinutes(parseInt(minutes))
+  return date.toLocaleTimeString(localeCode[locale], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  })
 }

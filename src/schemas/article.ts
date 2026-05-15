@@ -1,17 +1,17 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
-  translateSchema,
-  translateMultipleSchema,
-  translateDefaultValues,
-  translateMultipleDefaultValues,
+  translationSchema,
+  translationMultipleSchema,
+  translationDefaultValues,
+  translationMultipleDefaultValues,
 } from '@/shared/schemas'
 import { locales } from '@/i18n/config'
 import { isSlug } from '@/lib/utils'
 
 const articleSchema = z
   .object({
-    slug: translateSchema.superRefine((value, ctx) => {
+    slug: translationSchema.superRefine((value, ctx) => {
       locales.forEach((locale) => {
         const isValid = isSlug(value[locale])
         if (!isValid) {
@@ -23,12 +23,12 @@ const articleSchema = z
         }
       })
     }),
-    title: translateSchema,
+    title: translationSchema,
     photo: z.file().nullable(),
     previewPhoto: z.string(),
-    introduction: translateSchema,
-    labels: translateMultipleSchema,
-    content: translateSchema,
+    introduction: translationSchema,
+    labels: translationMultipleSchema,
+    content: translationSchema,
     authorId: z.string(),
     categoryId: z.string().min(1),
   })
@@ -47,13 +47,13 @@ export type ArticleSchema = z.infer<typeof articleSchema>
 export const articleResolver = zodResolver(articleSchema)
 
 export const articleDefaultValues: ArticleSchema = {
-  slug: translateDefaultValues,
-  title: translateDefaultValues,
+  slug: translationDefaultValues,
+  title: translationDefaultValues,
   photo: null,
   previewPhoto: '',
-  introduction: translateDefaultValues,
-  labels: translateMultipleDefaultValues,
-  content: translateDefaultValues,
+  introduction: translationDefaultValues,
+  labels: translationMultipleDefaultValues,
+  content: translationDefaultValues,
   authorId: '',
   categoryId: '',
 }

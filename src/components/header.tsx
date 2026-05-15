@@ -43,7 +43,7 @@ export function Header({ localizations }: Props) {
             </div>
             <div className='hidden lg:block'>
               <img
-                className='w-18.75 md:w-25'
+                className='h-10'
                 src='/logos/wordmark.svg'
                 alt='Inca Trail Operator'
                 loading='lazy'
@@ -78,12 +78,12 @@ export function Header({ localizations }: Props) {
       </Section>
       <Modal isOpen={language.isOpen} onClose={language.onClose}>
         <div className='flex flex-col gap-2'>
-          {localizations.map((localization, index) => {
+          {localizations.map((localization) => {
             const active = localization.locale === locale
 
             return (
               <div
-                key={index}
+                key={localization.locale}
                 onClick={handleChange(localization)}
                 className={cn(
                   'hover:bg-anti-flash-white flex cursor-pointer rounded-lg p-4',

@@ -2,20 +2,18 @@ import { cn } from '@/lib/utils'
 import { Route } from '@/interfaces/journey'
 
 interface Props {
-  index: number
+  step: number
   route: Route
 }
 
-export function RouteItem({ index, route }: Props) {
-  const step = index + 1
-
+export function RouteItem({ step, route }: Props) {
   return (
     <div className='flex items-center gap-2'>
       <div
         className={cn(
           'bg-inferno flex size-8 items-center justify-center rounded-full text-white',
           {
-            'bg-yellow-sea': index % 2,
+            'bg-yellow-sea': step % 2,
           },
         )}
       >
@@ -25,7 +23,7 @@ export function RouteItem({ index, route }: Props) {
         className={cn(
           'border-l-inferno bg-outrageous-orange/10 flex-1 rounded-lg border-l-4 p-4',
           {
-            'border-l-yellow-sea bg-yellow-sea/10': index % 2,
+            'border-l-yellow-sea bg-yellow-sea/10': step % 2,
           },
         )}
       >
