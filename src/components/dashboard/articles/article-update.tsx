@@ -8,11 +8,11 @@ import { useCategories } from '@/hooks/use-categories'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
 import { Select } from '@/components/ui/select'
-import { InputTranslate } from '@/components/ui/input-translate'
-import { TextareaTranslate } from '@/components/ui/textarea-translate'
-import { InputListTranslate } from '@/components/ui/input-list-translate'
+import { InputTranslation } from '@/components/ui/input-translation'
+import { TextareaTranslation } from '@/components/ui/textarea-translation'
+import { InputListTranslation } from '@/components/ui/input-list-translation'
 import { UploadPhoto } from '@/components/ui/upload-photo'
-import { EditorTranslate } from '@/components/ui/editor-translate'
+import { EditorTranslation } from '@/components/ui/editor-translation'
 
 interface Props {
   articleId: string
@@ -89,6 +89,7 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
           </strong>
         </div>
         <Button
+          widthFit
           disabled={!isDirty || !isValid || form.formState.isSubmitting}
           onClick={form.handleSubmit(handleUpdate)}
         >
@@ -100,7 +101,7 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
           control={form.control}
           name='slug'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('article.form-field.slug')}
               value={field.value}
@@ -127,7 +128,7 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
           control={form.control}
           name='title'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('article.form-field.title')}
               value={field.value}
@@ -140,7 +141,7 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
           control={form.control}
           name='introduction'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <TextareaTranslation
               ref={field.ref}
               label={t('article.form-field.introduction')}
               value={field.value}
@@ -153,7 +154,7 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
           control={form.control}
           name='labels'
           render={({ field, formState }) => (
-            <InputListTranslate
+            <InputListTranslation
               ref={field.ref}
               label={t('article.form-field.labels')}
               value={field.value}
@@ -168,7 +169,7 @@ export function ArticleUpdate({ articleId, onClose, onRefresh }: Props) {
           control={form.control}
           name='content'
           render={({ field, formState }) => (
-            <EditorTranslate
+            <EditorTranslation
               ref={field.ref}
               label={t('article.form-field.content')}
               value={field.value}

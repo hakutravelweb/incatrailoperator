@@ -5,12 +5,12 @@ export interface Localization {
   slug: string
 }
 
-export interface Translate {
+export interface Translation {
   es: string
   en: string
 }
 
-export interface TranslateMultiple {
+export interface TranslationMultiple {
   es: string[]
   en: string[]
 }

@@ -92,7 +92,7 @@ export async function getCategoriesPagination(
     { tags: ['categories'] },
   )()
 
-  const categoriesTranslate = categories.map((category): Category => {
+  const categoriesTranslation = categories.map((category): Category => {
     return {
       ...category,
       title: category.title[locale],
@@ -101,7 +101,7 @@ export async function getCategoriesPagination(
   })
 
   return {
-    data: categoriesTranslate,
+    data: categoriesTranslation,
     total,
   }
 }
@@ -131,7 +131,7 @@ export async function getCategories(locale: Locale) {
     { tags: ['categories'] },
   )()
 
-  const categoriesTranslate = categories.map((category): Category => {
+  const categoriesTranslation = categories.map((category): Category => {
     return {
       ...category,
       title: category.title[locale],
@@ -139,5 +139,5 @@ export async function getCategories(locale: Locale) {
     }
   })
 
-  return categoriesTranslate
+  return categoriesTranslation
 }

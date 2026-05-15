@@ -6,19 +6,19 @@ import {
   RefCallBack,
 } from 'react-hook-form'
 import { Locale, locales } from '@/i18n/config'
-import { Translate } from '@/shared/interfaces'
-import { Editor } from './editor'
+import { Translation } from '@/shared/interfaces'
+import { Textarea } from './textarea'
 import { Tabs, Tab } from './tabs'
 
 interface Props {
   ref?: RefCallBack
   label: string
-  value: Translate
-  onChange: (value: Translate) => void
-  errors?: Merge<FieldError, FieldErrorsImpl<Translate>>
+  value: Translation
+  onChange: (value: Translation) => void
+  errors?: Merge<FieldError, FieldErrorsImpl<Translation>>
 }
 
-export function EditorTranslate({
+export function TextareaTranslation({
   ref,
   label,
   value,
@@ -42,7 +42,7 @@ export function EditorTranslate({
         {locales.map((locale) => {
           return (
             <Tab key={locale} label={t(locale)}>
-              <Editor
+              <Textarea
                 ref={ref}
                 value={value[locale]}
                 onChange={handleChange(locale)}

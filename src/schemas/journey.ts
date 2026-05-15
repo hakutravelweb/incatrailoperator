@@ -1,10 +1,10 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
-  translateSchema,
-  translateMultipleSchema,
-  translateDefaultValues,
-  translateMultipleDefaultValues,
+  translationSchema,
+  translationMultipleSchema,
+  translationDefaultValues,
+  translationMultipleDefaultValues,
 } from '@/shared/schemas'
 import { locales } from '@/i18n/config'
 import { isSlug } from '@/lib/utils'
@@ -26,7 +26,7 @@ const refundableSchema = durationSchema.extend({
 const journeySchema = z
   .object({
     variant: z.enum(Variant),
-    slug: translateSchema.superRefine((value, ctx) => {
+    slug: translationSchema.superRefine((value, ctx) => {
       locales.forEach((locale) => {
         const isValid = isSlug(value[locale])
         if (!isValid) {
@@ -41,23 +41,23 @@ const journeySchema = z
     photos: z.array(z.file()),
     previewPhotos: z.array(z.string()),
     deletedPhotos: z.array(z.string()),
-    title: translateSchema,
+    title: translationSchema,
     duration: durationSchema,
-    about: translateSchema,
-    labels: translateMultipleSchema,
-    cancellationPolicy: translateSchema,
+    about: translationSchema,
+    labels: translationMultipleSchema,
+    cancellationPolicy: translationSchema,
     guidedLanguages: z.array(z.enum(Locale)),
-    pickUpService: translateSchema,
-    startTime: translateSchema,
-    finishTime: translateSchema,
-    highlights: translateMultipleSchema,
-    detailedDescription: translateSchema,
-    importantNote: translateSchema,
-    inclusions: translateMultipleSchema,
-    exclusions: translateMultipleSchema,
-    importantWarning: translateSchema,
-    recommendations: translateMultipleSchema,
-    additionalAdvice: translateSchema,
+    pickUpService: translationSchema,
+    startTime: translationSchema,
+    finishTime: translationSchema,
+    highlights: translationMultipleSchema,
+    detailedDescription: translationSchema,
+    importantNote: translationSchema,
+    inclusions: translationMultipleSchema,
+    exclusions: translationMultipleSchema,
+    importantWarning: translationSchema,
+    recommendations: translationMultipleSchema,
+    additionalAdvice: translationSchema,
     freeCancellation: freeCancellationSchema,
     refundable: refundableSchema,
     photoMap: z.file().nullable(),
@@ -87,30 +87,30 @@ export const journeyResolver = zodResolver(journeySchema)
 
 export const journeyDefaultValues: JourneySchema = {
   variant: 'JOURNEY',
-  slug: translateDefaultValues,
+  slug: translationDefaultValues,
   photos: [],
   previewPhotos: [],
   deletedPhotos: [],
-  title: translateDefaultValues,
+  title: translationDefaultValues,
   duration: {
     type: 'HOUR',
     quantity: 0,
   },
-  about: translateDefaultValues,
-  labels: translateMultipleDefaultValues,
-  cancellationPolicy: translateDefaultValues,
+  about: translationDefaultValues,
+  labels: translationMultipleDefaultValues,
+  cancellationPolicy: translationDefaultValues,
   guidedLanguages: [],
-  pickUpService: translateDefaultValues,
-  startTime: translateDefaultValues,
-  finishTime: translateDefaultValues,
-  highlights: translateMultipleDefaultValues,
-  detailedDescription: translateDefaultValues,
-  importantNote: translateDefaultValues,
-  inclusions: translateMultipleDefaultValues,
-  exclusions: translateMultipleDefaultValues,
-  importantWarning: translateDefaultValues,
-  recommendations: translateMultipleDefaultValues,
-  additionalAdvice: translateDefaultValues,
+  pickUpService: translationDefaultValues,
+  startTime: translationDefaultValues,
+  finishTime: translationDefaultValues,
+  highlights: translationMultipleDefaultValues,
+  detailedDescription: translationDefaultValues,
+  importantNote: translationDefaultValues,
+  inclusions: translationMultipleDefaultValues,
+  exclusions: translationMultipleDefaultValues,
+  importantWarning: translationDefaultValues,
+  recommendations: translationMultipleDefaultValues,
+  additionalAdvice: translationDefaultValues,
   freeCancellation: {
     type: 'HOUR',
     quantity: 0,
@@ -132,47 +132,33 @@ export const journeyDefaultValues: JourneySchema = {
 }
 
 const waypointSchema = z.object({
-  waypointId: z.string(),
   time: z.string().min(1),
-  title: translateSchema,
-  description: translateSchema,
+  title: translationSchema,
+  description: translationSchema,
   routeId: z.string(),
 })
 
 const routeSchema = z.object({
-  routeId: z.string(),
-  title: translateSchema,
+  title: translationSchema,
   journeyId: z.string().min(1),
-  waypoints: z.array(waypointSchema),
-})
-
-const itinerarySchema = z.object({
-  title: translateSchema,
-  routes: z.array(routeSchema),
 })
 
 export type WaypointSchema = z.infer<typeof waypointSchema>
-export type RouteSchema = z.infer<typeof routeSchema>
-export type ItinerarySchema = z.infer<typeof itinerarySchema>
 
-export const itineraryResolver = zodResolver(itinerarySchema)
+export type RouteSchema = z.infer<typeof routeSchema>
+
+export const routeResolver = zodResolver(routeSchema)
+
+export const waypointResolver = zodResolver(waypointSchema)
 
 export const waypointDefaultValues: WaypointSchema = {
-  waypointId: '',
   time: '',
-  title: translateDefaultValues,
-  description: translateDefaultValues,
+  title: translationDefaultValues,
+  description: translationDefaultValues,
   routeId: '',
 }
 
 export const routeDefaultValues: RouteSchema = {
-  routeId: '',
-  title: translateDefaultValues,
+  title: translationDefaultValues,
   journeyId: '',
-  waypoints: [waypointDefaultValues],
-}
-
-export const itineraryDefaultValues: ItinerarySchema = {
-  title: translateDefaultValues,
-  routes: [routeDefaultValues],
 }

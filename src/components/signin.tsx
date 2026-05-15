@@ -26,7 +26,7 @@ export function SignIn() {
     try {
       const user = await signIn(data)
       toast.success(
-        t('weelcome', {
+        t('welcome', {
           name: user.name,
         }),
       )

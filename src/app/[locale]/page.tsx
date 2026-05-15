@@ -24,6 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Home')
 
   return {
+    metadataBase: new URL(process.env.APP_URL!),
     title: t('metadata.title'),
     description: t('metadata.description'),
     robots: {
@@ -37,6 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: t('metadata.title'),
       description: t('metadata.description'),
+      images: [`/posters/banner.jpg`],
     },
   }
 }

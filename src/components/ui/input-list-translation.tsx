@@ -6,21 +6,21 @@ import {
   RefCallBack,
 } from 'react-hook-form'
 import { Locale, locales } from '@/i18n/config'
-import { TranslateMultiple } from '@/shared/interfaces'
+import { TranslationMultiple } from '@/shared/interfaces'
 import { InputList } from './input-list'
 import { Tabs, Tab } from './tabs'
 
 interface Props {
   ref?: RefCallBack
   label: string
-  value: TranslateMultiple
-  onChange: (value: TranslateMultiple) => void
-  errors?: Merge<FieldError, FieldErrorsImpl<TranslateMultiple>>
+  value: TranslationMultiple
+  onChange: (value: TranslationMultiple) => void
+  errors?: Merge<FieldError, FieldErrorsImpl<TranslationMultiple>>
   deleteText: string
   addListText: string
 }
 
-export function InputListTranslate({
+export function InputListTranslation({
   ref,
   label,
   value,

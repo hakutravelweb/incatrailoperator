@@ -62,6 +62,7 @@ export function HomeCreate({ onClose, onRefresh }: Props) {
           <strong className='text-lg leading-6'>{t('home.new-label')}</strong>
         </div>
         <Button
+          widthFit
           disabled={form.formState.isSubmitting}
           onClick={form.handleSubmit(handleCreate)}
         >

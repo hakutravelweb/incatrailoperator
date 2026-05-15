@@ -157,7 +157,7 @@ export async function getArticlesPagination(
     { tags: ['articles'] },
   )()
 
-  const articlesTranslate = articles.map((article): Article => {
+  const articlesTranslation = articles.map((article): Article => {
     return {
       ...article,
       slug: article.slug[locale],
@@ -175,7 +175,7 @@ export async function getArticlesPagination(
   })
 
   return {
-    data: articlesTranslate,
+    data: articlesTranslation,
     total,
   }
 }
@@ -225,7 +225,7 @@ export async function getArticlesCategoryPagination(
     { tags: ['articles'] },
   )()
 
-  const articlesTranslate = articles.map((article): Article => {
+  const articlesTranslation = articles.map((article): Article => {
     return {
       ...article,
       slug: article.slug[locale],
@@ -243,7 +243,7 @@ export async function getArticlesCategoryPagination(
   })
 
   return {
-    data: articlesTranslate,
+    data: articlesTranslation,
     total,
   }
 }
@@ -275,7 +275,7 @@ export async function getArticleBySlug(locale: Locale, slug: string) {
     }
   })
 
-  const articleTranslate: Article = {
+  const articleTranslation: Article = {
     ...article,
     slug: article.slug[locale],
     title: article.title[locale],
@@ -290,7 +290,7 @@ export async function getArticleBySlug(locale: Locale, slug: string) {
     localizations,
   }
 
-  return articleTranslate
+  return articleTranslation
 }
 
 export async function getArticles(locale: Locale) {
@@ -307,7 +307,7 @@ export async function getArticles(locale: Locale) {
     { tags: ['articles'] },
   )()
 
-  const articlesTranslate = articles.map((article): Article => {
+  const articlesTranslation = articles.map((article): Article => {
     return {
       ...article,
       slug: article.slug[locale],
@@ -324,5 +324,5 @@ export async function getArticles(locale: Locale) {
     }
   })
 
-  return articlesTranslate
+  return articlesTranslation
 }

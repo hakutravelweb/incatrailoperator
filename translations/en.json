@@ -63,7 +63,7 @@
       "password": "Password"
     },
     "sign-in": "Sign in",
-    "weelcome": "Welcome back, {name}!",
+    "welcome": "Welcome back, {name}!",
     "error-session": "Unable to start session"
   },
   "Dashboard": {
@@ -127,25 +127,33 @@
         "select-destination": "Select your destination"
       },
       "itinerary": {
-        "title": "Itinerary from {title}",
-        "save-label": "Save itinerary",
-        "saved-message": "The itinerary for {title} has been saved",
-        "routes": "Routes",
-        "points": "Points",
+        "title": "Itinerary of {title}",
+        "save-label": "Save",
+        "create-route-label": "Create route",
+        "create-waypoint-label": "Create waypoint",
+        "create-route-title": "Create a route",
+        "create-waypoint-title": "Create a waypoint",
+        "update-route-title": "Edit route details",
+        "update-waypoint-title": "Edit waypoint details",
+        "created-route-message": "The route {title} was created",
+        "created-waypoint-message": "The waypoint {title} was created",
+        "updated-route-message": "The route {title} was saved",
+        "updated-waypoint-message": "The waypoint {title} was saved",
         "add-route-label": "Add route",
-        "add-point-label": "Add point",
-        "deleted-route-message": "The route {title} has been deleted",
-        "deleted-waypoint-message": "The point {title} was deleted",
-        "route-number": "Route #{number}",
-        "point-number": "Point #{number}"
+        "add-waypoint-label": "Add waypoint",
+        "deleted-route-message": "The route {title} was deleted",
+        "deleted-waypoint-message": "The waypoint {title} was deleted"
       },
       "asked-question": {
         "title": "Asked questions from {title}",
-        "save-label": "Save questions",
-        "saved-message": "The questions from {title} have been saved",
-        "question-number": "Question #{number}",
-        "add-question-label": "Add question",
-        "deleted-question-message": "The question {title} has been deleted"
+        "save-label": "Save",
+        "create-label": "Create asked question",
+        "create-title": "Create a frequently asked question",
+        "update-title": "Edit frequently asked question details",
+        "created-message": "The question {title} was created",
+        "updated-message": "The question {title} was updated",
+        "add-label": "Add question",
+        "deleted-message": "The question {title} has been deleted"
       },
       "variants": {
         "JOURNEY": "Journey",
@@ -584,5 +592,8 @@
       "description": "Thousands of travelers have trusted us to discover Peru. Now it's your turn to live an unforgettable experience with a 100% local company.",
       "explore-journeys": "Explore journeys"
     }
+  },
+  "Loading": {
+    "step-journey": "We are preparing your trip..."
   }
 }

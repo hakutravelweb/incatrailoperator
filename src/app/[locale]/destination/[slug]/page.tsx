@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const destination = await getDestinationBySlug(locale, slug)
 
   return {
+    metadataBase: new URL(process.env.APP_URL!),
     title: destination.title,
     description: destination.about,
     robots: {
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: destination.title,
       description: destination.about,
+      images: [`/posters/banner.jpg`],
     },
   }
 }

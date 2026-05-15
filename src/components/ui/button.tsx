@@ -3,10 +3,11 @@ import { PropsWithChildren } from 'react'
 import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
 
-type Variant = 'default' | 'menu' | 'primary' | 'action'
+type Variant = 'menu' | 'primary' | 'action'
 
 interface Props {
   variant?: Variant
+  widthFit?: boolean
   disabled?: boolean
   invalid?: boolean
   icon?: keyof typeof Icons
@@ -15,6 +16,7 @@ interface Props {
 
 export function Button({
   variant,
+  widthFit,
   disabled,
   invalid,
   icon,
@@ -33,7 +35,7 @@ export function Button({
       disabled={disabled}
       onClick={handleClick}
       className={cn(
-        'not-disabled:hover:bg-dark-charcoal not-disabled:active:bg-dav-ys-grey disabled:bg-chinese-white disabled:text-gray-x11 flex cursor-pointer items-center justify-center gap-2 rounded-full px-4 py-3.5 transition-colors duration-100 not-disabled:bg-black not-disabled:text-white not-disabled:active:text-white/50 disabled:cursor-auto',
+        'not-disabled:hover:bg-dark-charcoal not-disabled:active:bg-dav-ys-grey disabled:bg-chinese-white disabled:text-gray-x11 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-4 py-3.5 transition-colors duration-100 not-disabled:bg-black not-disabled:text-white not-disabled:active:text-white/50 disabled:cursor-auto',
         {
           'not-disabled:hover:bg-anti-flash-white not-disabled:active:bg-chinese-white not-disabled:active:text-dav-ys-grey py-2.5 not-disabled:bg-white not-disabled:text-black':
             variant === 'menu',
@@ -42,6 +44,7 @@ export function Button({
           'not-disabled:hover:bg-anti-flash-white not-disabled:active:bg-chinese-white not-disabled:active:text-dav-ys-grey border-chinese-white border-2 py-2 not-disabled:bg-white not-disabled:text-black':
             variant === 'action',
           'outline-ue-red outline-2': invalid,
+          'w-fit': widthFit,
         },
       )}
     >

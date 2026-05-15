@@ -10,8 +10,8 @@ import {
 import { createDestination } from '@/services/destination'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
-import { InputTranslate } from '@/components/ui/input-translate'
-import { TextareaTranslate } from '@/components/ui/textarea-translate'
+import { InputTranslation } from '@/components/ui/input-translation'
+import { TextareaTranslation } from '@/components/ui/textarea-translation'
 
 interface Props {
   onClose: () => void
@@ -62,6 +62,7 @@ export function DestinationCreate({ onClose, onRefresh }: Props) {
           </strong>
         </div>
         <Button
+          widthFit
           disabled={form.formState.isSubmitting}
           onClick={form.handleSubmit(handleCreate)}
         >
@@ -73,7 +74,7 @@ export function DestinationCreate({ onClose, onRefresh }: Props) {
           control={form.control}
           name='slug'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('destination.form-field.slug')}
               value={field.value}
@@ -86,7 +87,7 @@ export function DestinationCreate({ onClose, onRefresh }: Props) {
           control={form.control}
           name='title'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('destination.form-field.title')}
               value={field.value}
@@ -99,7 +100,7 @@ export function DestinationCreate({ onClose, onRefresh }: Props) {
           control={form.control}
           name='department'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('destination.form-field.department')}
               value={field.value}
@@ -112,7 +113,7 @@ export function DestinationCreate({ onClose, onRefresh }: Props) {
           control={form.control}
           name='about'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <TextareaTranslation
               ref={field.ref}
               label={t('destination.form-field.about')}
               value={field.value}

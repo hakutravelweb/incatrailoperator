@@ -11,7 +11,7 @@ import {
   storageDelete,
 } from '@/services/storage'
 import { Localization } from '@/shared/interfaces'
-import { JourneySchema, ItinerarySchema } from '@/schemas/journey'
+import { JourneySchema, RouteSchema, WaypointSchema } from '@/schemas/journey'
 import {
   Journey,
   Route,
@@ -268,16 +268,22 @@ export async function getJourneysPagination(
       return await Promise.all([
         prisma.journey.findMany({
           where: {
-            slug: {
-              path: [locale],
-              string_contains: search,
-              mode: 'insensitive',
-            },
-            title: {
-              path: [locale],
-              string_contains: search,
-              mode: 'insensitive',
-            },
+            OR: [
+              {
+                slug: {
+                  path: [locale],
+                  string_contains: search,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                title: {
+                  path: [locale],
+                  string_contains: search,
+                  mode: 'insensitive',
+                },
+              },
+            ],
           },
           include: {
             category: true,
@@ -293,7 +299,7 @@ export async function getJourneysPagination(
     { tags: ['journeys'] },
   )()
 
-  const journeysTranslate = journeys.map((journey): Journey => {
+  const journeysTranslation = journeys.map((journey): Journey => {
     return {
       ...journey,
       slug: journey.slug[locale],
@@ -339,7 +345,7 @@ export async function getJourneysPagination(
   })
 
   return {
-    data: journeysTranslate,
+    data: journeysTranslation,
     total,
   }
 }
@@ -362,100 +368,36 @@ export async function getJourney(id: string) {
   return journey
 }
 
-export async function getItinerary(journeyId: string) {
-  const routes = await unstable_cache(
-    async () => {
-      return await prisma.route.findMany({
-        where: {
-          journeyId,
-        },
-        include: {
-          waypoints: {
-            orderBy: {
-              time: 'asc',
-            },
-          },
-        },
-      })
-    },
-    [`itinerary-${journeyId}`],
-    {
-      tags: [`itinerary-${journeyId}`, 'journeys'],
-    },
-  )()
+export async function createRoute(input: RouteSchema) {
+  const created = await prisma.route.create({
+    data: input,
+  })
 
-  return routes
+  revalidateTag('routes', { expire: 0 })
+  revalidateTag('journeys', { expire: 0 })
+
+  return created
 }
 
-export async function saveItinerary(input: ItinerarySchema) {
-  await prisma.$transaction(
-    async (transaction) => {
-      await Promise.all(
-        input.routes.map(async (route) => {
-          const { routeId, ...data } = route
-          if (route.routeId) {
-            const waypointsToUpdate = data.waypoints.filter(
-              (waypoint) => waypoint.waypointId,
-            )
-            const waypointsToCreate = data.waypoints.filter(
-              (waypoint) => !waypoint.waypointId,
-            )
-            const waypoints = waypointsToUpdate.map((waypoint) => {
-              const { waypointId, routeId, ...data } = waypoint
-
-              return {
-                data,
-                where: {
-                  id: waypointId,
-                },
-              }
-            })
-
-            await transaction.route.update({
-              data: {
-                title: data.title,
-                waypoints: {
-                  updateMany: waypoints,
-                  createMany: {
-                    data: waypointsToCreate,
-                  },
-                },
-              },
-              where: {
-                id: routeId,
-              },
-            })
-          } else {
-            const waypoints = data.waypoints.map((waypoint) => {
-              const { waypointId, routeId, ...data } = waypoint
-
-              return data
-            })
-            await transaction.route.create({
-              data: {
-                title: data.title,
-                journeyId: data.journeyId,
-                waypoints: {
-                  createMany: { data: waypoints },
-                },
-              },
-            })
-          }
-        }),
-      )
+export async function updateRoute(id: string, input: RouteSchema) {
+  const route = await prisma.route.findUniqueOrThrow({
+    where: {
+      id,
     },
-    {
-      timeout: 10000,
+  })
+
+  const updated = await prisma.route.update({
+    where: {
+      id: route.id,
     },
-  )
-  if (input.routes[0]?.journeyId) {
-    revalidateTag(`itinerary-${input.routes[0].journeyId}`, {
-      expire: 0,
-    })
-    revalidateTag('journeys', {
-      expire: 0,
-    })
-  }
+    data: input,
+  })
+
+  revalidateTag(`route-${id}`, { expire: 0 })
+  revalidateTag('routes', { expire: 0 })
+  revalidateTag('journeys', { expire: 0 })
+
+  return updated
 }
 
 export async function deleteRoute(id: string) {
@@ -480,10 +422,86 @@ export async function deleteRoute(id: string) {
     },
   })
 
-  revalidateTag(`itinerary-${route.journeyId}`, { expire: 0 })
+  revalidateTag('routes', { expire: 0 })
   revalidateTag('journeys', { expire: 0 })
 
   return deleted
+}
+
+export async function getRoutes(locale: Locale, journeyId: string) {
+  const routes = await unstable_cache(
+    async () => {
+      return await prisma.route.findMany({
+        where: {
+          journeyId,
+        },
+      })
+    },
+    [`routes-${locale}-${journeyId}`],
+    {
+      tags: ['routes'],
+    },
+  )()
+
+  const routesTranslation = routes.map((route): Route => {
+    return {
+      ...route,
+      title: route.title[locale],
+      waypoints: [],
+    }
+  })
+
+  return routesTranslation
+}
+
+export async function getRoute(id: string) {
+  const route = await unstable_cache(
+    async () => {
+      return await prisma.route.findUniqueOrThrow({
+        where: {
+          id,
+        },
+      })
+    },
+    [`route-${id}`],
+    {
+      tags: [`route-${id}`, 'routes'],
+    },
+  )()
+
+  return route
+}
+
+export async function createWaypoint(input: WaypointSchema) {
+  const created = await prisma.waypoint.create({
+    data: input,
+  })
+
+  revalidateTag('waypoints', { expire: 0 })
+  revalidateTag('journeys', { expire: 0 })
+
+  return created
+}
+
+export async function updateWaypoint(id: string, input: WaypointSchema) {
+  const waypoint = await prisma.waypoint.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  })
+
+  const updated = await prisma.waypoint.update({
+    where: {
+      id: waypoint.id,
+    },
+    data: input,
+  })
+
+  revalidateTag(`waypoint-${id}`, { expire: 0 })
+  revalidateTag('waypoints', { expire: 0 })
+  revalidateTag('journeys', { expire: 0 })
+
+  return updated
 }
 
 export async function deleteWaypoint(id: string) {
@@ -502,11 +520,57 @@ export async function deleteWaypoint(id: string) {
     },
   })
 
-  revalidateTag('journeys', {
-    expire: 0,
-  })
+  revalidateTag('waypoints', { expire: 0 })
+  revalidateTag('journeys', { expire: 0 })
 
   return deleted
+}
+
+export async function getWaypoints(locale: Locale, routeId: string) {
+  const waypoints = await unstable_cache(
+    async () => {
+      return await prisma.waypoint.findMany({
+        where: {
+          routeId,
+        },
+        orderBy: {
+          time: 'asc',
+        },
+      })
+    },
+    [`waypoints-${locale}-${routeId}`],
+    {
+      tags: ['waypoints'],
+    },
+  )()
+
+  const waypointsTranslation = waypoints.map((waypoint): Waypoint => {
+    return {
+      ...waypoint,
+      title: waypoint.title[locale],
+      description: waypoint.description[locale],
+    }
+  })
+
+  return waypointsTranslation
+}
+
+export async function getWaypoint(id: string) {
+  const waypoint = await unstable_cache(
+    async () => {
+      return await prisma.waypoint.findUniqueOrThrow({
+        where: {
+          id,
+        },
+      })
+    },
+    [`waypoint-${id}`],
+    {
+      tags: [`waypoint-${id}`, 'waypoints'],
+    },
+  )()
+
+  return waypoint
 }
 
 export async function getJourneys(
@@ -543,7 +607,7 @@ export async function getJourneys(
     { tags: ['journeys'] },
   )()
 
-  const journeysTranslate = journeys.map((journey): Journey => {
+  const journeysTranslation = journeys.map((journey): Journey => {
     const reviewsCount = journey.reviews.length
     const totalRating = journey.reviews.reduce(
       (sum, review) => sum + review.rating,
@@ -598,7 +662,7 @@ export async function getJourneys(
     }
   })
 
-  return journeysTranslate
+  return journeysTranslation
 }
 
 export async function getJourneyBySlug(locale: Locale, slug: string) {
@@ -675,7 +739,7 @@ export async function getJourneyBySlug(locale: Locale, slug: string) {
     }
   })
 
-  const journeyTranslate: Journey = {
+  const journeyTranslation: Journey = {
     ...journey,
     slug: journey.slug[locale],
     title: journey.title[locale],
@@ -717,7 +781,7 @@ export async function getJourneyBySlug(locale: Locale, slug: string) {
     localizations,
   }
 
-  return journeyTranslate
+  return journeyTranslation
 }
 
 export async function getJourneysDestination(filters: Filters) {
@@ -756,7 +820,7 @@ export async function getJourneysDestination(filters: Filters) {
     { tags: ['journeys'] },
   )()
 
-  const journeysTranslate = journeys
+  const journeysTranslation = journeys
     .map((journey): Journey => {
       const reviewsCount = journey.reviews.length
       const totalRating = journey.reviews.reduce(
@@ -817,7 +881,7 @@ export async function getJourneysDestination(filters: Filters) {
         : journey,
     )
 
-  return journeysTranslate
+  return journeysTranslation
 }
 
 export async function getJourneyPackages(locale: Locale) {
@@ -839,7 +903,7 @@ export async function getJourneyPackages(locale: Locale) {
     { tags: ['journeys'] },
   )()
 
-  const journeysTranslate = journeys.map((journey): Journey => {
+  const journeysTranslation = journeys.map((journey): Journey => {
     const reviewsCount = journey.reviews.length
     const totalRating = journey.reviews.reduce(
       (sum, review) => sum + review.rating,
@@ -894,7 +958,7 @@ export async function getJourneyPackages(locale: Locale) {
     }
   })
 
-  return journeysTranslate
+  return journeysTranslation
 }
 
 export async function getJourneysList(locale: Locale) {
@@ -911,7 +975,7 @@ export async function getJourneysList(locale: Locale) {
     { tags: ['journeys'] },
   )()
 
-  const journeysTranslate = journeys.map((journey): Journey => {
+  const journeysTranslation = journeys.map((journey): Journey => {
     return {
       ...journey,
       slug: journey.slug[locale],
@@ -956,5 +1020,5 @@ export async function getJourneysList(locale: Locale) {
     }
   })
 
-  return journeysTranslate
+  return journeysTranslation
 }

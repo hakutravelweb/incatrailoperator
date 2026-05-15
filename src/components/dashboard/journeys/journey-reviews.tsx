@@ -33,11 +33,13 @@ export function JourneyReviews({ journeyId, onClose }: Props) {
       <div className='border-b-chinese-white z-overlay sticky top-0 flex gap-4 border-b bg-white py-2'>
         <button
           onClick={onClose}
-          className='bg-anti-flash-white active:bg-chinese-white flex size-10 cursor-pointer items-center justify-center rounded-full transition-colors duration-100'
+          className='hover:bg-anti-flash-white active:bg-chinese-white active:text-dark-charcoal flex size-8 cursor-pointer items-center justify-center rounded-full border border-black bg-white transition-colors duration-100'
         >
-          <Icons.Left className='size-6' />
+          <Icons.Left className='size-5' />
         </button>
-        <strong className='text-lg leading-6'>{t('review.title')}</strong>
+        <strong className='flex-1 text-2xl leading-7 font-bold'>
+          {t('review.title')}
+        </strong>
       </div>
       <div className='flex flex-col gap-2'>
         {reviews.data.map((review) => {
@@ -82,16 +84,14 @@ function ReviewItem({ review }: ReviewItemProps) {
     <div className='relative flex items-center justify-center'>
       {isPending && <Icons.Loading className='z-overlay absolute size-6' />}
       <div
-        className={cn('flex items-start gap-2', {
+        className={cn('flex w-full gap-2', {
           'pointer-events-none opacity-20': isPending,
         })}
       >
         <ReviewCard key={review.id} review={review} />
         <Dropdown>
           <Dropdown.Trigger>
-            <div className='border-chinese-white hover:bg-anti-flash-white active:bg-chinese-white flex size-8 items-center justify-center rounded-md border-2'>
-              <Icons.Dots className='size-4' />
-            </div>
+            <Icons.Dots className='size-5' />
           </Dropdown.Trigger>
           <Dropdown.Content>
             <Dropdown.Option onClick={handleDelete}>

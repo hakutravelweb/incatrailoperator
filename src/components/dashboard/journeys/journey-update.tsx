@@ -11,14 +11,14 @@ import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
 import { Select, SelectMultiple } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import { InputTranslate } from '@/components/ui/input-translate'
-import { TextareaTranslate } from '@/components/ui/textarea-translate'
-import { InputListTranslate } from '@/components/ui/input-list-translate'
+import { InputTranslation } from '@/components/ui/input-translation'
+import { TextareaTranslation } from '@/components/ui/textarea-translation'
+import { InputListTranslation } from '@/components/ui/input-list-translation'
 import { InputNumber } from '@/components/ui/input-number'
 import { UploadPhoto } from '@/components/ui/upload-photo'
 import { UploadPhotos } from '@/components/ui/upload-photos'
 import { SelectInputDuration } from '@/components/ui/select-input-duration'
-import { EditorTranslate } from '@/components/ui/editor-translate'
+import { EditorTranslation } from '@/components/ui/editor-translation'
 import { UploadPdf } from '@/components/ui/upload-pdf'
 
 interface Props {
@@ -126,6 +126,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           </strong>
         </div>
         <Button
+          widthFit
           disabled={!isDirty || !isValid || form.formState.isSubmitting}
           onClick={form.handleSubmit(handleUpdate)}
         >
@@ -159,7 +160,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='slug'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('journey.form-field.slug')}
               value={field.value}
@@ -172,7 +173,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='title'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('journey.form-field.title')}
               value={field.value}
@@ -214,7 +215,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='about'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <TextareaTranslation
               ref={field.ref}
               label={t('journey.form-field.about')}
               value={field.value}
@@ -227,7 +228,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='labels'
           render={({ field, formState }) => (
-            <InputListTranslate
+            <InputListTranslation
               ref={field.ref}
               label={t('journey.form-field.labels')}
               value={field.value}
@@ -242,7 +243,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='cancellationPolicy'
           render={({ field, formState }) => (
-            <EditorTranslate
+            <EditorTranslation
               ref={field.ref}
               label={t('journey.form-field.cancellation-policy')}
               value={field.value}
@@ -277,7 +278,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='pickUpService'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <TextareaTranslation
               ref={field.ref}
               label={t('journey.form-field.pick-up-service')}
               value={field.value}
@@ -290,7 +291,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='startTime'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('journey.form-field.start-time')}
               value={field.value}
@@ -303,7 +304,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='finishTime'
           render={({ field, formState }) => (
-            <InputTranslate
+            <InputTranslation
               ref={field.ref}
               label={t('journey.form-field.finish-time')}
               value={field.value}
@@ -316,7 +317,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='highlights'
           render={({ field, formState }) => (
-            <InputListTranslate
+            <InputListTranslation
               ref={field.ref}
               label={t('journey.form-field.highlights')}
               value={field.value}
@@ -331,7 +332,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='detailedDescription'
           render={({ field, formState }) => (
-            <EditorTranslate
+            <EditorTranslation
               ref={field.ref}
               label={t('journey.form-field.detailed-description')}
               value={field.value}
@@ -344,7 +345,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='importantNote'
           render={({ field, formState }) => (
-            <EditorTranslate
+            <EditorTranslation
               ref={field.ref}
               label={t('journey.form-field.important-note')}
               value={field.value}
@@ -357,7 +358,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='inclusions'
           render={({ field, formState }) => (
-            <InputListTranslate
+            <InputListTranslation
               ref={field.ref}
               label={t('journey.form-field.includes')}
               value={field.value}
@@ -372,7 +373,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='exclusions'
           render={({ field, formState }) => (
-            <InputListTranslate
+            <InputListTranslation
               ref={field.ref}
               label={t('journey.form-field.not-included')}
               value={field.value}
@@ -387,7 +388,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='importantWarning'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <TextareaTranslation
               ref={field.ref}
               label={t('journey.form-field.important-warning')}
               value={field.value}
@@ -400,7 +401,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='recommendations'
           render={({ field, formState }) => (
-            <InputListTranslate
+            <InputListTranslation
               ref={field.ref}
               label={t('journey.form-field.recommendations')}
               value={field.value}
@@ -415,7 +416,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
           control={form.control}
           name='additionalAdvice'
           render={({ field, formState }) => (
-            <TextareaTranslate
+            <TextareaTranslation
               ref={field.ref}
               label={t('journey.form-field.additional-advice')}
               value={field.value}
