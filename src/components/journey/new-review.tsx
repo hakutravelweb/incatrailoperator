@@ -55,14 +55,15 @@ export function NewReview({ journey }: Props) {
 
   return (
     <div className='flex flex-col gap-6'>
-      <div className='border-b-chinese-white z-overlay sticky top-0 flex flex-col justify-between gap-4 border-b bg-white py-2 md:flex-row'>
+      <div className='z-overlay sticky top-0 flex flex-col justify-between gap-4 bg-white py-2 md:flex-row'>
         <button
           onClick={handleClose}
-          className='bg-anti-flash-white active:bg-chinese-white flex size-10 cursor-pointer items-center justify-center rounded-full transition-colors duration-100'
+          className='hover:bg-faded-white/80 hover:text-camouflage-blue flex size-10 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
         >
           <Icons.Left className='size-6' />
         </button>
         <Button
+          widthFit
           disabled={form.formState.isSubmitting}
           onClick={form.handleSubmit(handleCreate)}
         >
@@ -83,10 +84,10 @@ export function NewReview({ journey }: Props) {
             />
           )}
         />
-        <div className='flex flex-col gap-2 border-l-2 border-l-black pl-4'>
-          <strong className='text-base leading-4.75'>
+        <div className='bg-bright-grey/80 flex flex-col gap-1 rounded-lg p-4'>
+          <label className='text-sm leading-4.5 font-medium'>
             {t('review.traveller')}
-          </strong>
+          </label>
           <div className='flex flex-col gap-4'>
             <Controller
               control={form.control}

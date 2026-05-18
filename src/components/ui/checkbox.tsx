@@ -21,21 +21,19 @@ export function Checkbox({
   return (
     <div
       onClick={handleChange}
-      className='flex cursor-pointer items-center gap-2'
+      className='flex cursor-pointer items-center gap-3'
     >
       <div
         className={cn(
-          'border-gray-x11 flex size-5 items-center justify-center rounded-sm border-2',
+          'border-pewter-metallic flex size-6 items-center justify-center rounded-sm border-2 transition-colors duration-200',
           {
-            'border-inferno bg-inferno': active,
+            'border-blue-fire bg-blue-fire': active,
           },
         )}
       >
-        {active && <Icons.Check className='size-4 text-white' />}
+        {active && <Icons.Check className='size-5 text-white' />}
       </div>
-      <span className='text-dark-charcoal text-base leading-5 font-medium'>
-        {children}
-      </span>
+      <span className='text-base leading-5.5'>{children}</span>
     </div>
   )
 }
@@ -59,21 +57,19 @@ export function CheckboxNumber({
   return (
     <div
       onClick={handleChange}
-      className='flex cursor-pointer items-center gap-2'
+      className='flex cursor-pointer items-center gap-3'
     >
       <div
         className={cn(
-          'border-gray-x11 flex size-5 items-center justify-center rounded-sm border-2',
+          'border-pewter-metallic flex size-6 items-center justify-center rounded-sm border-2 transition-colors duration-200',
           {
-            'border-inferno bg-inferno': active,
+            'border-blue-fire bg-blue-fire': active,
           },
         )}
       >
-        {active && <Icons.Check className='size-4 text-white' />}
+        {active && <Icons.Check className='size-5 text-white' />}
       </div>
-      <span className='text-dark-charcoal text-base leading-5 font-medium'>
-        {children}
-      </span>
+      <span className='text-base leading-5.5'>{children}</span>
     </div>
   )
 }

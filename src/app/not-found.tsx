@@ -7,6 +7,7 @@ import { GTEesti } from '@/fonts/font'
 import { Localization } from '@/shared/interfaces'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
+import { ButtonLink } from '@/components/ui/button'
 
 export default async function NotFound() {
   const locale = await getLocale()
@@ -21,7 +22,9 @@ export default async function NotFound() {
 
   return (
     <html lang={locale}>
-      <body className={`${GTEesti.className} bg-white text-black antialiased`}>
+      <body
+        className={`${GTEesti.className} text-abstract-navy bg-white antialiased`}
+      >
         <NextIntlClientProvider>
           <Layout localizations={localizations}>
             <Section>
@@ -30,23 +33,15 @@ export default async function NotFound() {
                   <h1 className='text-center text-[28px] leading-7.75 font-bold lg:text-[44px] lg:leading-12 xl:text-[62px] xl:leading-17'>
                     {t('title')}
                   </h1>
-                  <p className='text-dark-charcoal text-xl leading-6 font-medium'>
+                  <p className='text-nevada text-xl leading-6 font-medium'>
                     {t('description')}
                   </p>
                 </div>
                 <div className='flex flex-col gap-4'>
-                  <Link
-                    href='/'
-                    className='bg-lucky-green hover:bg-crispy-mint-green active:bg-st-patricks-green active:text-dark-charcoal rounded-full px-4 py-3.5 text-center text-base leading-5 font-bold transition-colors duration-100'
-                  >
+                  <ButtonLink variant='outline' href='/'>
                     {t('destinatons')}
-                  </Link>
-                  <Link
-                    href='/'
-                    className='hover:bg-dark-charcoal active:bg-dav-ys-grey rounded-full bg-black px-4 py-3.5 text-center text-base leading-5 font-bold text-white transition-colors duration-100 active:text-white/50'
-                  >
-                    {t('travel')}
-                  </Link>
+                  </ButtonLink>
+                  <ButtonLink href='/'>{t('travel')}</ButtonLink>
                 </div>
               </div>
             </Section>

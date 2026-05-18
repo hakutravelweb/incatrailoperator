@@ -48,11 +48,11 @@ export function InputList({
   }
 
   return (
-    <div className='flex flex-col items-start gap-px'>
+    <div className='flex flex-col gap-1'>
       {label && (
-        <label className='text-base leading-5.25 font-medium'>{label}</label>
+        <label className='text-nevada text-xs leading-4'>{label}</label>
       )}
-      <div className='flex flex-col items-start gap-4'>
+      <div className='flex flex-col gap-2'>
         {value.length > 0 && (
           <List
             values={value}
@@ -62,7 +62,7 @@ export function InputList({
                 <div
                   {...props}
                   className={cn(
-                    'border-chinese-white divide-chinese-white divide-y-2 rounded-md border-2',
+                    'border-faded-white divide-faded-white divide-y rounded-lg border',
                     {
                       'cursor-grabbing': isDragged,
                     },
@@ -79,8 +79,8 @@ export function InputList({
                 <div
                   key={key}
                   {...rest}
-                  className={cn('flex items-center gap-2 px-3 py-1', {
-                    'shadow-deep rounded-md': isDragged || isSelected,
+                  className={cn('flex items-center gap-1 px-2 py-1', {
+                    'shadow-main rounded-lg': isDragged || isSelected,
                   })}
                 >
                   <button
@@ -97,9 +97,9 @@ export function InputList({
                   <textarea
                     ref={ref}
                     className={cn(
-                      'hover:border-chinese-white field-sizing-content w-full resize-none rounded-md border-2 border-white bg-white px-2 py-1 text-sm leading-4.5 outline-hidden focus:border-black',
+                      'focus:bg-bright-grey/50 field-sizing-content w-full resize-none rounded-sm px-2 py-1 text-sm leading-4.5 outline-hidden transition-colors duration-200',
                       {
-                        'border-ue-red': !!errors?.[props.key!]?.message,
+                        'border-cayenne-red': !!errors?.[props.key!]?.message,
                       },
                     )}
                     value={value}
@@ -107,7 +107,7 @@ export function InputList({
                   />
                   <Dropdown>
                     <Dropdown.Trigger>
-                      <Icons.Dots className='size-5' />
+                      <Icons.Dots className='size-4' />
                     </Dropdown.Trigger>
                     <Dropdown.Content>
                       <Dropdown.Option onClick={handleDelete(props.key!)}>
@@ -121,7 +121,7 @@ export function InputList({
           />
         )}
         <Button
-          variant='action'
+          variant='outline'
           widthFit
           invalid={!!errors?.message}
           onClick={handleAdd}

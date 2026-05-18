@@ -5,6 +5,7 @@ import { useDropzone } from 'react-dropzone'
 import { RefCallBack } from 'react-hook-form'
 import { Icons } from '@/icons/icon'
 import { cn, getFullMediaUrl } from '@/lib/utils'
+import { Button } from './button'
 
 interface Props {
   ref?: RefCallBack
@@ -77,11 +78,11 @@ export function UploadPhotos({
   }
 
   return (
-    <div className='relative flex flex-col gap-px'>
+    <div className='relative flex flex-col gap-1'>
       <input ref={ref} readOnly className='absolute size-px outline-none' />
-      <label className='text-base leading-5.25 font-medium'>{label}</label>
+      <label className='text-nevada text-xs leading-4'>{label}</label>
       {deletedPhotos.length > 0 && (
-        <span className='text-ue-red my-2 text-sm leading-4.5 font-medium'>
+        <span className='text-cayenne-red my-2 text-sm leading-4.5 font-medium'>
           {t('deleted-message', {
             number: deletedPhotos.length,
           })}
@@ -96,7 +97,7 @@ export function UploadPhotos({
               return (
                 <div
                   key={index}
-                  className='relative aspect-4/3 bg-black transition-opacity duration-100 before:invisible before:absolute before:z-2 before:size-full before:bg-black/40 before:content-[""] hover:before:visible'
+                  className='bg-abstract-navy before:bg-abstract-navy/40 relative aspect-4/3 transition-opacity duration-200 before:invisible before:absolute before:z-2 before:size-full before:content-[""] hover:before:visible'
                 >
                   <img
                     className='size-full object-cover object-center'
@@ -106,11 +107,11 @@ export function UploadPhotos({
                   />
                   <button
                     onClick={handleDeletePhoto(photo)}
-                    className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 left-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
+                    className='hover:bg-faded-white bg-bright-grey absolute top-2 left-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
                   >
                     <div
-                      className={cn('bg-inferno size-4 rounded-full', {
-                        'bg-ue-red': activeDeleted,
+                      className={cn('bg-dark-jade size-4 rounded-full', {
+                        'bg-cayenne-red': activeDeleted,
                       })}
                     />
                   </button>
@@ -121,7 +122,7 @@ export function UploadPhotos({
               return (
                 <div
                   key={index}
-                  className='relative aspect-4/3 bg-black transition-opacity duration-100 before:invisible before:absolute before:z-2 before:size-full before:bg-black/40 before:content-[""] hover:before:visible'
+                  className='bg-abstract-navy before:bg-abstract-navy/40 relative aspect-4/3 transition-opacity duration-200 before:invisible before:absolute before:z-2 before:size-full before:content-[""] hover:before:visible'
                 >
                   <img
                     className='size-full object-cover object-center'
@@ -131,7 +132,7 @@ export function UploadPhotos({
                   />
                   <button
                     onClick={handleDelete(index)}
-                    className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2 right-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
+                    className='hover:bg-faded-white bg-bright-grey absolute top-2 right-2 z-2 flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
                   >
                     <Icons.Close className='size-6' />
                   </button>
@@ -143,31 +144,28 @@ export function UploadPhotos({
         <div
           {...getRootProps()}
           className={cn(
-            'border-gray-x11 rounded-xl border border-dashed bg-white',
+            'border-pewter-metallic rounded-lg border border-dashed bg-white',
             {
-              'bg-anti-flash-white': isDragActive,
-              'border-ue-red': invalid,
+              'bg-faded-white': isDragActive,
+              'border-cayenne-red': invalid,
             },
           )}
         >
           <input {...getInputProps()} />
-          <div
-            onClick={open}
-            className='flex cursor-pointer flex-col items-center gap-6 p-6'
-          >
-            <span className='text-center text-base leading-5.25 font-bold'>
+          <div className='flex flex-col items-center gap-6 p-6'>
+            <span className='text-base leading-5.5 font-medium'>
               {t('title-plural')}
             </span>
             <div className='relative flex items-center justify-center'>
-              <div className='bg-chinese-white h-px w-50 md:w-100' />
-              <span className='absolute bg-white px-2 text-lg leading-5.5 font-bold'>
+              <div className='bg-faded-white h-px w-50 md:w-100' />
+              <span className='text-nevada absolute bg-white px-2 text-base leading-5.5'>
                 {t('or')}
               </span>
             </div>
-            <div className='hover:bg-dark-charcoal active:bg-dav-ys-grey flex rounded-full bg-black px-6 py-3.5 text-center text-base leading-5.25 font-bold text-white active:text-white/50'>
+            <Button variant='outline' widthFit onClick={open}>
               {t('select-from-your-computer')}
-            </div>
-            <span className='text-dark-charcoal text-sm leading-4.5'>
+            </Button>
+            <span className='text-nevada text-sm leading-4.5'>
               {t('supported-formats')}
             </span>
           </div>

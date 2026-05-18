@@ -60,8 +60,8 @@ export function WaypointsList({ routeId, waypointsPromise, onRefresh }: Props) {
   }
 
   return (
-    <div className='flex flex-col gap-4'>
-      <div className='flex flex-col gap-2 pl-1'>
+    <div className='flex flex-col gap-1'>
+      <div className='flex flex-col'>
         {waypoints.map((waypoint) => {
           return (
             <WaypointItem
@@ -72,9 +72,11 @@ export function WaypointsList({ routeId, waypointsPromise, onRefresh }: Props) {
           )
         })}
       </div>
-      <Button widthFit icon='Plus' onClick={create.onOpen}>
-        {t('journey.itinerary.add-waypoint-label')}
-      </Button>
+      <div className='pb-4'>
+        <Button variant='outline' widthFit icon='Plus' onClick={create.onOpen}>
+          {t('journey.itinerary.add-waypoint-label')}
+        </Button>
+      </div>
       <Modal
         variant='manage'
         title={t('journey.itinerary.create-waypoint-title')}

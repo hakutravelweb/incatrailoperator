@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useForm, Controller, RefCallBack } from 'react-hook-form'
 import Link from '@tiptap/extension-link'
@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils'
 import { Navigation } from '@/shared/interfaces'
 import { LinkSchema, linkResolver, linkDefaultValues } from '@/schemas/article'
 import { useDisclosure } from '@/hooks/use-disclosure'
+import { useOnClickOutside } from '@/hooks/use-onclick-outside'
 import { Navigator } from './extensions/navigator'
 import { Modal } from './modal'
 import { Input } from './input'
@@ -31,6 +32,7 @@ interface Props {
   onChange: (value: string) => void
   placeholder?: string
   invalid?: boolean
+  isFocus?: boolean
   onNavigation?: (value: Navigation[]) => void
 }
 
@@ -41,10 +43,13 @@ export function Editor({
   onChange,
   placeholder,
   invalid,
+  isFocus,
   onNavigation,
 }: Props) {
   const t = useTranslations('Dashboard')
   const link = useDisclosure()
+  const focus = useDisclosure()
+  const contentRef = useRef<HTMLDivElement>(null)
   const [navigation, setNavigation] = useState<TableOfContentData>([])
 
   const form = useForm<LinkSchema>({
@@ -67,7 +72,7 @@ export function Editor({
       Placeholder.configure({
         placeholder,
         emptyEditorClass:
-          'before:text-sonic-silver before:content-[attr(data-placeholder)] before:float-left before:h-0 before:pointer-events-none',
+          'before:text-pewter-metallic before:content-[attr(data-placeholder)] before:float-left before:h-0 before:pointer-events-none',
       }),
       Navigator,
       TableOfContents.configure({
@@ -92,12 +97,8 @@ export function Editor({
     ],
     editorProps: {
       attributes: {
-        class: cn(
-          'min-h-39 border-chinese-white border-2 focus:border-black rounded-sm outline-hidden p-4 text-trout [&_:is(h3,strong)]:text-black [&_a]:text-inferno [&_hr]:border-t-chinese-white [&_ul_li,&_ol_li]:marker:text-inferno text-base leading-6 [&_:is(h3)]:mb-3 [&_a]:underline [&_h3]:text-xl [&_h3]:leading-5 [&_hr]:my-4 [&_ol]:list-decimal [&_p:not(:last-child)]:mb-4 [&_:is(h3,strong)]:font-medium [&_ul]:list-disc [&_ul_li,&_ol_li]:ml-6 [&_ul_li:not(:first-child),&_ol_li:not(:first-child)]:mt-2 [&_ul:not(:last-child),&_ol:not(:last-child)]:mb-4 [&_nav]:bg-inferno/20 [&_nav]:px-2 [&_nav]:py-1 [&_nav]:mb-2 [&_nav_:is(h3)]:mb-0 [&_nav]:rounded-lg',
-          {
-            'border-ue-red': invalid,
-          },
-        ),
+        class:
+          'min-h-40 outline-hidden [&_:is(h3,strong)]:text-abstract-navy [&_a]:font-medium [&_hr]:border-t-faded-white [&_ul_li,&_ol_li]:marker:text-abstract-navy text-base leading-5.5 [&_:is(h3)]:mb-2 [&_a]:underline-premium [&_h3]:text-xl [&_h3]:leading-6 [&_h3]:font-bold [&_hr]:my-4 [&_ol]:list-decimal [&_p:not(:last-child)]:mb-4 [&_:is(h3,strong)]:font-medium [&_ul]:list-disc [&_ul_li,&_ol_li]:ml-4 [&_ul:not(:last-child),&_ol:not(:last-child)]:mb-4 [&_nav]:bg-bright-grey [&_nav]:px-4 [&_nav]:py-2 [&_nav]:mb-2 [&_nav_:is(h3)]:mb-0 [&_nav]:rounded-full',
       },
     },
     content: value,
@@ -127,6 +128,17 @@ export function Editor({
     },
   })
 
+  useEffect(() => {
+    if (focus.isOpen || isFocus) {
+      editor?.commands.focus()
+    }
+  }, [focus.isOpen, isFocus])
+
+  useOnClickOutside({
+    ref: contentRef,
+    handler: focus.onClose,
+  })
+
   const handleLink = () => {
     const url = editor?.getAttributes('link').href
     form.reset({ url })
@@ -145,171 +157,190 @@ export function Editor({
   }
 
   return (
-    <div className='relative flex flex-col items-start gap-px'>
-      <input ref={ref} readOnly className='absolute size-px outline-none' />
-      {label && (
-        <label className='text-base leading-5.25 font-medium'>{label}</label>
+    <div
+      ref={contentRef}
+      onClick={focus.onOpen}
+      className={cn(
+        'border-pewter-metallic relative flex cursor-text items-center gap-2 rounded-lg border-2 bg-white p-3',
+        {
+          'border-blue-fire': focus.isOpen,
+          'border-cayenne-red': invalid,
+          'rounded-none border-none p-0': !label,
+        },
       )}
-      <div
-        className={cn('w-full', {
-          'border-gray-x11 mb-2 rounded-md border border-dashed':
-            navigation.length > 0 && onNavigation,
-        })}
-      >
-        {navigation.length > 0 && onNavigation && (
-          <div className='grid-cols-auto-fill grid gap-2 px-4 py-2'>
-            {navigation.map((item) => {
-              return (
-                <span
-                  key={item.id}
-                  className='text-dark-charcoal text-sm leading-4.5 font-medium'
-                >
-                  {item.textContent}
-                </span>
-              )
+    >
+      <input ref={ref} readOnly className='absolute size-px outline-none' />
+      <div className='flex flex-1 flex-col'>
+        {label && (
+          <label
+            className={cn('text-nevada pointer-events-none text-xs leading-4', {
+              'text-blue-fire': focus.isOpen,
+              'text-cayenne-red': invalid,
             })}
-          </div>
+          >
+            {label}
+          </label>
         )}
-      </div>
-      <Modal isOpen={link.isOpen} onClose={link.onClose}>
-        <div className='flex flex-col gap-4'>
-          <Controller
-            control={form.control}
-            name='url'
-            render={({ field, fieldState }) => (
-              <Input
-                ref={field.ref}
-                label={t('editor.link')}
-                value={field.value}
-                onChange={field.onChange}
-                placeholder='https://'
-                invalid={fieldState.invalid}
+        <div
+          className={cn('w-full', {
+            'mb-2': navigation.length > 0 && onNavigation,
+          })}
+        >
+          {navigation.length > 0 && onNavigation && (
+            <div className='flex flex-wrap gap-2 py-1'>
+              {navigation.map((item) => {
+                return (
+                  <span
+                    key={item.id}
+                    className='bg-bright-grey rounded-full px-4 py-2 text-base leading-5'
+                  >
+                    {item.textContent}
+                  </span>
+                )
+              })}
+            </div>
+          )}
+        </div>
+        <Modal isOpen={link.isOpen} onClose={link.onClose}>
+          <div className='flex flex-col gap-4'>
+            <Controller
+              control={form.control}
+              name='url'
+              render={({ field, fieldState }) => (
+                <Input
+                  ref={field.ref}
+                  label={t('editor.link')}
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder='https://'
+                  invalid={fieldState.invalid}
+                />
+              )}
+            />
+            <Button
+              disabled={form.formState.isSubmitting}
+              onClick={form.handleSubmit(handleSaveLink)}
+            >
+              {t('editor.save-label')}
+            </Button>
+          </div>
+        </Modal>
+        {editor && (
+          <BubbleMenu
+            className='shadow-main border-faded-white flex flex-wrap items-center rounded-2xl border bg-white p-2'
+            editor={editor}
+          >
+            <MenuItem
+              icon='Paragraph'
+              onClick={() => editor.chain().focus().setParagraph().run()}
+              active={editorState?.isParagraph}
+            />
+            <MenuItem
+              icon='H3'
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 3 }).run()
+              }
+              active={editorState?.isH3}
+            />
+            <MenuItem
+              icon='Bold'
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              active={editorState?.isBold}
+            />
+            <MenuItem
+              icon='Italic'
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+              active={editorState?.isItalic}
+            />
+            <MenuItem
+              icon='Link'
+              onClick={handleLink}
+              active={editorState?.isLink}
+            />
+            {editorState?.isLink && (
+              <MenuItem
+                icon='Unsetlink'
+                onClick={() => editor.chain().focus().unsetLink().run()}
               />
             )}
-          />
-          <Button
-            disabled={form.formState.isSubmitting}
-            onClick={form.handleSubmit(handleSaveLink)}
+            <MenuItem
+              icon='BulletList'
+              onClick={() => editor.chain().focus().toggleBulletList().run()}
+              active={editorState?.isBulletList}
+            />
+            <MenuItem
+              icon='OrderedList'
+              onClick={() => editor.chain().focus().toggleOrderedList().run()}
+              active={editorState?.isOrderedList}
+            />
+            <MenuItem
+              icon='HorizontalRule'
+              onClick={() => editor.chain().focus().setHorizontalRule().run()}
+              active={editorState?.isHorizontalRule}
+            />
+            {onNavigation && (
+              <MenuItem
+                icon='Navigation'
+                onClick={() => editor.chain().focus().toggleNavigator().run()}
+                active={editorState?.isNavigator}
+              />
+            )}
+          </BubbleMenu>
+        )}
+        {editor && (
+          <FloatingMenu
+            className='shadow-main border-faded-white flex flex-wrap items-center rounded-2xl border bg-white p-2'
+            editor={editor}
           >
-            {t('editor.save-label')}
-          </Button>
-        </div>
-      </Modal>
-      {editor && (
-        <BubbleMenu
-          className='shadow-deep flex flex-wrap items-center rounded-xl bg-white p-1'
-          editor={editor}
-        >
-          <MenuItem
-            icon='Paragraph'
-            onClick={() => editor.chain().focus().setParagraph().run()}
-            active={editorState?.isParagraph}
-          />
-          <MenuItem
-            icon='H3'
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 3 }).run()
-            }
-            active={editorState?.isH3}
-          />
-          <MenuItem
-            icon='Bold'
-            onClick={() => editor.chain().focus().toggleBold().run()}
-            active={editorState?.isBold}
-          />
-          <MenuItem
-            icon='Italic'
-            onClick={() => editor.chain().focus().toggleItalic().run()}
-            active={editorState?.isItalic}
-          />
-          <MenuItem
-            icon='Link'
-            onClick={handleLink}
-            active={editorState?.isLink}
-          />
-          {editorState?.isLink && (
             <MenuItem
-              icon='Unsetlink'
-              onClick={() => editor.chain().focus().unsetLink().run()}
+              icon='Paragraph'
+              onClick={() => editor.chain().focus().setParagraph().run()}
+              active={editorState?.isParagraph}
             />
-          )}
-          <MenuItem
-            icon='BulletList'
-            onClick={() => editor.chain().focus().toggleBulletList().run()}
-            active={editorState?.isBulletList}
-          />
-          <MenuItem
-            icon='OrderedList'
-            onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            active={editorState?.isOrderedList}
-          />
-          <MenuItem
-            icon='HorizontalRule'
-            onClick={() => editor.chain().focus().setHorizontalRule().run()}
-            active={editorState?.isHorizontalRule}
-          />
-          {onNavigation && (
             <MenuItem
-              icon='Navigation'
-              onClick={() => editor.chain().focus().toggleNavigator().run()}
-              active={editorState?.isNavigator}
+              icon='H3'
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 3 }).run()
+              }
+              active={editorState?.isH3}
             />
-          )}
-        </BubbleMenu>
-      )}
-      {editor && (
-        <FloatingMenu
-          className='shadow-deep flex flex-wrap items-center rounded-xl bg-white p-1'
-          editor={editor}
-        >
-          <MenuItem
-            icon='Paragraph'
-            onClick={() => editor.chain().focus().setParagraph().run()}
-            active={editorState?.isParagraph}
-          />
-          <MenuItem
-            icon='H3'
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 3 }).run()
-            }
-            active={editorState?.isH3}
-          />
-          <MenuItem
-            icon='Bold'
-            onClick={() => editor.chain().focus().toggleBold().run()}
-            active={editorState?.isBold}
-          />
-          <MenuItem
-            icon='Italic'
-            onClick={() => editor.chain().focus().toggleItalic().run()}
-            active={editorState?.isItalic}
-          />
-          <MenuItem
-            icon='BulletList'
-            onClick={() => editor.chain().focus().toggleBulletList().run()}
-            active={editorState?.isBulletList}
-          />
-          <MenuItem
-            icon='OrderedList'
-            onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            active={editorState?.isOrderedList}
-          />
-          <MenuItem
-            icon='HorizontalRule'
-            onClick={() => editor.chain().focus().setHorizontalRule().run()}
-            active={editorState?.isHorizontalRule}
-          />
-        </FloatingMenu>
-      )}
-      {editor && (
-        <DragHandle
-          editor={editor}
-          className='hover:bg-dark-charcoal active:bg-dav-ys-grey flex h-6 w-5 cursor-grab items-center justify-center rounded-md bg-black transition-colors'
-        >
-          <Icons.Drag className='size-4.5 text-white' />
-        </DragHandle>
-      )}
-      <EditorContent editor={editor} className='w-full' />
+            <MenuItem
+              icon='Bold'
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              active={editorState?.isBold}
+            />
+            <MenuItem
+              icon='Italic'
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+              active={editorState?.isItalic}
+            />
+            <MenuItem
+              icon='BulletList'
+              onClick={() => editor.chain().focus().toggleBulletList().run()}
+              active={editorState?.isBulletList}
+            />
+            <MenuItem
+              icon='OrderedList'
+              onClick={() => editor.chain().focus().toggleOrderedList().run()}
+              active={editorState?.isOrderedList}
+            />
+            <MenuItem
+              icon='HorizontalRule'
+              onClick={() => editor.chain().focus().setHorizontalRule().run()}
+              active={editorState?.isHorizontalRule}
+            />
+          </FloatingMenu>
+        )}
+        {editor && (
+          <DragHandle
+            editor={editor}
+            className='hover:bg-camouflage-blue bg-abstract-navy flex h-6 w-5 cursor-grab items-center justify-center rounded-md transition-colors duration-200'
+          >
+            <Icons.Drag className='size-4.5 text-white' />
+          </DragHandle>
+        )}
+        <EditorContent editor={editor} className='w-full' />
+      </div>
     </div>
   )
 }
@@ -334,11 +365,9 @@ function MenuItem({ onClick, active, disabled, icon }: MenuItemProps) {
       onClick={handleClick}
       disabled={disabled}
       className={cn(
-        'active:bg-dark-charcoal cursor-pointer rounded-md p-1 text-black hover:bg-black hover:text-white',
+        'not-disabled:hover:bg-faded-white not-disabled:text-abstract-navy disabled:text-pewter-metallic cursor-pointer rounded-md p-1 transition-colors duration-200 disabled:cursor-not-allowed',
         {
-          'bg-black text-white': active,
-          'bg-chinese-white hover:bg-chinese-white text-gray-x11 hover:text-gray-x11 cursor-default':
-            disabled,
+          'not-disabled:bg-bright-grey': active,
         },
       )}
     >

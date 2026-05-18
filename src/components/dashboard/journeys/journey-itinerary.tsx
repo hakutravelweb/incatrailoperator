@@ -35,18 +35,18 @@ export function JourneyItinerary({ journeyId, onClose }: Props) {
 
   return (
     <div className='flex flex-col gap-2'>
-      <div className='flex items-baseline gap-2 py-4'>
+      <div className='flex items-center gap-2 py-4'>
         <button
           onClick={onClose}
-          className='hover:bg-anti-flash-white active:bg-chinese-white active:text-dark-charcoal flex size-8 cursor-pointer items-center justify-center rounded-full border border-black bg-white transition-colors duration-100'
+          className='hover:bg-faded-white/80 hover:text-camouflage-blue flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
         >
           <Icons.Left className='size-5' />
         </button>
-        <strong className='flex-1 text-2xl leading-7 font-bold'>
+        <span className='flex-1 text-lg leading-6 font-bold'>
           {t('journey.asked-question.title', {
             title,
           })}
-        </strong>
+        </span>
       </div>
       <Suspense fallback={<Icons.Loading className='mx-auto size-6' />}>
         {routesPromise ? (

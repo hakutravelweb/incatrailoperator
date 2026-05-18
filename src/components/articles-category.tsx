@@ -22,11 +22,11 @@ export function ArticlesCategory() {
 
   return (
     <div className='grid grid-cols-1 items-start gap-6 md:grid-cols-[30%_1fr]'>
-      <div className='shadow-deep flex flex-col gap-4 rounded-xl bg-white p-4 md:sticky md:top-2'>
-        <strong className='text-lg leading-6'>{t('categories')}</strong>
-        <div className='flex flex-col gap-2'>
+      <div className='border-faded-white flex flex-col gap-2 rounded-2xl border bg-white p-4 md:sticky md:top-2'>
+        <span className='text-lg leading-6 font-medium'>{t('categories')}</span>
+        <div className='flex flex-col'>
           {categories.data.length === 0 && (
-            <span className='text-dav-ys-grey text-sm leading-4.5'>
+            <span className='text-nevada text-sm leading-4.5'>
               {t('categories-empty')}
             </span>
           )}
@@ -42,14 +42,21 @@ export function ArticlesCategory() {
               <div
                 key={category.id}
                 onClick={handleCategory(category.id)}
-                className={cn(
-                  'bg-anti-flash-white hover:bg-inferno cursor-pointer rounded-lg p-2 transition-colors duration-100 hover:text-white',
-                  {
-                    'bg-inferno text-white': active,
-                  },
-                )}
+                className='flex min-h-12 cursor-pointer items-center gap-2 py-2'
               >
-                <span className='text-base leading-5 font-medium'>
+                <div
+                  className={cn(
+                    'border-pewter-metallic flex size-6 items-center justify-center rounded-full border-2 transition-colors duration-200',
+                    {
+                      'border-blue-fire': active,
+                    },
+                  )}
+                >
+                  {active && (
+                    <div className='bg-blue-fire size-3 rounded-full' />
+                  )}
+                </div>
+                <span className='flex-1 text-left text-base leading-5.5'>
                   {category.title}
                 </span>
               </div>
@@ -60,7 +67,7 @@ export function ArticlesCategory() {
       <div className='flex flex-col gap-4'>
         {!articlesCategory.loading && articlesCategory.data.length === 0 && (
           <div className='flex justify-center py-4'>
-            <span className='text-dav-ys-grey text-sm leading-4.5'>
+            <span className='text-nevada text-sm leading-4.5'>
               {t('empty-message')}
             </span>
           </div>

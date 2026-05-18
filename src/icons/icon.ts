@@ -3,8 +3,6 @@ import Down from './down.svg'
 import Search from './search.svg'
 import Clock from './clock.svg'
 import Close from './close.svg'
-import ArrowLeft from './arrow-left.svg'
-import ArrowRight from './arrow-right.svg'
 import Dots from './dots.svg'
 import Loading from './loading.svg'
 import PhotoPlus from './photo-plus.svg'
@@ -14,8 +12,6 @@ import EyeOpen from './eye-open.svg'
 import Drag from './drag.svg'
 import Star from './star.svg'
 import Right from './right.svg'
-import Up from './up.svg'
-import CloseCircle from './close-circle.svg'
 import Plus from './plus.svg'
 import Minus from './minus.svg'
 import Paragraph from './paragraph.svg'
@@ -32,7 +28,6 @@ import Facebook from './facebook.svg'
 import Instagram from './instagram.svg'
 import Twitter from './twitter.svg'
 import Youtube from './youtube.svg'
-import Location from './location.svg'
 import Persons from './persons.svg'
 import Email from './email.svg'
 import Whatsapp from './whatsapp.svg'
@@ -40,6 +35,10 @@ import Menu from './menu.svg'
 import Link from './link.svg'
 import Unsetlink from './unset-link.svg'
 import Range from './range.svg'
+import Logo from './logo.svg'
+import Route from './route.svg'
+import Waypoint from './waypoint.svg'
+import Photo from './photo.svg'
 
 export const Icons = {
   Language,
@@ -47,8 +46,6 @@ export const Icons = {
   Search,
   Clock,
   Close,
-  ArrowLeft,
-  ArrowRight,
   Dots,
   Loading,
   PhotoPlus,
@@ -58,8 +55,6 @@ export const Icons = {
   Drag,
   Star,
   Right,
-  Up,
-  CloseCircle,
   Plus,
   Minus,
   Paragraph,
@@ -76,7 +71,6 @@ export const Icons = {
   Instagram,
   Twitter,
   Youtube,
-  Location,
   Persons,
   Email,
   Whatsapp,
@@ -84,4 +78,8 @@ export const Icons = {
   Link,
   Unsetlink,
   Range,
+  Logo,
+  Route,
+  Waypoint,
+  Photo,
 }

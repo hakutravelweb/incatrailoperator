@@ -55,8 +55,8 @@ export function CategoryItem({ category, onEdit, onRefresh }: Props) {
         })}
       >
         <div className='flex flex-wrap items-center gap-4'>
-          <span className='text-base leading-4.75'>{category.title}</span>
-          <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
+          <span className='text-base leading-5.5'>{category.title}</span>
+          <div className='border-abstract-navy rounded-sm border px-2 py-1 text-xs leading-4 font-medium uppercase'>
             {t('category.journeys-number', {
               number: category.journeysCount,
             })}
@@ -70,7 +70,7 @@ export function CategoryItem({ category, onEdit, onRefresh }: Props) {
             <Dropdown.Option onClick={handleEdit}>
               {t('actions.edit')}
             </Dropdown.Option>
-            <Dropdown.Option onClick={handleDelete}>
+            <Dropdown.Option danger onClick={handleDelete}>
               {t('actions.delete')}
             </Dropdown.Option>
           </Dropdown.Content>

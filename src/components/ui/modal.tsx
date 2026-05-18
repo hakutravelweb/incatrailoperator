@@ -42,47 +42,45 @@ export function Modal({
             role='dialog'
             className='z-overlay fixed inset-0 top-0 left-0 flex items-center justify-center'
           >
-            <div
-              onClick={onClose}
-              className='absolute inset-0 bg-black/40 opacity-80'
-            />
+            <div onClick={onClose} className='absolute inset-0 bg-black/50' />
             <div
               className={cn(
-                'animate-fade-in z-overlay relative flex size-full max-w-full flex-col overflow-hidden bg-white md:m-4 md:h-auto md:w-125 md:rounded-xl',
+                'animate-fade-in z-overlay shadow-main md:border-faded-white relative flex size-full max-w-full flex-col overflow-hidden bg-white md:m-4 md:h-auto md:w-115 md:rounded-2xl md:border',
                 {
-                  'md:max-h-modal-height max-w-200 md:h-auto md:w-full':
+                  'md:m-0 md:h-full md:w-full md:rounded-none md:border-none':
                     variant === 'preview',
-                  'md:max-h-modal-height md:w-145': variant === 'manage',
+                  'md:max-h-modal-height': variant === 'manage',
                 },
               )}
             >
-              <div className='flex justify-end px-6 py-4'>
-                <Icons.Close
+              <div className='flex items-center p-3'>
+                <button
                   onClick={onClose}
-                  className='size-5 cursor-pointer'
-                />
+                  className='hover:bg-faded-white/80 hover:text-camouflage-blue flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
+                >
+                  <Icons.Close className='size-6' />
+                </button>
+                {title && (
+                  <div className='flex-1 px-3 text-center text-xl leading-6 font-bold'>
+                    {title}
+                  </div>
+                )}
               </div>
               <div
-                className={cn('scrollbar-hidden overflow-y-auto px-6 py-5', {
-                  'size-full overflow-visible py-0': variant === 'preview',
-                  'px-6 py-4 md:px-12': variant === 'manage',
+                className={cn('scrollbar-hidden overflow-y-auto px-6 pb-6', {
+                  'size-full overflow-visible': variant === 'preview',
                 })}
               >
-                {title && (
-                  <h2 className='mb-4 text-2xl leading-7.25 font-bold md:text-[28px] md:leading-8.5'>
-                    {title}
-                  </h2>
-                )}
                 {children}
               </div>
               {actions.length > 0 && (
-                <div className='border-t-chinese-white shadow-soft-drop flex justify-end gap-3 border-t px-6 py-3'>
+                <div className='border-t-faded-white shadow-soft-drop flex justify-end gap-3 border-t px-6 py-3'>
                   {actions.map((action, index) => {
                     return (
                       <Button
                         key={index}
                         variant={
-                          action.type === 'action' ? 'primary' : undefined
+                          action.type === 'close' ? 'outline' : undefined
                         }
                         widthFit
                         disabled={action.disabled}

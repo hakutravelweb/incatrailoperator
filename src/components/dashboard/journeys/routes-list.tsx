@@ -69,9 +69,9 @@ export function RoutesList({ journeyId, routesPromise, onRefresh }: Props) {
               return (
                 <RouteItem
                   key={route.id}
-                  step={index + 1}
                   onRefresh={onRefresh}
                   route={route}
+                  showDottedLine={index < routes.length - 1}
                 />
               )
             })}

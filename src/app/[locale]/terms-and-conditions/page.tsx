@@ -45,14 +45,14 @@ export default async function TermsAndConditions() {
     <Layout localizations={localizations}>
       <Section>
         <div className='grid grid-cols-1 items-start gap-6 py-10 md:grid-cols-[30%_1fr]'>
-          <div className='shadow-deep flex flex-col gap-4 rounded-xl bg-white p-4 md:sticky md:top-4'>
-            <strong className='text-lg leading-6'>
+          <div className='border-faded-white flex flex-col gap-4 rounded-2xl border bg-white p-4 md:sticky md:top-4'>
+            <span className='text-lg leading-6 font-medium'>
               {t('navigation-title')}
-            </strong>
+            </span>
             <MenuNavigation navigation={home.navigationTerms} />
           </div>
-          <div className='border-anti-flash-white flex flex-col gap-6 rounded-xl border-2 bg-white p-4'>
-            <strong className='text-2xl leading-8'>{t('title')}</strong>
+          <div className='border-faded-white flex flex-col gap-4 rounded-2xl border bg-white p-4'>
+            <span className='text-2xl leading-8 font-bold'>{t('title')}</span>
             <ParseHtml content={home.termsAndConditions} />
           </div>
         </div>

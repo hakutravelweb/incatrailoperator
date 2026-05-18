@@ -84,14 +84,16 @@ export function WaypointItem({ onRefresh, waypoint }: Props) {
   }
 
   return (
-    <div className='flex items-baseline gap-2'>
-      <div className='border-inferno flex size-6 items-center justify-center rounded-full border-2'>
-        <div className='bg-inferno size-4 rounded-full' />
+    <div className='flex gap-3'>
+      <div className='bg-dotted-line'>
+        <div className='shadow-main-small bg-abstract-navy flex size-8 items-center justify-center rounded-full'>
+          <Icons.Waypoint className='size-6 text-white' />
+        </div>
       </div>
-      <div className='flex flex-1 flex-col gap-1'>
-        <div className='flex items-center justify-between gap-4'>
-          <span className='text-inferno text-base leading-6 font-medium'>
-            {formatTime(locale, waypoint.time)}
+      <div className='flex flex-1 flex-col pb-4'>
+        <div className='flex items-center gap-4'>
+          <span className='flex-1 text-base leading-5.5 font-medium'>
+            {waypoint.title}
           </span>
           <Dropdown variant='manage'>
             <Dropdown.Trigger>
@@ -107,11 +109,9 @@ export function WaypointItem({ onRefresh, waypoint }: Props) {
             </Dropdown.Content>
           </Dropdown>
         </div>
-        <span className='text-base leading-5.25 font-bold'>
-          {waypoint.title}
-        </span>
-        <span className='text-dark-charcoal text-base leading-6'>
-          {waypoint.description}
+        <span className='text-sm leading-5'>{waypoint.description}</span>
+        <span className='text-nevada mt-0.5 text-sm leading-5 font-medium'>
+          {formatTime(locale, waypoint.time)}
         </span>
       </div>
       <Modal

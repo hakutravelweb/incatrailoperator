@@ -41,29 +41,25 @@ export default async function ContactUs() {
 
   return (
     <Layout localizations={localizations}>
-      <div className='bg-inferno flex flex-col gap-10 py-20'>
+      <div className='bg-bright-grey flex flex-col gap-10 py-20'>
         <Section>
           <div className='flex flex-col items-center gap-2 text-center'>
-            <strong className='text-2xl leading-7 text-white'>
-              {t('title')}
-            </strong>
-            <span className='text-base leading-5 font-medium text-white'>
-              {t('description')}
-            </span>
+            <span className='text-2xl leading-6 font-bold'>{t('title')}</span>
+            <span className='text-base leading-5.5'>{t('description')}</span>
           </div>
         </Section>
         <Section>
           <div className='grid gap-10 md:grid-cols-2'>
-            <div className='flex flex-col gap-6 rounded-xl bg-white p-6'>
-              <strong className='text-lg leading-6'>
+            <div className='border-faded-white flex flex-col gap-6 rounded-2xl border bg-white p-6'>
+              <span className='text-lg leading-6 font-bold'>
                 {t('contact.title')}
-              </strong>
+              </span>
               <Contact />
             </div>
-            <div className='flex flex-col gap-6 rounded-xl bg-white p-6'>
-              <strong className='text-lg leading-6'>
+            <div className='border-faded-white flex flex-col gap-6 rounded-2xl border bg-white p-6'>
+              <span className='text-lg leading-6 font-bold'>
                 {t('information.title')}
-              </strong>
+              </span>
               <InformationContact />
             </div>
           </div>

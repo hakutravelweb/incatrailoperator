@@ -42,7 +42,7 @@ export function RateExperience({
   return (
     <div className='relative flex flex-col gap-px'>
       <input ref={ref} readOnly className='absolute size-px outline-none' />
-      <label className='text-base leading-5.25 font-medium'>{label}</label>
+      <label className='text-base leading-5.5 font-medium'>{label}</label>
       <div className='flex items-center gap-2'>
         <div className='flex items-center gap-px'>
           {ratings.map((rating) => {
@@ -55,10 +55,10 @@ export function RateExperience({
                 onMouseOver={handleMouseOver(rating)}
                 onMouseLeave={handleMouseLeave}
                 className={cn(
-                  'text-chinese-white size-8 cursor-pointer transition-colors duration-100',
+                  'text-bright-grey size-8 cursor-pointer transition-colors duration-100',
                   {
-                    'text-ue-red': invalid,
-                    'text-yellow-sea': active,
+                    'text-cayenne-red': invalid,
+                    'text-abstract-navy': active,
                   },
                 )}
               />
@@ -66,7 +66,7 @@ export function RateExperience({
           })}
         </div>
         {(score || value) > 0 && (
-          <span className='text-dark-charcoal text-sm leading-4.5'>
+          <span className='text-sm leading-4.5'>
             {t(`rating.${(score || value) as Score}`)}
           </span>
         )}

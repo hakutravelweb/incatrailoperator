@@ -17,36 +17,31 @@ export function ArticleHeader({ article }: Props) {
   return (
     <div className='flex flex-col gap-4'>
       <div className='flex items-center gap-1'>
-        <Link
-          href='/'
-          className='text-dark-charcoal text-base leading-5 hover:underline'
-        >
+        <Link href='/' className='hover:underline-premium text-base leading-5'>
           {t('country')}
         </Link>
-        <Icons.Right className='text-dav-ys-grey size-4' />
+        <Icons.Right className='text-nevada size-4' />
         <Link
           href='/articles'
-          className='text-dark-charcoal text-base leading-5 hover:underline'
+          className='hover:underline-premium text-base leading-5'
         >
           {t('articles')}
         </Link>
       </div>
       <div className='flex flex-col gap-2'>
-        <span className='text-inferno text-base leading-5 font-bold'>
+        <span className='text-dark-jade text-base leading-5 font-medium'>
           {article.category.title}
         </span>
-        <strong className='text-2xl leading-7.25 md:text-[28px] md:leading-8.5'>
+        <h1 className='text-2xl leading-7.25 font-bold md:text-[28px] md:leading-8.5'>
           {article.title}
-        </strong>
-        <span className='text-dark-charcoal text-base leading-5'>
-          {article.introduction}
-        </span>
+        </h1>
+        <span className='text-base leading-5'>{article.introduction}</span>
         <div className='flex flex-wrap gap-2'>
           {article.labels.map((label, index) => {
             return (
               <div
                 key={index}
-                className='border-chinese-white rounded-full border-2 bg-white px-3 py-1 text-sm leading-4.5 font-medium'
+                className='bg-bright-grey rounded-full px-3 py-1 text-sm leading-4.5 font-medium'
               >
                 {label}
               </div>
@@ -54,7 +49,7 @@ export function ArticleHeader({ article }: Props) {
           })}
         </div>
       </div>
-      <hr className='border-chinese-white border-t' />
+      <hr className='border-faded-white border-t' />
       <div className='flex items-center gap-4'>
         <div className='flex items-center gap-2'>
           <img
@@ -62,11 +57,11 @@ export function ArticleHeader({ article }: Props) {
             src='/logos/logo.svg'
             alt={article.author.name}
           />
-          <div className='flex flex-col gap-px'>
-            <strong className='text-base leading-5'>
+          <div className='flex flex-col'>
+            <span className='text-base leading-5.5 font-medium'>
               {article.author.name}
-            </strong>
-            <span className='text-dark-charcoal text-sm leading-4.5'>
+            </span>
+            <span className='text-nevada text-sm leading-4.5'>
               {formatDate({
                 locale,
                 date: new Date(article.createdAt),
@@ -80,19 +75,17 @@ export function ArticleHeader({ article }: Props) {
           </div>
         </div>
         <div className='flex items-center gap-2'>
-          <Icons.Clock className='text-dav-ys-grey size-5' />
-          <span className='text-dav-ys-grey text-sm leading-4.5 font-medium'>
+          <Icons.Clock className='size-5' />
+          <span className='text-sm leading-4.5 font-medium'>
             {t('reading-time', {
               time: calculateReadingTime(article.content),
             })}
           </span>
         </div>
       </div>
-      <hr className='border-chinese-white border-t' />
+      <hr className='border-faded-white border-t' />
       <div className='flex items-center gap-4'>
-        <span className='text-dav-ys-grey text-sm leading-4.5 font-medium'>
-          {t('share')}
-        </span>
+        <span className='text-sm leading-4.5 font-medium'>{t('share')}</span>
         <div className='flex items-center gap-1'>
           <Link
             href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}

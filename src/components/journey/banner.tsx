@@ -7,6 +7,8 @@ import { Link } from '@/i18n/routing'
 import { Journey } from '@/interfaces/journey'
 import { useDisclosure } from '@/hooks/use-disclosure'
 import { Modal } from '@/components/ui/modal'
+import { Button } from '@/components/ui/button'
+import { Rating } from './rating'
 
 interface Props {
   journey: Journey
@@ -55,28 +57,64 @@ export function Banner({ journey }: Props) {
   return (
     <div className='flex flex-col gap-6'>
       <div className='flex items-center gap-1'>
-        <Link
-          href='/'
-          className='text-dark-charcoal text-base leading-5 hover:underline'
-        >
+        <Link href='/' className='hover:underline-premium text-base leading-5'>
           {t('country')}
         </Link>
-        <Icons.Right className='text-dav-ys-grey size-4' />
+        <Icons.Right className='text-nevada size-4' />
         <Link
           href={`/destination/${journey.destination.slug}`}
-          className='text-dark-charcoal text-base leading-5 hover:underline'
+          className='hover:underline-premium text-base leading-5'
         >
           {journey.destination.title}
         </Link>
       </div>
-      <div className='relative -mx-6 h-80 bg-black lg:mx-0 lg:overflow-hidden lg:rounded-xl'>
-        <div className='grid size-full grid-cols-4 grid-rows-2 gap-1'>
+      <div className='flex flex-col gap-2'>
+        <h1 className='text-[28px] leading-8 font-bold lg:text-[36px] lg:leading-11'>
+          {journey.title}
+        </h1>
+        <div className='flex flex-wrap items-center gap-4'>
+          <div className='bg-abstract-navy rounded-sm px-2 py-1 text-sm leading-5 font-medium text-white'>
+            {t(`variant.${journey.variant}`)}
+          </div>
+          <div className='flex items-center gap-2'>
+            <Rating variant='large' rating={journey.rating} />
+            <span className='text-base leading-5.5 font-medium'>
+              {journey.rating.toFixed(1)}
+            </span>
+          </div>
+          <span className='underline-premium text-base leading-5.5 font-medium'>
+            {t('reviews-count', {
+              quantity: journey.reviewsCount,
+            })}
+          </span>
+          <span className='text-nevada text-base leading-5.5'>•</span>
+          <span className='text-nevada text-base leading-5.5'>
+            {t('country')}, {journey.destination.title}
+          </span>
+          <span className='text-nevada text-base leading-5.5'>•</span>
+          <span className='text-nevada text-base leading-5.5'>
+            {journey.duration.type === 'HOUR'
+              ? t('duration-hours', {
+                  quantity: journey.duration.quantity,
+                })
+              : t('duration-days', {
+                  quantity: journey.duration.quantity,
+                })}
+          </span>
+          <span className='text-nevada text-base leading-5.5'>•</span>
+          <span className='text-nevada text-base leading-5.5'>
+            {journey.category.title}
+          </span>
+        </div>
+      </div>
+      <div className='relative -mx-6 h-80 lg:mx-0 lg:overflow-hidden lg:rounded-2xl'>
+        <div className='grid size-full grid-cols-4 grid-rows-2 gap-2'>
           {photos.map((photo, index) => {
             return (
               <div
                 key={index}
                 onClick={handleViewPhoto(index)}
-                className={`cursor-pointer ${sizes[index]}`}
+                className={`bg-bright-grey cursor-pointer ${sizes[index]}`}
               >
                 <img
                   className='size-full object-cover'
@@ -89,15 +127,16 @@ export function Banner({ journey }: Props) {
           })}
         </div>
         {morePhotos > 0 && (
-          <button
-            onClick={gallery.onOpen}
-            className='hover:bg-anti-flash-white active:bg-chinese-white absolute right-4 bottom-4 flex cursor-pointer items-center justify-center gap-1 rounded-full bg-white px-4 py-2 transition-colors duration-100'
-          >
-            <Icons.PhotoPlus className='size-5' />
-            <span className='text-sm leading-4.5 font-medium'>
+          <div className='absolute right-4 bottom-4'>
+            <Button
+              variant='secondary'
+              widthFit
+              icon='Photo'
+              onClick={gallery.onOpen}
+            >
               {t('view-all-photos')}
-            </span>
-          </button>
+            </Button>
+          </div>
         )}
         <Modal
           variant='preview'
@@ -105,26 +144,32 @@ export function Banner({ journey }: Props) {
           isOpen={gallery.isOpen}
           onClose={gallery.onClose}
         >
-          <div className='relative -mx-6 flex h-full items-center justify-center bg-black'>
-            <button
-              onClick={handlePrev}
-              className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2/4 left-5 flex size-10 -translate-y-2/4 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
-            >
-              <Icons.ArrowLeft onClick={handlePrev} className='size-6' />
-            </button>
-            <button
-              onClick={handleNext}
-              className='hover:bg-anti-flash-white active:bg-chinese-white absolute top-2/4 right-5 flex size-10 -translate-y-2/4 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100'
-            >
-              <Icons.ArrowRight onClick={handlePrev} className='size-6' />
-            </button>
+          <div className='relative flex size-full items-center justify-center'>
+            <div className='absolute top-2/4 left-6 -translate-y-2/4'>
+              <button
+                onClick={handlePrev}
+                className='shadow-main-small flex size-11 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-200'
+              >
+                <Icons.Left onClick={handlePrev} className='size-6' />
+              </button>
+            </div>
+            <div className='absolute top-2/4 right-6 -translate-y-2/4'>
+              <button
+                onClick={handleNext}
+                className='shadow-main-small flex size-11 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-200'
+              >
+                <Icons.Right onClick={handlePrev} className='size-6' />
+              </button>
+            </div>
             {photo && (
-              <img
-                className='w-full object-contain md:h-100'
-                src={getFullMediaUrl(photo)}
-                alt={journey.title}
-                loading='lazy'
-              />
+              <div className='aspect-video'>
+                <img
+                  className='size-full object-contain'
+                  src={getFullMediaUrl(photo)}
+                  alt={journey.title}
+                  loading='lazy'
+                />
+              </div>
             )}
           </div>
         </Modal>

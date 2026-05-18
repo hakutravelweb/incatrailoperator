@@ -49,6 +49,7 @@ export function SignIn() {
         name='email'
         render={({ field, fieldState }) => (
           <Input
+            ref={field.ref}
             label={t('labels.email')}
             value={field.value}
             onChange={field.onChange}
@@ -62,17 +63,17 @@ export function SignIn() {
         name='password'
         render={({ field, fieldState }) => (
           <Input
+            ref={field.ref}
             label={t('labels.password')}
             type='password'
             value={field.value}
             onChange={field.onChange}
-            placeholder='******'
+            placeholder='••••••'
             invalid={fieldState.invalid}
           />
         )}
       />
       <Button
-        variant='primary'
         disabled={form.formState.isSubmitting}
         onClick={form.handleSubmit(handleSignin)}
       >

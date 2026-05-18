@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   Merge,
@@ -5,8 +6,11 @@ import {
   FieldErrorsImpl,
   RefCallBack,
 } from 'react-hook-form'
+import { cn } from '@/lib/utils'
 import { Locale, locales } from '@/i18n/config'
 import { Translation } from '@/shared/interfaces'
+import { useDisclosure } from '@/hooks/use-disclosure'
+import { useOnClickOutside } from '@/hooks/use-onclick-outside'
 import { Textarea } from './textarea'
 import { Tabs, Tab } from './tabs'
 
@@ -26,7 +30,15 @@ export function TextareaTranslation({
   errors,
 }: Props) {
   const t = useTranslations('Language')
+  const focus = useDisclosure()
+  const contentRef = useRef<HTMLDivElement>(null)
+  const invalid = locales.some((locale) => !!errors?.[locale]?.message)
   const tabError = locales.findIndex((locale) => !!errors?.[locale]?.message)
+
+  useOnClickOutside({
+    ref: contentRef,
+    handler: focus.onClose,
+  })
 
   const handleChange = (locale: Locale) => (text: string) => {
     onChange({
@@ -36,22 +48,42 @@ export function TextareaTranslation({
   }
 
   return (
-    <div className='border-l-anti-flash-white flex flex-col gap-2 border-l-3 pl-4'>
-      <label className='text-base leading-5.25 font-medium'>{label}</label>
-      <Tabs tabError={tabError}>
-        {locales.map((locale) => {
-          return (
-            <Tab key={locale} label={t(locale)}>
-              <Textarea
-                ref={ref}
-                value={value[locale]}
-                onChange={handleChange(locale)}
-                invalid={!!errors?.[locale]?.message}
-              />
-            </Tab>
-          )
-        })}
-      </Tabs>
+    <div
+      ref={contentRef}
+      onClick={focus.onOpen}
+      className={cn(
+        'border-pewter-metallic flex cursor-text items-center gap-2 rounded-lg border-2 bg-white p-3',
+        {
+          'border-blue-fire': focus.isOpen,
+          'border-cayenne-red': invalid,
+        },
+      )}
+    >
+      <div className='flex flex-1 flex-col'>
+        <label
+          className={cn('text-nevada pointer-events-none text-xs leading-4', {
+            'text-blue-fire': focus.isOpen,
+            'text-cayenne-red': invalid,
+          })}
+        >
+          {label}
+        </label>
+        <Tabs variant='translation' tabError={tabError}>
+          {locales.map((locale) => {
+            return (
+              <Tab key={locale} label={t(locale)}>
+                <Textarea
+                  ref={ref}
+                  value={value[locale]}
+                  onChange={handleChange(locale)}
+                  invalid={!!errors?.[locale]?.message}
+                  isFocus={focus.isOpen}
+                />
+              </Tab>
+            )
+          })}
+        </Tabs>
+      </div>
     </div>
   )
 }

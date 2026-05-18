@@ -56,19 +56,19 @@ export function DestinationItem({ destination, onEdit, onRefresh }: Props) {
         })}
       >
         <div className='flex flex-wrap items-center gap-4'>
-          <div className='flex flex-col gap-px'>
-            <span className='text-dark-charcoal text-sm leading-4.5'>
+          <div className='flex flex-col'>
+            <span className='text-nevada text-sm leading-4.5'>
               {destination.department}
             </span>
             <Link
               href={`/destination/${destination.slug}`}
               target='_blank'
-              className='text-base leading-4.75 underline'
+              className='text-base leading-5.5 underline'
             >
               {destination.title}
             </Link>
           </div>
-          <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
+          <div className='border-abstract-navy rounded-sm border px-2 py-1 text-xs leading-4 font-medium uppercase'>
             {t('destination.journeys-number', {
               number: destination.journeysCount,
             })}
@@ -82,7 +82,7 @@ export function DestinationItem({ destination, onEdit, onRefresh }: Props) {
             <Dropdown.Option onClick={handleEdit}>
               {t('actions.edit')}
             </Dropdown.Option>
-            <Dropdown.Option onClick={handleDelete}>
+            <Dropdown.Option danger onClick={handleDelete}>
               {t('actions.delete')}
             </Dropdown.Option>
           </Dropdown.Content>

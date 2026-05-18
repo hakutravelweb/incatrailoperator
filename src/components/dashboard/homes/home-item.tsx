@@ -56,28 +56,28 @@ export function HomeItem({ home, onEdit, onRefresh }: Props) {
         })}
       >
         <div className='flex flex-wrap items-center gap-4'>
-          <div className='bg-anti-flash-white h-25 w-full md:h-15 md:w-25'>
+          <div className='bg-bright-grey h-25 w-full overflow-hidden rounded-md md:h-15 md:w-25'>
             <img
-              className='size-full rounded-md object-cover'
+              className='size-full object-cover'
               src={getFullMediaUrl(home.photo)}
               alt={home.title}
               loading='lazy'
             />
           </div>
-          <div className='flex flex-col gap-px'>
-            <span className='text-dark-charcoal text-sm leading-4.5'>
+          <div className='flex flex-col'>
+            <span className='text-nevada text-sm leading-4.5'>
               {home.locale}
             </span>
             <Link
               href='/'
-              locale={home.locale as Locale}
+              locale={home.locale}
               target='_blank'
-              className='text-base leading-4.75 underline'
+              className='text-base leading-5.5 font-medium underline'
             >
               {home.title}
             </Link>
           </div>
-          <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
+          <div className='border-abstract-navy rounded-sm border px-2 py-1 text-xs leading-4 font-medium uppercase'>
             {home.subtitle}
           </div>
         </div>
@@ -89,7 +89,7 @@ export function HomeItem({ home, onEdit, onRefresh }: Props) {
             <Dropdown.Option onClick={handleEdit}>
               {t('actions.edit')}
             </Dropdown.Option>
-            <Dropdown.Option onClick={handleDelete}>
+            <Dropdown.Option danger onClick={handleDelete}>
               {t('actions.delete')}
             </Dropdown.Option>
           </Dropdown.Content>

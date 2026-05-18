@@ -9,9 +9,9 @@ export async function DestinationsPerDepartment() {
 
   return (
     <div className='flex flex-col gap-6 py-10'>
-      <strong className='text-2xl leading-7.25'>{t('title')}</strong>
+      <span className='text-2xl leading-7.25 font-bold'>{t('title')}</span>
       {destinationsPerDepartment.length === 0 && (
-        <span className='text-dav-ys-grey text-sm leading-4.5'>
+        <span className='text-nevada text-sm leading-4.5'>
           {t('empty-message')}
         </span>
       )}
@@ -27,5 +27,5 @@ export async function DestinationsPerDepartment() {
 }
 
 export function DestinationsPerDepartmentSkeleton() {
-  return <div className='bg-chinese-white my-10 h-50 w-full animate-pulse' />
+  return <div className='bg-bright-grey my-10 h-50 w-full' />
 }

@@ -51,15 +51,17 @@ export function HomeCreate({ onClose, onRefresh }: Props) {
 
   return (
     <div className='flex flex-col gap-6'>
-      <div className='border-b-chinese-white z-overlay sticky top-0 flex flex-col justify-between gap-4 border-b bg-white py-2 md:flex-row'>
+      <div className='z-overlay sticky top-0 flex flex-col justify-between gap-4 bg-white py-2 md:flex-row'>
         <div className='flex items-center gap-2'>
           <button
             onClick={onClose}
-            className='bg-anti-flash-white active:bg-chinese-white flex size-10 cursor-pointer items-center justify-center rounded-full transition-colors duration-100'
+            className='hover:bg-faded-white/80 hover:text-camouflage-blue flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
           >
-            <Icons.Left className='size-6' />
+            <Icons.Left className='size-5' />
           </button>
-          <strong className='text-lg leading-6'>{t('home.new-label')}</strong>
+          <span className='text-lg leading-6 font-bold'>
+            {t('home.new-label')}
+          </span>
         </div>
         <Button
           widthFit
@@ -131,11 +133,11 @@ export function HomeCreate({ onClose, onRefresh }: Props) {
             />
           )}
         />
-        <div className='flex flex-col gap-2 border-l-2 border-l-black pl-4'>
-          <strong className='text-base leading-4.75'>
+        <div className='bg-bright-grey/80 flex flex-col gap-1 rounded-lg p-4'>
+          <label className='text-sm leading-4.5 font-medium'>
             {t('home.form-field.link.title')}
-          </strong>
-          <div className='flex flex-col gap-4'>
+          </label>
+          <div className='flex flex-col gap-2'>
             <Controller
               control={form.control}
               name='resource.url'

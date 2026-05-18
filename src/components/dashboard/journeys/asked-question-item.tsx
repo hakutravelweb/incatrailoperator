@@ -104,7 +104,7 @@ export function AskedQuestionItem({ askedQuestion, onRefresh }: Props) {
           onClick={faqInfo.onToggle}
           className='flex flex-1 cursor-pointer items-center justify-between gap-4 text-left hover:underline'
         >
-          <span className='text-base leading-5.25 font-bold'>
+          <span className='text-base leading-5.5 font-medium'>
             {askedQuestion.title}
           </span>
           <Icons.Down
@@ -115,7 +115,7 @@ export function AskedQuestionItem({ askedQuestion, onRefresh }: Props) {
         </button>
       </div>
       {faqInfo.isOpen && (
-        <span className='text-dark-charcoal text-sm leading-4.5'>
+        <span className='text-base leading-5.5'>
           {askedQuestion.description}
         </span>
       )}
