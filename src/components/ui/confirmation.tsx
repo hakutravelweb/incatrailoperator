@@ -20,15 +20,17 @@ function Confirmation({ message, confirmText, declineText, resolve }: Props) {
     <div className='z-overlay fixed inset-0 flex items-center justify-center'>
       <div
         onClick={handleResolve(false)}
-        className='absolute inset-0 bg-black/40 opacity-80'
+        className='bg-abstract-navy/40 absolute inset-0 opacity-80'
       />
-      <div className='animate-fade-in z-overlay relative m-4 flex w-125 max-w-full flex-col gap-6 rounded-2xl bg-white px-6 py-5'>
-        <p className='text-dark-charcoal text-base leading-5.5'>{message}</p>
-        <div className='flex items-center justify-end gap-4'>
-          <Button variant='primary' onClick={handleResolve(true)}>
+      <div className='animate-fade-in z-overlay border-faded-white shadow-main relative m-4 flex w-125 max-w-full flex-col gap-6 rounded-2xl border bg-white px-6 py-5'>
+        <p className='text-base leading-5.5'>{message}</p>
+        <div className='flex gap-4'>
+          <Button widthFit onClick={handleResolve(true)}>
             {confirmText}
           </Button>
-          <Button onClick={handleResolve(false)}>{declineText}</Button>
+          <Button widthFit variant='outline' onClick={handleResolve(false)}>
+            {declineText}
+          </Button>
         </div>
       </div>
     </div>

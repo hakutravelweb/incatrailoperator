@@ -3,6 +3,7 @@ import { Icons } from '@/icons/icon'
 import { formatPrice, getFullMediaUrl } from '@/lib/utils'
 import { Link } from '@/i18n/routing'
 import { Destination } from '@/interfaces/journey'
+import { ButtonLink } from './ui/button'
 
 interface Props {
   destination: Destination
@@ -13,8 +14,8 @@ export function DestinationCard({ destination }: Props) {
   const t = useTranslations('DestinationCard')
 
   return (
-    <div className='overflow-hidden rounded-xl border-2 border-black bg-white'>
-      <div className='bg-anti-flash-white aspect-video'>
+    <div className='border-faded-white overflow-hidden rounded-2xl border bg-white'>
+      <div className='bg-bright-grey aspect-video'>
         {destination.photo && (
           <img
             className='size-full object-cover'
@@ -25,47 +26,41 @@ export function DestinationCard({ destination }: Props) {
         )}
       </div>
       <div className='flex flex-col gap-4 p-4'>
-        <strong className='text-base leading-5'>{destination.title}</strong>
+        <span className='text-base leading-5.5 font-medium'>
+          {destination.title}
+        </span>
         <div className='flex items-center gap-4'>
+          <span className='text-nevada text-sm leading-4.5'>
+            {destination.department}
+          </span>
           <div className='flex items-center gap-1'>
-            <Icons.Location className='size-4' />
-            <span className='text-dav-ys-grey text-sm leading-4.5'>
-              {destination.department}
-            </span>
-          </div>
-          <div className='flex items-center gap-1'>
-            <Icons.Star className='text-yellow-sea size-4' />
-            <span className='text-dav-ys-grey text-sm leading-4.5'>
+            <Icons.Star className='size-4' />
+            <span className='text-nevada text-sm leading-4.5'>
               {destination.rating.toFixed(1)} / 5
             </span>
           </div>
           <div className='flex items-center gap-1'>
             <Icons.Persons className='size-4' />
-            <span className='text-dav-ys-grey text-sm leading-4.5'>
+            <span className='text-nevada text-sm leading-4.5'>
               {t('travellers-number', {
                 number: destination.travellersCount,
               })}
             </span>
           </div>
         </div>
-        <span className='text-dark-charcoal text-sm leading-4.5'>
-          {destination.about}
-        </span>
+        <span className='text-sm leading-4.5'>{destination.about}</span>
         <div className='flex items-center justify-between gap-4'>
-          <div className='flex flex-col gap-px'>
-            <span className='text-dav-ys-grey text-sm leading-4.5'>
+          <div className='flex flex-col'>
+            <span className='text-nevada text-sm leading-4.5'>
               {t('from-price')}
             </span>
-            <span className='text-inferno text-base leading-5 font-bold'>
+            <span className='text-cayenne-red text-base leading-5.5 font-medium'>
               {formatPrice(locale, destination.lowestPrice)}
             </span>
           </div>
-          <Link
-            href={`/destination/${destination.slug}`}
-            className='hover:bg-dark-charcoal active:bg-dav-ys-grey rounded-full bg-black px-4 py-2.5 text-sm leading-4.5 font-bold text-white transition-colors duration-100 active:text-white/50'
-          >
+          <ButtonLink widthFit href={`/destination/${destination.slug}`}>
             {t('see-journeys')}
-          </Link>
+          </ButtonLink>
         </div>
       </div>
     </div>

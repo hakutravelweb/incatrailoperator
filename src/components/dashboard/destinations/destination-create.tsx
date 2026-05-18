@@ -49,17 +49,17 @@ export function DestinationCreate({ onClose, onRefresh }: Props) {
 
   return (
     <div className='flex flex-col gap-6'>
-      <div className='border-b-chinese-white z-overlay sticky top-0 flex flex-col justify-between gap-4 border-b bg-white py-2 md:flex-row'>
+      <div className='z-overlay sticky top-0 flex flex-col justify-between gap-4 bg-white py-2 md:flex-row'>
         <div className='flex items-center gap-2'>
           <button
             onClick={onClose}
-            className='bg-anti-flash-white active:bg-chinese-white flex size-10 cursor-pointer items-center justify-center rounded-full transition-colors duration-100'
+            className='hover:bg-faded-white/80 hover:text-camouflage-blue flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
           >
-            <Icons.Left className='size-6' />
+            <Icons.Left className='size-5' />
           </button>
-          <strong className='text-lg leading-6'>
+          <span className='text-lg leading-6 font-bold'>
             {t('destination.new-label')}
-          </strong>
+          </span>
         </div>
         <Button
           widthFit

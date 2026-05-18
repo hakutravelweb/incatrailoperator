@@ -11,9 +11,9 @@ export function Footer() {
   const journeys = useJourneys()
 
   return (
-    <footer className='bg-anti-flash-white flex flex-col gap-6 py-10'>
+    <footer className='bg-abstract-navy flex flex-col gap-4 py-8'>
       <Section>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-[20%_1fr]'>
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-[20%_1fr]'>
           <div className='flex flex-col items-center gap-4'>
             <img
               className='size-12 object-cover'
@@ -21,15 +21,15 @@ export function Footer() {
               alt='Inca Trail Operator'
               loading='lazy'
             />
-            <span className='text-dark-charcoal text-center text-sm leading-4.5'>
+            <span className='text-center text-sm leading-4.5 text-white'>
               {t('slogan')}
             </span>
           </div>
-          <div className='grid grid-cols-2 gap-6 lg:grid-cols-4'>
-            <div className='flex flex-col gap-4'>
-              <strong className='text-base leading-5'>
+          <div className='grid grid-cols-2 gap-4 lg:grid-cols-4'>
+            <div className='flex flex-col gap-2'>
+              <span className='text-base leading-5.5 font-medium text-white'>
                 {t('contact.title')}
-              </strong>
+              </span>
               <div className='flex flex-col gap-2'>
                 <InfoSection label={t('contact.company-name')}>
                   Inca Trail Operator E.I.R.L.
@@ -49,10 +49,10 @@ export function Footer() {
                 </InfoSection>
               </div>
             </div>
-            <div className='flex flex-col gap-4'>
-              <strong className='text-base leading-5'>
+            <div className='flex flex-col gap-2'>
+              <span className='text-base leading-5.5 font-medium text-white'>
                 {t('support.title')}
-              </strong>
+              </span>
               <div className='flex flex-col gap-2'>
                 <FooterLink href='/contact-us'>
                   {t('support.contact-us')}
@@ -71,17 +71,17 @@ export function Footer() {
                 </FooterLink>
               </div>
             </div>
-            <div className='flex flex-col gap-4'>
-              <strong className='text-base leading-5'>
+            <div className='flex flex-col gap-2'>
+              <span className='text-base leading-5.5 font-medium text-white'>
                 {t('populars-journeys.title')}
-              </strong>
+              </span>
               {!journeys.loading && journeys.data.length === 0 && (
-                <span className='text-dav-ys-grey text-sm leading-4.5'>
+                <span className='text-sm leading-4.5 text-white'>
                   {t('populars-journeys.empty-message')}
                 </span>
               )}
               {journeys.loading && (
-                <div className='bg-chinese-white h-10 w-full animate-pulse' />
+                <div className='bg-bright-grey h-10 w-full animate-pulse' />
               )}
               <div className='flex flex-col gap-2'>
                 {journeys.data.map((journey) => (
@@ -94,10 +94,10 @@ export function Footer() {
                 ))}
               </div>
             </div>
-            <div className='flex flex-col gap-4'>
-              <strong className='text-base leading-5'>
+            <div className='flex flex-col gap-2'>
+              <span className='text-base leading-5.5 font-medium text-white'>
                 {t('information.title')}
-              </strong>
+              </span>
               <div className='flex flex-col gap-2'>
                 <FooterLink href='/about-us'>
                   {t('information.about-us')}
@@ -112,7 +112,7 @@ export function Footer() {
       </Section>
       <Section>
         <div className='grid grid-cols-1 place-items-center gap-4 md:grid-cols-2'>
-          <span className='text-dav-ys-grey block text-sm leading-4.5'>
+          <span className='text-sm leading-4.5 text-white'>
             {t('author', {
               year: new Date().getFullYear(),
             })}
@@ -147,10 +147,8 @@ interface InfoSectionProps {
 function InfoSection({ label, children }: PropsWithChildren<InfoSectionProps>) {
   return (
     <div className='space-x-1'>
-      <span className='text-dark-charcoal text-sm leading-4.5 font-medium'>
-        {label}
-      </span>
-      <span className='text-dav-ys-grey text-sm leading-4.5'>{children}</span>
+      <span className='text-sm leading-6 font-medium text-white'>{label}</span>
+      <span className='text-sm leading-6 text-white'>{children}</span>
     </div>
   )
 }
@@ -169,7 +167,7 @@ function FooterLink({
     <Link
       href={href}
       target={target}
-      className='text-dav-ys-grey text-sm leading-4.5 hover:underline'
+      className='text-sm leading-6 font-medium text-white underline'
     >
       {children}
     </Link>
@@ -188,12 +186,8 @@ function SocialIconLink({ href, icon }: SocialIconLinkProps) {
   const Icon = Icons[icon]
 
   return (
-    <Link
-      href={href}
-      className='bg-chinese-white flex size-8 items-center justify-center rounded-full'
-      target='_blank'
-    >
-      <Icon className='size-5' />
+    <Link href={href} target='_blank'>
+      <Icon className='size-6 text-white' />
     </Link>
   )
 }

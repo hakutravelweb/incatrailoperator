@@ -15,25 +15,25 @@ export function ArticleCard({ article }: Props) {
   return (
     <Link
       href={`/article/${article.slug}`}
-      className='border-anti-flash-white overflow-hidden rounded-xl border-2 bg-white'
+      className='border-faded-white overflow-hidden rounded-2xl border bg-white'
     >
-      <div className='bg-anti-flash-white relative aspect-video'>
+      <div className='bg-bright-grey relative aspect-video'>
         <img
           className='size-full object-cover'
           src={getFullMediaUrl(article.photo)}
           alt={article.title}
           loading='lazy'
         />
-        <div className='bg-cinnabar absolute top-2 left-2 rounded-md p-2 text-xs leading-4 font-medium text-white'>
+        <div className='bg-dark-jade absolute top-2 left-2 rounded-md px-2 py-1 text-xs leading-4 font-medium text-white'>
           {article.category.title}
         </div>
       </div>
       <div className='flex flex-col gap-4 p-4'>
-        <strong className='text-base leading-5'>{article.title}</strong>
-        <span className='text-dark-charcoal text-sm leading-4.5'>
-          {article.introduction}
+        <span className='text-base leading-5.5 font-medium'>
+          {article.title}
         </span>
-        <hr className='border-chinese-white border-t' />
+        <span className='text-sm leading-4.5'>{article.introduction}</span>
+        <hr className='border-faded-white border-t' />
         <div className='flex items-center justify-between gap-4'>
           <div className='flex items-center gap-2'>
             <img
@@ -42,10 +42,10 @@ export function ArticleCard({ article }: Props) {
               alt={article.author.name}
             />
             <div className='flex flex-col gap-px'>
-              <strong className='text-sm leading-4.5'>
+              <span className='text-sm leading-4.5 font-medium'>
                 {article.author.name}
-              </strong>
-              <span className='text-dark-charcoal text-xs leading-4'>
+              </span>
+              <span className='text-nevada text-xs leading-4'>
                 {formatDate({
                   locale,
                   date: new Date(article.createdAt),
@@ -58,15 +58,11 @@ export function ArticleCard({ article }: Props) {
               </span>
             </div>
           </div>
-          <span className='text-dav-ys-grey text-sm leading-4.5 font-medium'>
-            8.5k
-          </span>
+          <span className='text-nevada text-sm leading-4.5'>8.5k</span>
         </div>
-        <hr className='border-chinese-white border-t' />
+        <hr className='border-faded-white border-t' />
         <div className='flex items-center justify-between gap-4'>
-          <span className='text-dav-ys-grey text-sm leading-4.5 font-medium'>
-            {t('share')}
-          </span>
+          <span className='text-sm leading-4.5 font-medium'>{t('share')}</span>
           <div className='flex items-center gap-1'>
             <Icons.Facebook className='size-6' />
             <Icons.Twitter className='size-6' />

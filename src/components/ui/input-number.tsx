@@ -1,7 +1,9 @@
 'use client'
-import { useEffect, useState, ChangeEvent } from 'react'
+import { useEffect, useState, ChangeEvent, useRef } from 'react'
 import { RefCallBack } from 'react-hook-form'
 import { cn } from '@/lib/utils'
+import { useDisclosure } from '@/hooks/use-disclosure'
+import { useOnClickOutside } from '@/hooks/use-onclick-outside'
 
 interface Props {
   ref?: RefCallBack
@@ -22,7 +24,16 @@ export function InputNumber({
   placeholder,
   invalid,
 }: Props) {
+  const focus = useDisclosure()
+  const contentRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const [price, setPrice] = useState<string>('')
+
+  useEffect(() => {
+    if (focus.isOpen) {
+      inputRef.current?.focus()
+    }
+  }, [focus.isOpen])
 
   useEffect(() => {
     if (value > 0) {
@@ -31,6 +42,11 @@ export function InputNumber({
       setPrice('')
     }
   }, [value])
+
+  useOnClickOutside({
+    ref: contentRef,
+    handler: focus.onClose,
+  })
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const regex = /^(0|[1-9]\d*)(\.\d{1,2})?$/
@@ -41,28 +57,44 @@ export function InputNumber({
   }
 
   return (
-    <div className='flex flex-col gap-px'>
-      <label className='text-base leading-5.25 font-medium'>{label}</label>
-      <div
-        className={cn(
-          'border-chinese-white flex gap-1.25 rounded-sm border-2 bg-white p-4 focus-within:border-black',
-          {
-            'border-ue-red': invalid,
-          },
+    <div
+      ref={contentRef}
+      onClick={focus.onOpen}
+      className={cn(
+        'border-pewter-metallic flex h-14 cursor-text items-center gap-2 rounded-lg border-2 bg-white p-3',
+        {
+          'border-blue-fire': focus.isOpen,
+          'border-cayenne-red': invalid,
+          'h-auto rounded-none border-none p-0': !label,
+        },
+      )}
+    >
+      <div className='flex flex-1 flex-col'>
+        {label && (
+          <label
+            className={cn('text-nevada pointer-events-none text-xs leading-4', {
+              'text-blue-fire': focus.isOpen,
+              'text-cayenne-red': invalid,
+            })}
+          >
+            {label}
+          </label>
         )}
-      >
-        <span className='translate-x-0.5 -translate-y-px text-base leading-4.75 font-bold'>
-          {prefix}
-        </span>
-        <input
-          ref={ref}
-          className='flex-1 text-base leading-4.75 font-bold outline-hidden'
-          type='text'
-          min={0}
-          value={price}
-          onChange={handleChange}
-          placeholder={placeholder}
-        />
+        <div className='flex gap-1'>
+          <span className='text-base leading-5.25 font-medium'>{prefix}</span>
+          <input
+            ref={(el) => {
+              inputRef.current = el
+              ref?.(el)
+            }}
+            className='placeholder:text-pewter-metallic w-full text-base leading-5.5 font-medium outline-hidden'
+            type='text'
+            min={0}
+            value={price}
+            onChange={handleChange}
+            placeholder={placeholder}
+          />
+        </div>
       </div>
     </div>
   )

@@ -1,15 +1,15 @@
 import { getLocale } from 'next-intl/server'
 import { getFullMediaUrl } from '@/lib/utils'
-import { Link } from '@/i18n/routing'
 import { getHomeLocale } from '@/services/home'
 import { Section } from './section'
+import { ButtonLink } from './ui/button'
 
 export async function HomeBanner() {
   const locale = await getLocale()
   const home = await getHomeLocale(locale)
 
   return (
-    <div className='relative flex h-100 items-center justify-center bg-black'>
+    <div className='bg-abstract-navy relative flex h-100 items-center justify-center'>
       <div className='bg-gradient-shadow absolute inset-0 z-1' />
       <img
         className='absolute size-full object-cover object-center'
@@ -18,19 +18,15 @@ export async function HomeBanner() {
       />
       <Section>
         <div className='relative z-2 flex flex-col items-center gap-6 text-center'>
-          <strong className='text-4xl leading-10 text-white'>
+          <span className='text-4xl leading-10 font-bold text-white'>
             {home.title}
-          </strong>
+          </span>
           <span className='text-xl leading-6 font-medium text-white'>
             {home.subtitle}
           </span>
-          <Link
-            href={home.resource.url}
-            target='_blank'
-            className='not-disabled:bg-inferno not-disabled:hover:bg-outrageous-orange not-disabled:active:bg-cinnabar rounded-full px-6 py-3.5 text-base leading-5 font-bold text-white transition-colors duration-100'
-          >
+          <ButtonLink variant='secondary' widthFit href={home.resource.url}>
             {home.resource.text}
-          </Link>
+          </ButtonLink>
         </div>
       </Section>
     </div>
@@ -38,5 +34,5 @@ export async function HomeBanner() {
 }
 
 export function HomeBannerSkeleton() {
-  return <div className='bg-chinese-white h-100 w-full animate-pulse' />
+  return <div className='bg-bright-grey h-100 w-full' />
 }

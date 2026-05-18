@@ -7,6 +7,7 @@ import { getDestinations } from '@/services/destination'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 import { ArticlesCategory } from '@/components/articles-category'
+import { ButtonLink } from '@/components/ui/button'
 
 const localizations = locales.map((locale): Localization => {
   return {
@@ -43,24 +44,24 @@ export default async function Articles() {
 
   return (
     <Layout localizations={localizations}>
-      <div className='bg-cinnabar py-10'>
+      <div className='bg-inferno py-10'>
         <Section>
           <div className='flex flex-col gap-6 md:flex-row md:items-center md:justify-between'>
             <div className='flex flex-col gap-2'>
-              <strong className='text-2xl leading-7.25 text-white md:text-[28px] md:leading-8.5'>
+              <span className='text-2xl leading-7.25 font-bold text-white md:text-[28px] md:leading-8.5'>
                 Inca Trail Operator
-              </strong>
+              </span>
               <span className='text-base leading-6 text-white'>
                 {t('title')}
               </span>
             </div>
-            <div className='bg-outrageous-orange/50 flex flex-col gap-4 rounded-lg p-4'>
+            <div className='border-faded-white flex flex-col gap-4 rounded-2xl border bg-white p-4'>
               <div className='flex flex-col gap-2'>
-                <span className='text-base leading-6 font-bold text-white'>
+                <span className='text-base leading-6 font-bold'>
                   {t('destinations')}
                 </span>
                 {destinations.length === 0 && (
-                  <span className='text-sm leading-4.5 text-white'>
+                  <span className='text-sm leading-4.5'>
                     {t('destinations-empty')}
                   </span>
                 )}
@@ -71,29 +72,27 @@ export default async function Articles() {
                         key={destination.id}
                         href={`/destination/${destination.slug}`}
                         target='_blank'
-                        className='rounded-full bg-white/20 px-3 py-1 text-sm leading-4.5 font-medium text-white'
+                        className='hover:underline-premium'
                       >
-                        {destination.title}
+                        <span className='text-sm leading-4.5 font-medium'>
+                          {destination.title}
+                        </span>
                       </Link>
                     )
                   })}
                 </div>
               </div>
               <div className='flex flex-col gap-4 md:flex-row'>
-                <Link
+                <ButtonLink
+                  variant='secondary'
+                  widthFit
                   href='https://www.hakutravel.com/es/machu-picchu-tickets'
-                  target='_blank'
-                  className='rounded-full bg-white px-4 py-2.5 text-center text-base leading-5 font-bold'
                 >
                   {t('tickets-machu-picchu')}
-                </Link>
-                <Link
-                  href='/'
-                  target='_blank'
-                  className='bg-cinnabar rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold text-white'
-                >
+                </ButtonLink>
+                <ButtonLink widthFit href='/'>
                   {t('book-journeys')}
-                </Link>
+                </ButtonLink>
               </div>
             </div>
           </div>

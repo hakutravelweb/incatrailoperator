@@ -67,13 +67,11 @@ DropdownTrigger.displayName = TRIGGER_NAME
 const CONTENT_NAME = 'DropdownContent'
 
 const DropdownContent = ({ children }: PropsWithChildren) => {
-  const { variant, disclosure, triggerRef } = useDropdownContext(CONTENT_NAME)
+  const { disclosure, triggerRef } = useDropdownContext(CONTENT_NAME)
   const contentRef = useRef<HTMLDivElement>(null)
   const [coords, setCoords] = useState({
     top: 0,
     left: 0,
-    isBottom: true,
-    arrowX: 0,
   })
 
   const getPosition = useCallback(() => {
@@ -84,25 +82,21 @@ const DropdownContent = ({ children }: PropsWithChildren) => {
       return {
         top: coords.top,
         left: coords.left,
-        '--arrow-x': `${coords.arrowX}px`,
       }
     }
 
     const viewportWidth = window.innerWidth
     const viewportHeight = window.innerHeight
-    const offset = 12
-    const safeMargin = 20
+    const offset = 8
 
     let top = triggerRect.bottom + offset
     let left = triggerRect.right - contentRect.width
-    let isBottom = true
 
     if (
       top + contentRect.height > viewportHeight &&
       triggerRect.top - contentRect.height - offset > 0
     ) {
       top = triggerRect.top - contentRect.height - offset
-      isBottom = false
     }
 
     if (left < 0) {
@@ -116,32 +110,13 @@ const DropdownContent = ({ children }: PropsWithChildren) => {
     //  if (top < offset) top = offset
     // if (left < offset) left = offset
 
-    const triggerCenter = triggerRect.left + triggerRect.width / 2
-    let arrowX = triggerCenter - left
-
-    if (arrowX < safeMargin) {
-      const diff = safeMargin - arrowX
-      left -= diff
-      arrowX = safeMargin
-    } else if (arrowX > contentRect.width - safeMargin) {
-      const diff = arrowX - (contentRect.width - safeMargin)
-      left += diff
-      arrowX = contentRect.width - safeMargin
-    }
-
-    if (
-      coords.top !== top ||
-      coords.left !== left ||
-      coords.isBottom !== isBottom ||
-      coords.arrowX !== arrowX
-    ) {
-      setCoords({ top, left, isBottom, arrowX })
+    if (coords.top !== top || coords.left !== left) {
+      setCoords({ top, left })
     }
 
     return {
       top: coords.top,
       left: coords.left,
-      '--arrow-x': `${coords.arrowX}px`,
     }
   }, [disclosure.isOpen, triggerRef, coords])
 
@@ -171,24 +146,9 @@ const DropdownContent = ({ children }: PropsWithChildren) => {
       <div
         ref={contentRef}
         style={getPosition()}
-        className={cn(
-          'drop-shadow-deep z-overlay fixed min-w-48 rounded-xl bg-white after:absolute after:left-(--arrow-x) after:-translate-x-1/2 after:border-x-10 after:border-x-transparent after:content-[""]',
-          coords.isBottom
-            ? 'after:-top-2 after:border-b-8 after:border-b-white'
-            : 'after:-bottom-2 after:border-t-8 after:border-t-white',
-          {
-            'drop-shadow-tiny': variant === 'manage',
-          },
-        )}
+        className='shadow-main z-overlay border-faded-white fixed min-w-60 rounded-2xl border bg-white'
       >
-        <div
-          className={cn(
-            'max-h-75 overflow-y-auto px-4 before:block before:h-4 before:content-[""] after:block after:h-4 after:content-[""]',
-            {
-              'px-6 before:h-6 after:h-6': variant === 'manage',
-            },
-          )}
-        >
+        <div className='max-h-75 overflow-y-auto px-4 before:block before:h-4 before:content-[""] after:block after:h-4 after:content-[""]'>
           {children}
         </div>
       </div>,
@@ -204,7 +164,6 @@ const OPTION_NAME = 'DropdownOption'
 
 export interface DropdownOptionProps {
   danger?: boolean
-  icon?: keyof typeof Icons
   active?: boolean
   disabled?: boolean
   value?: string
@@ -213,14 +172,13 @@ export interface DropdownOptionProps {
 
 function DropdownOption({
   danger,
-  icon,
   active,
   disabled,
   onClick,
   children,
 }: PropsWithChildren<DropdownOptionProps>) {
   const context = useDropdownContext(OPTION_NAME)
-  const Icon = icon ? Icons[icon] : null
+  const hover = useDisclosure()
 
   const handleClick = () => {
     if (disabled) return
@@ -232,16 +190,31 @@ function DropdownOption({
     <button
       disabled={disabled}
       onClick={handleClick}
+      onMouseOver={hover.onOpen}
+      onMouseLeave={hover.onClose}
       className={cn(
-        'not-disabled:hover:bg-bright-grey disabled:text-nevada not-disabled:text-trout not-disabled:hover:text-cello flex min-h-11 w-full cursor-pointer items-center gap-2 bg-white p-2 text-left transition-colors duration-100',
+        'disabled:text-nevada flex min-h-12 w-full cursor-pointer items-center gap-2 py-2 disabled:cursor-not-allowed',
         {
-          'not-disabled:text-ue-red not-disabled:hover:text-ue-red': danger,
-          'not-disabled:bg-bright-grey not-disabled:text-abstract-navy': active,
+          'not-disabled:text-cayenne-red not-disabled:hover:text-cayenne-red':
+            danger,
         },
       )}
     >
-      {Icon && <Icon className='size-5' />}
-      <span className='text-base leading-5.25'>{children}</span>
+      {active !== undefined && (
+        <div
+          className={cn(
+            'border-pewter-metallic flex size-6 items-center justify-center rounded-full border-2 transition-colors duration-200',
+            {
+              'border-blue-fire': active,
+              'border-trout bg-faded-white/80':
+                hover.isOpen && !active && !disabled,
+            },
+          )}
+        >
+          {active && <div className='bg-blue-fire size-3 rounded-full' />}
+        </div>
+      )}
+      <span className='flex-1 text-left text-base leading-5.5'>{children}</span>
     </button>
   )
 }

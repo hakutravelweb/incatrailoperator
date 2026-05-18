@@ -69,7 +69,7 @@ export function AskedQuestiosList({
       )}
       {askedQuestions.length > 0 && (
         <div className='flex flex-col gap-4'>
-          <div className='divide-chinese-white border-y-chinese-white divide-y border-y'>
+          <div className='divide-faded-white divide-y'>
             {askedQuestions.map((askedQuestion, index) => {
               return (
                 <AskedQuestionItem
@@ -80,7 +80,12 @@ export function AskedQuestiosList({
               )
             })}
           </div>
-          <Button widthFit icon='Plus' onClick={create.onOpen}>
+          <Button
+            variant='outline'
+            widthFit
+            icon='Plus'
+            onClick={create.onOpen}
+          >
             {t('journey.asked-question.add-label')}
           </Button>
         </div>

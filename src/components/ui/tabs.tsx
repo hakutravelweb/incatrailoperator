@@ -9,12 +9,18 @@ import {
   isValidElement,
 } from 'react'
 import { cn } from '@/lib/utils'
+import { useDisclosure } from '@/hooks/use-disclosure'
 
 interface Props {
+  variant?: 'translation'
   tabError?: number
 }
 
-export function Tabs({ tabError, children }: PropsWithChildren<Props>) {
+export function Tabs({
+  variant,
+  tabError,
+  children,
+}: PropsWithChildren<Props>) {
   const [tabIndex, setTabIndex] = useState<number>(0)
 
   const childrenArray = useMemo(() => Children.toArray(children), [children])
@@ -31,12 +37,24 @@ export function Tabs({ tabError, children }: PropsWithChildren<Props>) {
   }
 
   return (
-    <div className='flex flex-col gap-4'>
-      <div className='scrollbar-hidden flex items-end gap-4 overflow-x-auto py-1'>
+    <div
+      className={cn('flex flex-col gap-4', {
+        'gap-1': variant === 'translation',
+      })}
+    >
+      <div
+        className={cn(
+          'scrollbar-hidden border-b-faded-white flex overflow-x-auto border-b',
+          {
+            'gap-2 border-none': variant === 'translation',
+          },
+        )}
+      >
         {childrenArray.map((child, index) => {
           const element = child as ReactElement<TabProps>
           if (isValidElement(element)) {
             return cloneElement<TabProps>(element, {
+              variant,
               error: tabError === index,
               active: index === tabIndex,
               onClick: handleChangeTab(index),
@@ -53,6 +71,7 @@ export function Tabs({ tabError, children }: PropsWithChildren<Props>) {
 }
 
 interface TabProps {
+  variant?: 'translation'
   error?: boolean
   active?: boolean
   onClick?: () => void
@@ -60,23 +79,62 @@ interface TabProps {
 }
 
 export function Tab({
+  variant,
   error,
   active,
   onClick,
   label,
 }: PropsWithChildren<TabProps>) {
+  if (variant === 'translation') {
+    const hover = useDisclosure()
+
+    return (
+      <button
+        onClick={onClick}
+        onMouseOver={hover.onOpen}
+        onMouseLeave={hover.onClose}
+        className={cn('flex cursor-pointer items-center gap-1', {
+          'text-cayenne-red': error,
+        })}
+      >
+        <div
+          className={cn(
+            'border-pewter-metallic flex size-4 items-center justify-center rounded-full border-2 transition-colors duration-200',
+            {
+              'border-blue-fire': active,
+              'border-cayenne-red': error,
+              'border-trout bg-faded-white/80':
+                hover.isOpen && !active && !error,
+            },
+          )}
+        >
+          {active && (
+            <div
+              className={cn('bg-blue-fire size-2 rounded-full', {
+                'bg-cayenne-red': error,
+              })}
+            />
+          )}
+        </div>
+        <span className='text-sm leading-4.5'>{label}</span>
+      </button>
+    )
+  }
+
   return (
     <button
       onClick={onClick}
       className={cn(
-        'hover:text-dav-ys-grey transition-color flex cursor-pointer flex-col items-center p-1 pb-0 whitespace-nowrap duration-100 after:invisible after:block after:w-full after:border-b-2 after:border-b-black after:pt-2 after:content-[""] hover:after:visible',
+        'transition-color text-nevada hover:bg-bright-grey cursor-pointer rounded-t-sm whitespace-nowrap duration-200',
         {
-          'after:visible': active,
-          'after:border-b-ue-red text-ue-red': error,
+          'shadow-tab-inset text-abstract-navy font-medium': active,
+          'shadow-tab-inset-error text-cayenne-red': error,
         },
       )}
     >
-      <span className='text-base leading-4.75 font-medium'>{label}</span>
+      <div className='px-4 py-2'>
+        <span className='text-base leading-5.5'>{label}</span>
+      </div>
     </button>
   )
 }

@@ -27,7 +27,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${GTEesti.className} bg-white text-black antialiased`}
+        className={`${GTEesti.className} text-abstract-navy bg-white antialiased`}
       >
         <NextIntlClientProvider>
           {children}

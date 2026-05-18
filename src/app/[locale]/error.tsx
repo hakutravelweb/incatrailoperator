@@ -33,15 +33,13 @@ export default function Error({ reset }: Props) {
       <Section>
         <div className='mx-auto flex flex-col gap-8 px-4 py-10 lg:w-2/6 lg:gap-10 lg:py-6'>
           <div className='flex flex-col items-center gap-4'>
-            <h1 className='text-center text-[28px] leading-7.75 lg:text-[44px] lg:leading-12 xl:text-[62px] xl:leading-17'>
+            <h1 className='text-center text-[28px] leading-7.75 font-bold lg:text-[44px] lg:leading-12 xl:text-[62px] xl:leading-17'>
               {t('title')}
             </h1>
-            <p className='text-dark-charcoal text-xl leading-6 font-medium'>
-              {t('description')}
-            </p>
+            <p className='text-nevada text-xl leading-6'>{t('description')}</p>
           </div>
           <div className='flex flex-col gap-4'>
-            <Button variant='primary' onClick={handleBack}>
+            <Button variant='outline' onClick={handleBack}>
               {t('go-to-top')}
             </Button>
             <Button onClick={reset}>{t('reload')}</Button>

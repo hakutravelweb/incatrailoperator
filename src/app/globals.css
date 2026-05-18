@@ -4,18 +4,18 @@
   --font-gt-eesti: 'GTEesti';
 
   --color-inferno: #ff5533;
-  --color-outrageous-orange: #ff6a4c;
-  --color-cinnabar: #df4a2c;
-  --color-yellow-sea: #ffaa00;
   --color-white: #ffffff;
-  --color-black: #002b11;
-  --color-dark-charcoal: #38443a;
-  --color-anti-flash-white: #f2f2f2;
-  --color-chinese-white: #e0e0e0;
-  --color-gray-x11: #bababa;
-  --color-dav-ys-grey: #545454;
-  --color-ue-red: #c00000;
-  --color-sonic-silver: #757575;
+  --color-black: #000000;
+  --color-blue-fire: #0071eb;
+  --color-camouflage-blue: #304c84;
+  --color-abstract-navy: #1a2b49;
+  --color-nevada: #63687a;
+  --color-cayenne-red: #c72a3d;
+  --color-bright-grey: #ebeef1;
+  --color-trout: #494d58;
+  --color-dark-jade: #007850;
+  --color-faded-white: #dcdfe4;
+  --color-pewter-metallic: #858995;
 
   --breakpoint-xlg: 1184px;
 
@@ -31,11 +31,11 @@
   );
 
   --shadow-soft-drop: 0 2px 12px 0 rgba(0, 0, 0, 0.15);
-  --shadow-deep: 0 2px 54px rgba(0, 0, 0, 0.1);
   --shadow-sidebar: 0 2px 4px rgba(0, 0, 0, 0.25);
-
-  --drop-shadow-deep: 0 2px 54px rgba(0, 0, 0, 0.1);
-  --drop-shadow-tiny: 0 2px 4px rgba(0, 0, 0, 0.25);
+  --shadow-main: 0 0 64px #00000014, 0 8px 16px #00000029;
+  --shadow-main-small: 0 0 32px #0000000f, 0 4px 8px #00000029;
+  --shadow-tab-inset: inset 0 -4px 0 0 var(--color-blue-fire);
+  --shadow-tab-inset-error: inset 0 -4px 0 0 var(--color-cayenne-red);
 
   --animate-fade-in: fade-in 0.3s;
 
@@ -64,4 +64,18 @@
 
 @utility bg-gradient-* {
   background-image: --value(--bg-gradient-*);
+}
+
+@utility bg-dotted-line {
+  --dotted-line: url('/dotted-line.svg');
+  background-image: var(--dotted-line);
+  background-position: 50%;
+  background-repeat: repeat-y;
+  background-size: 32px;
+}
+
+@utility underline-premium {
+  text-underline-offset: 24%;
+  text-decoration: underline;
+  text-decoration-thickness: calc(1em / 10);
 }

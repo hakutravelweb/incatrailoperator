@@ -29,26 +29,16 @@ export function Header({ localizations }: Props) {
   }
 
   return (
-    <header className='border-b-chinese-white border-b bg-white'>
+    <header className='border-b-bright-grey border-b bg-white'>
       <Section>
-        <nav className='flex h-15 items-center justify-between gap-4 md:gap-6'>
+        <nav className='flex h-20 items-center justify-between gap-4 md:gap-6'>
           <Link href='/'>
-            <div className='block lg:hidden'>
-              <img
-                className='size-8'
-                src='/logos/logo.svg'
-                alt='Inca Trail Operator'
-                loading='lazy'
-              />
-            </div>
-            <div className='hidden lg:block'>
-              <img
-                className='h-10'
-                src='/logos/wordmark.svg'
-                alt='Inca Trail Operator'
-                loading='lazy'
-              />
-            </div>
+            <img
+              className='h-12'
+              src='/logos/wordmark.svg'
+              alt='Inca Trail Operator'
+              loading='lazy'
+            />
           </Link>
           <div className='block lg:hidden'>
             <Icons.Menu
@@ -65,10 +55,10 @@ export function Header({ localizations }: Props) {
               </div>
               <div
                 onClick={language.onOpen}
-                className='hover:bg-anti-flash-white active:bg-chinese-white active:text-dav-ys-grey flex cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-4 py-2.5'
+                className='hover:bg-faded-white bg-bright-grey flex cursor-pointer items-center gap-1 rounded-full px-3 py-2'
               >
                 <Icons.Language className='size-5' />
-                <span className='text-base leading-5 font-medium'>
+                <span className='text-sm leading-5'>
                   {t(`language.${locale}`)}
                 </span>
               </div>
@@ -77,28 +67,19 @@ export function Header({ localizations }: Props) {
         </nav>
       </Section>
       <Modal isOpen={language.isOpen} onClose={language.onClose}>
-        <div className='flex flex-col gap-2'>
-          {localizations.map((localization) => {
-            const active = localization.locale === locale
+        {localizations.map((localization) => {
+          const active = localization.locale === locale
 
-            return (
-              <div
-                key={localization.locale}
-                onClick={handleChange(localization)}
-                className={cn(
-                  'hover:bg-anti-flash-white flex cursor-pointer rounded-lg p-4',
-                  {
-                    'bg-anti-flash-white': active,
-                  },
-                )}
-              >
-                <span className='text-base leading-5 font-medium'>
-                  {t(`language.${localization.locale}`)}
-                </span>
-              </div>
-            )
-          })}
-        </div>
+          return (
+            <HeaderOption
+              key={localization.locale}
+              active={active}
+              onClick={handleChange(localization)}
+            >
+              {t(`language.${localization.locale}`)}
+            </HeaderOption>
+          )
+        })}
       </Modal>
       <Sidebar disclosure={sidebar} localizations={localizations} />
     </header>
@@ -114,11 +95,45 @@ export function HeaderLink({
   children,
 }: PropsWithChildren<HeaderLinkProps>) {
   return (
-    <Link
-      href={href}
-      className='text-dark-charcoal text-sm leading-4.5 font-medium hover:underline'
-    >
-      {children}
+    <Link href={href} className='hover:underline-premium'>
+      <span className='text-nevada hover:text-abstract-navy text-sm leading-5 transition-colors duration-200'>
+        {children}
+      </span>
     </Link>
+  )
+}
+
+interface HeaderOptionProps {
+  active?: boolean
+  onClick?: () => void
+}
+
+function HeaderOption({
+  active,
+  onClick,
+  children,
+}: PropsWithChildren<HeaderOptionProps>) {
+  const hover = useDisclosure()
+
+  return (
+    <div
+      onClick={onClick}
+      onMouseOver={hover.onOpen}
+      onMouseLeave={hover.onClose}
+      className='flex min-h-12 cursor-pointer items-center gap-2 py-2'
+    >
+      <div
+        className={cn(
+          'border-pewter-metallic flex size-6 items-center justify-center rounded-full border-2 transition-colors duration-200',
+          {
+            'border-blue-fire': active,
+            'border-trout bg-faded-white/80': hover.isOpen && !active,
+          },
+        )}
+      >
+        {active && <div className='bg-blue-fire size-3 rounded-full' />}
+      </div>
+      <span className='flex-1 text-left text-base leading-5.5'>{children}</span>
+    </div>
   )
 }

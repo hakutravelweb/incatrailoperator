@@ -389,8 +389,6 @@
       "PACKAGE": "Package"
     },
     "view-all-photos": "View all photos",
-    "duration-days-label": "Experience of {quantity, plural, =0 {# days} =1 {# day} other {# days}}",
-    "duration-hours-label": "Experience of {quantity, plural, =0 {# hours} =1 {# hour} other {# hours}}",
     "reviews-count": "{quantity, plural, =0 {# reviews} =1 {# review} other {# reviews}}",
     "duration-days": "{quantity, plural, =0 {# days} =1 {# day} other {# days}}",
     "duration-hours": "{quantity, plural, =0 {# hours} =1 {# hour} other {# hours}}",

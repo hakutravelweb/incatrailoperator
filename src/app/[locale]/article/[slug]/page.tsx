@@ -8,6 +8,7 @@ import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 import { ArticleHeader } from '@/components/article-header'
 import { ParseHtml } from '@/components/parse-html'
+import { ButtonLink } from '@/components/ui/button'
 
 interface Params {
   locale: Locale
@@ -52,7 +53,7 @@ export default async function Article({ params }: Props) {
         <Section>
           <ArticleHeader article={article} />
         </Section>
-        <div className='bg-cinnabar h-150'>
+        <div className='bg-abstract-navy h-150'>
           <img
             className='size-full object-cover'
             src={getFullMediaUrl(article.photo)}
@@ -63,21 +64,18 @@ export default async function Article({ params }: Props) {
         <Section>
           <ParseHtml content={article.content} />
         </Section>
-        <div className='bg-cinnabar py-10'>
+        <div className='bg-bright-grey py-10'>
           <Section>
             <div className='flex flex-col items-center gap-6'>
-              <strong className='text-2xl leading-7.25 text-white'>
+              <span className='text-2xl leading-7.25 font-bold'>
                 {t('start-adventure.title')}
-              </strong>
-              <span className='text-base leading-6 text-white'>
+              </span>
+              <span className='text-base leading-6'>
                 {t('start-adventure.description')}
               </span>
-              <Link
-                href='/'
-                className='bg-outrageous-orange rounded-full px-4 py-2.5 text-center text-base leading-5 font-bold'
-              >
+              <ButtonLink widthFit href='/'>
                 {t('start-adventure.view-available-journeys')}
-              </Link>
+              </ButtonLink>
             </div>
           </Section>
         </div>

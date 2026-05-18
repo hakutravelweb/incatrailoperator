@@ -13,21 +13,21 @@ export function Profile({ user }: Props) {
   const t = useTranslations('Dashboard')
 
   return (
-    <Dropdown>
-      <Dropdown.Trigger>
-        <div className='flex items-center gap-1'>
-          <div className='flex flex-col gap-px'>
-            <strong className='text-base leading-6'>{user.name}</strong>
-            <span className='text-dark-charcoal text-sm leading-4.5'>
-              {user.email}
-            </span>
-          </div>
+    <div className='flex items-center gap-2'>
+      <div className='flex flex-col'>
+        <span className='text-base leading-5.5 font-medium'>{user.name}</span>
+        <span className='text-nevada text-sm leading-4.5'>{user.email}</span>
+      </div>
+      <Dropdown>
+        <Dropdown.Trigger>
           <Icons.Down className='size-5' />
-        </div>
-      </Dropdown.Trigger>
-      <Dropdown.Content>
-        <Dropdown.Option onClick={signOut}>{t('log-out')}</Dropdown.Option>
-      </Dropdown.Content>
-    </Dropdown>
+        </Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Option danger onClick={signOut}>
+            {t('log-out')}
+          </Dropdown.Option>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
   )
 }

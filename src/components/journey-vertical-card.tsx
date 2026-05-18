@@ -23,9 +23,9 @@ export function JourneyVerticalCard({ journey }: Props) {
   return (
     <Link
       href={`/journey/${journey.slug}`}
-      className='border-anti-flash-white grid grid-cols-1 rounded-xl border-2 bg-white md:grid-cols-[35%_1fr]'
+      className='border-faded-white grid grid-cols-1 rounded-2xl border bg-white md:grid-cols-[35%_1fr]'
     >
-      <div className='bg-anti-flash-white relative overflow-hidden rounded-t-xl max-md:aspect-video md:rounded-t-none md:rounded-l-xl'>
+      <div className='bg-bright-grey relative overflow-hidden rounded-t-xl max-md:aspect-video md:rounded-t-none md:rounded-l-xl'>
         <img
           className='size-full object-cover'
           src={getFullMediaUrl(journey.photos[0])}
@@ -33,50 +33,42 @@ export function JourneyVerticalCard({ journey }: Props) {
           loading='lazy'
         />
         {percentage > 0 && (
-          <div className='absolute top-2 right-2'>
-            <span className='bg-ue-red rounded-md p-2 text-xs leading-4 font-medium text-white'>
+          <div className='absolute right-2 bottom-2'>
+            <span className='bg-cayenne-red rounded-sm px-2 py-1 text-sm leading-5 font-medium text-white'>
               {t('you-save-percent', {
                 percentage,
               })}
             </span>
           </div>
         )}
-      </div>
-      <div className='flex flex-col items-start gap-2 px-4 py-2'>
-        <div className='rounded-sm bg-black px-2 py-1 text-xs leading-4 font-medium text-white uppercase'>
-          {t(`variant.${journey.variant}`)}
+        <div className='absolute top-2 left-2'>
+          <div className='bg-abstract-navy rounded-sm px-2 py-0.75 text-sm leading-5 font-medium text-white'>
+            {t(`variant.${journey.variant}`)}
+          </div>
         </div>
-        <span className='text-cinnabar text-sm leading-4.5 font-medium'>
+      </div>
+      <div className='flex flex-col gap-2 p-4'>
+        <span className='text-lg leading-6 font-medium'>{journey.title}</span>
+        <span className='text-sm leading-5'>
+          {journey.duration.type === 'HOUR'
+            ? t('duration-hours', {
+                quantity: journey.duration.quantity,
+              })
+            : t('duration-days', {
+                quantity: journey.duration.quantity,
+              })}{' '}
+          • {journey.destination.title}, {journey.destination.department} •{' '}
           {journey.category.title}
         </span>
-        <strong className='text-base leading-5'>{journey.title}</strong>
-        <div className='flex items-center gap-1'>
-          <Icons.Location className='text-cinnabar size-4' />
-          <span className='text-dark-charcoal text-sm leading-4.5'>
-            {journey.destination.department}, {journey.destination.title}
-          </span>
-        </div>
-        <span className='text-dark-charcoal line-clamp-2 text-sm leading-4.5'>
+        <span className='line-clamp-2 text-sm leading-4.5'>
           {journey.about}
         </span>
-        <div className='flex items-center gap-1'>
-          <Icons.Clock className='text-dav-ys-grey size-4' />
-          <span className='text-dav-ys-grey text-sm leading-4.5 font-medium'>
-            {journey.duration.type === 'HOUR'
-              ? t('duration-hours', {
-                  quantity: journey.duration.quantity,
-                })
-              : t('duration-days', {
-                  quantity: journey.duration.quantity,
-                })}
-          </span>
-        </div>
         {journey.labels.length > 0 && (
           <div className='flex flex-wrap gap-2'>
             {journey.labels.map((label, index) => (
               <div
                 key={index}
-                className='rounded-sm border border-black bg-white px-2 py-1 text-xs leading-4 font-medium'
+                className='border-abstract-navy rounded-sm border bg-white px-2 py-1 text-xs leading-4 font-medium'
               >
                 {label}
               </div>
@@ -84,9 +76,9 @@ export function JourneyVerticalCard({ journey }: Props) {
           </div>
         )}
         {journey.freeCancellation.quantity > 0 && (
-          <div className='border-cinnabar flex items-center gap-2 rounded-md border-2 p-2'>
-            <Icons.Check className='text-cinnabar size-4' />
-            <span className='text-cinnabar flex-1 text-xs leading-4 font-medium'>
+          <div className='border-dark-jade flex w-fit items-center gap-2 rounded-md border p-2'>
+            <Icons.Check className='text-dark-jade size-4' />
+            <span className='text-dark-jade flex-1 text-xs leading-4 font-medium'>
               {t('free-cancellation', {
                 duration:
                   journey.freeCancellation.type === 'HOUR'
@@ -101,14 +93,14 @@ export function JourneyVerticalCard({ journey }: Props) {
           </div>
         )}
         {journey.refundable.quantity === 0 ? (
-          <div className='bg-ue-red flex items-center gap-2 rounded-md p-2'>
+          <div className='bg-cayenne-red flex w-fit items-center gap-2 rounded-md p-2'>
             <Icons.Close className='size-4 text-white' />
             <span className='flex-1 text-xs leading-4 font-medium text-white'>
               {t('not-refundable')}
             </span>
           </div>
         ) : (
-          <div className='bg-outrageous-orange flex items-center gap-2 rounded-md p-2'>
+          <div className='bg-blue-fire flex w-fit items-center gap-2 rounded-md p-2'>
             <Icons.Check className='size-4 text-white' />
             <span className='flex-1 text-xs leading-4 font-medium text-white'>
               {t('refundable', {
@@ -125,26 +117,26 @@ export function JourneyVerticalCard({ journey }: Props) {
           </div>
         )}
         <div className='flex w-full items-center justify-between gap-4'>
-          <div className='flex items-center gap-1'>
-            <Icons.Star className='text-yellow-sea size-4' />
-            <span className='text-dark-charcoal text-sm leading-4.5 font-medium'>
+          <div className='flex items-end gap-0.5'>
+            <span className='text-base leading-5.5'>
               {journey.rating.toFixed(1)}
             </span>
-            <span className='text-dav-ys-grey text-sm leading-4.5 font-medium'>
+            <Icons.Star className='size-6' />
+            <span className='pb-0.5 text-xs leading-4'>
               ({journey.reviewsCount})
             </span>
           </div>
           {journey.specialPrice > 0 ? (
-            <div className='flex flex-col gap-px'>
-              <span className='text-dav-ys-grey text-sm leading-4.5 line-through'>
+            <div className='flex flex-col'>
+              <span className='text-nevada text-xs leading-4 line-through'>
                 {formatPrice(locale, journey.retailPrice)}
               </span>
-              <span className='text-dark-charcoal text-lg leading-6 font-bold'>
+              <span className='text-cayenne-red text-xl leading-6 font-medium'>
                 {formatPrice(locale, journey.specialPrice)}
               </span>
             </div>
           ) : (
-            <span className='text-dark-charcoal text-lg leading-6 font-bold'>
+            <span className='text-xl leading-6 font-medium'>
               {formatPrice(locale, journey.retailPrice)}
             </span>
           )}

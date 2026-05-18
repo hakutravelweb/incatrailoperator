@@ -78,42 +78,42 @@ export function JourneyItem({
         })}
       >
         <div className='flex flex-wrap items-center gap-4'>
-          <div className='bg-anti-flash-white h-25 w-full md:h-15 md:w-25'>
+          <div className='bg-bright-grey h-25 w-full overflow-hidden rounded-md md:h-15 md:w-25'>
             {journey.photos.length > 0 && (
               <img
-                className='size-full rounded-md object-cover'
+                className='size-full object-cover'
                 src={getFullMediaUrl(journey.photos[0])}
                 alt={journey.title}
                 loading='lazy'
               />
             )}
           </div>
-          <div className='flex flex-col gap-px'>
-            <span className='text-dark-charcoal text-sm leading-4.5'>
+          <div className='flex flex-col'>
+            <span className='text-nevada text-sm leading-4.5'>
               {journey.slug}
             </span>
             <Link
               href={`/journey/${journey.slug}`}
               target='_blank'
-              className='text-base leading-4.75 underline'
+              className='text-base leading-5.5 font-medium underline'
             >
               {journey.title}
             </Link>
           </div>
           {journey.labels.length > 0 && (
-            <div className='rounded-sm border border-black px-2 py-1 text-xs leading-4 font-bold uppercase'>
+            <div className='border-abstract-navy rounded-sm border px-2 py-1 text-xs leading-4 font-medium uppercase'>
               {journey.labels[0]}
             </div>
           )}
           <span
-            className={cn('text-sm leading-4.5 font-bold', {
-              'text-ue-red line-through': journey.specialPrice > 0,
+            className={cn('text-sm leading-4.5 font-medium', {
+              'text-cayenne-red line-through': journey.specialPrice > 0,
             })}
           >
             {formatPrice(locale, journey.retailPrice)}
           </span>
           {journey.specialPrice > 0 && (
-            <span className='text-sm leading-4.5 font-bold'>
+            <span className='text-sm leading-4.5 font-medium'>
               {formatPrice(locale, journey.specialPrice)}
             </span>
           )}
@@ -126,7 +126,7 @@ export function JourneyItem({
             <Dropdown.Option onClick={handleEdit}>
               {t('actions.edit')}
             </Dropdown.Option>
-            <Dropdown.Option onClick={handleDelete}>
+            <Dropdown.Option danger onClick={handleDelete}>
               {t('actions.delete')}
             </Dropdown.Option>
             <Dropdown.Option onClick={handleItinerary}>

@@ -16,7 +16,7 @@ export function MapVideo({ journey }: Props) {
       {journey.photoMap && (
         <div
           onClick={map.onOpen}
-          className='bg-anti-flash-white aspect-video cursor-pointer overflow-hidden rounded-xl'
+          className='bg-bright-grey aspect-video cursor-pointer overflow-hidden rounded-xl'
         >
           <img
             className='size-full object-contain'
@@ -27,7 +27,7 @@ export function MapVideo({ journey }: Props) {
         </div>
       )}
       {journey.videoUrl && (
-        <div className='bg-anti-flash-white aspect-video overflow-hidden rounded-xl'>
+        <div className='bg-bright-grey aspect-video overflow-hidden rounded-xl'>
           <embed
             className='size-full object-cover'
             src={journey.videoUrl}

@@ -1,4 +1,3 @@
-import { PropsWithChildren } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useForm, Controller } from 'react-hook-form'
 import { Icons } from '@/icons/icon'
@@ -19,12 +18,12 @@ import { InputTranslation } from '@/components/ui/input-translation'
 import { Waypoints } from './waypoints'
 
 interface Props {
-  step: number
+  showDottedLine?: boolean
   onRefresh: () => void
   route: Route
 }
 
-export function RouteItem({ step, onRefresh, route }: Props) {
+export function RouteItem({ showDottedLine, onRefresh, route }: Props) {
   const locale = useLocale()
   const t = useTranslations('Dashboard')
   const waypoints = useDisclosure()
@@ -83,30 +82,25 @@ export function RouteItem({ step, onRefresh, route }: Props) {
   }
 
   return (
-    <div className='relative z-1 flex flex-col gap-4'>
-      <div className='bg-inferno absolute top-4 left-3.5 -z-1 h-[calc(100%-32px)] w-1' />
-      <div className='flex items-center gap-2'>
-        <div
-          className={cn(
-            'bg-inferno flex size-8 items-center justify-center rounded-full text-white',
-            {
-              'bg-yellow-sea': step % 2,
-            },
-          )}
-        >
-          <span className='text-base leading-5 font-medium'>{step}</span>
+    <div className='flex flex-col'>
+      <div className='flex gap-3'>
+        <div className='bg-dotted-line'>
+          <div className='shadow-main-small flex size-8 items-center justify-center rounded-full bg-white'>
+            <Icons.Route className='size-6' />
+          </div>
         </div>
         <div
-          className={cn(
-            'border-l-inferno bg-outrageous-orange/10 flex flex-1 gap-4 rounded-lg border-l-4 p-4',
-            {
-              'border-l-yellow-sea bg-yellow-sea/10': step % 2,
-            },
-          )}
+          className={cn('flex flex-1 gap-4', {
+            'pb-8': waypoints.isOpen,
+            'pb-12': showDottedLine && !waypoints.isOpen,
+          })}
         >
-          <div onClick={waypoints.onToggle} className='flex-1 cursor-pointer'>
-            <span className='text-base leading-5 font-bold'>{route.title}</span>
-          </div>
+          <span
+            onClick={waypoints.onToggle}
+            className='flex-1 cursor-pointer text-base leading-5.5 font-medium'
+          >
+            {route.title}
+          </span>
           <Dropdown variant='manage'>
             <Dropdown.Trigger>
               <Icons.Dots className='size-5' />

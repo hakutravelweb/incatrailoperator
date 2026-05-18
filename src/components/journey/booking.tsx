@@ -7,11 +7,8 @@ import {
   formatPrice,
   getFullMediaUrl,
 } from '@/lib/utils'
-import { Link } from '@/i18n/routing'
 import { Journey } from '@/interfaces/journey'
-import { Button } from '@/components/ui/button'
-import { Rating } from './rating'
-import { Icons } from '@/icons/icon'
+import { Button, ButtonLink } from '@/components/ui/button'
 
 interface Props {
   journey: Journey
@@ -26,40 +23,26 @@ export function Booking({ journey }: Props) {
   )
 
   return (
-    <div className='shadow-deep sticky top-2 flex flex-col gap-4 rounded-xl bg-white p-6'>
-      <div className='flex items-center gap-2'>
-        <Rating rating={journey.rating} />
-        <span className='text-base leading-5 font-medium'>
-          {journey.rating.toFixed(1)}
-        </span>
-        <span className='text-dav-ys-grey text-base leading-5'>
-          (
-          {t('reviews-count', {
-            quantity: journey.reviewsCount,
-          })}
-          )
-        </span>
-      </div>
+    <div className='border-faded-white sticky top-2 flex flex-col gap-4 rounded-2xl border bg-white px-4 py-6'>
       <div className='flex items-start justify-between gap-2'>
-        <div className='flex flex-col gap-1'>
-          <span className='text-dav-ys-grey text-base leading-5 font-medium'>
-            {t('from')}
-          </span>
+        <div className='flex flex-col'>
+          <span className='text-nevada text-base leading-5.5'>{t('from')}</span>
           <span
-            className={cn('text-lg leading-5 font-bold', {
-              'text-ue-red line-through': journey.specialPrice > 0,
+            className={cn('text-2xl leading-7.5 font-bold', {
+              'text-base leading-5.5 font-medium line-through':
+                journey.specialPrice > 0,
             })}
           >
             {formatPrice(locale, journey.retailPrice)}
           </span>
           {journey.specialPrice > 0 && (
-            <span className='text-lg leading-5 font-bold'>
+            <span className='text-cayenne-red text-2xl leading-7.5 font-bold'>
               {formatPrice(locale, journey.specialPrice)}
             </span>
           )}
         </div>
         {percentage > 0 && (
-          <span className='bg-ue-red rounded-md p-2 text-sm leading-4.5 font-medium text-white'>
+          <span className='bg-cayenne-red rounded-sm px-2 py-1 text-sm leading-5 font-medium text-white'>
             {t('you-save-percent', {
               percentage,
             })}
@@ -67,7 +50,7 @@ export function Booking({ journey }: Props) {
         )}
       </div>
       {journey.specialPrice > 0 && (
-        <span className='text-inferno text-base leading-5 font-medium'>
+        <span className='text-dark-jade text-base leading-5.5 font-medium'>
           {t('save-money', {
             amount: formatPrice(
               locale,
@@ -80,32 +63,34 @@ export function Booking({ journey }: Props) {
         {journey.codeWetravel && (
           <PaymentButton codWetravel={journey.codeWetravel} />
         )}
-        <div className='grid grid-cols-2 items-center gap-2'>
+        <div
+          className={cn('grid grid-cols-1 gap-2', {
+            'grid-cols-2': journey.pdfItinerary,
+          })}
+        >
           {journey.pdfItinerary && (
-            <Link
-              className='hover:bg-dark-charcoal active:bg-dav-ys-grey rounded-full bg-black px-4 py-3.5 text-center text-base leading-5 font-bold text-white transition-colors duration-100 active:text-white/50'
+            <ButtonLink
+              variant='secondary'
               href={getFullMediaUrl(journey.pdfItinerary)}
-              target='_blank'
             >
               {t('download-pdf')}
-            </Link>
+            </ButtonLink>
           )}
-          <Link
-            className='hover:bg-anti-flash-white active:bg-chinese-white active:text-dav-ys-grey border-chinese-white flex items-center justify-center gap-2 rounded-full border-2 bg-white px-4 py-3 text-base leading-5 font-bold'
+          <ButtonLink
+            variant='outline'
+            icon='Whatsapp'
             href='https://api.whatsapp.com/send/?phone=+51984259412&text=%C2%A1Hola!,%20necesito%20mas%20informaci%C3%B3n...'
-            target='_blank'
           >
-            <Icons.Whatsapp className='size-5' />
             {t('contact')}
-          </Link>
+          </ButtonLink>
         </div>
       </div>
-      <hr className='border-chinese-white border-t' />
-      <div className='flex flex-col gap-1'>
-        <strong className='text-base leading-5 font-medium'>
+      <hr className='border-bright-grey border-t' />
+      <div className='flex flex-col py-2'>
+        <span className='text-sm leading-5 font-medium'>
           {t('general-information.cancellation-policy')}
-        </strong>
-        <span className='text-dav-ys-grey text-base leading-5'>
+        </span>
+        <span className='text-nevada text-sm leading-5'>
           {journey.freeCancellation.quantity === 0
             ? t('general-information.cancellation-policy-not-refound')
             : t('general-information.refundable', {
@@ -159,9 +144,5 @@ function PaymentButton({ codWetravel }: PaymentButtonProps) {
     document.body.appendChild(iframe)
   }
 
-  return (
-    <Button variant='primary' onClick={handleWeTravel}>
-      {t('book-now')}
-    </Button>
-  )
+  return <Button onClick={handleWeTravel}>{t('book-now')}</Button>
 }

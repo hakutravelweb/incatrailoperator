@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { Icons } from '@/icons/icon'
 import { getFullMediaUrl } from '@/lib/utils'
 import { Locale } from '@/i18n/config'
 import { getJourneyBySlug } from '@/services/journey'
@@ -62,73 +61,17 @@ export default async function AttractionProduct({ params }: Props) {
           <Banner journey={journey} />
         </Section>
         <Section>
-          <div className='flex flex-col gap-4'>
-            <div className='flex flex-col items-start gap-2'>
-              <div className='rounded-sm bg-black px-2 py-1 text-xs leading-4 font-medium text-white uppercase'>
-                {t(`variant.${journey.variant}`)}
-              </div>
-              <strong className='text-2xl leading-7.25 md:text-[28px] md:leading-8.5'>
-                {journey.title}
-              </strong>
-              <span className='text-dark-charcoal text-base leading-6 font-medium'>
-                {journey.duration.type === 'HOUR'
-                  ? t('duration-hours-label', {
-                      quantity: journey.duration.quantity,
-                    })
-                  : t('duration-days-label', {
-                      quantity: journey.duration.quantity,
-                    })}
-              </span>
-            </div>
-            <div className='flex flex-wrap items-center gap-2'>
-              <Rating rating={journey.rating} />
-              <span className='text-base leading-5 font-medium'>
-                {journey.rating.toFixed(1)}
-              </span>
-              <span className='text-dav-ys-grey text-base leading-5'>
-                (
-                {t('reviews-count', {
-                  quantity: journey.reviewsCount,
-                })}
-                )
-              </span>
-              <span className='text-gray-x11 text-base leading-5'>•</span>
-              <div className='flex items-center gap-1'>
-                <Icons.Location className='text-inferno size-5' />
-                <span className='text-dark-charcoal text-base leading-5'>
-                  {t('country')}, {journey.destination.title}
-                </span>
-              </div>
-              <span className='text-gray-x11 text-base leading-5'>•</span>
-              <div className='flex items-center gap-1'>
-                <Icons.Clock className='text-inferno size-5' />
-                <span className='text-dark-charcoal text-base leading-5'>
-                  {journey.duration.type === 'HOUR'
-                    ? t('duration-hours', {
-                        quantity: journey.duration.quantity,
-                      })
-                    : t('duration-days', {
-                        quantity: journey.duration.quantity,
-                      })}
-                </span>
-              </div>
-            </div>
-          </div>
-        </Section>
-        <Section>
-          <div className='grid grid-cols-1 items-start gap-6 lg:grid-cols-[1fr_35%]'>
-            <div className='shadow-deep flex flex-col gap-8 rounded-xl bg-white p-6'>
+          <div className='grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_35%]'>
+            <div className='flex flex-col gap-6'>
               <div className='flex flex-col gap-4'>
-                <strong className='text-xl leading-6'>{t('about')}</strong>
-                <span className='text-dark-charcoal text-base leading-6'>
-                  {journey.about}
-                </span>
+                <h2 className='text-xl leading-6 font-bold'>{t('about')}</h2>
+                <span className='text-base leading-5.5'>{journey.about}</span>
               </div>
-              <hr className='border-chinese-white border-t' />
+              <hr className='border-faded-white border-t' />
               <div className='flex flex-col gap-4'>
-                <strong className='text-xl leading-6'>
+                <h2 className='text-xl leading-6 font-bold'>
                   {t('general-information.title')}
-                </strong>
+                </h2>
                 <div className='flex flex-col gap-4'>
                   <InformationItem
                     label={t('general-information.cancellation-policy')}
@@ -177,20 +120,18 @@ export default async function AttractionProduct({ params }: Props) {
                   </InformationItem>
                 </div>
               </div>
-              <hr className='border-chinese-white border-t' />
+              <hr className='border-faded-white border-t' />
               <SectionList title={t('highlights')} list={journey.highlights} />
-              <hr className='border-chinese-white border-t' />
+              <hr className='border-faded-white border-t' />
               <div className='flex flex-col gap-4'>
-                <strong className='text-xl leading-6'>{t('itinerary')}</strong>
-                {journey.routes.map((route, index) => {
+                <h2 className='text-xl leading-6 font-bold'>
+                  {t('itinerary')}
+                </h2>
+                {journey.routes.map((route) => {
                   return (
-                    <div
-                      key={route.id}
-                      className='relative z-1 flex flex-col gap-4'
-                    >
-                      <div className='bg-inferno absolute top-4 left-3.5 -z-1 h-[calc(100%-32px)] w-1' />
-                      <RouteItem step={index + 1} route={route} />
-                      <div className='flex flex-col gap-2 pl-1'>
+                    <div key={route.id} className='flex flex-col'>
+                      <RouteItem route={route} />
+                      <div className='flex flex-col'>
                         {route.waypoints.map((waypoint) => {
                           return (
                             <WaypointItem
@@ -204,20 +145,20 @@ export default async function AttractionProduct({ params }: Props) {
                   )
                 })}
               </div>
-              <hr className='border-chinese-white border-t' />
+              <hr className='border-faded-white border-t' />
               <div className='flex flex-col gap-4'>
-                <strong className='text-xl leading-6'>
+                <h2 className='text-xl leading-6 font-bold'>
                   {t('detailed-description')}
-                </strong>
+                </h2>
                 <ParseHtml content={journey.detailedDescription} />
               </div>
-              <div className='border-l-inferno bg-inferno/10 flex flex-col gap-4 rounded-xl border-l-4 p-6'>
-                <strong className='text-lg leading-6'>
+              <div className='border-l-dark-jade bg-bright-grey/50 flex flex-col gap-4 rounded-r-2xl border-l-4 p-6'>
+                <h2 className='text-xl leading-6 font-bold'>
                   {t('important-note')}
-                </strong>
+                </h2>
                 <ParseHtml content={journey.importantNote} />
               </div>
-              <hr className='border-chinese-white border-t' />
+              <hr className='border-faded-white border-t' />
               <SectionList
                 variant='includes'
                 title={t('includes')}
@@ -228,31 +169,31 @@ export default async function AttractionProduct({ params }: Props) {
                 title={t('not-included')}
                 list={journey.exclusions}
               />
-              <hr className='border-chinese-white border-t' />
-              <div className='border-l-yellow-sea bg-yellow-sea/10 flex flex-col gap-4 rounded-xl border-l-4 p-6'>
-                <strong className='text-lg leading-6'>
+              <hr className='border-faded-white border-t' />
+              <div className='border-l-inferno bg-bright-grey/50 flex flex-col gap-4 rounded-r-2xl border-l-4 p-6'>
+                <h2 className='text-xl leading-6 font-bold'>
                   {t('important-warning')}
-                </strong>
+                </h2>
                 <ParseHtml content={journey.importantWarning} />
               </div>
               <SectionList
                 title={t('recommendations')}
                 list={journey.recommendations}
               />
-              <div className='border-l-inferno bg-outrageous-orange/10 flex flex-col gap-4 rounded-xl border-l-4 p-6'>
-                <strong className='text-lg leading-6'>
+              <div className='border-l-blue-fire bg-bright-grey/50 flex flex-col gap-4 rounded-r-2xl border-l-4 p-6'>
+                <h2 className='text-xl leading-6 font-bold'>
                   {t('additional-advice')}
-                </strong>
-                <span className='text-dark-charcoal text-base leading-6'>
+                </h2>
+                <span className='text-nevada text-base leading-6'>
                   {journey.additionalAdvice}
                 </span>
               </div>
-              <hr className='border-chinese-white border-t' />
+              <hr className='border-faded-white border-t' />
               <div className='flex flex-col gap-4'>
-                <strong className='text-xl leading-6'>
+                <h2 className='text-xl leading-6 font-bold'>
                   {t('asked-questions')}
-                </strong>
-                <div className='flex flex-col gap-2'>
+                </h2>
+                <div className='divide-faded-white flex flex-col divide-y'>
                   {journey.askedQuestions.map((askedQuestion) => {
                     return (
                       <AskedQuestionItem
@@ -263,26 +204,29 @@ export default async function AttractionProduct({ params }: Props) {
                   })}
                 </div>
               </div>
-              <hr className='border-chinese-white border-t' />
+              <hr className='border-faded-white border-t' />
               <div className='flex flex-col gap-4'>
-                <strong className='text-xl leading-6'>{t('map-video')}</strong>
+                <h2 className='text-xl leading-6 font-bold'>
+                  {t('map-video')}
+                </h2>
                 <MapVideo journey={journey} />
               </div>
-              <hr className='border-chinese-white border-t' />
-              <div className='flex flex-col gap-4'>
-                <strong className='text-xl leading-6'>{t('reviews')}</strong>
-                <div className='border-anti-flash-white flex justify-start rounded-xl border-2 p-4'>
-                  <div className='flex flex-col items-center gap-2'>
-                    <strong className='text-lg leading-6'>
-                      {journey.rating.toFixed(1)}
-                    </strong>
-                    <Rating rating={journey.rating} />
-                    <span className='text-dav-ys-grey text-base leading-5'>
-                      {t('reviews-count', {
-                        quantity: journey.reviewsCount,
-                      })}
+              <hr className='border-faded-white border-t' />
+              <div className='flex flex-col items-start gap-4'>
+                <h2 className='text-xl leading-6 font-bold'>{t('reviews')}</h2>
+                <div className='flex flex-col gap-2 text-center'>
+                  <h2 className='text-[28px] leading-8 font-bold lg:text-[36px] lg:leading-11'>
+                    {journey.rating.toFixed(1)}
+                    <span className='text-nevada text-2xl leading-7.5 font-bold'>
+                      /5
                     </span>
-                  </div>
+                  </h2>
+                  <Rating variant='large' rating={journey.rating} />
+                  <span className='text-nevada text-base leading-5.5'>
+                    {t('reviews-count', {
+                      quantity: journey.reviewsCount,
+                    })}
+                  </span>
                 </div>
                 <div className='flex flex-col gap-2'>
                   {journey.reviews.map((review) => {

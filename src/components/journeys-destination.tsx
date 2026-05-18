@@ -29,35 +29,35 @@ export function JourneysDestination({ destination }: Props) {
 
   return (
     <div className='flex flex-col gap-2'>
-      <div className='bg-cinnabar py-10'>
+      <div className='bg-dark-jade py-8'>
         <Section>
           <div className='flex flex-col gap-6'>
             <div className='flex items-center gap-1'>
               <Link
                 href='/'
-                className='text-base leading-5 text-white hover:underline'
+                className='hover:underline-premium text-base leading-5.5 text-white'
               >
                 {t('country')}
               </Link>
               <Icons.Right className='size-4 text-white' />
-              <span className='text-base leading-5 text-white'>
+              <span className='text-base leading-5.5 text-white'>
                 {destination.department}
               </span>
             </div>
             <div className='flex flex-col gap-4'>
-              <strong className='text-2xl leading-7.25 text-white md:text-[28px] md:leading-8.5'>
+              <span className='text-2xl leading-7.25 font-bold text-white md:text-[28px] md:leading-8.5'>
                 {t('discover', {
                   title: destination.title,
                 })}
-              </strong>
-              <span className='text-base leading-6 text-white'>
+              </span>
+              <span className='text-base leading-5.5 text-white'>
                 {destination.about}
               </span>
-              <div className='border-outrageous-orange flex max-w-100 items-center gap-2 rounded-lg border-2 bg-white px-2'>
+              <div className='border-faded-white shadow-main-small flex h-11 w-75 items-center gap-2 rounded-full border bg-white px-4 py-2.25'>
                 <Icons.Search className='size-5' />
                 <input
                   type='text'
-                  className='text-dark-charcoal placeholder:text-gray-x11 flex-1 py-2 text-base leading-5 outline-hidden'
+                  className='placeholder:text-pewter-metallic flex-1 text-sm leading-4.5 outline-hidden'
                   value={journeys.search}
                   onChange={handleChange}
                   placeholder={t('search-placeholder')}
@@ -68,13 +68,15 @@ export function JourneysDestination({ destination }: Props) {
         </Section>
       </div>
       <Section>
-        <div className='grid grid-cols-1 items-start gap-6 py-10 md:grid-cols-[30%_1fr]'>
-          <div className='shadow-deep flex flex-col gap-6 rounded-xl bg-white p-4 md:sticky md:top-4'>
-            <div className='flex flex-col gap-4'>
-              <strong className='text-lg leading-6'>{t('categories')}</strong>
+        <div className='grid grid-cols-1 items-start gap-8 py-8 md:grid-cols-[30%_1fr]'>
+          <div className='border-faded-white flex flex-col gap-4 rounded-2xl border bg-white p-4 md:sticky md:top-4'>
+            <div className='flex flex-col gap-2'>
+              <span className='text-base leading-5.5 font-medium'>
+                {t('categories')}
+              </span>
               <div className='flex flex-col gap-1'>
                 {!categories.loading && categories.data.length === 0 && (
-                  <span className='text-dav-ys-grey text-sm leading-4.5'>
+                  <span className='text-nevada text-sm leading-4.5'>
                     {t('categories-empty')}
                   </span>
                 )}
@@ -99,8 +101,10 @@ export function JourneysDestination({ destination }: Props) {
                 })}
               </div>
             </div>
-            <div className='flex flex-col gap-4'>
-              <strong className='text-lg leading-6'>{t('price')}</strong>
+            <div className='flex flex-col gap-2'>
+              <span className='text-base leading-5.5 font-medium'>
+                {t('price')}
+              </span>
               <PriceRangeSlider
                 min={0}
                 max={2000}
@@ -108,11 +112,11 @@ export function JourneysDestination({ destination }: Props) {
                 onChange={journeys.onPriceRange}
               />
             </div>
-            <div className='flex flex-col gap-4'>
-              <strong className='text-lg leading-6'>
+            <div className='flex flex-col gap-2'>
+              <span className='text-base leading-5.5 font-medium'>
                 {t('qualification')}
-              </strong>
-              <div className='flex flex-col gap-1'>
+              </span>
+              <div className='flex flex-col gap-2'>
                 {ratings.map((rating) => {
                   const active = journeys.ratings.includes(rating)
 
@@ -130,10 +134,10 @@ export function JourneysDestination({ destination }: Props) {
               </div>
             </div>
           </div>
-          <div className='shadow-deep flex flex-col gap-4 rounded-xl bg-white p-4'>
+          <div className='flex flex-col gap-4'>
             {!journeys.loading && journeys.data.length === 0 && (
               <div className='flex justify-center py-4'>
-                <span className='text-dav-ys-grey text-sm leading-4.5'>
+                <span className='text-nevada text-sm leading-4.5'>
                   {t('empty-message')}
                 </span>
               </div>

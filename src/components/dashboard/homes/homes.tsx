@@ -50,18 +50,18 @@ export function Homes() {
   return (
     <div className='flex flex-col gap-2'>
       <div className='flex flex-col items-start justify-between gap-4 md:flex-row'>
-        <div className='border-chinese-white flex w-75 items-center gap-2 rounded-full border-2 px-4 focus-within:divide-black focus-within:border-black'>
+        <div className='border-faded-white shadow-main-small flex h-11 w-75 items-center gap-2 rounded-full border bg-white px-4 py-2.25'>
           <Icons.Search className='size-5' />
           <input
             type='text'
-            className='text-dark-charcoal flex-1 py-2 text-sm leading-4.5 outline-hidden'
+            className='placeholder:text-pewter-metallic flex-1 text-sm leading-4.5 outline-hidden'
             value={homes.search}
             onChange={handleChange}
             placeholder={t('home.search-placeholder')}
           />
         </div>
         <Button
-          variant='action'
+          variant='outline'
           widthFit
           icon='Plus'
           onClick={handleChangeView('CREATE')}
@@ -69,10 +69,10 @@ export function Homes() {
           {t('home.add-label')}
         </Button>
       </div>
-      <div className='divide-chinese-white divide-y'>
+      <div className='divide-faded-white divide-y'>
         {!homes.loading && homes.data.length === 0 && (
           <div className='flex justify-center py-4'>
-            <span className='text-dav-ys-grey text-sm leading-4.5'>
+            <span className='text-nevada text-sm leading-4.5'>
               {t('home.empty-message')}
             </span>
           </div>

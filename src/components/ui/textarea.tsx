@@ -1,6 +1,8 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect, useRef } from 'react'
 import { RefCallBack } from 'react-hook-form'
 import { cn } from '@/lib/utils'
+import { useDisclosure } from '@/hooks/use-disclosure'
+import { useOnClickOutside } from '@/hooks/use-onclick-outside'
 
 interface Props {
   ref?: RefCallBack
@@ -8,7 +10,8 @@ interface Props {
   value: string
   onChange: (value: string) => void
   placeholder?: string
-  invalid: boolean
+  invalid?: boolean
+  isFocus?: boolean
 }
 
 export function Textarea({
@@ -18,29 +21,63 @@ export function Textarea({
   onChange,
   placeholder,
   invalid,
+  isFocus,
 }: Props) {
+  const focus = useDisclosure()
+  const contentRef = useRef<HTMLDivElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  useEffect(() => {
+    if (focus.isOpen || isFocus) {
+      textareaRef.current?.focus()
+    }
+  }, [focus.isOpen, isFocus])
+
+  useOnClickOutside({
+    ref: contentRef,
+    handler: focus.onClose,
+  })
+
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const text = event.target.value
     onChange(text)
   }
 
   return (
-    <div className='flex flex-col items-start gap-px'>
-      {label && (
-        <label className='text-base leading-5.25 font-medium'>{label}</label>
+    <div
+      ref={contentRef}
+      onClick={focus.onOpen}
+      className={cn(
+        'border-pewter-metallic flex cursor-text items-center gap-2 rounded-lg border-2 bg-white p-3',
+        {
+          'border-blue-fire': focus.isOpen,
+          'border-cayenne-red': invalid,
+          'rounded-none border-none p-0': !label,
+        },
       )}
-      <textarea
-        ref={ref}
-        className={cn(
-          'border-chinese-white placeholder:text-sonic-silver field-sizing-content min-h-25 w-full resize-none rounded-sm border-2 bg-white p-4 text-base leading-4.75 outline-hidden focus:border-black',
-          {
-            'border-ue-red': invalid,
-          },
+    >
+      <div className='flex flex-1 flex-col'>
+        {label && (
+          <label
+            className={cn('text-nevada pointer-events-none text-xs leading-4', {
+              'text-blue-fire': focus.isOpen,
+              'text-cayenne-red': invalid,
+            })}
+          >
+            {label}
+          </label>
         )}
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-      />
+        <textarea
+          ref={(el) => {
+            textareaRef.current = el
+            ref?.(el)
+          }}
+          className='placeholder:text-pewter-metallic field-sizing-content min-h-25 w-full resize-none text-base leading-5.5 outline-hidden'
+          value={value}
+          onChange={handleChange}
+          placeholder={placeholder}
+        />
+      </div>
     </div>
   )
 }

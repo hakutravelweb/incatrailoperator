@@ -60,7 +60,7 @@ export function Pagination({ limit, offset, total, onOffset }: Props) {
               <div className='order-1 md:order-1'>
                 <ButtonPage
                   onClick={handleOffset(Math.max(0, offset - limit))}
-                  icon='ArrowLeft'
+                  icon='Left'
                 />
               </div>
             )}
@@ -70,7 +70,7 @@ export function Pagination({ limit, offset, total, onOffset }: Props) {
                   onClick={handleOffset(
                     Math.min((pages - 1) * limit, offset + limit),
                   )}
-                  icon='ArrowRight'
+                  icon='Right'
                 />
               </div>
             )}
@@ -84,7 +84,7 @@ export function Pagination({ limit, offset, total, onOffset }: Props) {
               return (
                 <span
                   key={index}
-                  className='self-center text-base leading-5.25 font-bold'
+                  className='self-center text-base leading-5.5 font-bold'
                 >
                   {page}
                 </span>
@@ -103,7 +103,7 @@ export function Pagination({ limit, offset, total, onOffset }: Props) {
           })}
         </div>
       </div>
-      <div className='text-dark-charcoal text-center text-sm leading-4.5'>
+      <div className='text-nevada text-center text-sm leading-4.5'>
         {t('pagination', { start, end, total })}
       </div>
     </div>
@@ -111,7 +111,7 @@ export function Pagination({ limit, offset, total, onOffset }: Props) {
 }
 
 interface ButtonPageProps {
-  icon?: keyof Pick<typeof Icons, 'ArrowLeft' | 'ArrowRight'>
+  icon?: keyof Pick<typeof Icons, 'Left' | 'Right'>
   active?: boolean
   onClick: () => void
 }
@@ -133,18 +133,17 @@ function ButtonPage({
     <button
       onClick={handleClick}
       className={cn(
-        'hover:bg-anti-flash-white active:bg-chinese-white flex size-10 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-100',
+        'hover:bg-faded-white/80 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white transition-colors duration-200',
         {
-          'border-2 border-black': Icon,
-          'hover:bg-dark-charcoal active:bg-dav-ys-grey bg-black text-white active:text-white/50':
-            active,
+          'border-abstract-navy border-2': Icon,
+          'hover:bg-camouflage-blue bg-abstract-navy text-white': active,
         },
       )}
     >
       {Icon ? (
         <Icon className='size-6' />
       ) : (
-        <span className='text-base leading-5.25 font-bold'>{children}</span>
+        <span className='text-base leading-5.5 font-bold'>{children}</span>
       )}
     </button>
   )

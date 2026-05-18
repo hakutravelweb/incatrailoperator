@@ -1,5 +1,6 @@
 'use client'
 import { Icons } from '@/icons/icon'
+import { cn } from '@/lib/utils'
 import { AskedQuestion } from '@/interfaces/journey'
 import { useDisclosure } from '@/hooks/use-disclosure'
 
@@ -11,24 +12,22 @@ export function AskedQuestionItem({ askedQuestion }: Props) {
   const toggle = useDisclosure()
 
   return (
-    <div className='border-chinese-white divide-chinese-white divide-y-2 rounded-xl border-2'>
+    <div className='flex flex-col'>
       <div
         onClick={toggle.onToggle}
-        className='flex cursor-pointer items-center justify-between gap-4 p-4'
+        className='flex cursor-pointer items-center justify-between gap-4 py-4'
       >
-        <strong className='flex-1 text-lg leading-6'>
+        <h3 className='flex-1 text-lg leading-6.5 font-medium'>
           {askedQuestion.title}
-        </strong>
-        {toggle.isOpen ? (
-          <Icons.Up className='size-5' />
-        ) : (
-          <Icons.Down className='size-5' />
-        )}
+        </h3>
+        <Icons.Down
+          className={cn('size-5 transition-transform duration-200', {
+            'rotate-180': toggle.isOpen,
+          })}
+        />
       </div>
       {toggle.isOpen && (
-        <div className='text-dark-charcoal p-4 text-base leading-6'>
-          {askedQuestion.description}
-        </div>
+        <div className='text-base leading-5.5'>{askedQuestion.description}</div>
       )}
     </div>
   )

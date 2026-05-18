@@ -11,37 +11,29 @@ interface Props {
   status: Status
 }
 
-function Toast({ id, message, status }: Props) {
+export function Toast({ id, message, status }: Props) {
   const handleClose = () => {
     sonnerToast.dismiss(id)
   }
 
   return (
     <div
-      className={cn(
-        'shadow-soft-drop bg-inferno flex min-w-91 items-center justify-between gap-2 rounded-lg p-4',
-        {
-          'bg-ue-red': status === 'error',
-          'bg-yellow-sea': status === 'warning',
-        },
-      )}
+      key={id}
+      className='shadow-main border-faded-white animate-fade-in flex min-w-60 items-center justify-between gap-2 rounded-2xl border bg-white p-4'
     >
-      <span className='font-gt-eesti flex-1 text-sm leading-4.25 font-medium text-white'>
+      <span
+        className={cn('font-gt-eesti flex-1 text-sm leading-4.5', {
+          'text-cayenne-red': status === 'error',
+          'text-dark-jade': status === 'success',
+        })}
+      >
         {message}
       </span>
       <button
         onClick={handleClose}
-        className={cn(
-          'hover:bg-outrageous-orange active:bg-cinnabar bg-inferno flex size-8 cursor-pointer items-center justify-center rounded-2xl p-1 transition-colors',
-          {
-            'bg-ue-red hover:bg-white/20 active:bg-black/10':
-              status === 'error',
-            'bg-yellow-sea hover:bg-white/20 active:bg-black/10':
-              status === 'warning',
-          },
-        )}
+        className='hover:bg-faded-white/80 hover:text-camouflage-blue flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
       >
-        <Icons.Close className='size-5 text-white' />
+        <Icons.Close className='size-5' />
       </button>
     </div>
   )

@@ -1,33 +1,20 @@
-import { cn } from '@/lib/utils'
+import { Icons } from '@/icons/icon'
 import { Route } from '@/interfaces/journey'
 
 interface Props {
-  step: number
   route: Route
 }
 
-export function RouteItem({ step, route }: Props) {
+export function RouteItem({ route }: Props) {
   return (
-    <div className='flex items-center gap-2'>
-      <div
-        className={cn(
-          'bg-inferno flex size-8 items-center justify-center rounded-full text-white',
-          {
-            'bg-yellow-sea': step % 2,
-          },
-        )}
-      >
-        <span className='text-base leading-5 font-medium'>{step}</span>
+    <div className='flex gap-3'>
+      <div className='bg-dotted-line'>
+        <div className='shadow-main-small flex size-8 items-center justify-center rounded-full bg-white'>
+          <Icons.Route className='size-6' />
+        </div>
       </div>
-      <div
-        className={cn(
-          'border-l-inferno bg-outrageous-orange/10 flex-1 rounded-lg border-l-4 p-4',
-          {
-            'border-l-yellow-sea bg-yellow-sea/10': step % 2,
-          },
-        )}
-      >
-        <span className='text-base leading-5 font-bold'>{route.title}</span>
+      <div className='flex-1 pb-8'>
+        <span className='text-base leading-5.5 font-medium'>{route.title}</span>
       </div>
     </div>
   )

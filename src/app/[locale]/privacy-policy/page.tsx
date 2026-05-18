@@ -44,12 +44,14 @@ export default async function PrivacyPolicy() {
 
   return (
     <Layout localizations={localizations}>
-      <div className='bg-cinnabar flex flex-col items-center gap-4 px-10 py-20 text-center'>
-        <strong className='text-2xl leading-8 text-white'>{t('title')}</strong>
+      <div className='bg-inferno flex flex-col items-center gap-4 px-10 py-20 text-center'>
+        <h1 className='text-2xl leading-8 font-bold text-white'>
+          {t('title')}
+        </h1>
         <span className='text-base leading-6 text-white'>
           {t('description')}
         </span>
-        <div className='rounded-full bg-white/20 px-4 py-2 text-base leading-5 font-medium text-white'>
+        <div className='rounded-full bg-white px-4 py-2 text-base leading-5 font-medium'>
           {t('effective-from', {
             date: formatDate({
               locale,
@@ -65,13 +67,13 @@ export default async function PrivacyPolicy() {
       </div>
       <Section>
         <div className='grid grid-cols-1 items-start gap-6 py-10 md:grid-cols-[30%_1fr]'>
-          <div className='shadow-deep flex flex-col gap-4 rounded-xl bg-white p-4 md:sticky md:top-4'>
-            <strong className='text-dav-ys-grey text-lg leading-6 uppercase'>
+          <div className='border-faded-white flex flex-col gap-4 rounded-2xl border bg-white p-4 md:sticky md:top-4'>
+            <span className='text-lg leading-6 font-medium'>
               {t('navigation-title')}
-            </strong>
+            </span>
             <MenuNavigation navigation={home.navigationPrivacy} />
           </div>
-          <div className='border-anti-flash-white rounded-xl border-2 bg-white p-4'>
+          <div className='border-faded-white rounded-2xl border bg-white p-4'>
             <ParseHtml content={home.privacyPolicy} />
           </div>
         </div>

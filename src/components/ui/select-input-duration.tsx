@@ -1,11 +1,14 @@
 'use client'
-import { useEffect, useState, ChangeEvent } from 'react'
+import { useEffect, useState, ChangeEvent, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { RefCallBack } from 'react-hook-form'
+import { DurationType } from '@/generated/prisma/enums'
+import { Icons } from '@/icons/icon'
 import { cn } from '@/lib/utils'
 import { durationTypes } from '@/lib/constants'
 import { Duration } from '@/interfaces/journey'
-import { DurationType } from '@/generated/prisma/enums'
+import { useDisclosure } from '@/hooks/use-disclosure'
+import { useOnClickOutside } from '@/hooks/use-onclick-outside'
 import { Dropdown } from './dropdown'
 
 interface Props {
@@ -24,7 +27,14 @@ export function SelectInputDuration({
   invalid,
 }: Props) {
   const t = useTranslations('Dashboard')
+  const hover = useDisclosure()
+  const selectRef = useRef<HTMLDivElement>(null)
   const [price, setPrice] = useState<string>('')
+
+  useOnClickOutside({
+    ref: selectRef,
+    handler: hover.onClose,
+  })
 
   useEffect(() => {
     if (value.quantity > 0) {
@@ -53,49 +63,62 @@ export function SelectInputDuration({
   }
 
   return (
-    <div className='flex flex-col gap-px'>
-      <label className='text-base leading-5.25 font-medium'>{label}</label>
-      <div
-        className={cn(
-          'border-chinese-white flex gap-1.25 rounded-sm border-2 bg-white p-4 focus-within:border-black',
-          {
-            'border-ue-red': invalid,
-          },
-        )}
-      >
-        <Dropdown>
-          <Dropdown.Trigger>
-            <div className='border-chinese-white hover:bg-anti-flash-white active:bg-chinese-white flex items-center gap-1 rounded-full border-2 bg-white px-4 py-2'>
-              <span className='text-base leading-4.75'>
-                {t(`duration.${value.type}`)}
-              </span>
-            </div>
-          </Dropdown.Trigger>
-          <Dropdown.Content>
-            {durationTypes.map((durationType) => {
-              const active = durationType === value.type
+    <div
+      ref={selectRef}
+      onClick={hover.onOpen}
+      className={cn(
+        'border-pewter-metallic flex h-14 items-center rounded-lg border-2 bg-white p-3',
+        {
+          'border-blue-fire': hover.isOpen,
+          'border-cayenne-red': invalid,
+        },
+      )}
+    >
+      <div className='flex flex-1 flex-col'>
+        <label
+          className={cn('text-nevada pointer-events-none text-xs leading-4', {
+            'text-blue-fire': hover.isOpen,
+            'text-cayenne-red': invalid,
+          })}
+        >
+          {label}
+        </label>
+        <div className='flex items-center gap-2'>
+          <Dropdown>
+            <Dropdown.Trigger>
+              <div className='hover:bg-faded-white bg-bright-grey flex items-center gap-1 rounded-full px-2 py-1'>
+                <Icons.Clock className='size-4' />
+                <span className='text-sm leading-4.5'>
+                  {t(`duration.${value.type}`)}
+                </span>
+              </div>
+            </Dropdown.Trigger>
+            <Dropdown.Content>
+              {durationTypes.map((durationType) => {
+                const active = durationType === value.type
 
-              return (
-                <Dropdown.Option
-                  key={durationType}
-                  active={active}
-                  onClick={handleClick(durationType)}
-                >
-                  {t(`duration.${durationType}`)}
-                </Dropdown.Option>
-              )
-            })}
-          </Dropdown.Content>
-        </Dropdown>
-        <input
-          ref={ref}
-          className='flex-1 text-base leading-4.75 font-bold outline-hidden'
-          type='text'
-          min={0}
-          value={price}
-          onChange={handleChange}
-          placeholder='0'
-        />
+                return (
+                  <Dropdown.Option
+                    key={durationType}
+                    active={active}
+                    onClick={handleClick(durationType)}
+                  >
+                    {t(`duration.${durationType}`)}
+                  </Dropdown.Option>
+                )
+              })}
+            </Dropdown.Content>
+          </Dropdown>
+          <input
+            ref={ref}
+            className='placeholder:text-pewter-metallic w-full text-base leading-5.5 font-medium outline-hidden'
+            type='text'
+            min={0}
+            value={price}
+            onChange={handleChange}
+            placeholder='0'
+          />
+        </div>
       </div>
     </div>
   )

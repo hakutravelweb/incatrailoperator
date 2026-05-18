@@ -35,20 +35,20 @@ export function PriceRangeSlider({ min, max, value, onChange }: Props) {
   })
 
   return (
-    <div className='flex flex-col gap-px'>
-      <span className='text-dark-charcoal text-sm leading-4.5'>
+    <div className='flex flex-col'>
+      <span className='text-nevada text-sm leading-4.5'>
         {formatPrice(locale, minPrice)} - {formatPrice(locale, maxPrice)} +
       </span>
       <div
         ref={rangeRef}
-        className='bg-chinese-white relative mx-2.5 my-5 flex h-1.5 cursor-pointer items-center rounded-sm'
+        className='bg-faded-white relative mx-2.5 my-5 flex h-1.5 cursor-pointer items-center rounded-sm'
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseLeave}
         onClick={onPrice}
       >
         <div
-          className='absolute h-full bg-black'
+          className='bg-abstract-navy absolute h-full'
           style={{
             left: `${progress.left}%`,
             width: `${progress.width}%`,
@@ -56,7 +56,7 @@ export function PriceRangeSlider({ min, max, value, onChange }: Props) {
         />
         <div
           ref={minRef}
-          className='absolute z-3 size-5 cursor-pointer rounded-sm border-2 border-black bg-white'
+          className='border-abstract-navy absolute z-3 size-5 cursor-pointer rounded-sm border-2 bg-white'
           style={{
             left: `calc(${sliderLeft}% - 10px)`,
           }}
@@ -64,7 +64,7 @@ export function PriceRangeSlider({ min, max, value, onChange }: Props) {
         />
         <div
           ref={maxRef}
-          className='absolute z-3 size-5 cursor-pointer rounded-sm border-2 border-black bg-white'
+          className='border-abstract-navy absolute z-3 size-5 cursor-pointer rounded-sm border-2 bg-white'
           style={{
             left: `calc(${sliderRight}% - 10px)`,
           }}

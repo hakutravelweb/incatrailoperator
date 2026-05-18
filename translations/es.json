@@ -390,8 +390,6 @@
       "PACKAGE": "Paquete"
     },
     "view-all-photos": "Ver todas las fotos",
-    "duration-days-label": "Experiencia de {quantity, plural, =0 {# dias} =1 {# dia} other {# dias}}",
-    "duration-hours-label": "Experiencia de {quantity, plural, =0 {# horas} =1 {# hora} other {# horas}}",
     "reviews-count": "{quantity, plural, =0 {# opiniones} =1 {# opinion} other {# opiniones}}",
     "duration-days": "{quantity, plural, =0 {# dias} =1 {# dia} other {# dias}}",
     "duration-hours": "{quantity, plural, =0 {# horas} =1 {# hora} other {# horas}}",

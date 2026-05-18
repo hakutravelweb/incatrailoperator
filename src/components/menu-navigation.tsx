@@ -20,7 +20,7 @@ export function MenuNavigation({ navigation }: Props) {
   }
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col'>
       {navigation.map((item) => {
         const active = selectorId === item.id
 
@@ -28,14 +28,19 @@ export function MenuNavigation({ navigation }: Props) {
           <div
             key={item.id}
             onClick={handleNavigation(item.id)}
-            className={cn(
-              'hover:bg-outrageous-orange/10 text-dark-charcoal hover:text-inferno cursor-pointer rounded-md p-2 transition-colors duration-100',
-              {
-                'bg-outrageous-orange/10 text-inferno': active,
-              },
-            )}
+            className='flex min-h-12 cursor-pointer items-center gap-2 py-2'
           >
-            <span className='text-base leading-5 font-medium'>
+            <div
+              className={cn(
+                'border-pewter-metallic flex size-6 items-center justify-center rounded-full border-2 transition-colors duration-200',
+                {
+                  'border-blue-fire': active,
+                },
+              )}
+            >
+              {active && <div className='bg-blue-fire size-3 rounded-full' />}
+            </div>
+            <span className='flex-1 text-left text-base leading-5.5'>
               {item.title}
             </span>
           </div>

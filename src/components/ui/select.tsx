@@ -54,18 +54,18 @@ export function Select({
   return (
     <div className='relative flex flex-col gap-px'>
       <input ref={ref} readOnly className='absolute size-px outline-none' />
-      <label className='text-base leading-4.75 font-medium'>{label}</label>
+      <label className='text-nevada text-xs leading-4'>{label}</label>
       <Dropdown>
         <Dropdown.Trigger>
           <div
             className={cn(
-              'border-chinese-white hover:bg-anti-flash-white active:bg-chinese-white flex items-center gap-1 rounded-full border-2 bg-white px-4 py-2',
+              'hover:bg-faded-white bg-bright-grey flex h-11 max-w-full min-w-44 items-center gap-2 rounded-full p-3',
               {
-                'border-ue-red': invalid,
+                'bg-cayenne-red/50': invalid,
               },
             )}
           >
-            <span className='text-base leading-4.75'>
+            <span className='flex-1 text-base leading-5.5 font-medium'>
               {option ?? placeholder}
             </span>
             <Icons.Down className='size-5' />
@@ -73,7 +73,7 @@ export function Select({
         </Dropdown.Trigger>
         <Dropdown.Content>
           {Children.count(children) === 0 && (
-            <div className='text-dav-ys-grey text-center text-sm leading-4.5'>
+            <div className='text-nevada text-center text-sm leading-4.5'>
               {emptyMessage}
             </div>
           )}
@@ -141,19 +141,20 @@ export function SelectMultiple({
   return (
     <div className='relative flex flex-col gap-1'>
       <input ref={ref} readOnly className='absolute size-px outline-none' />
-      <label className='text-base leading-6 font-medium'>{label}</label>
+      <label className='text-nevada text-xs leading-4'>{label}</label>
       <Dropdown>
         <Dropdown.Trigger>
           <div
             className={cn(
-              'border-chinese-white hover:bg-anti-flash-white active:bg-chinese-white flex items-center gap-1 rounded-full border-2 bg-white px-4 py-2 transition-colors duration-100',
+              'hover:bg-faded-white bg-bright-grey flex min-h-11 max-w-full min-w-60 items-center gap-2 rounded-full p-3',
               {
-                'border-ue-red': invalid,
-                'text-nevada/50 cursor-default': disabled,
+                'bg-cayenne-red/50': invalid,
+                'bg-faded-white text-pewter-metallic cursor-not-allowed':
+                  disabled,
               },
             )}
           >
-            <span className='text-base leading-6'>
+            <span className='flex-1 text-base leading-5.5 font-medium'>
               {selectedOptions.length > 0
                 ? selectedOptions.join(', ')
                 : placeholder}
@@ -163,7 +164,7 @@ export function SelectMultiple({
         </Dropdown.Trigger>
         <Dropdown.Content>
           {Children.count(children) === 0 && (
-            <div className='text-center text-sm leading-4.5'>
+            <div className='text-nevada text-center text-sm leading-4.5'>
               {emptyMessage}
             </div>
           )}
