@@ -32,24 +32,18 @@ export default async function Icon({ id }: Props) {
     large: 192,
     huge: 512,
   }
-  const logoMap: Record<
-    string,
-    { width: number; height: number; radius: number }
-  > = {
+  const logoMap: Record<string, { width: number; height: number }> = {
     small: {
-      width: 16,
-      height: 22,
-      radius: 9,
+      width: 32,
+      height: 32,
     },
     large: {
-      width: 94,
-      height: 132,
-      radius: 55,
+      width: 192,
+      height: 192,
     },
     huge: {
-      width: 250,
-      height: 352,
-      radius: 150,
+      width: 512,
+      height: 512,
     },
   }
   const size = sizeMap[icon]
@@ -58,18 +52,14 @@ export default async function Icon({ id }: Props) {
   return new ImageResponse(
     <div
       style={{
-        background: '#FFFFFF',
         width: '100%',
         height: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: logo.radius,
       }}
     >
-      <Icons.Logo
-        style={{ width: logo.width, height: logo.height, color: 'white' }}
-      />
+      <Icons.Logo style={{ width: logo.width, height: logo.height }} />
     </div>,
     { width: size, height: size },
   )

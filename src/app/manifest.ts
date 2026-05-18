@@ -6,8 +6,8 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     short_name: 'Incatrailoperator',
     start_url: '/',
     display: 'standalone',
-    theme_color: '#ff5533',
-    background_color: '#ff6a4c',
+    theme_color: '#FF5533',
+    background_color: '#FF5533',
     icons: [
       {
         src: '/favicon.ico',
