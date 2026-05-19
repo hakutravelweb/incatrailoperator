@@ -61,7 +61,7 @@ export function ButtonLink({
   icon,
   href,
   children,
-}: PropsWithChildren<Omit<Props, 'invalid'> & { href: string }>) {
+}: PropsWithChildren<Omit<Props, 'invalid' | 'onClick'> & { href: string }>) {
   const Icon = icon ? Icons[icon] : null
 
   return (
