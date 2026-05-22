@@ -63,9 +63,11 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
         refundable: journey.refundable,
         photoMap: null,
         previewPhotoMap: journey.photoMap,
+        deletedPhotoMap: '',
         videoUrl: journey.videoUrl,
         pdfItinerary: null,
         previewPdfItinerary: journey.pdfItinerary,
+        deletedPdfItinerary: '',
         codeWetravel: journey.codeWetravel,
         retailPrice: journey.retailPrice,
         specialPrice: journey.specialPrice,
@@ -100,6 +102,30 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
         }
       }
       toast.error('ERROR INTERNAL SERVER')
+    }
+  }
+
+  const handleToggleDeletePhotoMap = () => {
+    if (form.watch('deletedPhotoMap')) {
+      form.setValue('deletedPhotoMap', '', {
+        shouldDirty: true,
+      })
+    } else {
+      form.setValue('deletedPhotoMap', form.watch('previewPhotoMap'), {
+        shouldDirty: true,
+      })
+    }
+  }
+
+  const handleToggleDeletePdf = () => {
+    if (form.watch('deletedPdfItinerary')) {
+      form.setValue('deletedPdfItinerary', '', {
+        shouldDirty: true,
+      })
+    } else {
+      form.setValue('deletedPdfItinerary', form.watch('previewPdfItinerary'), {
+        shouldDirty: true,
+      })
     }
   }
 
@@ -267,7 +293,7 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
               {guidedLanguages.map((guidedLanguage) => {
                 return (
                   <Select.Option key={guidedLanguage} value={guidedLanguage}>
-                    {t(`home.language.${guidedLanguage}`)}
+                    {t(`journey.language.${guidedLanguage}`)}
                   </Select.Option>
                 )
               })}
@@ -462,6 +488,8 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
               onChange={field.onChange}
               invalid={fieldState.invalid}
               previewPhoto={form.watch('previewPhotoMap')}
+              deletedPhoto={form.watch('deletedPhotoMap')}
+              onToggleDeletePhoto={handleToggleDeletePhotoMap}
             />
           )}
         />
@@ -489,6 +517,8 @@ export function JourneyUpdate({ journeyId, onClose, onRefresh }: Props) {
               onChange={field.onChange}
               invalid={fieldState.invalid}
               previewPdf={form.watch('previewPdfItinerary')}
+              deletedPdf={form.watch('deletedPdfItinerary')}
+              onToggleDeletePdf={handleToggleDeletePdf}
             />
           )}
         />

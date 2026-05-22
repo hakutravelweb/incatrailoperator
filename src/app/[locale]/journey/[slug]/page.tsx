@@ -6,7 +6,7 @@ import { getJourneyBySlug } from '@/services/journey'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
 import { Rating } from '@/components/journey/rating'
-import { Banner } from '@/components/journey/banner'
+import { HeaderJourney } from '@/components/journey/header-journey'
 import { InformationItem } from '@/components/journey/information-item'
 import { SectionList } from '@/components/journey/section-list'
 import { RouteItem } from '@/components/journey/route-item'
@@ -16,6 +16,7 @@ import { AskedQuestionItem } from '@/components/journey/asked-question-item'
 import { Booking } from '@/components/journey/booking'
 import { MapVideo } from '@/components/journey/map-video'
 import { ReviewCard } from '@/components/review-card'
+import { MediaGallery } from '@/components/journey/media-gallery'
 
 interface Params {
   locale: Locale
@@ -58,11 +59,12 @@ export default async function AttractionProduct({ params }: Props) {
     <Layout localizations={journey.localizations}>
       <div className='flex flex-col gap-6 py-10'>
         <Section>
-          <Banner journey={journey} />
+          <HeaderJourney journey={journey} />
         </Section>
         <Section>
           <div className='grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_35%]'>
             <div className='flex flex-col gap-6'>
+              <MediaGallery journey={journey} />
               <div className='flex flex-col gap-4'>
                 <h2 className='text-xl leading-6 font-bold'>{t('about')}</h2>
                 <span className='text-base leading-5.5'>{journey.about}</span>
@@ -98,31 +100,50 @@ export default async function AttractionProduct({ params }: Props) {
                           quantity: journey.duration.quantity,
                         })}
                   </InformationItem>
-                  <InformationItem
-                    label={t('general-information.guide-languages')}
-                  >
-                    {journey.guidedLanguages
-                      .map((guidedLanguage) =>
-                        t(`general-information.language.${guidedLanguage}`),
-                      )
-                      .join(', ')}
-                  </InformationItem>
-                  <InformationItem
-                    label={t('general-information.pickup-service')}
-                  >
-                    {journey.pickUpService}
-                  </InformationItem>
-                  <InformationItem label={t('general-information.start-time')}>
-                    {journey.startTime}
-                  </InformationItem>
-                  <InformationItem label={t('general-information.finish-time')}>
-                    {journey.finishTime}
-                  </InformationItem>
+                  {journey.guidedLanguages.length > 0 && (
+                    <InformationItem
+                      label={t('general-information.guide-languages')}
+                    >
+                      {journey.guidedLanguages
+                        .map((guidedLanguage) =>
+                          t(`general-information.language.${guidedLanguage}`),
+                        )
+                        .join(', ')}
+                    </InformationItem>
+                  )}
+                  {journey.pickUpService && (
+                    <InformationItem
+                      label={t('general-information.pickup-service')}
+                    >
+                      {journey.pickUpService}
+                    </InformationItem>
+                  )}
+                  {journey.startTime && (
+                    <InformationItem
+                      label={t('general-information.start-time')}
+                    >
+                      {journey.startTime}
+                    </InformationItem>
+                  )}
+                  {journey.finishTime && (
+                    <InformationItem
+                      label={t('general-information.finish-time')}
+                    >
+                      {journey.finishTime}
+                    </InformationItem>
+                  )}
                 </div>
               </div>
               <hr className='border-faded-white border-t' />
-              <SectionList title={t('highlights')} list={journey.highlights} />
-              <hr className='border-faded-white border-t' />
+              {journey.highlights.length > 0 && (
+                <SectionList
+                  title={t('highlights')}
+                  list={journey.highlights}
+                />
+              )}
+              {journey.highlights.length > 0 && (
+                <hr className='border-faded-white border-t' />
+              )}
               <div className='flex flex-col gap-4'>
                 <h2 className='text-xl leading-6 font-bold'>
                   {t('itinerary')}
@@ -145,50 +166,72 @@ export default async function AttractionProduct({ params }: Props) {
                   )
                 })}
               </div>
-              <hr className='border-faded-white border-t' />
-              <div className='flex flex-col gap-4'>
-                <h2 className='text-xl leading-6 font-bold'>
-                  {t('detailed-description')}
-                </h2>
-                <ParseHtml content={journey.detailedDescription} />
-              </div>
-              <div className='border-l-dark-jade bg-bright-grey/50 flex flex-col gap-4 rounded-r-2xl border-l-4 p-6'>
-                <h2 className='text-xl leading-6 font-bold'>
-                  {t('important-note')}
-                </h2>
-                <ParseHtml content={journey.importantNote} />
-              </div>
-              <hr className='border-faded-white border-t' />
-              <SectionList
-                variant='includes'
-                title={t('includes')}
-                list={journey.inclusions}
-              />
-              <SectionList
-                variant='not-included'
-                title={t('not-included')}
-                list={journey.exclusions}
-              />
-              <hr className='border-faded-white border-t' />
-              <div className='border-l-inferno bg-bright-grey/50 flex flex-col gap-4 rounded-r-2xl border-l-4 p-6'>
-                <h2 className='text-xl leading-6 font-bold'>
-                  {t('important-warning')}
-                </h2>
-                <ParseHtml content={journey.importantWarning} />
-              </div>
-              <SectionList
-                title={t('recommendations')}
-                list={journey.recommendations}
-              />
-              <div className='border-l-blue-fire bg-bright-grey/50 flex flex-col gap-4 rounded-r-2xl border-l-4 p-6'>
-                <h2 className='text-xl leading-6 font-bold'>
-                  {t('additional-advice')}
-                </h2>
-                <span className='text-nevada text-base leading-6'>
-                  {journey.additionalAdvice}
-                </span>
-              </div>
-              <hr className='border-faded-white border-t' />
+              {journey.detailedDescription && (
+                <hr className='border-faded-white border-t' />
+              )}
+              {journey.detailedDescription && (
+                <div className='flex flex-col gap-4'>
+                  <h2 className='text-xl leading-6 font-bold'>
+                    {t('detailed-description')}
+                  </h2>
+                  <ParseHtml content={journey.detailedDescription} />
+                </div>
+              )}
+              {journey.importantNote && (
+                <div className='border-l-dark-jade bg-bright-grey/50 flex flex-col gap-4 rounded-r-2xl border-l-4 p-6'>
+                  <h2 className='text-xl leading-6 font-bold'>
+                    {t('important-note')}
+                  </h2>
+                  <ParseHtml content={journey.importantNote} />
+                </div>
+              )}
+              {journey.importantNote && (
+                <hr className='border-faded-white border-t' />
+              )}
+              {journey.inclusions.length > 0 && (
+                <SectionList
+                  variant='includes'
+                  title={t('includes')}
+                  list={journey.inclusions}
+                />
+              )}
+              {journey.exclusions.length > 0 && (
+                <SectionList
+                  variant='not-included'
+                  title={t('not-included')}
+                  list={journey.exclusions}
+                />
+              )}
+              {journey.importantWarning && (
+                <hr className='border-faded-white border-t' />
+              )}
+              {journey.importantWarning && (
+                <div className='border-l-inferno bg-bright-grey/50 flex flex-col gap-4 rounded-r-2xl border-l-4 p-6'>
+                  <h2 className='text-xl leading-6 font-bold'>
+                    {t('important-warning')}
+                  </h2>
+                  <ParseHtml content={journey.importantWarning} />
+                </div>
+              )}
+              {journey.recommendations.length > 0 && (
+                <SectionList
+                  title={t('recommendations')}
+                  list={journey.recommendations}
+                />
+              )}
+              {journey.additionalAdvice && (
+                <div className='border-l-blue-fire bg-bright-grey/50 flex flex-col gap-4 rounded-r-2xl border-l-4 p-6'>
+                  <h2 className='text-xl leading-6 font-bold'>
+                    {t('additional-advice')}
+                  </h2>
+                  <span className='text-nevada text-base leading-6'>
+                    {journey.additionalAdvice}
+                  </span>
+                </div>
+              )}
+              {journey.additionalAdvice && (
+                <hr className='border-faded-white border-t' />
+              )}
               <div className='flex flex-col gap-4'>
                 <h2 className='text-xl leading-6 font-bold'>
                   {t('asked-questions')}

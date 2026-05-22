@@ -96,7 +96,6 @@ Select.Option = Dropdown.Option
 
 interface PropsSelectMultiple {
   ref?: RefCallBack
-  disabled?: boolean
   label: string
   value: string[]
   onChange: (value: string[]) => void
@@ -107,7 +106,6 @@ interface PropsSelectMultiple {
 
 export function SelectMultiple({
   ref,
-  disabled,
   label,
   value,
   onChange,
@@ -128,7 +126,6 @@ export function SelectMultiple({
   }, [value, children])
 
   const handleChange = (option: string) => {
-    if (disabled) return
     if (value.includes(option)) {
       const updatedValue = value.filter((item) => item !== option)
       onChange(updatedValue)
@@ -149,8 +146,6 @@ export function SelectMultiple({
               'hover:bg-faded-white bg-bright-grey flex min-h-11 max-w-full min-w-60 items-center gap-2 rounded-full p-3',
               {
                 'bg-cayenne-red/50': invalid,
-                'bg-faded-white text-pewter-metallic cursor-not-allowed':
-                  disabled,
               },
             )}
           >

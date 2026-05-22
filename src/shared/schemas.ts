@@ -6,9 +6,14 @@ export const translationSchema = z.object({
   en: z.string().min(1),
 })
 
+export const translationSchemaOptional = z.object({
+  es: z.string(),
+  en: z.string(),
+})
+
 export const translationMultipleSchema = z.object({
-  es: z.array(z.string().min(1)).min(1),
-  en: z.array(z.string().min(1)).min(1),
+  es: z.array(z.string().min(1)),
+  en: z.array(z.string().min(1)),
 })
 
 export type TranslationSchema = z.infer<typeof translationSchema>

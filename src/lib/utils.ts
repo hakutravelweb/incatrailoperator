@@ -86,6 +86,7 @@ export function calculatePercentageDifference(
   const difference = Math.abs(priceBase - totalDiscount)
   const base = Math.max(priceBase, totalDiscount)
   const percentage = Math.round((difference / base) * 100)
+  if (totalDiscount === 0) return 0
   return percentage
 }
 

@@ -33,6 +33,7 @@ export async function createHome(input: HomeSchema) {
   })
 
   revalidateTag('homes', { expire: 0 })
+
   return created
 }
 
@@ -75,6 +76,7 @@ export async function updateHome(id: string, input: HomeSchema) {
 
   revalidateTag(`home-${id}`, { expire: 0 })
   revalidateTag('homes', { expire: 0 })
+
   return updated
 }
 
@@ -95,6 +97,7 @@ export async function deleteHome(id: string) {
 
   revalidateTag(`home-${id}`, { expire: 0 })
   revalidateTag('homes', { expire: 0 })
+
   return deleted
 }
 

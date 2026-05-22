@@ -12,6 +12,7 @@ export interface Journey {
   duration: Duration
   about: string
   labels: string[]
+  cancellationPolicy: string
   guidedLanguages: Locale[]
   pickUpService: string
   startTime: string

@@ -158,6 +158,10 @@
       "variants": {
         "JOURNEY": "Viaje",
         "PACKAGE": "Paquete"
+      },
+      "language": {
+        "es": "Español",
+        "en": "Ingles"
       }
     },
     "category": {
@@ -234,7 +238,7 @@
         "photo": "Foto",
         "title": "Titulo",
         "subtitle": "Subtitulo",
-        "link": {
+        "resource": {
           "title": "Enlace",
           "url": "Url",
           "text": "Texto"
@@ -290,7 +294,8 @@
     "select-from-your-computer": "Seleccione desde su computadora",
     "supported-formats": "(formatos admitidos: PNG, JPEG, JPG, GIF, WEBP, SVG)",
     "supported-pdf-format": "(formato admitido: PDF)",
-    "deleted-message": "{number, plural, =0 {Se elijieron # fotos para ser eliminadas} =1 {Se elijio # foto para ser eliminada} other {Se elijieron # fotos para ser eliminadas}}"
+    "deleted-message": "{number, plural, =0 {Se elijieron # fotos para ser eliminadas} =1 {Se elijio # foto para ser eliminada} other {Se elijieron # fotos para ser eliminadas}}",
+    "view-pdf": "Ver PDF"
   },
   "Home": {
     "metadata": {
@@ -389,7 +394,7 @@
       "JOURNEY": "Viaje",
       "PACKAGE": "Paquete"
     },
-    "view-all-photos": "Ver todas las fotos",
+    "view-all-photos": "Ver todo",
     "reviews-count": "{quantity, plural, =0 {# opiniones} =1 {# opinion} other {# opiniones}}",
     "duration-days": "{quantity, plural, =0 {# dias} =1 {# dia} other {# dias}}",
     "duration-hours": "{quantity, plural, =0 {# horas} =1 {# hora} other {# horas}}",

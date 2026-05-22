@@ -14,6 +14,8 @@ interface Props {
   onChange: (value: File | null) => void
   invalid: boolean
   previewPhoto?: string | null
+  deletedPhoto?: string
+  onToggleDeletePhoto?: () => void
 }
 
 export function UploadPhoto({
@@ -23,6 +25,8 @@ export function UploadPhoto({
   onChange,
   invalid,
   previewPhoto,
+  deletedPhoto,
+  onToggleDeletePhoto,
 }: Props) {
   const t = useTranslations('Upload')
   const [photo, setPhoto] = useState<string>('')
@@ -85,23 +89,28 @@ export function UploadPhoto({
         <input {...getInputProps()} />
         {photo ? (
           <div className='relative'>
-            <div className='aspect-video'>
+            <div
+              className={cn('flex h-74 items-center justify-center', {
+                'opacity-40': deletedPhoto,
+              })}
+            >
               <img
-                className='size-full object-contain object-center'
+                className='max-h-74 w-auto object-cover'
                 src={photo}
                 alt={label}
                 loading='lazy'
               />
             </div>
-            <div className='absolute top-2 right-2 z-2'>
-              {value ? (
+            <div className='absolute top-2 right-2'>
+              {value && !deletedPhoto && (
                 <button
                   onClick={handleDelete}
                   className='hover:bg-faded-white bg-bright-grey flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
                 >
                   <Icons.Close className='size-6' />
                 </button>
-              ) : (
+              )}
+              {!value && !deletedPhoto && (
                 <button
                   onClick={open}
                   className='hover:bg-faded-white bg-bright-grey flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
@@ -110,6 +119,18 @@ export function UploadPhoto({
                 </button>
               )}
             </div>
+            {previewPhoto && onToggleDeletePhoto && !value && (
+              <button
+                onClick={onToggleDeletePhoto}
+                className='bg-cayenne-red absolute top-2 left-2 flex size-10 cursor-pointer items-center justify-center rounded-full text-white'
+              >
+                {deletedPhoto ? (
+                  <Icons.Check className='size-6' />
+                ) : (
+                  <Icons.TrashCan className='size-6' />
+                )}
+              </button>
+            )}
           </div>
         ) : (
           <div className='flex flex-col items-center gap-6 p-6'>

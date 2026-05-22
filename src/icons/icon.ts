@@ -39,6 +39,8 @@ import Logo from './logo.svg'
 import Route from './route.svg'
 import Waypoint from './waypoint.svg'
 import Photo from './photo.svg'
+import TrashCan from './trash-can.svg'
+import Pdf from './pdf.svg'
 
 export const Icons = {
   Language,
@@ -82,4 +84,6 @@ export const Icons = {
   Route,
   Waypoint,
   Photo,
+  TrashCan,
+  Pdf,
 }

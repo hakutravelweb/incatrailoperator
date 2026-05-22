@@ -306,6 +306,7 @@ export async function getJourneysPagination(
       title: journey.title[locale],
       about: journey.about[locale],
       labels: journey.labels[locale],
+      cancellationPolicy: journey.cancellationPolicy[locale],
       pickUpService: journey.pickUpService[locale],
       startTime: journey.startTime[locale],
       finishTime: journey.finishTime[locale],
@@ -624,6 +625,7 @@ export async function getJourneys(
       title: journey.title[locale],
       about: journey.about[locale],
       labels: journey.labels[locale],
+      cancellationPolicy: journey.cancellationPolicy[locale],
       pickUpService: journey.pickUpService[locale],
       startTime: journey.startTime[locale],
       finishTime: journey.finishTime[locale],
@@ -745,6 +747,7 @@ export async function getJourneyBySlug(locale: Locale, slug: string) {
     title: journey.title[locale],
     about: journey.about[locale],
     labels: journey.labels[locale],
+    cancellationPolicy: journey.cancellationPolicy[locale],
     pickUpService: journey.pickUpService[locale],
     startTime: journey.startTime[locale],
     finishTime: journey.finishTime[locale],
@@ -838,6 +841,7 @@ export async function getJourneysDestination(filters: Filters) {
         title: journey.title[filters.locale],
         about: journey.about[filters.locale],
         labels: journey.labels[filters.locale],
+        cancellationPolicy: journey.cancellationPolicy[filters.locale],
         pickUpService: journey.pickUpService[filters.locale],
         startTime: journey.startTime[filters.locale],
         finishTime: journey.finishTime[filters.locale],
@@ -920,6 +924,7 @@ export async function getJourneyPackages(locale: Locale) {
       title: journey.title[locale],
       about: journey.about[locale],
       labels: journey.labels[locale],
+      cancellationPolicy: journey.cancellationPolicy[locale],
       pickUpService: journey.pickUpService[locale],
       startTime: journey.startTime[locale],
       finishTime: journey.finishTime[locale],
@@ -961,19 +966,13 @@ export async function getJourneyPackages(locale: Locale) {
   return journeysTranslation
 }
 
-export async function getJourneysList(locale: Locale) {
-  const journeys = await unstable_cache(
-    async () => {
-      return await prisma.journey.findMany({
-        include: {
-          category: true,
-          destination: true,
-        },
-      })
+export async function getJourneysSitemap(locale: Locale) {
+  const journeys = await prisma.journey.findMany({
+    include: {
+      category: true,
+      destination: true,
     },
-    [`journeys-${locale}`],
-    { tags: ['journeys'] },
-  )()
+  })
 
   const journeysTranslation = journeys.map((journey): Journey => {
     return {
@@ -982,6 +981,7 @@ export async function getJourneysList(locale: Locale) {
       title: journey.title[locale],
       about: journey.about[locale],
       labels: journey.labels[locale],
+      cancellationPolicy: journey.cancellationPolicy[locale],
       pickUpService: journey.pickUpService[locale],
       startTime: journey.startTime[locale],
       finishTime: journey.finishTime[locale],

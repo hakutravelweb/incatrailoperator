@@ -21,8 +21,8 @@ export function JourneyAskedQuestions({ journeyId, onClose }: Props) {
 
   useEffect(() => {
     startTransition(async () => {
-      const attraction = await getJourney(journeyId)
-      setTitle(attraction.title[locale])
+      const journey = await getJourney(journeyId)
+      setTitle(journey.title[locale])
       setAskedQuestionsPromise(getAskedQuestions(locale, journeyId))
     })
   }, [locale, journeyId])

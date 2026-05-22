@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 
 export function Section({ children }: PropsWithChildren) {
   return (
-    <section className='xlg:w-section xlg:max-w-full xlg:mx-auto px-6'>
+    <section className='mx-auto w-full max-w-350 px-8 lg:px-18'>
       {children}
     </section>
   )

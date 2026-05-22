@@ -11,6 +11,7 @@ export async function createCategory(input: CategorySchema) {
   })
 
   revalidateTag('categories', { expire: 0 })
+
   return created
 }
 

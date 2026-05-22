@@ -215,7 +215,7 @@ export function JourneyCreate({ onClose, onRefresh }: Props) {
               {guidedLanguages.map((guidedLanguage) => {
                 return (
                   <Select.Option key={guidedLanguage} value={guidedLanguage}>
-                    {t(`home.language.${guidedLanguage}`)}
+                    {t(`journey.language.${guidedLanguage}`)}
                   </Select.Option>
                 )
               })}

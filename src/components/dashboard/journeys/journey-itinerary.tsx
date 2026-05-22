@@ -21,8 +21,8 @@ export function JourneyItinerary({ journeyId, onClose }: Props) {
 
   useEffect(() => {
     startTransition(async () => {
-      const attraction = await getJourney(journeyId)
-      setTitle(attraction.title[locale])
+      const journey = await getJourney(journeyId)
+      setTitle(journey.title[locale])
       setRoutesPromise(getRoutes(locale, journeyId))
     })
   }, [locale, journeyId])
@@ -43,7 +43,7 @@ export function JourneyItinerary({ journeyId, onClose }: Props) {
           <Icons.Left className='size-5' />
         </button>
         <span className='flex-1 text-lg leading-6 font-bold'>
-          {t('journey.asked-question.title', {
+          {t('journey.itinerary.title', {
             title,
           })}
         </span>
