@@ -1,4 +1,5 @@
 'use client'
+import ReactPlayer from 'react-player'
 import { getFullMediaUrl } from '@/lib/utils'
 import { Journey } from '@/interfaces/journey'
 import { useDisclosure } from '@/hooks/use-disclosure'
@@ -28,8 +29,9 @@ export function MapVideo({ journey }: Props) {
       )}
       {journey.videoUrl && (
         <div className='bg-bright-grey aspect-video overflow-hidden rounded-xl'>
-          <embed
-            className='size-full object-cover'
+          <ReactPlayer
+            width='100%'
+            height='100%'
             src={journey.videoUrl}
             title={journey.title}
           />

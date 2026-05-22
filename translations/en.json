@@ -90,7 +90,7 @@
       "form-field": {
         "variant": "Variant",
         "select-option": "Select a option",
-        "select-options": "Elije the options",
+        "select-options": "Select the options",
         "slug": "Url",
         "title": "Title",
         "duration": "Duration",
@@ -158,6 +158,10 @@
       "variants": {
         "JOURNEY": "Journey",
         "PACKAGE": "Package"
+      },
+      "language": {
+        "es": "Spanish",
+        "en": "English"
       }
     },
     "category": {
@@ -234,7 +238,7 @@
         "photo": "Photo",
         "title": "Title",
         "subtitle": "Subtitle",
-        "link": {
+        "resource": {
           "title": "Link",
           "url": "Url",
           "text": "Text"
@@ -289,7 +293,8 @@
     "select-from-your-computer": "Select from your computer",
     "supported-formats": "(supported formats: PNG, JPEG, JPG, GIF, WEBP, SVG)",
     "supported-pdf-format": "(supported format: PDF)",
-    "deleted-message": "{number, plural, =0 {# photos were chosen to be deleted} =1 {Photo # was chosen to be deleted} other {# photos were chosen to be deleted}}"
+    "deleted-message": "{number, plural, =0 {# photos were chosen to be deleted} =1 {Photo # was chosen to be deleted} other {# photos were chosen to be deleted}}",
+    "view-pdf": "View PDF"
   },
   "Home": {
     "metadata": {
@@ -388,7 +393,7 @@
       "JOURNEY": "Journey",
       "PACKAGE": "Package"
     },
-    "view-all-photos": "View all photos",
+    "view-all-photos": "View all",
     "reviews-count": "{quantity, plural, =0 {# reviews} =1 {# review} other {# reviews}}",
     "duration-days": "{quantity, plural, =0 {# days} =1 {# day} other {# days}}",
     "duration-hours": "{quantity, plural, =0 {# hours} =1 {# hour} other {# hours}}",

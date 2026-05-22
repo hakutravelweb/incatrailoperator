@@ -56,7 +56,12 @@ export function Modal({
               <div className='flex items-center p-3'>
                 <button
                   onClick={onClose}
-                  className='hover:bg-faded-white/80 hover:text-camouflage-blue flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
+                  className={cn(
+                    'hover:bg-faded-white/80 hover:text-camouflage-blue flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors duration-200',
+                    {
+                      'shadow-main-small hover:bg-white': variant === 'preview',
+                    },
+                  )}
                 >
                   <Icons.Close className='size-6' />
                 </button>

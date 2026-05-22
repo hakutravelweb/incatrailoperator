@@ -293,19 +293,13 @@ export async function getArticleBySlug(locale: Locale, slug: string) {
   return articleTranslation
 }
 
-export async function getArticles(locale: Locale) {
-  const articles = await unstable_cache(
-    async () => {
-      return await prisma.article.findMany({
-        include: {
-          author: true,
-          category: true,
-        },
-      })
+export async function getArticlesSitemap(locale: Locale) {
+  const articles = await prisma.article.findMany({
+    include: {
+      author: true,
+      category: true,
     },
-    [`articles-${locale}`],
-    { tags: ['articles'] },
-  )()
+  })
 
   const articlesTranslation = articles.map((article): Article => {
     return {

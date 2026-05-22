@@ -3,6 +3,7 @@ export interface Review {
   rating: number
   traveller: Traveller
   comment: string
+  locale: string
   createdAt: Date
 }
 

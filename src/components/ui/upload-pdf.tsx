@@ -5,7 +5,7 @@ import { useDropzone } from 'react-dropzone'
 import { RefCallBack } from 'react-hook-form'
 import { Icons } from '@/icons/icon'
 import { cn, getFullMediaUrl } from '@/lib/utils'
-import { Button } from './button'
+import { Button, ButtonLink } from './button'
 
 interface Props {
   ref?: RefCallBack
@@ -14,6 +14,8 @@ interface Props {
   onChange: (value: File | null) => void
   invalid: boolean
   previewPdf?: string | null
+  deletedPdf?: string
+  onToggleDeletePdf?: () => void
 }
 
 export function UploadPdf({
@@ -23,6 +25,8 @@ export function UploadPdf({
   onChange,
   invalid,
   previewPdf,
+  deletedPdf,
+  onToggleDeletePdf,
 }: Props) {
   const t = useTranslations('Upload')
   const [pdf, setPdf] = useState<string>('')
@@ -71,38 +75,51 @@ export function UploadPdf({
           'border-pewter-metallic rounded-lg border border-dashed bg-white',
           {
             'bg-faded-white': isDragActive,
-            'bg-abstract-navy rounded-none border-solid': pdf,
             'border-cayenne-red': invalid,
           },
         )}
       >
         <input {...getInputProps()} />
         {pdf ? (
-          <div className='relative'>
-            <div className='aspect-video'>
-              <embed
-                className='size-full object-contain object-center'
-                type='application/pdf'
-                src={pdf}
-              />
-            </div>
-            <div className='absolute top-2 right-2 z-2'>
-              {value ? (
-                <button
-                  onClick={handleDelete}
-                  className='hover:bg-faded-white bg-bright-grey flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
-                >
-                  <Icons.Close className='size-6' />
-                </button>
-              ) : (
-                <button
-                  onClick={open}
-                  className='hover:bg-faded-white bg-bright-grey flex size-8 cursor-pointer items-center justify-center rounded-full transition-colors duration-200'
-                >
-                  <Icons.PdfPlus className='size-6' />
-                </button>
-              )}
-            </div>
+          <div className='flex items-center justify-center gap-2 p-4'>
+            {previewPdf && onToggleDeletePdf && !value && (
+              <button
+                onClick={onToggleDeletePdf}
+                className='bg-cayenne-red flex size-10 cursor-pointer items-center justify-center rounded-full text-white'
+              >
+                {deletedPdf ? (
+                  <Icons.Check className='size-6' />
+                ) : (
+                  <Icons.TrashCan className='size-6' />
+                )}
+              </button>
+            )}
+            <ButtonLink
+              variant={pdf.includes('blob:') ? 'secondary' : 'outline'}
+              widthFit
+              disabled={!!deletedPdf}
+              icon='Pdf'
+              href={pdf}
+              target='_blank'
+            >
+              {t('view-pdf')}
+            </ButtonLink>
+            {value && !deletedPdf && (
+              <button
+                onClick={handleDelete}
+                className='bg-abstract-navy flex size-10 cursor-pointer items-center justify-center rounded-full text-white'
+              >
+                <Icons.Close className='size-6' />
+              </button>
+            )}
+            {!value && !deletedPdf && (
+              <button
+                onClick={open}
+                className='bg-faded-white flex size-10 cursor-pointer items-center justify-center rounded-full'
+              >
+                <Icons.PdfPlus className='size-6' />
+              </button>
+            )}
           </div>
         ) : (
           <div className='flex flex-col items-center gap-6 p-6'>

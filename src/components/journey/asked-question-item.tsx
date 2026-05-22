@@ -17,9 +17,9 @@ export function AskedQuestionItem({ askedQuestion }: Props) {
         onClick={toggle.onToggle}
         className='flex cursor-pointer items-center justify-between gap-4 py-4'
       >
-        <h3 className='flex-1 text-lg leading-6.5 font-medium'>
+        <span className='flex-1 text-lg leading-6.5 font-medium'>
           {askedQuestion.title}
-        </h3>
+        </span>
         <Icons.Down
           className={cn('size-5 transition-transform duration-200', {
             'rotate-180': toggle.isOpen,

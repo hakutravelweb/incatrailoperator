@@ -36,18 +36,20 @@ export function ArticleHeader({ article }: Props) {
           {article.title}
         </h1>
         <span className='text-base leading-5'>{article.introduction}</span>
-        <div className='flex flex-wrap gap-2'>
-          {article.labels.map((label, index) => {
-            return (
-              <div
-                key={index}
-                className='bg-bright-grey rounded-full px-3 py-1 text-sm leading-4.5 font-medium'
-              >
-                {label}
-              </div>
-            )
-          })}
-        </div>
+        {article.labels.length > 0 && (
+          <div className='flex flex-wrap gap-2'>
+            {article.labels.map((label, index) => {
+              return (
+                <div
+                  key={index}
+                  className='bg-bright-grey rounded-full px-3 py-1 text-sm leading-4.5 font-medium'
+                >
+                  {label}
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
       <hr className='border-faded-white border-t' />
       <div className='flex items-center gap-4'>

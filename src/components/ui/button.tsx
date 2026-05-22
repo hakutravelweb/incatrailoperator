@@ -60,13 +60,17 @@ export function ButtonLink({
   disabled,
   icon,
   href,
+  target,
   children,
-}: PropsWithChildren<Omit<Props, 'invalid' | 'onClick'> & { href: string }>) {
+}: PropsWithChildren<
+  Omit<Props, 'invalid' | 'onClick'> & { href: string; target?: '_blank' }
+>) {
   const Icon = icon ? Icons[icon] : null
 
   return (
     <Link
       href={href}
+      target={target}
       className={cn(
         'hover:bg-camouflage-blue bg-blue-fire flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-2.25 text-white transition-colors duration-200',
         {

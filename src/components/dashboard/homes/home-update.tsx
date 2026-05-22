@@ -161,7 +161,7 @@ export function HomeUpdate({ homeId, onClose, onRefresh }: Props) {
         />
         <div className='bg-bright-grey/80 flex flex-col gap-1 rounded-lg p-4'>
           <label className='text-sm leading-4.5 font-medium'>
-            {t('home.form-field.link.title')}
+            {t('home.form-field.resource.title')}
           </label>
           <div className='flex flex-col gap-2'>
             <Controller
@@ -170,7 +170,7 @@ export function HomeUpdate({ homeId, onClose, onRefresh }: Props) {
               render={({ field, fieldState }) => (
                 <Input
                   ref={field.ref}
-                  label={t('home.form-field.link.url')}
+                  label={t('home.form-field.resource.url')}
                   value={field.value}
                   onChange={field.onChange}
                   invalid={fieldState.invalid}
@@ -183,7 +183,7 @@ export function HomeUpdate({ homeId, onClose, onRefresh }: Props) {
               render={({ field, fieldState }) => (
                 <Input
                   ref={field.ref}
-                  label={t('home.form-field.link.text')}
+                  label={t('home.form-field.resource.text')}
                   value={field.value}
                   onChange={field.onChange}
                   invalid={fieldState.invalid}

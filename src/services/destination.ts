@@ -34,6 +34,7 @@ export async function createDestination(input: DestinationSchema) {
   })
 
   revalidateTag('destinations', { expire: 0 })
+
   return created
 }
 
@@ -77,6 +78,7 @@ export async function updateDestination(id: string, input: DestinationSchema) {
 
   revalidateTag(`destination-${id}`, { expire: 0 })
   revalidateTag('destinations', { expire: 0 })
+
   return updated
 }
 
@@ -104,6 +106,7 @@ export async function deleteDestination(id: string) {
 
   revalidateTag(`destination-${id}`, { expire: 0 })
   revalidateTag('destinations', { expire: 0 })
+
   return deleted
 }
 
@@ -324,4 +327,28 @@ export async function getDestinationBySlug(locale: Locale, slug: string) {
   }
 
   return destinationTranslation
+}
+
+export async function getDestinationsSitemap(locale: Locale) {
+  const destinations = await prisma.destination.findMany()
+
+  const destinationsTranslation = destinations.map(
+    (destination): Destination => {
+      return {
+        ...destination,
+        slug: destination.slug[locale],
+        title: destination.title[locale],
+        department: destination.department[locale],
+        about: destination.about[locale],
+        journeysCount: 0,
+        photo: '',
+        rating: 0,
+        travellersCount: 0,
+        lowestPrice: 0,
+        localizations: [],
+      }
+    },
+  )
+
+  return destinationsTranslation
 }

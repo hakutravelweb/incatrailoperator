@@ -8,7 +8,10 @@ import {
   getFullMediaUrl,
 } from '@/lib/utils'
 import { Journey } from '@/interfaces/journey'
+import { useDisclosure } from '@/hooks/use-disclosure'
 import { Button, ButtonLink } from '@/components/ui/button'
+import { Modal } from '@/components/ui/modal'
+import { ParseHtml } from '@/components/parse-html'
 
 interface Props {
   journey: Journey
@@ -17,6 +20,7 @@ interface Props {
 export function Booking({ journey }: Props) {
   const locale = useLocale()
   const t = useTranslations('Journey')
+  const cancellationPolicy = useDisclosure()
   const percentage = calculatePercentageDifference(
     journey.retailPrice,
     journey.specialPrice,
@@ -87,9 +91,18 @@ export function Booking({ journey }: Props) {
       </div>
       <hr className='border-bright-grey border-t' />
       <div className='flex flex-col py-2'>
-        <span className='text-sm leading-5 font-medium'>
-          {t('general-information.cancellation-policy')}
-        </span>
+        {journey.cancellationPolicy ? (
+          <span
+            onClick={cancellationPolicy.onOpen}
+            className='cursor-pointer text-sm leading-5 font-medium underline'
+          >
+            {t('general-information.cancellation-policy')}
+          </span>
+        ) : (
+          <span className='text-sm leading-5 font-medium'>
+            {t('general-information.cancellation-policy')}
+          </span>
+        )}
         <span className='text-nevada text-sm leading-5'>
           {journey.freeCancellation.quantity === 0
             ? t('general-information.cancellation-policy-not-refound')
@@ -105,6 +118,13 @@ export function Booking({ journey }: Props) {
               })}
         </span>
       </div>
+      <Modal
+        title={t('general-information.cancellation-policy')}
+        isOpen={cancellationPolicy.isOpen}
+        onClose={cancellationPolicy.onClose}
+      >
+        <ParseHtml content={journey.cancellationPolicy} />
+      </Modal>
     </div>
   )
 }

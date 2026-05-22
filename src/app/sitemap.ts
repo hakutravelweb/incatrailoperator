@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next'
 import { getFullMediaUrl } from '@/lib/utils'
 import { routing } from '@/i18n/routing'
-import { getArticles } from '@/services/article'
-import { getJourneysList } from '@/services/journey'
+import { getArticlesSitemap } from '@/services/article'
+import { getDestinationsSitemap } from '@/services/destination'
+import { getJourneysSitemap } from '@/services/journey'
 
 const host = process.env.APP_URL
 
@@ -13,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 1,
+      images: [`${host}/posters/banner.jpg`],
     }
   })
   const about = routing.locales.map((locale): MetadataRoute.Sitemap[0] => {
@@ -21,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
+      images: [`${host}/posters/banner.jpg`],
     }
   })
   const articles = routing.locales.map((locale): MetadataRoute.Sitemap[0] => {
@@ -29,11 +32,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.5,
+      images: [`${host}/posters/banner.jpg`],
     }
   })
-  const articlesPromise = routing.locales.map(
-    async (locale): Promise<MetadataRoute.Sitemap> => {
-      const articles = await getArticles(locale)
+  const articlesResult = await Promise.all(
+    routing.locales.map(async (locale): Promise<MetadataRoute.Sitemap> => {
+      const articles = await getArticlesSitemap(locale)
       const sitemap = articles.map((article): MetadataRoute.Sitemap[0] => {
         return {
           url: `${host}/${locale}/article/${article.slug}`,
@@ -44,9 +48,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
       })
       return sitemap
-    },
+    }),
   )
-  const articlesResult = await Promise.all(articlesPromise)
   const articlesList = articlesResult.flatMap((dept) =>
     dept.flatMap((dest) => dest),
   )
@@ -56,6 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
+      images: [`${host}/posters/banner.jpg`],
     }
   })
   const privacyPolicy = routing.locales.map(
@@ -65,6 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.8,
+        images: [`${host}/posters/banner.jpg`],
       }
     },
   )
@@ -75,12 +80,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: 'monthly',
         priority: 0.8,
+        images: [`${host}/posters/banner.jpg`],
       }
     },
   )
-  const journeysPromise = routing.locales.map(
-    async (locale): Promise<MetadataRoute.Sitemap> => {
-      const journeys = await getJourneysList(locale)
+  const destinationsResult = await Promise.all(
+    routing.locales.map(async (locale): Promise<MetadataRoute.Sitemap> => {
+      const destinations = await getDestinationsSitemap(locale)
+      const sitemap = destinations.map(
+        (destination): MetadataRoute.Sitemap[0] => {
+          return {
+            url: `${host}/${locale}/destination/${destination.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.5,
+            images: [`${host}/posters/banner.jpg`],
+          }
+        },
+      )
+      return sitemap
+    }),
+  )
+  const destinations = destinationsResult.flatMap((dept) =>
+    dept.flatMap((dest) => dest),
+  )
+  const journeysResult = await Promise.all(
+    routing.locales.map(async (locale): Promise<MetadataRoute.Sitemap> => {
+      const journeys = await getJourneysSitemap(locale)
       const sitemap = journeys.map((journey): MetadataRoute.Sitemap[0] => {
         return {
           url: `${host}/${locale}/journey/${journey.slug}`,
@@ -91,9 +117,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
       })
       return sitemap
-    },
+    }),
   )
-  const journeysResult = await Promise.all(journeysPromise)
   const journey = journeysResult.flatMap((dept) => dept.flatMap((dest) => dest))
 
   return [
@@ -104,6 +129,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...contactUs,
     ...privacyPolicy,
     ...termsAndConditions,
+    ...destinations,
     ...journey,
   ]
 }
