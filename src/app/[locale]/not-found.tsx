@@ -1,16 +1,15 @@
 'use client'
 import { useTranslations } from 'next-intl'
 import { locales } from '@/i18n/config'
-import { usePathname, useRouter } from '@/i18n/routing'
+import { usePathname } from '@/i18n/routing'
 import { Localization } from '@/shared/interfaces'
 import { Layout } from '@/components/layout'
 import { Section } from '@/components/section'
-import { Button } from '@/components/ui/button'
+import { ButtonLink } from '@/components/ui/button'
 
 export default function NotFound() {
   const t = useTranslations('NotFound')
   const pathname = usePathname()
-  const router = useRouter()
 
   const localizations = locales.map((locale): Localization => {
     return {
@@ -19,27 +18,20 @@ export default function NotFound() {
     }
   })
 
-  const handleNavigate = (route: string) => () => {
-    router.replace(route)
-  }
-
   return (
     <Layout localizations={localizations}>
       <Section>
-        <div className='mx-auto flex flex-col gap-8 px-4 py-10 lg:w-2/6 lg:gap-10 lg:py-6'>
+        <div className='flex flex-col gap-6 py-20 text-center'>
+          <h1 className='text-[28px] leading-8 font-bold lg:text-[36px] lg:leading-11'>
+            {t('title')}
+          </h1>
           <div className='flex flex-col items-center gap-4'>
-            <h1 className='text-center text-[28px] leading-7.75 font-bold lg:text-[44px] lg:leading-12 xl:text-[62px] xl:leading-17'>
-              {t('title')}
-            </h1>
-            <p className='text-nevada text-xl leading-6 font-medium'>
+            <span className='text-nevada text-lg leading-5.5'>
               {t('description')}
-            </p>
-          </div>
-          <div className='flex flex-col gap-4'>
-            <Button variant='outline' onClick={handleNavigate('/')}>
-              {t('destinatons')}
-            </Button>
-            <Button onClick={handleNavigate('/')}>{t('travel')}</Button>
+            </span>
+            <ButtonLink widthFit variant='outline' href='/'>
+              {t('search-activities')}
+            </ButtonLink>
           </div>
         </div>
       </Section>

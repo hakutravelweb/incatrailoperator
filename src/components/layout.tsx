@@ -9,10 +9,10 @@ interface Props {
 
 export function Layout({ localizations, children }: PropsWithChildren<Props>) {
   return (
-    <>
+    <div className='flex flex-col'>
       <Header localizations={localizations} />
       {children}
       <Footer />
-    </>
+    </div>
   )
 }

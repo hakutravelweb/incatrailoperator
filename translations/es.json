@@ -4,22 +4,21 @@
     "en": "Ingles"
   },
   "Error": {
-    "title": "Conoce la 500ª maravilla del mundo.",
-    "description": "Administra un viaje.",
-    "go-to-top": "Ir al inicio",
-    "reload": "Volver a cargar"
+    "title": "¡Ups! Algo salió mal",
+    "description": "Nuestro servidor tuvo un problema inesperado. Intenta de nuevo más tarde.",
+    "retry-action": "Volver a intentar"
   },
   "NotFound": {
-    "title": "Conoce la 404ª maravilla del mundo.",
-    "description": "Administra un viaje.",
-    "destinatons": "Destinos",
-    "travel": "Viajes"
+    "title": "¿Te has extraviado?",
+    "description": "Parece que la página que buscas no está aquí.",
+    "search-activities": "Encuentra lugares y actividades"
   },
   "Header": {
     "articles": "Artículos",
     "about-us": "Sobre nosotros",
     "contact-us": "Contáctanos",
     "language": {
+      "label": "Idioma",
       "es": "Español",
       "en": "Ingles"
     }

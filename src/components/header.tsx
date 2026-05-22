@@ -47,19 +47,25 @@ export function Header({ localizations }: Props) {
             />
           </div>
           <div className='hidden lg:block'>
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center gap-4'>
               <div className='hidden md:flex md:gap-4'>
-                <HeaderLink href='/articles'>{t('articles')}</HeaderLink>
-                <HeaderLink href='/about-us'>{t('about-us')}</HeaderLink>
-                <HeaderLink href='/contact-us'>{t('contact-us')}</HeaderLink>
+                <HeaderLink icon='Heart' href='/articles'>
+                  {t('articles')}
+                </HeaderLink>
+                <HeaderLink icon='Profile' href='/about-us'>
+                  {t('about-us')}
+                </HeaderLink>
+                <HeaderLink icon='Email' href='/contact-us'>
+                  {t('contact-us')}
+                </HeaderLink>
               </div>
               <div
                 onClick={language.onOpen}
-                className='hover:bg-faded-white bg-bright-grey flex cursor-pointer items-center gap-1 rounded-full px-3 py-2'
+                className='flex cursor-pointer flex-col items-center gap-0.5'
               >
-                <Icons.Language className='size-5' />
-                <span className='text-sm leading-5'>
-                  {t(`language.${locale}`)}
+                <Icons.Language className='text-nevada size-6' />
+                <span className='text-nevada text-sm leading-4.25 uppercase'>
+                  {locale}
                 </span>
               </div>
             </div>
@@ -71,13 +77,13 @@ export function Header({ localizations }: Props) {
           const active = localization.locale === locale
 
           return (
-            <HeaderOption
+            <LanguageOption
               key={localization.locale}
               active={active}
               onClick={handleChange(localization)}
             >
               {t(`language.${localization.locale}`)}
-            </HeaderOption>
+            </LanguageOption>
           )
         })}
       </Modal>
@@ -87,32 +93,57 @@ export function Header({ localizations }: Props) {
 }
 
 interface HeaderLinkProps {
+  variant?: 'sidebar'
+  icon?: keyof typeof Icons
   href: string
 }
 
 export function HeaderLink({
+  variant,
+  icon,
   href,
   children,
 }: PropsWithChildren<HeaderLinkProps>) {
+  const Icon = icon ? Icons[icon] : null
+
+  if (variant === 'sidebar') {
+    return (
+      <Link
+        href={href}
+        className='border-b-bright-grey flex h-14 items-center gap-2 border-b p-4'
+      >
+        {Icon && <Icon className='size-6' />}
+        <span className='text-nevada line-clamp-1 flex-1 text-left text-base leading-5.5'>
+          {children}
+        </span>
+        <Icons.Right className='size-6' />
+      </Link>
+    )
+  }
+
   return (
-    <Link href={href} className='hover:underline-premium'>
-      <span className='text-nevada hover:text-abstract-navy text-sm leading-5 transition-colors duration-200'>
+    <Link
+      href={href}
+      className='hover:underline-premium flex flex-col items-center gap-0.5'
+    >
+      {Icon && <Icon className='text-nevada size-6' />}
+      <span className='text-nevada hover:text-abstract-navy text-sm leading-4.25 transition-colors duration-200'>
         {children}
       </span>
     </Link>
   )
 }
 
-interface HeaderOptionProps {
+interface LanguageOptionProps {
   active?: boolean
   onClick?: () => void
 }
 
-function HeaderOption({
+export function LanguageOption({
   active,
   onClick,
   children,
-}: PropsWithChildren<HeaderOptionProps>) {
+}: PropsWithChildren<LanguageOptionProps>) {
   const hover = useDisclosure()
 
   return (

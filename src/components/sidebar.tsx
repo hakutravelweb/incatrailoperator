@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from 'react'
+import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useLocale, useTranslations } from 'next-intl'
 import { Icons } from '@/icons/icon'
@@ -6,7 +6,7 @@ import { cn, verifyOpenedModals } from '@/lib/utils'
 import { useRouter } from '@/i18n/routing'
 import { Localization } from '@/shared/interfaces'
 import { Disclosure, useDisclosure } from '@/hooks/use-disclosure'
-import { HeaderLink } from './header'
+import { HeaderLink, LanguageOption } from './header'
 import { Modal } from './ui/modal'
 
 interface Props {
@@ -35,43 +35,51 @@ export function Sidebar({ disclosure, localizations }: Props) {
   }
 
   return (
-    <>
+    <div className='flex flex-col'>
       {disclosure.isOpen &&
         createPortal(
-          <div role='dialog' className='z-overlay fixed inset-0'>
-            <div
-              onClick={disclosure.onClose}
-              className='absolute inset-0 bg-black/50 opacity-80'
-            />
-            <div
-              className={cn(
-                'shadow-sidebar max-w-sidebar z-overlay flex h-full max-h-full w-96 -translate-x-full flex-col bg-white transition-transform',
-                {
-                  'translate-x-0': disclosure.isSlide,
-                },
-              )}
-            >
-              <div className='flex items-center justify-between gap-2 p-6'>
-                <img className='size-8' src='/logos/logo.svg' loading='lazy' />
-                <Icons.Close
-                  onClick={disclosure.onClose}
-                  className='size-6 cursor-pointer'
-                />
-              </div>
-              <div className='flex flex-col gap-6 p-6'>
-                <div
-                  onClick={language.onOpen}
-                  className='hover:bg-faded-white bg-bright-grey flex w-fit cursor-pointer items-center gap-1 rounded-full px-3 py-2'
-                >
-                  <Icons.Language className='size-5' />
-                  <span className='text-sm leading-5'>
+          <div
+            role='dialog'
+            className={cn(
+              'z-overlay fixed inset-0 flex -translate-x-full flex-col bg-white transition-transform',
+              {
+                'translate-x-0': disclosure.isSlide,
+              },
+            )}
+          >
+            <div className='bg-abstract-navy flex items-center justify-end gap-2 px-4 py-3'>
+              <button
+                onClick={disclosure.onClose}
+                className='flex size-11 cursor-pointer items-center justify-center p-2.5 text-white'
+              >
+                <Icons.Close className='size-6' />
+              </button>
+            </div>
+            <div className='flex flex-col'>
+              <button
+                onClick={language.onOpen}
+                className='border-b-bright-grey flex h-14 cursor-pointer items-center gap-2 border-b p-4'
+              >
+                <Icons.Language className='size-6' />
+                <div className='flex flex-1 items-center justify-between gap-4'>
+                  <span className='line-clamp-1 text-base leading-5.5'>
+                    {t('language.label')}
+                  </span>
+                  <span className='text-nevada line-clamp-1 text-base leading-5.5'>
                     {t(`language.${locale}`)}
                   </span>
                 </div>
-                <HeaderLink href='/articles'>{t('articles')}</HeaderLink>
-                <HeaderLink href='/about-us'>{t('about-us')}</HeaderLink>
-                <HeaderLink href='/contact-us'>{t('contact-us')}</HeaderLink>
-              </div>
+                <Icons.Right className='size-6' />
+              </button>
+              <HeaderLink variant='sidebar' icon='Heart' href='/articles'>
+                {t('articles')}
+              </HeaderLink>
+              <HeaderLink variant='sidebar' icon='Profile' href='/about-us'>
+                {t('about-us')}
+              </HeaderLink>
+              <HeaderLink variant='sidebar' icon='Email' href='/contact-us'>
+                {t('contact-us')}
+              </HeaderLink>
             </div>
           </div>,
           document.body,
@@ -81,51 +89,16 @@ export function Sidebar({ disclosure, localizations }: Props) {
           const active = localization.locale === locale
 
           return (
-            <HeaderOption
+            <LanguageOption
               key={localization.locale}
               active={active}
               onClick={handleChange(localization)}
             >
               {t(`language.${localization.locale}`)}
-            </HeaderOption>
+            </LanguageOption>
           )
         })}
       </Modal>
-    </>
-  )
-}
-
-interface HeaderOptionProps {
-  active?: boolean
-  onClick?: () => void
-}
-
-function HeaderOption({
-  active,
-  onClick,
-  children,
-}: PropsWithChildren<HeaderOptionProps>) {
-  const hover = useDisclosure()
-
-  return (
-    <div
-      onClick={onClick}
-      onMouseOver={hover.onOpen}
-      onMouseLeave={hover.onClose}
-      className='flex min-h-12 cursor-pointer items-center gap-2 py-2'
-    >
-      <div
-        className={cn(
-          'border-pewter-metallic flex size-6 items-center justify-center rounded-full border-2 transition-colors duration-200',
-          {
-            'border-blue-fire': active,
-            'border-trout bg-faded-white/80': hover.isOpen && !active,
-          },
-        )}
-      >
-        {active && <div className='bg-blue-fire size-3 rounded-full' />}
-      </div>
-      <span className='flex-1 text-left text-base leading-5.5'>{children}</span>
     </div>
   )
 }

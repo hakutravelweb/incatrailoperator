@@ -4,22 +4,21 @@
     "en": "English"
   },
   "Error": {
-    "title": "Discover the 500th wonder of the world.",
-    "description": "Manage a trip.",
-    "go-to-top": "Go to top",
-    "reload": "Reload"
+    "title": "Oops! Something went wrong",
+    "description": "Our server encountered an unexpected problem. Please try again later.",
+    "retry-action": "Try again"
   },
   "NotFound": {
-    "title": "Discover the 404th wonder of the world.",
-    "description": "Manage a trip.",
-    "destinatons": "Destinations",
-    "travel": "Travel"
+    "title": "Have you got lost?",
+    "description": "It seems the page you're looking for isn't here.",
+    "search-activities": "Find places and things to do"
   },
   "Header": {
     "articles": "Articles",
     "about-us": "About Us",
     "contact-us": "Contact Us",
     "language": {
+      "label": "Language",
       "es": "Spanish",
       "en": "English"
     }

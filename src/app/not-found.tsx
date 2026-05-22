@@ -1,7 +1,6 @@
 import './globals.css'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getTranslations } from 'next-intl/server'
-import { Link } from '@/i18n/routing'
 import { locales } from '@/i18n/config'
 import { GTEesti } from '@/fonts/font'
 import { Localization } from '@/shared/interfaces'
@@ -28,20 +27,17 @@ export default async function NotFound() {
         <NextIntlClientProvider>
           <Layout localizations={localizations}>
             <Section>
-              <div className='mx-auto flex flex-col gap-8 px-4 py-10 lg:w-2/6 lg:gap-10 lg:py-6'>
+              <div className='flex flex-col gap-6 py-20 text-center'>
+                <h1 className='text-[28px] leading-8 font-bold lg:text-[36px] lg:leading-11'>
+                  {t('title')}
+                </h1>
                 <div className='flex flex-col items-center gap-4'>
-                  <h1 className='text-center text-[28px] leading-7.75 font-bold lg:text-[44px] lg:leading-12 xl:text-[62px] xl:leading-17'>
-                    {t('title')}
-                  </h1>
-                  <p className='text-nevada text-xl leading-6 font-medium'>
+                  <span className='text-nevada text-lg leading-5.5'>
                     {t('description')}
-                  </p>
-                </div>
-                <div className='flex flex-col gap-4'>
-                  <ButtonLink variant='outline' href='/'>
-                    {t('destinatons')}
+                  </span>
+                  <ButtonLink widthFit variant='outline' href='/'>
+                    {t('search-activities')}
                   </ButtonLink>
-                  <ButtonLink href='/'>{t('travel')}</ButtonLink>
                 </div>
               </div>
             </Section>
