@@ -23,7 +23,7 @@ function Confirmation({ message, confirmText, declineText, resolve }: Props) {
         className='bg-abstract-navy/40 absolute inset-0 opacity-80'
       />
       <div className='animate-fade-in z-overlay border-faded-white shadow-main relative m-4 flex w-125 max-w-full flex-col gap-6 rounded-2xl border bg-white px-6 py-5'>
-        <p className='text-base leading-5.5'>{message}</p>
+        <span className='text-base leading-5.5'>{message}</span>
         <div className='flex gap-4'>
           <Button widthFit onClick={handleResolve(true)}>
             {confirmText}

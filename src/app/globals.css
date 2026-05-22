@@ -17,7 +17,6 @@
   --color-faded-white: #dcdfe4;
   --color-pewter-metallic: #858995;
 
-  --spacing-sidebar: calc(100vw - 64px);
   --spacing-modal-height: calc(100vh - 160px);
   --spacing-media-photo: calc(100vh - 72px);
 
@@ -29,7 +28,6 @@
   );
 
   --shadow-soft-drop: 0 2px 12px 0 rgba(0, 0, 0, 0.15);
-  --shadow-sidebar: 0 2px 4px rgba(0, 0, 0, 0.25);
   --shadow-main: 0 0 64px #00000014, 0 8px 16px #00000029;
   --shadow-main-small: 0 0 32px #0000000f, 0 4px 8px #00000029;
   --shadow-tab-inset: inset 0 -4px 0 0 var(--color-blue-fire);
